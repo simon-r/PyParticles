@@ -77,7 +77,7 @@ class AnimatedScatter(Animation):
                                      animated=True , marker='o' , alpha=None , s=3)
         
 
-        self.ax.set_xlim3d(FLOOR, CEILING)
+        self.ax.set_xlim3d((FLOOR, CEILING))
         self.ax.set_ylim3d(FLOOR, CEILING)
         self.ax.set_zlim3d(FLOOR, CEILING)
 

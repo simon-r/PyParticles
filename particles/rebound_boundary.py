@@ -14,21 +14,21 @@
 #You should have received a copy of the GNU General Public License
 #along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-
 import numpy as np
-import sys
+import boundary as bd
 
-class Force:
-    def __init__(self , size , dim , m=None , Conts=1.0 ):
-        NotImplementedError(" %s : is virutal and must be overridden." % sys._getframe().f_code.co_name )
+class ReboundBoundary( bd.Boundary ):
     
-        
-    def set_masses( self , m ):
-        NotImplementedError(" %s : is virutal and must be overridden." % sys._getframe().f_code.co_name )
-    
-    def update_force( self , X ):
-        NotImplementedError(" %s : is virutal and must be overridden." % sys._getframe().f_code.co_name )
+    def __init__( self , bound=(-1,1) , dim=3 ):
+        self.set_boundary( bound , dim )
         
     
-    def F(self):
-        NotImplementedError(" %s : is virutal and must be overridden." % sys._getframe().f_code.co_name )
+    def boundary( self , X ):
+        for i in range( self.dim() ) :
+            delta = self.bound()[i,1] - self.bound()[i,0]
+            
+            b_mi = X[:,i] < self.bound()[i,0]
+            b_mx = X[:,i] > self.bound()[i,1]
+            
+            X[b_mi,i] = X[b_mi,i] + delta
+            X[b_mx,i] = X[b_mx,i] - delta
