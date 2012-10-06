@@ -14,27 +14,38 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-
 import numpy as np
-import sys
+import particles.force as fr
 
-class Force:
-    def __init__(self , size , dim , m=None , Conts=1.0 ):
-        NotImplementedError(" %s : is virutal and must be overridden." % sys._getframe().f_code.co_name )
-    
+
+class ConstForce( fr.Force ) :
+    def __init__(self , size , u_force=[0,0,0] , dim=3 , m=None , Consts=1.0 ):
+        self.__dim = dim
+        self.__size = size
+        self.__G = Consts
+        self.__UF = np.array( u_force )
+        self.__A = np.zeros( ( size , dim ) )
+        self.__M = np.zeros( ( size , 1 ) )
+        if m != None :
+            self.set_messes( m )
         
+    
     def set_masses( self , m ):
-        NotImplementedError(" %s : is virutal and must be overridden." % sys._getframe().f_code.co_name )
+        self.__M[:] = m
+        
     
     def update_force( self , p_set ):
-        NotImplementedError(" %s : is virutal and must be overridden." % sys._getframe().f_code.co_name )
-            
-    def getA(self):
-        NotImplementedError(" %s : is virutal and must be overridden." % sys._getframe().f_code.co_name )
         
-    A = property( getA )
-        
-    def getF(self):
-        NotImplementedError(" %s : is virutal and must be overridden." % sys._getframe().f_code.co_name )
+        self.__A[:] = self.__UF
+        return self.__A
     
+    def getA(self):
+        return self.__A
+    
+    A = property( getA )
+    
+    def getF(self):
+        return self.__A * self.__M
+
     F = property( getF )
+

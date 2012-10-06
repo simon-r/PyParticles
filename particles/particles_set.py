@@ -32,14 +32,20 @@ class ParticlesSet:
         self.__dim  = dim
         self.__centre_mass = None
 
-    def X(self):
+    def getX(self):
         return self.__X
     
-    def M(self):
+    X = property( getX )
+    
+    def getM(self):
         return self.__mass
     
-    def V(self):
+    M = property( getM )
+    
+    def getV(self):
         return self.__V
+    
+    V = property( getV )
 
     def update_centre_of_mass(self):
         self.__centre_mass = np.sum( self.X * self.mass , axis=0 ) / np.float( self.size )

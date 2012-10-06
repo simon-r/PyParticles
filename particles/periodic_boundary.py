@@ -15,32 +15,22 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import particles.particles_set as ps
-import particles.rand_cluster as clu
-import particles.gravity as gr
-
-import matplotlib.animation as animation
-
-
-
-from mpl_toolkits.mplot3d import Axes3D
-import matplotlib.pyplot as plt
-import matplotlib
 import numpy as np
-
-import particles.animation as anim
-
+import particles.boundary as bd
 
 
-def main():
+class PeriodicBoundary( bd.Boundary ):
+
+    def __init__( self , bound=(-1,1) , dim=3 ):
+        self.set_boundary( bound , dim )
+
     
-    matplotlib.use('GTKAgg')
-        
-    a = anim.AnimatedScatter()
-    a.show()
-    
-    return 
-    
-
-if __name__ == '__main__':
-    main()
+    def boundary( self , p_set ):
+        for i in range( self.dim() ) :
+            delta = self.bound[i,1] - self.bound[i,0]
+            
+            b_mi = p_set.X[:,i] < self.bound[i,0]
+            b_mx = p_set.X[:,i] > self.bound[i,1]
+            
+            p_set.X[b_mi,i] = p_set.X[b_mi,i] + delta
+            p_set.X[b_mx,i] = p_set.X[b_mx,i] - delta
