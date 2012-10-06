@@ -70,5 +70,5 @@ class Gravity( fr.Force ) :
         
         return self.__F
     
-    def F(self):
+    def A(self):
         return self.__F

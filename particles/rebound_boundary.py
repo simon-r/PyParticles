@@ -21,14 +21,28 @@ class ReboundBoundary( bd.Boundary ):
     
     def __init__( self , bound=(-1,1) , dim=3 ):
         self.set_boundary( bound , dim )
+        self.set_normals()
         
     
-    def boundary( self , X ):
+    def set_normals( self ):
+        self.__N = np.zeros( self.bound().shape )
+        
+        if self.dim() >= 2 :
+            self.__N[0,:2] = np.array( [1,0] )
+            self.__N[1,:2] = np.array( [-1,0] )
+
+            self.__N[2,:2] = np.array( [0,1] )
+            self.__N[3,:2] = np.array( [0,-1] )
+    
+        if self.dim() == 3 :
+            self.__N[4,:] = np.array( [0,0,1] )
+            self.__N[5,:] = np.array( [0,0,-1] )
+    
+    def boundary( self , p_set ):
         for i in range( self.dim() ) :
             delta = self.bound()[i,1] - self.bound()[i,0]
             
-            b_mi = X[:,i] < self.bound()[i,0]
-            b_mx = X[:,i] > self.bound()[i,1]
+            b_mi = p_set.X()[:,i] < self.bound()[i,0]
+            b_mx = p_set.X()[:,i] > self.bound()[i,1]
             
-            X[b_mi,i] = X[b_mi,i] + delta
-            X[b_mx,i] = X[b_mx,i] - delta
+            

@@ -30,5 +30,5 @@ class Force:
         NotImplementedError(" %s : is virutal and must be overridden." % sys._getframe().f_code.co_name )
         
     
-    def F(self):
+    def A(self):
         NotImplementedError(" %s : is virutal and must be overridden." % sys._getframe().f_code.co_name )

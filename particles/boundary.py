@@ -56,7 +56,7 @@ class Boundary:
     def bound(self):
         return self.__bound
     
-    def boundary( self , X ):
+    def boundary( self , p_set ):
         pass
 
 
@@ -66,13 +66,13 @@ class PeriodicBoundary( Boundary ):
         self.set_boundary( bound , dim )
 
     
-    def boundary( self , X ):
+    def boundary( self , p_set ):
         for i in range( self.dim() ) :
             delta = self.bound()[i,1] - self.bound()[i,0]
             
-            b_mi = X[:,i] < self.bound()[i,0]
-            b_mx = X[:,i] > self.bound()[i,1]
+            b_mi = p_set.X()[:,i] < self.bound()[i,0]
+            b_mx = p_set.X()[:,i] > self.bound()[i,1]
             
-            X[b_mi,i] = X[b_mi,i] + delta
-            X[b_mx,i] = X[b_mx,i] - delta
+            p_set.X()[b_mi,i] = p_set.X()[b_mi,i] + delta
+            p_set.X()[b_mx,i] = p_set.X()[b_mx,i] - delta
             

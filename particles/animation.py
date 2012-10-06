@@ -42,7 +42,7 @@ class AnimatedScatter(Animation):
         n = self.n
         self.dt = 0.01
         self.steps = 10000
-        G = 0.001
+        G = 0.01
         
         self.pset = ps.ParticlesSet( self.n )
         
@@ -88,11 +88,11 @@ class AnimatedScatter(Animation):
         
         for j in range(self.steps):
             
-            self.bound.boundary( self.pset.X() )
+            self.bound.boundary( self.pset )
             
             self.grav.update_force( self.pset.X() )
 
-            self.pset.V()[:] = self.pset.V()[:] + self.grav.F() * self.dt
+            self.pset.V()[:] = self.pset.V()[:] + self.grav.A() * self.dt
             self.pset.X()[:] = self.pset.X() + self.pset.V()*self.dt
             
             yield j
