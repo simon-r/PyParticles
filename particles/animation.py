@@ -19,6 +19,8 @@
 import particles.particles_set as ps
 import particles.rand_cluster as clu
 import particles.gravity as gr
+import particles.euler_solver as els
+import particles.leapfrog_solver as lps 
 
 import matplotlib.animation as animation
 
@@ -26,7 +28,8 @@ from mpl_toolkits.mplot3d import Axes3D
 import matplotlib.pyplot as plt
 import numpy as np
 import particles.periodic_boundary as pb
-import particles.const_force as cf 
+import particles.const_force as cf
+
 
 FLOOR = -5
 CEILING = 5
@@ -38,9 +41,9 @@ class AnimatedScatter(Animation):
     
     def __init__(self, numpoints=50):
         
-        self.n = 10
+        self.n = 1000
         n = self.n
-        self.dt = 0.01
+        self.dt = 0.005
         self.steps = 10000
         G = 0.001
         
@@ -48,14 +51,19 @@ class AnimatedScatter(Animation):
         
         self.cs = clu.RandCluster()
         
-        self.cs.insert3( self.pset.X , M=self.pset.M , n = n/2 )
+        self.cs.insert3( self.pset.X , M=self.pset.M , n = n/2 , min_mass=0.1 , max_mass=5.0 )
         self.cs.insert3( self.pset.X , M=self.pset.M , n = int(n/2) , centre=(1.5,0.5,0.5) , start_indx=int(n/2))
-        #self.grav = gr.Gravity(n , Consts=G )
-        self.grav = cf.ConstForce(n , u_force=[1,1,0] )
+        self.grav = gr.Gravity(n , Consts=G )
+        #self.grav = cf.ConstForce(n , u_force=[0,0,-1] )
         
         self.grav.set_masses( self.pset.M )
         
         self.bound = pb.PeriodicBoundary( (-5.0 , 5.0) )
+        
+        self.pset.set_boundary( self.bound )
+        
+        #self.solver = els.EulerSolver( self.grav , self.pset , self.dt )
+        self.solver = lps.LeapfrogSolver( self.grav , self.pset , self.dt )
         
         self.fig = plt.figure()
         self.ax = self.fig.add_subplot(111, projection='3d')
@@ -87,15 +95,10 @@ class AnimatedScatter(Animation):
 
     def data_stream(self):
         
+        self.solver.update_force()
+        
         for j in range(self.steps):
-            
-            self.bound.boundary( self.pset )
-            
-            self.grav.update_force( self.pset )
-
-            self.pset.V[:] = self.pset.V[:] + self.grav.A * self.dt
-            self.pset.X[:] = self.pset.X + self.pset.V*self.dt
-            
+            self.solver.step()            
             yield j
             
 
