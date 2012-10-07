@@ -26,7 +26,7 @@ class PeriodicBoundary( bd.Boundary ):
 
     
     def boundary( self , p_set ):
-        for i in range( self.dim() ) :
+        for i in range( self.dim ) :
             delta = self.bound[i,1] - self.bound[i,0]
             
             b_mi = p_set.X[:,i] < self.bound[i,0]

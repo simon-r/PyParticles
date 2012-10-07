@@ -16,17 +16,19 @@
 
 
 import numpy as np
-import boundary as bd
+import particles.boundary as bd
 
 class ReboundBoundary( bd.Boundary ):
     
     def __init__( self , bound=(-1,1) , dim=3 ):
         self.set_boundary( bound , dim )
-        self.set_normals
+        self.set_normals()
         
     
     def set_normals( self ):
-        self.__N = np.zeros( self.bound.shape )
+        self.__N = np.zeros( ( 2*self.dim , self.dim ) )
+        
+        #print( self.__N )
         
         if self.dim >= 2 :
             self.__N[0,:2] = np.array( [1,0] )
@@ -41,18 +43,29 @@ class ReboundBoundary( bd.Boundary ):
     
     def boundary( self , p_set ):
         
+        v_mi = np.zeros((3))
+        v_mx = np.zeros((3))
+        
         for i in range( self.dim ) :
             j = 2*i
+            
+            v_mi[:] = 0.0
+            v_mx[:] = 0.0
+            
             delta = self.bound[i,1] - self.bound[i,0]
             
             b_mi = p_set.X[:,i] < self.bound[i,0]
             b_mx = p_set.X[:,i] > self.bound[i,1]
             
-            p_mi = p_set.X[b_mi,:] + self.bound[i,0] - ( p_set.X[b_mi,i] - self.bound[i,0] ) / p_set.V[b_mi,i]
-            p_mx = p_set.X[b_mi,:] + self.bound[i,0] - ( p_set.X[b_mi,i] - self.bound[i,0] ) / p_set.V[b_mi,i]
+            v_mi[i] = self.bound[i,0]
+            v_mx[i] = self.bound[i,1]            
             
-            p_set.V[b_mi,:] = - ( p_set.V[b_mi,:] + 2.0 * ( p_set.V[b_mi,:] - p_set.V[b_mi,:] * self.__N[j,:] ) )
-            p_set.V[b_mx,:] = - ( p_set.V[b_mx,:] + 2.0 * ( p_set.V[b_mx,:] - p_set.V[b_mx,:] * self.__N[j+1,:] ) )
+            p_set.X[b_mi,:] = p_set.X[b_mi,:] + 2.0 * self.__N[j,:] * ( v_mi - p_set.X[b_mi,:] )
+            p_set.X[b_mx,:] = p_set.X[b_mx,:] + 2.0 * self.__N[j,:] * ( v_mx - p_set.X[b_mx,:] )            
             
-            p_set.X[b_mi,:] = p_mi + ( p_set.V[b_mi,:] / np.sqrt( np.sum( ( p_set.V[b_mi,:] )**2.0 ) , 1 ) ) * np.sqrt( np.sum( ( p_mi - p_set.X[b_mi,:] ) , 1 )**2.0 )
-            p_set.X[b_mx,:] = p_mx + ( p_set.V[b_mx,:] / np.sqrt( np.sum( ( p_set.V[b_mx,:] )**2.0 ) , 1 ) ) * np.sqrt( np.sum( ( p_mx - p_set.X[b_mx,:] ) , 1 )**2.0 )
+            p_set.V[b_mi,i] = -p_set.V[b_mi,i] ## !!!
+            p_set.V[b_mx,i] = -p_set.V[b_mx,i]
+            
+
+            
+

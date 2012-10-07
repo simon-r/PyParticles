@@ -29,11 +29,19 @@ from mpl_toolkits.mplot3d import Axes3D
 import matplotlib.pyplot as plt
 import numpy as np
 import particles.periodic_boundary as pb
+import particles.rebound_boundary as rb
 import particles.const_force as cf
+import particles.vector_field_force as vf
+import particles.linear_spring as ls
 
 
 FLOOR = -5
 CEILING = 5
+
+class MyField( vf.VectorFieldForce ):
+    def vect_fun( self , X ):
+        v = ( X**2 ).T
+        return ( v * -X.T/np.sqrt( np.sum(v,0) ) ).T
 
 class Animation(object):
     pass
@@ -42,9 +50,9 @@ class AnimatedScatter(Animation):
     
     def __init__(self, numpoints=50):
         
-        self.n = 500
+        self.n = 400
         n = self.n
-        self.dt = 0.005
+        self.dt = 0.03
         self.steps = 10000
         G = 0.001
         
@@ -52,21 +60,24 @@ class AnimatedScatter(Animation):
         
         self.cs = clu.RandCluster()
         
-        self.cs.insert3( self.pset.X , M=self.pset.M , n = n/2 , min_mass=0.1 , max_mass=5.0 )
-        self.cs.insert3( self.pset.X , M=self.pset.M , n = int(n/2) , centre=(1.5,0.5,0.5) , start_indx=int(n/2))
+        self.cs.insert3( self.pset.X , M=self.pset.M , n = n/2 , centre=(-1.5,1,0.5) , min_mass=0.1 , max_mass=5.0 )
+        self.cs.insert3( self.pset.X , M=self.pset.M , n = int(n/2) , centre=(1.5,-0.5,0.5) , start_indx=int(n/2))
         
         self.grav = gr.Gravity(n , Consts=G )
-        #self.grav = cf.ConstForce(n , u_force=[0,0,-1] )
+        #self.grav = cf.ConstForce(n , u_force=[0,0,-10.0] )
+        self.grav = MyField( n )
+        self.grav = ls.LinearSpring( n )
         
         self.grav.set_masses( self.pset.M )
         
         self.bound = pb.PeriodicBoundary( (-5.0 , 5.0) )
+        #self.bound = rb.ReboundBoundary(  (-5.0 , 5.0)  )
         
         self.pset.set_boundary( self.bound )
         
-        self.solver = els.EulerSolver( self.grav , self.pset , self.dt )
+        #self.solver = els.EulerSolver( self.grav , self.pset , self.dt )
         #self.solver = lps.LeapfrogSolver( self.grav , self.pset , self.dt )
-        #self.solver = rks.RungeKuttaSolver( self.grav , self.pset , self.dt )
+        self.solver = rks.RungeKuttaSolver( self.grav , self.pset , self.dt )
         
         self.fig = plt.figure()
         self.ax = self.fig.add_subplot(111, projection='3d')

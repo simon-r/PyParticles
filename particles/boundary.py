@@ -52,8 +52,10 @@ class Boundary:
             self.__bound[1,0] = bound[2]
             self.__bound[1,1] = bound[3]
     
-    def dim(self):
+    def get_dim(self):
         return self.__dim
+    
+    dim = property( get_dim )
     
     def get_bound(self):
         return self.__bound
