@@ -20,7 +20,8 @@ import particles.particles_set as ps
 import particles.rand_cluster as clu
 import particles.gravity as gr
 import particles.euler_solver as els
-import particles.leapfrog_solver as lps 
+import particles.leapfrog_solver as lps
+import particles.runge_kutta_solver as rks
 
 import matplotlib.animation as animation
 
@@ -41,7 +42,7 @@ class AnimatedScatter(Animation):
     
     def __init__(self, numpoints=50):
         
-        self.n = 1000
+        self.n = 500
         n = self.n
         self.dt = 0.005
         self.steps = 10000
@@ -53,6 +54,7 @@ class AnimatedScatter(Animation):
         
         self.cs.insert3( self.pset.X , M=self.pset.M , n = n/2 , min_mass=0.1 , max_mass=5.0 )
         self.cs.insert3( self.pset.X , M=self.pset.M , n = int(n/2) , centre=(1.5,0.5,0.5) , start_indx=int(n/2))
+        
         self.grav = gr.Gravity(n , Consts=G )
         #self.grav = cf.ConstForce(n , u_force=[0,0,-1] )
         
@@ -62,8 +64,9 @@ class AnimatedScatter(Animation):
         
         self.pset.set_boundary( self.bound )
         
-        #self.solver = els.EulerSolver( self.grav , self.pset , self.dt )
-        self.solver = lps.LeapfrogSolver( self.grav , self.pset , self.dt )
+        self.solver = els.EulerSolver( self.grav , self.pset , self.dt )
+        #self.solver = lps.LeapfrogSolver( self.grav , self.pset , self.dt )
+        #self.solver = rks.RungeKuttaSolver( self.grav , self.pset , self.dt )
         
         self.fig = plt.figure()
         self.ax = self.fig.add_subplot(111, projection='3d')

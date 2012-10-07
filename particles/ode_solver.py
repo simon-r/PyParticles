@@ -54,4 +54,4 @@ class OdeSolver :
     
     
     def step( self , dt=None ):
-        NotImplementedError(" %s : is virutal and must be overridden." % sys._getframe().f_code.co_name )
+        NotImplementedError(" %s : is virtual and must be overridden." % sys._getframe().f_code.co_name )

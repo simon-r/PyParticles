@@ -21,13 +21,27 @@ import particles.ode_solver as os
 class RungeKuttaSolver( os.OdeSolver ) :
     def __init__( self , force , p_set , dt ):
         super().__init__( force , p_set , dt )
-        self.__Ai = np.zeros( self.force.A.shape )
+        
+        self.__K1 = np.zeros( self.force.A.shape )
+        self.__K2 = np.zeros( self.force.A.shape )
+        self.__K3 = np.zeros( self.force.A.shape )
+        self.__K4 = np.zeros( self.force.A.shape )
+    
     
     def step( self , dt=None ):
         if dt == None :
             dt = self.dt
             
-        #self.force.update_force( self.pset )
+        self.force.update_force( self.pset )
         
+        self.__K1 = dt*self.pset.V
+        self.__K2 = dt*( 0.5*self.__K1 + 0.5*self.force.A )
+        self.__K3 = dt*( 0.5*self.__K2 + 0.5*self.force.A )
+        self.__K4 = dt*( self.__K3 + self.force.A )
+        
+        
+        self.pset.V[:] = self.pset.V[:] + 1.0/6.0 * ( self.__K1 + 2.0*self.__K2 + 2.0*self.__K3 + self.__K4 )
+        
+        self.pset.X[:] = self.pset.X[:] + dt * self.pset.V
         
         self.pset.update_boundary() 

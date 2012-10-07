@@ -20,21 +20,21 @@ import sys
 
 class Force:
     def __init__(self , size , dim , m=None , Conts=1.0 ):
-        NotImplementedError(" %s : is virutal and must be overridden." % sys._getframe().f_code.co_name )
+        NotImplementedError(" %s : is virtual and must be overridden." % sys._getframe().f_code.co_name )
     
         
     def set_masses( self , m ):
-        NotImplementedError(" %s : is virutal and must be overridden." % sys._getframe().f_code.co_name )
+        NotImplementedError(" %s : is virtual and must be overridden." % sys._getframe().f_code.co_name )
     
     def update_force( self , p_set ):
-        NotImplementedError(" %s : is virutal and must be overridden." % sys._getframe().f_code.co_name )
+        NotImplementedError(" %s : is virtual and must be overridden." % sys._getframe().f_code.co_name )
             
     def getA(self):
-        NotImplementedError(" %s : is virutal and must be overridden." % sys._getframe().f_code.co_name )
+        NotImplementedError(" %s : is virtual and must be overridden." % sys._getframe().f_code.co_name )
         
     A = property( getA )
         
     def getF(self):
-        NotImplementedError(" %s : is virutal and must be overridden." % sys._getframe().f_code.co_name )
+        NotImplementedError(" %s : is virtual and must be overridden." % sys._getframe().f_code.co_name )
     
     F = property( getF )
