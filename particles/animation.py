@@ -42,6 +42,14 @@ class Animation(object):
     def __init__():
         pass
     
+    def set_ode_solver( self , solver ):
+        self.__ode_solver = solver
+    
+    def get_ode_solver( self ):
+        return self.__ode_solver     
+        
+    ode_solver = property( get_ode_solver , set_ode_solver )
+    
     def setup_plot(self):
         pass
     

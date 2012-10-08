@@ -24,8 +24,15 @@ class RandCluster( Cluster ):
         pass
     
     def insert3( self , X , M=None ,V=None ,
-                start_indx=0 , n=100 , centre=(0.0,0.0,0.0) , radius=1.0 ,
-                min_mass=0.5 , max_mass=1.0 , randg=np.random.rand ):
+                start_indx=0 ,
+                n=100 ,
+                centre=(0.0,0.0,0.0) ,
+                radius=1.0 ,
+                mass_rng=(0.5,1) ,
+                vel_rng=(0.5,1.0) ,
+                vel_mdl=None ,
+                vel_dir=None ,
+                randg=np.random.rand ):
         
         r = randg(n)*radius
         
@@ -36,10 +43,48 @@ class RandCluster( Cluster ):
         ei = start_indx + n
         
         X[si:ei,0] = centre[0] + r * np.cos( theta ) * np.sin( phi )
-        X[si:ei,1] = centre[0] + r * np.sin( theta ) * np.sin( phi )
-        X[si:ei,2] = centre[0] + r * np.cos( phi )
+        X[si:ei,1] = centre[1] + r * np.sin( theta ) * np.sin( phi )
+        X[si:ei,2] = centre[2] + r * np.cos( phi )
         
         if M != None:
-            M[si:ei,0] = min_mass + randg(n)*( max_mass - min_mass )
+            M[si:ei,0] = mass_rng[0] + randg(n)*( mess_rng[1] - mass_rng[0] )
+            
+        if V != None and vel_mdl == "bomb" :
+            self.bomb_vel( X , V , n=n , start_indx=start_indx , centre=centre , randg=randg , vel_rng=vel_rng)
     
     
+    def bomb_vel( self , X , V ,
+                  start_indx=0 ,
+                  n=100 ,
+                  centre=(0.0,0.0,0.0),
+                  vel_rng=(0.5,1.0) ,
+                  randg=np.random.rand ):
+        
+        si = start_indx
+        ei = start_indx + n
+        
+        mX = X[si:ei,:] - centre
+        
+        U = ( mX.T / np.sqrt( np.sum( mX**2.0 , 1 ) ) ).T
+        
+        V[si:ei,:] = V[si:ei,:] + ( U.T * ( vel_rng[0] + randg( n ) * ( vel_rng[1] - vel_rng[0] ) ) ).T
+        
+    def const_vel( self , X , V ,
+                   start_indx=0 ,
+                   n=100 ,
+                   centre=(0.0,0.0,0.0),
+                   vel_rng=(0.5,1.0) ,
+                   vel_dir=[1,0,0] ,
+                   randg=np.random.rand ):
+
+        si = start_indx
+        ei = start_indx + n
+        
+        mX = X[si:ei,:] - centre
+        
+        U = ( mX.T / np.sqrt( np.sum( mX**2.0 , 1 ) ) ).T
+        
+        V[si:ei,:] = V[si:ei,:] + vel_dir * ( vel_rng[0] + randg( n ) * ( vel_rng[1] - vel_rng[0] )
+        
+        
+        

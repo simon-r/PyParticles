@@ -35,7 +35,7 @@ import particles.animated_scatter as anim
 def main():
         
     a = anim.AnimatedScatter()
-    a.show()
+    a.start()
     
     return 
     

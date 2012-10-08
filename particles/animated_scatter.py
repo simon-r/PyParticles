@@ -36,8 +36,8 @@ import particles.vector_field_force as vf
 import particles.linear_spring as ls
 
 
-FLOOR = -5
-CEILING = 5
+FLOOR = -10
+CEILING = 10
 
 class MyField( vf.VectorFieldForce ):
     def vect_fun( self , X ):
@@ -49,34 +49,39 @@ class AnimatedScatter( pan.Animation ):
     
     def __init__(self, numpoints=50):
         
-        self.n = 600
+        self.n = 500
         n = self.n
-        self.dt = 0.006
+        self.dt = 0.01
         self.steps = 10000
-        G = 0.001
+        G = 0.0001
         
         self.pset = ps.ParticlesSet( self.n )
         
         self.cs = clu.RandCluster()
         
-        self.cs.insert3( self.pset.X , M=self.pset.M , n = n/2 , centre=(-1.5,1,0.5) , min_mass=0.1 , max_mass=5.0 )
+        self.cs.insert3( self.pset.X , M=self.pset.M , V=self.pset.V , n = n/2 ,
+                        centre=(-1.5,1,0.5) , vel_rng=(0.5,2) , mass_rng=(0.5,5.0) )
+        
         self.cs.insert3( self.pset.X , M=self.pset.M , n = int(n/2) , centre=(1.5,-0.5,0.5) , start_indx=int(n/2))
         
-        #self.grav = gr.Gravity(n , Consts=G )
-        #self.grav = cf.ConstForce(n , u_force=[0,0,-10.0] )
+        self.grav = gr.Gravity(n , Consts=G )
+        self.grav = cf.ConstForce(n , u_force=[1,0,-1.0] )
         #self.grav = MyField( n )
-        self.grav = ls.LinearSpring( n , Consts=0.01 )
+        #self.grav = ls.LinearSpring( n , Consts=0.1 )
         
         self.grav.set_masses( self.pset.M )
         
-        self.bound = pb.PeriodicBoundary( (-5.0 , 5.0) )
-        #self.bound = rb.ReboundBoundary(  (-5.0 , 5.0)  )
+        self.bound = None
+        #self.bound = pb.PeriodicBoundary( (-5.0 , 5.0) )
+        #self.bound = rb.ReboundBoundary(  (-10.0 , 10.0)  )
         
         self.pset.set_boundary( self.bound )
         
-        #self.solver = els.EulerSolver( self.grav , self.pset , self.dt )
-        #self.solver = lps.LeapfrogSolver( self.grav , self.pset , self.dt )
-        self.solver = rks.RungeKuttaSolver( self.grav , self.pset , self.dt )
+        #solver = els.EulerSolver( self.grav , self.pset , self.dt )
+        #solver = lps.LeapfrogSolver( self.grav , self.pset , self.dt )
+        solver = rks.RungeKuttaSolver( self.grav , self.pset , self.dt )
+        
+        self.ode_solver = solver
         
         self.fig = plt.figure()
         self.ax = self.fig.add_subplot(111, projection='3d')
@@ -96,7 +101,7 @@ class AnimatedScatter( pan.Animation ):
         j = next(self.stream)
         
         self.scat = self.ax.scatter( self.pset.X[:,0] , self.pset.X[:,1] , self.pset.X[:,2] ,
-                                     animated=True , marker='o' , alpha=None , s=3)
+                                     animated=True , marker='o' , alpha=None , s=self.pset.M*10)
         
 
         self.ax.set_xlim3d(FLOOR, CEILING)
@@ -108,10 +113,10 @@ class AnimatedScatter( pan.Animation ):
 
     def data_stream(self):
         
-        self.solver.update_force()
+        self.ode_solver.update_force()
         
         for j in range(self.steps):
-            self.solver.step()            
+            self.ode_solver.step()            
             yield j
             
 
@@ -125,6 +130,6 @@ class AnimatedScatter( pan.Animation ):
         plt.draw()
         return self.scat,
 
-    def show(self):
+    def start(self):
         plt.show()
         

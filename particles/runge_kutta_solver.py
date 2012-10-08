@@ -36,10 +36,10 @@ class RungeKuttaSolver( os.OdeSolver ) :
         self.__K3[:] = dt*( 0.5*self.__K2 + 0.5*self.force.A )
         self.__K4[:] = dt*( self.__K3 + self.force.A )
         
-        
         self.pset.V[:] = self.pset.V[:] + 1.0/6.0 * ( self.__K1 + 2.0*self.__K2 + 2.0*self.__K3 + self.__K4 )
-        
         self.pset.X[:] = self.pset.X[:] + dt * self.pset.V
         
-        self.force.update_force( self.pset )
         self.pset.update_boundary() 
+        self.force.update_force( self.pset )
+        
+        
