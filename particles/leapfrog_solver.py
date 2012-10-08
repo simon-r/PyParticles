@@ -20,7 +20,7 @@ import particles.ode_solver as os
 
 class LeapfrogSolver( os.OdeSolver ) :
     def __init__( self , force , p_set , dt ):
-        super(LeapfrogSolver,super).__init__( force , p_set , dt )
+        super(LeapfrogSolver,self).__init__( force , p_set , dt )
         self.__Ai = np.zeros( self.force.A.shape )
     
     def __step__( self , dt ):

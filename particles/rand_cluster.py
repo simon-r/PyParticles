@@ -47,9 +47,9 @@ class RandCluster( Cluster ):
         X[si:ei,2] = centre[2] + r * np.cos( phi )
         
         if M != None:
-            M[si:ei,0] = mass_rng[0] + randg(n)*( mess_rng[1] - mass_rng[0] )
+            M[si:ei,0] = mass_rng[0] + randg(n)*( mass_rng[1] - mass_rng[0] )
             
-        if V != None and vel_mdl == "bomb" :
+        if V != None and "bomb" in vel_mdl :
             self.bomb_vel( X , V , n=n , start_indx=start_indx , centre=centre , randg=randg , vel_rng=vel_rng)
     
     
@@ -84,7 +84,5 @@ class RandCluster( Cluster ):
         
         U = ( mX.T / np.sqrt( np.sum( mX**2.0 , 1 ) ) ).T
         
-        V[si:ei,:] = V[si:ei,:] + vel_dir * ( vel_rng[0] + randg( n ) * ( vel_rng[1] - vel_rng[0] )
-        
-        
+        V[si:ei,:] = V[si:ei,:] + vel_dir * ( vel_rng[0] + randg( n ) * ( vel_rng[1] - vel_rng[0] ) )
         

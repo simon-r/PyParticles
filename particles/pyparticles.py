@@ -30,11 +30,93 @@ import numpy as np
 
 import particles.animated_scatter as anim
 
+import particles.particles_set as ps
+
+import particles.animation as pan
+
+import particles.rand_cluster as clu
+import particles.gravity as gr
+import particles.euler_solver as els
+import particles.leapfrog_solver as lps
+import particles.runge_kutta_solver as rks
+
+import matplotlib.animation as animation
+
+from mpl_toolkits.mplot3d import Axes3D
+import matplotlib.pyplot as plt
+import numpy as np
+import particles.periodic_boundary as pb
+import particles.rebound_boundary as rb
+import particles.const_force as cf
+import particles.vector_field_force as vf
+import particles.linear_spring as ls
+
+import particles.animated_ogl as aogl
+
+
+
+
+class MyField( vf.VectorFieldForce ):
+    def __init__(self,size,dim):
+        super(MyField,self).__init__(size)
+        self.v = np.zeros((dim,size))
+    
+    def vect_fun( self , X ):
+        self.v[:] = ( X**2 ).T
+        return ( self.v * -X.T/np.sqrt( np.sum(self.v,0) ) ).T
 
 
 def main():
         
-    a = anim.AnimatedScatter()
+    n = 5000
+    dt = 0.01
+    steps = 10000
+    G = 0.001
+    
+    FLOOR = -5
+    CEILING = 5
+    
+    pset = ps.ParticlesSet( n )
+    
+    cs = clu.RandCluster()
+    
+    cs.insert3( pset.X , M=pset.M , V=pset.V , n = n/2 ,
+                centre=(-1.5,1,0.5) , mass_rng=(0.5,2.0) ,
+                vel_rng=(1,2) , vel_mdl="bomb" )
+    
+    cs.insert3( pset.X , M=pset.M , start_indx=int(n/2) , n = int(n/2) , centre=(1.5,-0.5,0.5) )
+    
+    #grav = gr.Gravity(n , Consts=G )
+    #grav = cf.ConstForce(n , u_force=[0,0,-1.0] )
+    grav = MyField( n , 3 )
+    #grav = ls.LinearSpring( n , Consts=0.1 )
+    
+    grav.set_masses( pset.M )
+    
+    bound = None
+    #bound = pb.PeriodicBoundary( (-5.0 , 5.0) )
+    #bound = rb.ReboundBoundary(  (-10.0 , 10.0)  )
+    
+    pset.set_boundary( bound )
+    
+    #solver = els.EulerSolver( grav , pset , dt )
+    solver = lps.LeapfrogSolver( grav , pset , dt )
+    #solver = rks.RungeKuttaSolver( grav , pset , dt )    
+        
+    
+    
+    a = aogl.AnimatedGl()
+    #a = anim.AnimatedScatter()
+    
+    a.xlim = ( FLOOR , CEILING )
+    a.ylim = ( FLOOR , CEILING )
+    a.zlim = ( FLOOR , CEILING )
+    
+    a.ode_solver = solver
+    a.pset = pset
+    
+    a.build_animation()
+    
     a.start()
     
     return 

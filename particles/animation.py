@@ -35,13 +35,16 @@ import particles.vector_field_force as vf
 import particles.linear_spring as ls
 
 
-FLOOR = -5
-CEILING = 5
-
 class Animation(object):
-    def __init__():
-        pass
-    
+    def __init__(self):
+        self.__ode_solver = None
+        self.__pset = None
+        self.__steps = 10000
+        
+        self.__xl = (-1,1)
+        self.__yl = (-1,1)
+        self.__zl = (-1,1)
+        
     def set_ode_solver( self , solver ):
         self.__ode_solver = solver
     
@@ -49,6 +52,51 @@ class Animation(object):
         return self.__ode_solver     
         
     ode_solver = property( get_ode_solver , set_ode_solver )
+    
+    
+    def get_pset(self):
+        return self.__pset
+    
+    def set_pset( self , pset ):
+        self.__pset = pset
+        
+    pset = property( get_pset , set_pset )
+    
+    
+    def get_steps( self ):
+        return self.__steps
+    
+    def set_steps( self , steps ):
+        self.__steps = steps
+    
+    steps = property( get_steps , set_steps )
+    
+    
+    def set_xlim( self , xl ):
+        self.__xl = xl
+        
+    def get_xlim( self ):
+        return self.__xl
+ 
+    def set_ylim( self , yl ):
+        self.__yl = yl
+        
+    def get_ylim( self ):
+        return self.__yl    
+           
+    def set_zlim( self , zl ):
+        self.__zl = zl
+        
+    def get_zlim( self ):
+        return self.__zl
+           
+    xlim = property( get_xlim , set_xlim )
+    ylim = property( get_ylim , set_ylim )
+    zlim = property( get_zlim , set_zlim )
+     
+     
+    def build_animation(self):
+        pass
     
     def setup_plot(self):
         pass
