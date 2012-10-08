@@ -75,19 +75,22 @@ def DrawGLScene():
 
     glRotatef(0.0,0.0,1.0,0.0)                # Rotate The Pyramid On It's Y Axis
     
+    glEnable(GL_POINT_SMOOTH)
     
-    glBegin(GL_POINTS)
-    #glBegin(GL_LINES)
+    glPointParameterf( GL_POINT_SIZE_MAX , 10.0 )
+    glPointParameterf( GL_POINT_SIZE_MIN , 0.1 )
+    #glBegin(GL_POINTS)
     
     for i in range( DrawGLScene.animation.pset.size() ):
-        glColor3f( 1.0 , 1.0 , 1.0 )
-        
+        glPointSize( DrawGLScene.animation.pset.M[i] )
+        glBegin(GL_POINTS)
+        glColor3f( 1.0 , 1.0 , 1.0 )    
+        #glPointSize( DrawGLScene.animation.pset.M[i] )
         glVertex3f( DrawGLScene.animation.pset.X[i,0] ,
                     DrawGLScene.animation.pset.X[i,1] ,
                     DrawGLScene.animation.pset.X[i,2] )
-        
-    
-    glEnd()
+
+        glEnd()
     
     glutSwapBuffers()
 

@@ -68,7 +68,7 @@ class MyField( vf.VectorFieldForce ):
 
 def main():
         
-    n = 5000
+    n = 1000
     dt = 0.01
     steps = 10000
     G = 0.001
@@ -81,14 +81,14 @@ def main():
     cs = clu.RandCluster()
     
     cs.insert3( pset.X , M=pset.M , V=pset.V , n = n/2 ,
-                centre=(-1.5,1,0.5) , mass_rng=(0.5,2.0) ,
-                vel_rng=(1,2) , vel_mdl="bomb" )
+                centre=(-1.5,1,0.5) , mass_rng=(0.5,5.0) ,
+                vel_rng=(0,0) , vel_mdl="bomb" )
     
     cs.insert3( pset.X , M=pset.M , start_indx=int(n/2) , n = int(n/2) , centre=(1.5,-0.5,0.5) )
     
-    #grav = gr.Gravity(n , Consts=G )
+    grav = gr.Gravity(n , Consts=G )
     #grav = cf.ConstForce(n , u_force=[0,0,-1.0] )
-    grav = MyField( n , 3 )
+    #grav = MyField( n , 3 )
     #grav = ls.LinearSpring( n , Consts=0.1 )
     
     grav.set_masses( pset.M )
@@ -100,8 +100,8 @@ def main():
     pset.set_boundary( bound )
     
     #solver = els.EulerSolver( grav , pset , dt )
-    solver = lps.LeapfrogSolver( grav , pset , dt )
-    #solver = rks.RungeKuttaSolver( grav , pset , dt )    
+    #solver = lps.LeapfrogSolver( grav , pset , dt )
+    solver = rks.RungeKuttaSolver( grav , pset , dt )    
         
     
     
