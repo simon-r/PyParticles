@@ -22,39 +22,34 @@ import particles.force as fr
 
 class LinearSpring( fr.Force ) :
     def __init__(self , size , dim=3 , m=None , Consts=1.0 ):
+        
         self.__dim = dim
         self.__size = size
+        
         self.__K = Consts
-        
-        self.__D = np.zeros( ( size , size ) )
-        self.__V = np.zeros( ( size , size ) )
-        
+                
         self.__A = np.zeros( ( size , dim ) )
         self.__F = np.zeros( ( size , dim ) )
         self.__Fm = np.zeros( ( size , size ) )
         
-        self.__M = np.zeros( ( size , size ) )
+        self.__M = np.zeros( ( size , 1 ) )
         if m != None :
             self.set_messes( m )
         
     
     def set_masses( self , m ):
-        self.__M[:,:] = m
+        self.__M[:] = m
         
     
     def update_force( self , p_set ):
         
-        self.__D[:] = dist.squareform( dist.pdist( p_set.X , 'euclidean' ) )
-                
-        self.__Fm[:] = -self.__K * self.__D[:] 
-              
         for i in range( self.__dim ):
-            self.__V[:,:] = p_set.X[:,i]
-            self.__V[:,:] = ( self.__V[:,:].T - p_set.X[:,i] ).T
+            self.__Fm[:,:] = p_set.X[:,i]
+            self.__Fm[:,:] = -self.__K * ( self.__Fm[:,:].T - p_set.X[:,i] ).T 
         
-            self.__F[:,i] = np.sum( self.__Fm * self.__V[:,:] , 0 )
+            self.__F[:,i] = np.sum( self.__Fm , 0 )
         
-        self.__A[:,:] = self.__F[:,:] / self.__M[:,0]
+        self.__A[:,:] = self.__F[:,:] / self.__M[:]
         
         return self.__A
     

@@ -20,63 +20,41 @@ import scipy.spatial.distance as dist
 
 import particles.force as fr
 
-class Gravity( fr.Force ) :
+class VanDerWaals( fr.Force ) :
     def __init__(self , size , dim=3 , m=None , Consts=1.0 ):
+        
         self.__dim = dim
         self.__size = size
-        self.__G = Consts
+        
+        self.__C = Consts # Hamaker coefficient (A)
+                
+        self.__A = np.zeros( ( size , dim ) )
         self.__F = np.zeros( ( size , dim ) )
         self.__Fm = np.zeros( ( size , size ) )
-        self.__V = np.zeros( ( size , size ) )
-        self.__D = np.zeros( ( size , size ) )
-        self.__M = np.zeros( ( size , size ) )
+        
+        self.__R = np.zeros( ( size , 1 ) )
         if m != None :
             self.set_messes( m )
         
     
     def set_masses( self , m ):
-        self.__M[:,:] = m
+        self.__R[:] = m
         
-        #print(" --- M ----")
-        #print( self.__M[:,:] )
-        #print()
     
     def update_force( self , p_set ):
         
         self.__D[:] = dist.squareform( dist.pdist( p_set.X , 'euclidean' ) )
         
-        #print(" --- D ----")
-        #print( self.__D[:,:] )
-        #print()
-        
-        self.__Fm[:] = - self.__G * self.__M[:] / ( ( self.__D[:] ) ** 3.0 )
-
-        for j in range( self.__size ) :
-            self.__Fm[j,j] = 0.0
-        
-        #print(" --- Fm ----")
-        #print( self.__Fm[:,:] )
-        #print()        
-        
-        for i in range( self.__dim ):
-            self.__V[:,:] = p_set.X[:,i]
-            self.__V[:,:] = ( self.__V[:,:].T - p_set.X[:,i] ).T 
-                        
-            self.__F[:,i] = np.sum( self.__Fm * self.__V[:,:] , 0 )
-        
-        #print(" --- F ----")
-        #print( self.__F )
-        #print()
-        
-        return self.__F
+        return self.__A
     
     def getA(self):
-        return self.__F
+        return self.__A
     
     A = property( getA )
 
 
     def getF(self):
-        return self.__F * self.__M[:,0]
+        return self.__F
     
     F = property( getF )
+

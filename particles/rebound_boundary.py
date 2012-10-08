@@ -67,5 +67,3 @@ class ReboundBoundary( bd.Boundary ):
             p_set.V[b_mx,i] = -p_set.V[b_mx,i]
             
 
-            
-

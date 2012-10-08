@@ -20,16 +20,11 @@ import particles.ode_solver as os
 
 class LeapfrogSolver( os.OdeSolver ) :
     def __init__( self , force , p_set , dt ):
-        super().__init__( force , p_set , dt )
+        super(LeapfrogSolver,super).__init__( force , p_set , dt )
         self.__Ai = np.zeros( self.force.A.shape )
     
-    def step( self , dt=None ):
-        if dt == None :
-            dt = self.dt
+    def __step__( self , dt ):
             
-        #self.force.update_force( self.pset )
-        
-        #self.pset.V[:] = self.pset.V + self.force.A * dt
         self.pset.X[:] = self.pset.X + self.pset.V * dt + 0.5*self.force.A * dt**2.0
         self.__Ai[:] = self.force.A
         

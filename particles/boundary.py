@@ -18,7 +18,7 @@
 import numpy as np
 
 
-class Boundary:
+class Boundary(object):
     def __init__(self):
         pass
     

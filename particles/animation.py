@@ -38,95 +38,22 @@ import particles.linear_spring as ls
 FLOOR = -5
 CEILING = 5
 
-class MyField( vf.VectorFieldForce ):
-    def vect_fun( self , X ):
-        v = ( X**2 ).T
-        return ( v * -X.T/np.sqrt( np.sum(v,0) ) ).T
-
 class Animation(object):
-    pass
-
-class AnimatedScatter(Animation):
+    def __init__():
+        pass
     
-    def __init__(self, numpoints=50):
-        
-        self.n = 400
-        n = self.n
-        self.dt = 0.03
-        self.steps = 10000
-        G = 0.001
-        
-        self.pset = ps.ParticlesSet( self.n )
-        
-        self.cs = clu.RandCluster()
-        
-        self.cs.insert3( self.pset.X , M=self.pset.M , n = n/2 , centre=(-1.5,1,0.5) , min_mass=0.1 , max_mass=5.0 )
-        self.cs.insert3( self.pset.X , M=self.pset.M , n = int(n/2) , centre=(1.5,-0.5,0.5) , start_indx=int(n/2))
-        
-        self.grav = gr.Gravity(n , Consts=G )
-        #self.grav = cf.ConstForce(n , u_force=[0,0,-10.0] )
-        self.grav = MyField( n )
-        self.grav = ls.LinearSpring( n )
-        
-        self.grav.set_masses( self.pset.M )
-        
-        self.bound = pb.PeriodicBoundary( (-5.0 , 5.0) )
-        #self.bound = rb.ReboundBoundary(  (-5.0 , 5.0)  )
-        
-        self.pset.set_boundary( self.bound )
-        
-        #self.solver = els.EulerSolver( self.grav , self.pset , self.dt )
-        #self.solver = lps.LeapfrogSolver( self.grav , self.pset , self.dt )
-        self.solver = rks.RungeKuttaSolver( self.grav , self.pset , self.dt )
-        
-        self.fig = plt.figure()
-        self.ax = self.fig.add_subplot(111, projection='3d')
-        
-        self.stream = self.data_stream()
-        
-        
-        self.ani = animation.FuncAnimation(self.fig, self.update, interval=5, 
-                                           init_func=self.setup_plot, blit=True)
-        
-        
-        
-       
-
     def setup_plot(self):
-        
-        j = next(self.stream)
-        
-        self.scat = self.ax.scatter( self.pset.X[:,0] , self.pset.X[:,1] , self.pset.X[:,2] ,
-                                     animated=True , marker='o' , alpha=None , s=3)
-        
-
-        self.ax.set_xlim3d((FLOOR, CEILING))
-        self.ax.set_ylim3d(FLOOR, CEILING)
-        self.ax.set_zlim3d(FLOOR, CEILING)
-
-        return self.scat,
-
-
+        pass
+    
     def data_stream(self):
+        pass
+    
+    def update(self,i):
+        pass
+    
+    def start(self):
+        pass
         
-        self.solver.update_force()
-        
-        for j in range(self.steps):
-            self.solver.step()            
-            yield j
-            
 
-
-    def update(self, i):
-        """Update the scatter plot."""
-        j = next(self.stream)
-         
-        self.scat._offsets3d = ( np.ma.ravel(self.pset.X[:,0]) , np.ma.ravel(self.pset.X[:,1]) , np.ma.ravel(self.pset.X[:,2]) )       
-                
-        plt.draw()
-        return self.scat,
-
-    def show(self):
-        plt.show()
         
     

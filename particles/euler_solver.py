@@ -20,12 +20,11 @@ import particles.ode_solver as os
 
 class EulerSolver( os.OdeSolver ) :
     def __init__( self , force , p_set , dt ):
-        super().__init__( force , p_set , dt )
+        super(EulerSolver,self).__init__( force , p_set , dt )
         
     
-    def step( self , dt=None ):
-        if dt == None :
-            dt = self.dt
+    def __step__( self , dt ):
+
             
         self.force.update_force( self.pset )
         

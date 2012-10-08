@@ -28,13 +28,11 @@ import matplotlib.pyplot as plt
 import matplotlib
 import numpy as np
 
-import particles.animation as anim
+import particles.animated_scatter as anim
 
 
 
 def main():
-    
-    matplotlib.use('GTKAgg')
         
     a = anim.AnimatedScatter()
     a.show()

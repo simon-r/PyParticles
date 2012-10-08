@@ -18,11 +18,12 @@
 import numpy as np
 import sys
 
-class OdeSolver :
+class OdeSolver(object) :
     def __init__( self , force , p_set , dt ):
         self.__force = force
         self.__p_set = p_set
         self.__dt = dt
+        self.__time = 0.0
         
     
     def get_dt( self ):
@@ -32,6 +33,14 @@ class OdeSolver :
         self.__dt = dt
 
     dt = property( get_dt , set_dt )
+    
+    def get_time(self):
+        return self.__time
+    
+    def set_time( self , t0 ):
+        self.__time = t0
+        
+    time = property( get_time , set_time )
     
     def get_force( self ):
         return self.__force
@@ -54,4 +63,11 @@ class OdeSolver :
     
     
     def step( self , dt=None ):
+        if dt == None:
+            dt = self.dt
+        
+        self.__time += dt
+        self.__step__( dt )
+        
+    def __step__( self , dt ):
         NotImplementedError(" %s : is virtual and must be overridden." % sys._getframe().f_code.co_name )

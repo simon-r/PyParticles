@@ -18,7 +18,7 @@
 import numpy as np
 import sys
 
-class Force:
+class Force(object):
     def __init__(self , size , dim , m=None , Conts=1.0 ):
         NotImplementedError(" %s : is virtual and must be overridden." % sys._getframe().f_code.co_name )
     

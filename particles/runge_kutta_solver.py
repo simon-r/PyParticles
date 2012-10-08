@@ -20,7 +20,8 @@ import particles.ode_solver as os
 
 class RungeKuttaSolver( os.OdeSolver ) :
     def __init__( self , force , p_set , dt ):
-        super().__init__( force , p_set , dt )
+        
+        super(RungeKuttaSolver,self).__init__( force , p_set , dt )
         
         self.__K1 = np.zeros( self.force.A.shape )
         self.__K2 = np.zeros( self.force.A.shape )
@@ -28,9 +29,7 @@ class RungeKuttaSolver( os.OdeSolver ) :
         self.__K4 = np.zeros( self.force.A.shape )
     
     
-    def step( self , dt=None ):
-        if dt == None :
-            dt = self.dt
+    def __step__( self , dt ):
     
         self.__K1[:] = dt*self.force.A
         self.__K2[:] = dt*( 0.5*self.__K1 + 0.5*self.force.A )
