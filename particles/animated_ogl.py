@@ -35,6 +35,8 @@ import particles.const_force as cf
 import particles.vector_field_force as vf
 import particles.linear_spring as ls
 import particles.trackball as trk
+import particles.utils_ogl as uogl
+
 
 import sys
 
@@ -53,7 +55,10 @@ def InitGL( Width , Height , ReSizeFun ):                # We call this right af
     glDepthFunc(GL_LESS)                # The Type Of Depth Test To Do
     glEnable(GL_DEPTH_TEST)                # Enables Depth Testing
     glShadeModel(GL_SMOOTH)                # Enables Smooth Color Shading
-
+    
+    glEnable (GL_LINE_SMOOTH)
+    glHint( GL_LINE_SMOOTH_HINT , GL_NICEST )
+    
     ReSizeFun(Width, Height)
     
 
@@ -61,17 +66,16 @@ def DrawGLScene():
     
     j = next(DrawGLScene.stream)
     
+    tr = DrawGLScene.animation.translation
     
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+    glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT )
     
     glEnable (GL_FOG)
-    glFogf (GL_FOG_DENSITY, 0.05)
+    glFogf (GL_FOG_DENSITY, 0.07)
     
     glLoadIdentity()  
     
-    
-    
-    if DrawGLScene.animation.state == GLUT_DOWN and DrawGLScene.animation.motion:
+    if DrawGLScene.animation.state == "trackball_down" and DrawGLScene.animation.motion:
         ( ax , ay , az ) = DrawGLScene.animation.rotatation_axis
         angle = DrawGLScene.animation.rotation_angle
         glRotatef( angle , ax , ay , az )
@@ -83,32 +87,15 @@ def DrawGLScene():
     
     glLoadIdentity()
     
-    glTranslatef(0.0,0.0,-13.0)          
+    glTranslatef( tr[0] , tr[1] , -15.0 )          
     glMultMatrixf( DrawGLScene.animation.rot_matrix )
 
     glEnable(GL_POINT_SMOOTH)
+        
+    DrawGLScene.animation.axis.draw_axis()
     
     glPointParameterf( GL_POINT_SIZE_MAX , 10.0 )
-    glPointParameterf( GL_POINT_SIZE_MIN , 0.1 )
-    #glBegin(GL_POINTS)
-    
-    glBegin(GL_LINES)
-    glColor3f( 1.0 , 0.0 , 0.0 )
-    glVertex3f(0.0,0.0,0.0)
-    glVertex3f(5.0,0.0,0.0)
-    glEnd()
-    
-    glBegin(GL_LINES)
-    glColor3f( 0.0 , 1.0 , 0.0 )
-    glVertex3f(0.0,0.0,0.0)
-    glVertex3f(0.0,5.0,0.0)
-    glEnd()
-    
-    glBegin(GL_LINES)
-    glColor3f( 0.0 , 0.0 , 1.0 )
-    glVertex3f(0.0,0.0,0.0)
-    glVertex3f(0.0,0.0,5.0)
-    glEnd()
+    glPointParameterf( GL_POINT_SIZE_MIN , 0.1 )    
     
     for i in range( DrawGLScene.animation.pset.size() ):
         glPointSize( DrawGLScene.animation.pset.M[i] )
@@ -130,6 +117,8 @@ def ReSizeGLScene(Width, Height):
         Height = 1
 
     per = ReSizeGLScene.animation.perspective
+    
+    MousePressed.animation.win_size = ( Width , Height )
 
     glViewport(0, 0, Width, Height)        
     glMatrixMode(GL_PROJECTION)
@@ -142,36 +131,50 @@ def KeyPressed():
     pass
 
 def MousePressed(  button , state , x , y ):
-    print ("--------------------")
-    print ( "click" )
-    print ( "butt  " + str( button ) )
-    print ( "state " + str(state ) )
-    print ( "x     " + str(x) )
-    print ( "y     " + str(y) )
+    #print ("--------------------")
+    #print ( "click" )
+    #print ( "  butt  " + str( button ) )
+    #print ( "  state " + str(state ) )
+    #print ( "  x     " + str(x) )
+    #print ( "  y     " + str(y) )
     
-    if state == GLUT_DOWN :
+    if state == GLUT_DOWN and button == GLUT_LEFT_BUTTON :
         MousePressed.animation.trackball.track_ball_mapping( np.array( [ x , y ] ) )
-        MousePressed.animation.state = GLUT_DOWN
-    else :
-        MousePressed.animation.state = GLUT_UP
+        MousePressed.animation.state = "trackball_down"
+    elif state == GLUT_UP and button == GLUT_LEFT_BUTTON :
+        MousePressed.animation.state = "trackball_up"
+    
         
+    if state == GLUT_DOWN and button == GLUT_RIGHT_BUTTON :
+        
+        MousePressed.animation.state = "translate_down" 
+    elif state == GLUT_UP and button == GLUT_RIGHT_BUTTON :
+        MousePressed.animation.state = "translate_up" 
+    
+    
+    if state == GLUT_DOWN and button == 3 :
+        MousePressed.animation.zoom_scene( +1 )
+        
+    if state == GLUT_DOWN and button == 4 :
+        MousePressed.animation.zoom_scene( -1 )
     
 
 def MouseMotion( x , y ) :
-    print ("--------------------")
-    print ( "move" )
-    print ( "x     " + str(x) )
-    print ( "y     " + str(y) )
+    #print ("--------------------")
+    #print ( "move" )
+    #print ( "  x     " + str(x) )
+    #print ( "  y     " + str(y) )
     
-    ( axis , angle ) = MousePressed.animation.trackball.on_move( np.array( [ x , y ] ) )
+    if MousePressed.animation.state == "trackball_down" :
+        ( axis , angle ) = MousePressed.animation.trackball.on_move( np.array( [ x , y ] ) )
     
-    MousePressed.animation.rotation_angle = angle 
-    MousePressed.animation.rotatation_axis = ( axis[0] , axis[1] , axis[2] )
+        MousePressed.animation.rotation_angle = angle 
+        MousePressed.animation.rotatation_axis = ( axis[0] , axis[1] , axis[2] )
     
-    MousePressed.animation.motion = True
+        MousePressed.animation.motion = True
     
-    print( axis )
-    print( angle )
+    #print( axis )
+    #print( angle )
     
 
 
@@ -184,17 +187,15 @@ class AnimatedGl( pan.Animation ):
         self.__fovy = 40.0
         self.__near = 1.0
         self.__far  = 30.0
-        
-        # rotate
-        self.__xrot = 0.0
-        self.__yrot = 0.0
-        self.__zrot = 0.0
-        
+    
         self.__xrot_ax = 1.0
         self.__yrot_ax = 0.0
         self.__zrot_ax = 0.0
 
         self.__rot_angle = 0.0
+
+        self.__trans_x = 0.0
+        self.__trans_y = 0.0
 
         self.__win_width = 800
         self.__win_height = 600
@@ -203,8 +204,10 @@ class AnimatedGl( pan.Animation ):
         
         self.rot_matrix = np.array( [ 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1 ]  )
         
-        self.state = GLUT_UP
+        self.state = "trackball_down"
         self.motion = False
+        
+        self.axis = uogl.glAxis()
     
 
     def get_rotation_axis( self ):
@@ -217,6 +220,7 @@ class AnimatedGl( pan.Animation ):
     
     rotatation_axis = property( get_rotation_axis , set_rotation_axis )
     
+    
     def get_rot_angle( self ):
         return self.__rot_angle
     
@@ -225,10 +229,7 @@ class AnimatedGl( pan.Animation ):
     
     rotation_angle = property( get_rot_angle , set_rot_angle )
     
-    
-    def add_rot_angle( self , delta ):
-        self.rotation_angle = self.rotation_angle + delta
-    
+
     
     def get_trackball( self ):
         return self.__trackb
@@ -245,6 +246,16 @@ class AnimatedGl( pan.Animation ):
         self.__zrot = rot_xyz[2] 
     
     rotatation = property( get_rotation , set_rotation )
+    
+    
+    def get_translation(self):
+        return ( self.__trans_x , self.__trans_y )
+    
+    def set_translation( self , transl ):
+        self.__trans_x = transl[0]
+        self.__trans_y = transl[1]
+        
+    translation = property( get_translation , set_translation )
     
     
     def get_perspective( self ):
@@ -264,9 +275,29 @@ class AnimatedGl( pan.Animation ):
     def set_win_size( self , w_size ):
         self.__win_width  = w_size[0]
         self.__win_height = w_size[1]
+        self.trackball.win_size = w_size
         
     win_size = property( get_win_size , set_win_size )
     
+
+    
+    def zoom_scene( self , f ):
+        
+        (w,h) = MousePressed.animation.win_size
+        
+        ( fovy , near , far ) = MousePressed.animation.perspective
+        
+        if fovy <= 2 and f < 0 :
+            f = 0.0
+        
+        MousePressed.animation.perspective = ( fovy+f*2 , near , far )
+        ReSizeGLScene( w , h )
+
+    
+    def translate_scene( self , dx , dy ):
+        ( x , y ) = self.translation
+        self.translation = ( x + dx , y + dy )
+        
     
     def build_animation(self):
         self.__window = None

@@ -58,7 +58,6 @@ class TrackBall( object ):
         
         self.__v[2] = 0.0
         
-        print( self.__v )
         d = np.linalg.norm( self.__v )
         
         if d > 1.0 :
@@ -68,10 +67,6 @@ class TrackBall( object ):
         
         self.__v[:] = self.__v[:] * tb_radius * 0.999
         
-        vv = tb_radius**2 - self.__v[0]**2 - self.__v[1]**2
-        print( vv )
-        print( d )
-        print( self.__v )
         self.__v[2] = np.sqrt( tb_radius**2 - self.__v[0]**2 - self.__v[1]**2 )
         
         #self.__v[:] = self.__v / np.linalg.norm( self.__v )
