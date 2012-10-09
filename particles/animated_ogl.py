@@ -64,16 +64,11 @@ def DrawGLScene():
     
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
     
-    glLoadIdentity()                    # Reset The View
-    glTranslatef(0.0,0.0,-13.0)                # Move Left And Into The Screen
-
-    #object_xform = np.zeros(( 16 ))
-    object_xform = glGetFloatv( GL_MODELVIEW_MATRIX )
-
-    
     glLoadIdentity()  
     
     glMultMatrixf( DrawGLScene.animation.rot_matrix )
+    
+    global a 
     
     if DrawGLScene.animation.state == GLUT_DOWN and DrawGLScene.animation.motion:
         ( ax , ay , az ) = DrawGLScene.animation.rotatation_axis
@@ -81,13 +76,14 @@ def DrawGLScene():
         glRotatef( angle , ax , ay , az )
         DrawGLScene.animation.motion = False
         
-    #glRotatef( ry , 0.0 , 1.0 , 0.0 )
-    #glRotatef( rz , 0.0 , 0.0 , 1.0 )
     
-    
+    # save the rot matrix
     DrawGLScene.animation.rot_matrix = glGetFloatv( GL_MODELVIEW_MATRIX )
     
-    glMultMatrixf( object_xform )
+    glLoadIdentity()
+    
+    glTranslatef(0.0,0.0,-13.0)          
+    glMultMatrixf( DrawGLScene.animation.rot_matrix )
 
     glEnable(GL_POINT_SMOOTH)
     

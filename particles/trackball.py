@@ -78,7 +78,7 @@ class TrackBall( object ):
         
         rot_axis = np.cross( self.__v_old , self.__v )
         
-        rot_angle = velocity * 50.0
+        rot_angle = velocity * 40.0
         
         rot_axis = rot_axis / np.linalg.norm( rot_axis ) 
         
