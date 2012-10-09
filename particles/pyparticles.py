@@ -68,7 +68,7 @@ class MyField( vf.VectorFieldForce ):
 
 def main():
         
-    n = 1000
+    n = 3000
     dt = 0.01
     steps = 10000
     G = 0.001
@@ -82,13 +82,13 @@ def main():
     
     cs.insert3( pset.X , M=pset.M , V=pset.V , n = n/2 ,
                 centre=(-1.5,1,0.5) , mass_rng=(0.5,5.0) ,
-                vel_rng=(0,0) , vel_mdl="bomb" )
+                vel_rng=(1,4) , vel_mdl="bomb" )
     
     cs.insert3( pset.X , M=pset.M , start_indx=int(n/2) , n = int(n/2) , centre=(1.5,-0.5,0.5) )
     
-    grav = gr.Gravity(n , Consts=G )
+    #grav = gr.Gravity(n , Consts=G )
     #grav = cf.ConstForce(n , u_force=[0,0,-1.0] )
-    #grav = MyField( n , 3 )
+    grav = MyField( n , 3 )
     #grav = ls.LinearSpring( n , Consts=0.1 )
     
     grav.set_masses( pset.M )
