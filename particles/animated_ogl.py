@@ -68,8 +68,6 @@ def DrawGLScene():
     
     glMultMatrixf( DrawGLScene.animation.rot_matrix )
     
-    global a 
-    
     if DrawGLScene.animation.state == GLUT_DOWN and DrawGLScene.animation.motion:
         ( ax , ay , az ) = DrawGLScene.animation.rotatation_axis
         angle = DrawGLScene.animation.rotation_angle
