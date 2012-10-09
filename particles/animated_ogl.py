@@ -64,9 +64,12 @@ def DrawGLScene():
     
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
     
+    glEnable (GL_FOG)
+    glFogf (GL_FOG_DENSITY, 0.05)
+    
     glLoadIdentity()  
     
-    glMultMatrixf( DrawGLScene.animation.rot_matrix )
+    
     
     if DrawGLScene.animation.state == GLUT_DOWN and DrawGLScene.animation.motion:
         ( ax , ay , az ) = DrawGLScene.animation.rotatation_axis
@@ -74,7 +77,7 @@ def DrawGLScene():
         glRotatef( angle , ax , ay , az )
         DrawGLScene.animation.motion = False
         
-    
+    glMultMatrixf( DrawGLScene.animation.rot_matrix )
     # save the rot matrix
     DrawGLScene.animation.rot_matrix = glGetFloatv( GL_MODELVIEW_MATRIX )
     

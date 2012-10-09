@@ -51,21 +51,30 @@ class TrackBall( object ):
         
     def track_ball_mapping( self , point ):
         
-        self.__v_old[:] = self.__v
+        self.__v_old[:] = self.__v[:]
         
         self.__v[0] = ( 2.0 * point[0]   - self.win_size[0] ) / self.win_size[0]
         self.__v[1] = ( self.win_size[1] - 2.0 * point[1] )   / self.win_size[1]
         
         self.__v[2] = 0.0
         
+        print( self.__v )
         d = np.linalg.norm( self.__v )
         
         if d > 1.0 :
-            d = 1.0
-            
-        self.__v[2] = np.sqrt(1.001 - d*d )
+            self.__v[:] = self.__v[:] / d
         
-        self.__v[:] = self.__v / np.linalg.norm( self.__v )
+        tb_radius = 4.0
+        
+        self.__v[:] = self.__v[:] * tb_radius * 0.999
+        
+        vv = tb_radius**2 - self.__v[0]**2 - self.__v[1]**2
+        print( vv )
+        print( d )
+        print( self.__v )
+        self.__v[2] = np.sqrt( tb_radius**2 - self.__v[0]**2 - self.__v[1]**2 )
+        
+        #self.__v[:] = self.__v / np.linalg.norm( self.__v )
         
         
     def on_move( self , point ):
