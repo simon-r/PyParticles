@@ -70,6 +70,7 @@ def DrawGLScene():
     j = next(DrawGLScene.stream)
     
     tr = DrawGLScene.animation.translation
+    unit = DrawGLScene.animation.pset.unit
     
     glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT )
     
@@ -105,9 +106,9 @@ def DrawGLScene():
         glBegin(GL_POINTS)
         glColor3f( 1.0 , 1.0 , 1.0 )    
         #glPointSize( DrawGLScene.animation.pset.M[i] )
-        glVertex3f( DrawGLScene.animation.pset.X[i,0] ,
-                    DrawGLScene.animation.pset.X[i,1] ,
-                    DrawGLScene.animation.pset.X[i,2] )
+        glVertex3f( DrawGLScene.animation.pset.X[i,0] / unit ,
+                    DrawGLScene.animation.pset.X[i,1] / unit ,
+                    DrawGLScene.animation.pset.X[i,2] / unit )
 
         glEnd()
     

@@ -40,6 +40,7 @@ class ParticlesSet:
         self.__bound = boundary
         
         self.__unit = 1.0
+        self.__mass_unit = 1.0
         
 
     def set_unit( self , u ):
@@ -49,6 +50,15 @@ class ParticlesSet:
         return self.__unit
     
     unit = property( get_unit , set_unit )
+    
+    def set_mass_unit( self , u ):
+        self.__mass_unit = u
+        
+    def get_mass_unit(self):
+        return self.__mass_unit
+    
+    mass_unit = property( get_mass_unit , set_mass_unit )    
+
 
     def getX(self):
         return self.__X
@@ -83,6 +93,7 @@ class ParticlesSet:
         self.__bound = boundary
 
     boundary = property( get_boundary , set_boundary )
+
 
     def update_centre_of_mass(self):
         self.__centre_mass = np.sum( self.__X * self.__mass , axis=0 ) / np.float( self.__size )

@@ -73,8 +73,8 @@ class MyField( vf.VectorFieldForce ):
 def main():
         
     n = 700
-    dt = 0.005
-    steps = 1000000
+    dt = 24*3600
+    steps = 1000000000
     
     G = 0.001
     G = 6.674e-11
@@ -91,6 +91,9 @@ def main():
     
     ff.close()
         
+    pset.unit = 149597870700.0
+    pset.mass_unit = 5.9736e24
+    
     
     cs = clu.RandCluster()
     
@@ -110,15 +113,17 @@ def main():
     
     grav.set_masses( pset.M )
     
+    
     bound = None
     #bound = pb.PeriodicBoundary( (-50.0 , 50.0) )
     #bound = rb.ReboundBoundary(  (-10.0 , 10.0)  )
     
     pset.set_boundary( bound )
+    grav.update_force( pset )
     
     #solver = els.EulerSolver( grav , pset , dt )
-    #solver = lps.LeapfrogSolver( grav , pset , dt )
-    solver = rks.RungeKuttaSolver( grav , pset , dt )    
+    solver = lps.LeapfrogSolver( grav , pset , dt )
+    #solver = rks.RungeKuttaSolver( grav , pset , dt )    
         
     a = aogl.AnimatedGl()
     #a = anim.AnimatedScatter()
