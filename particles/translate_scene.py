@@ -17,7 +17,7 @@
 
 import numpy as np
 
-class TrackBall( object ):
+class TranslateScene(object):
     def __init__( self , w_size ):
         
         self.__v     = np.array( [ 0.0 , 0.0 , 0.0 ] )
@@ -47,45 +47,27 @@ class TrackBall( object ):
         self.__win_height = w_size[1]
         
     win_size = property( get_win_size , set_win_size )
-    
-        
-    def track_ball_mapping( self , point ):
-        
+
+
+    def translate_mapping( self , point ):
         self.__v_old[:] = self.__v[:]
         
         self.__v[0] = ( 2.0 * point[0]   - self.win_size[0] ) / self.win_size[0]
         self.__v[1] = ( self.win_size[1] - 2.0 * point[1] )   / self.win_size[1]
-        
-        self.__v[2] = 0.0
-        
-        d = np.linalg.norm( self.__v )
-        
-        if d > 1.0 :
-            self.__v[:] = self.__v[:] / d
-        
-        tb_radius = 4.0
-        
-        self.__v[:] = self.__v[:] * tb_radius * 0.999
-        
-        self.__v[2] = np.sqrt( tb_radius**2 - self.__v[0]**2 - self.__v[1]**2 )
-        
-        self.__v[:] = self.__v / np.linalg.norm( self.__v )
+        self.__v[2] = 1.0
         
         
     def on_move( self , point ):
-        
-        self.track_ball_mapping( point )
+        self.translate_mapping( point )
         
         direction = self.__v - self.__v_old
         
         velocity = np.linalg.norm( direction )
         
-        rot_axis = np.cross( self.__v_old , self.__v )
+        delta = direction * velocity * 200.0
         
-        rot_angle = velocity * 400.0
+        return ( delta[0] , delta[1] )
         
-        rot_axis = rot_axis / np.linalg.norm( rot_axis ) 
         
-        return ( rot_axis , rot_angle )
-    
-    
+        
+        

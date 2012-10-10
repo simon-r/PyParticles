@@ -35,8 +35,8 @@ import particles.const_force as cf
 import particles.vector_field_force as vf
 import particles.linear_spring as ls
 import particles.trackball as trk
-import particles.utils_ogl as uogl
-
+import particles.axis_ogl as axgl
+import particles.translate_scene as tran
 
 import sys
 
@@ -56,6 +56,9 @@ def InitGL( Width , Height , ReSizeFun ):                # We call this right af
     glEnable(GL_DEPTH_TEST)                # Enables Depth Testing
     glShadeModel(GL_SMOOTH)                # Enables Smooth Color Shading
     
+    glEnable (GL_BLEND)
+    glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
+    
     glEnable (GL_LINE_SMOOTH)
     glHint( GL_LINE_SMOOTH_HINT , GL_NICEST )
     
@@ -71,7 +74,7 @@ def DrawGLScene():
     glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT )
     
     glEnable (GL_FOG)
-    glFogf (GL_FOG_DENSITY, 0.07)
+    glFogf (GL_FOG_DENSITY, 0.05)
     
     glLoadIdentity()  
     
@@ -146,7 +149,7 @@ def MousePressed(  button , state , x , y ):
     
         
     if state == GLUT_DOWN and button == GLUT_RIGHT_BUTTON :
-        
+        MousePressed.animation.translate_scene.translate_mapping( np.array( [ x , y ] ) )
         MousePressed.animation.state = "translate_down" 
     elif state == GLUT_UP and button == GLUT_RIGHT_BUTTON :
         MousePressed.animation.state = "translate_up" 
@@ -173,6 +176,13 @@ def MouseMotion( x , y ) :
     
         MousePressed.animation.motion = True
     
+    elif MousePressed.animation.state == "translate_down" :
+        ( dx , dy ) = MousePressed.animation.translate_scene.on_move( np.array( [ x , y ] ) )
+        ( tx , ty ) = MousePressed.animation.translation
+        MousePressed.animation.translation = ( tx + dx , ty + dy )
+        
+        MousePressed.animation.motion = True
+        
     #print( axis )
     #print( angle )
     
@@ -201,13 +211,14 @@ class AnimatedGl( pan.Animation ):
         self.__win_height = 600
         
         self.__trackb = trk.TrackBall( self.win_size )
+        self.__tran   = tran.TranslateScene( self.win_size )
         
         self.rot_matrix = np.array( [ 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1 ]  )
         
         self.state = "trackball_down"
         self.motion = False
         
-        self.axis = uogl.glAxis()
+        self.axis = axgl.AxisOgl()
     
 
     def get_rotation_axis( self ):
@@ -235,6 +246,12 @@ class AnimatedGl( pan.Animation ):
         return self.__trackb
     
     trackball = property( get_trackball )
+    
+    
+    def get_translate_scene(self):
+        return self.__tran
+    
+    translate_scene = property( get_translate_scene )
     
     
     def get_rotation( self ):
@@ -275,7 +292,9 @@ class AnimatedGl( pan.Animation ):
     def set_win_size( self , w_size ):
         self.__win_width  = w_size[0]
         self.__win_height = w_size[1]
+        
         self.trackball.win_size = w_size
+        self.translate_scene.win_size = w_size
         
     win_size = property( get_win_size , set_win_size )
     
@@ -292,11 +311,6 @@ class AnimatedGl( pan.Animation ):
         
         MousePressed.animation.perspective = ( fovy+f*2 , near , far )
         ReSizeGLScene( w , h )
-
-    
-    def translate_scene( self , dx , dy ):
-        ( x , y ) = self.translation
-        self.translation = ( x + dx , y + dy )
         
     
     def build_animation(self):
