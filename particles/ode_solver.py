@@ -24,7 +24,7 @@ class OdeSolver(object) :
         self.__p_set = p_set
         self.__dt = dt
         self.__time = 0.0
-        
+        self.__steps_cnt = 0        
     
     def get_dt( self ):
         return self.__dt
@@ -34,6 +34,16 @@ class OdeSolver(object) :
 
     dt = property( get_dt , set_dt )
     
+    
+    def get_steps(self):
+        return self.__steps_cnt
+    
+    def del_steps(self):
+        self.__steps_cnt = 0
+    
+    steps_cnt = property( get_steps , fdel=del_steps )
+    
+    
     def get_time(self):
         return self.__time
     
@@ -42,6 +52,7 @@ class OdeSolver(object) :
         
     time = property( get_time , set_time )
     
+    
     def get_force( self ):
         return self.__force
     
@@ -49,6 +60,7 @@ class OdeSolver(object) :
         self.__force = force
         
     force = property( get_force , set_force )
+    
     
     def update_force( self ):
         self.__force.update_force( self.pset )
@@ -67,6 +79,8 @@ class OdeSolver(object) :
             dt = self.dt
         
         self.__time += dt
+        self.__steps_cnt += 1
+        
         self.__step__( dt )
         
     def __step__( self , dt ):

@@ -38,3 +38,9 @@ class Force(object):
         NotImplementedError(" %s : is virtual and must be overridden." % sys._getframe().f_code.co_name )
     
     F = property( getF )
+    
+    
+    def get_shape(self):
+        NotImplementedError(" %s : is virtual and must be overridden." % sys._getframe().f_code.co_name )
+        
+    shape = property( get_shape )

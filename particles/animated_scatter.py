@@ -58,8 +58,10 @@ class AnimatedScatter( pan.Animation ):
     def setup_plot(self):
         
         j = next(self.stream)
-        self.scat = self.ax.scatter( self.pset.X[:,0] , self.pset.X[:,1] , self.pset.X[:,2] ,
-                                     animated=True , marker='o' , alpha=None , s=self.pset.M*10)
+        self.scat = self.ax.scatter( self.pset.X[:,0]/self.pset.unit ,
+                                     self.pset.X[:,1]/self.pset.unit ,
+                                     self.pset.X[:,2]/self.pset.unit ,
+                                     animated=True , marker='o' , alpha=None , s=10)
         
         self.ax.set_xlim3d( self.xlim )
         self.ax.set_ylim3d( self.ylim )
@@ -82,7 +84,10 @@ class AnimatedScatter( pan.Animation ):
         """Update the scatter plot."""
         j = next(self.stream)
          
-        self.scat._offsets3d = ( np.ma.ravel(self.pset.X[:,0]) , np.ma.ravel(self.pset.X[:,1]) , np.ma.ravel(self.pset.X[:,2]) )       
+        self.scat._offsets3d = ( np.ma.ravel(self.pset.X[:,0]/self.pset.unit) ,
+                                 np.ma.ravel(self.pset.X[:,1]/self.pset.unit) ,
+                                 np.ma.ravel(self.pset.X[:,2]/self.pset.unit)
+                                 )       
                 
         plt.draw()
         return self.scat,

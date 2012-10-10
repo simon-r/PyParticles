@@ -67,7 +67,7 @@ def InitGL( Width , Height , ReSizeFun ):                # We call this right af
 
 def DrawGLScene():
     
-    j = next(DrawGLScene.stream)
+    j = DrawGLScene.stream()
     
     tr = DrawGLScene.animation.translation
     unit = DrawGLScene.animation.pset.unit
@@ -326,7 +326,10 @@ class AnimatedGl( pan.Animation ):
         
         DGLS = DrawGLScene
         
-        DGLS.stream = self.data_stream()
+        self.ode_solver.update_force()
+        
+        DGLS.stream = self.data_stream
+        
         DGLS.animation = self
         
         glutDisplayFunc(DGLS)
@@ -352,12 +355,10 @@ class AnimatedGl( pan.Animation ):
         
         
     def data_stream(self):
-        self.ode_solver.update_force()
+        self.ode_solver.step()            
+        return self.ode_solver.steps_cnt
         
-        for j in range(self.steps):
-            self.ode_solver.step()            
-            yield j
-        
+    
     def start(self):
         glutMainLoop()
     

@@ -73,8 +73,8 @@ class MyField( vf.VectorFieldForce ):
 def main():
         
     n = 700
-    dt = 24*3600
-    steps = 1000000000
+    dt = 2*3600
+    steps = 1000000
     
     G = 0.001
     G = 6.674e-11
@@ -122,11 +122,12 @@ def main():
     grav.update_force( pset )
     
     #solver = els.EulerSolver( grav , pset , dt )
-    solver = lps.LeapfrogSolver( grav , pset , dt )
-    #solver = rks.RungeKuttaSolver( grav , pset , dt )    
+    #solver = lps.LeapfrogSolver( grav , pset , dt )
+    solver = rks.RungeKuttaSolver( grav , pset , dt )    
         
     a = aogl.AnimatedGl()
-    #a = anim.AnimatedScatter()
+   # a = anim.AnimatedScatter()
+        
     
     a.xlim = ( FLOOR , CEILING )
     a.ylim = ( FLOOR , CEILING )
@@ -134,6 +135,7 @@ def main():
     
     a.ode_solver = solver
     a.pset = pset
+    a.steps = steps
     
     a.build_animation()
     

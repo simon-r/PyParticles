@@ -34,7 +34,7 @@ class ParticlesSet:
             self.__label = []
         
         self.__size = int( size )
-        self.__dim  = dim
+        self.__dim  = int( dim )
         self.__centre_mass = None
         
         self.__bound = boundary
@@ -103,7 +103,7 @@ class ParticlesSet:
         return self.__centre_mass
     
     def dim(self):
-        return self.dim
+        return self.__dim
     
     def size( self ):
         return self.__size

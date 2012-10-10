@@ -49,7 +49,7 @@ class FileCluster(object):
         while rd :
             line = self.__f.readline()
             
-            print( line )
+            #print( line )
             
             if line == "" :
                 rd = False
@@ -92,12 +92,12 @@ class FileCluster(object):
             
             i += 1
         
-        print( "--------------" )
-        print( pset.X )
-        print( "--------------" )
-        print( pset.V )
-        print( "--------------" )
-        print( pset.M )
+        #print( "--------------" )
+        #print( pset.X )
+        #print( "--------------" )
+        #print( pset.V )
+        #print( "--------------" )
+        #print( pset.M )
         
     def write_out( self , X , M=None ,V=None ):
         pass
