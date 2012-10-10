@@ -15,11 +15,10 @@
 #along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import numpy as np
+import particles.cluster as clu
 
-class Cluster:
-    pass
 
-class RandCluster( Cluster ):
+class RandCluster( clu.Cluster ):
     def __init__(self):
         pass
     
@@ -51,6 +50,10 @@ class RandCluster( Cluster ):
             
         if V != None and "bomb" in vel_mdl :
             self.bomb_vel( X , V , n=n , start_indx=start_indx , centre=centre , randg=randg , vel_rng=vel_rng)
+            
+        if V != None and "const" in vel_mdl :
+            print("ciao")
+            self.const_vel( X , V , n=n , start_indx=start_indx , randg=randg , vel_rng=vel_rng , vel_dir=vel_dir )
     
     
     def bomb_vel( self , X , V ,
@@ -68,11 +71,11 @@ class RandCluster( Cluster ):
         U = ( mX.T / np.sqrt( np.sum( mX**2.0 , 1 ) ) ).T
         
         V[si:ei,:] = V[si:ei,:] + ( U.T * ( vel_rng[0] + randg( n ) * ( vel_rng[1] - vel_rng[0] ) ) ).T
+    
         
     def const_vel( self , X , V ,
                    start_indx=0 ,
                    n=100 ,
-                   centre=(0.0,0.0,0.0),
                    vel_rng=(0.5,1.0) ,
                    vel_dir=[1,0,0] ,
                    randg=np.random.rand ):
@@ -80,9 +83,9 @@ class RandCluster( Cluster ):
         si = start_indx
         ei = start_indx + n
         
-        mX = X[si:ei,:] - centre
+        v_dir = np.zeros( V[si:ei,:].shape ) + vel_dir
         
-        U = ( mX.T / np.sqrt( np.sum( mX**2.0 , 1 ) ) ).T
+        print( np.array(vel_dir) )
         
-        V[si:ei,:] = V[si:ei,:] + vel_dir * ( vel_rng[0] + randg( n ) * ( vel_rng[1] - vel_rng[0] ) )
+        V[si:ei,:] = V[si:ei,:] + ( v_dir.T * ( vel_rng[0] + randg( n ) * ( vel_rng[1] - vel_rng[0] ) ) ).T
         

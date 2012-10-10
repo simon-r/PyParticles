@@ -1,5 +1,3 @@
-#!/usr/bin/python2
-
 # PyParticles : Particles simulation in python
 #Copyright (C) 2012  Simone Riva
 #
@@ -16,10 +14,15 @@
 #You should have received a copy of the GNU General Public License
 #along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import sys
-import particles.pyparticles
+import numpy as np
 
-sys.path.append( "particles" )
+class Cluster(object):
+    def __init__(self):
+        pass
 
+    def insert3( self , X , M=None ,V=None ):
+        pass
+    
+    def write_out( self , X , M=None ,V=None ):
+        pass
 
-particles.pyparticles.main()

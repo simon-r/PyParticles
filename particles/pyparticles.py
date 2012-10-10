@@ -50,6 +50,7 @@ import particles.rebound_boundary as rb
 import particles.const_force as cf
 import particles.vector_field_force as vf
 import particles.linear_spring as ls
+import particles.file_cluster as fc
 
 import sys
 
@@ -74,22 +75,35 @@ def main():
     n = 700
     dt = 0.005
     steps = 1000000
+    
     G = 0.001
+    G = 6.674e-11
     
     FLOOR = -5
     CEILING = 5
     
+    ff = fc.FileCluster()
+    ff.open( "solar_sys.csv" )
+    
     pset = ps.ParticlesSet( n )
+    
+    ff.insert3( pset )
+    
+    ff.close()
+        
     
     cs = clu.RandCluster()
     
-    cs.insert3( pset.X , M=pset.M , V=pset.V , n = n/2 ,
-                centre=(-1.5,1,0.5) , mass_rng=(0.5,5.0) ,
-                vel_rng=(0,0) , vel_mdl="bomb" )
+    #cs.insert3( pset.X , M=pset.M , V=pset.V ,
+    #            n = n/2 , centre=(-1.5,1,0.5) , mass_rng=(0.5,5.0) ,
+    #            vel_rng=(0,0) , vel_mdl="bomb" )
+    #
+    #cs.insert3( pset.X , M=pset.M , V=pset.V ,
+    #            start_indx=int(n/2) , n = int(n/2) , centre=(1.5,-0.5,0.5) ,
+    #            vel_rng=(0.2,0.4) , vel_mdl="const" , vel_dir=[-1.0,0.0,0.0] )
+    #
     
-    cs.insert3( pset.X , M=pset.M , start_indx=int(n/2) , n = int(n/2) , centre=(1.5,-0.5,0.5) )
-    
-    grav = gr.Gravity(n , Consts=G )
+    grav = gr.Gravity( pset.size() , Consts=G )
     #grav = cf.ConstForce(n , u_force=[0,0,-1.0] )
     #grav = MyField( n , 3 )
     #grav = ls.LinearSpring( n , Consts=0.1 )
@@ -97,7 +111,7 @@ def main():
     grav.set_masses( pset.M )
     
     bound = None
-    bound = pb.PeriodicBoundary( (-50.0 , 50.0) )
+    #bound = pb.PeriodicBoundary( (-50.0 , 50.0) )
     #bound = rb.ReboundBoundary(  (-10.0 , 10.0)  )
     
     pset.set_boundary( bound )

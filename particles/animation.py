@@ -45,6 +45,8 @@ class Animation(object):
         self.__yl = (-1,1)
         self.__zl = (-1,1)
         
+        
+        
     def set_ode_solver( self , solver ):
         self.__ode_solver = solver
     
@@ -98,15 +100,9 @@ class Animation(object):
     def build_animation(self):
         pass
     
-    def setup_plot(self):
-        pass
-    
     def data_stream(self):
         pass
-    
-    def update(self,i):
-        pass
-    
+        
     def start(self):
         pass
         

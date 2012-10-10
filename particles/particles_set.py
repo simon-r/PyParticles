@@ -18,7 +18,7 @@
 import numpy as np
 
 class ParticlesSet:
-    def __init__( self , size , dim=3 , boundary=None ):
+    def __init__( self , size=1 , dim=3 , boundary=None , label=False ):
         
         if size < 0 :
             raise
@@ -28,11 +28,27 @@ class ParticlesSet:
         
         self.__mass = np.zeros((size,1))
         
-        self.__size = size
+        if not label :
+            self.__label = None
+        else:
+            self.__label = []
+        
+        self.__size = int( size )
         self.__dim  = dim
         self.__centre_mass = None
         
         self.__bound = boundary
+        
+        self.__unit = 1.0
+        
+
+    def set_unit( self , u ):
+        self.__unit = u
+        
+    def get_unit(self):
+        return self.__unit
+    
+    unit = property( get_unit , set_unit )
 
     def getX(self):
         return self.__X
@@ -43,6 +59,13 @@ class ParticlesSet:
         return self.__mass
     
     M = property( getM )
+    
+    def realloc( self , size , dim ) :
+        del self.__X
+        del self.__V
+        del self.__mass
+        
+        self.__init__( size , dim )
     
     def getV(self):
         return self.__V

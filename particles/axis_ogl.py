@@ -60,11 +60,7 @@ class AxisOgl(object):
         if leng == None :
             leng = self.axis_len
         
-        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL)
-        
         glPushMatrix()
-        
-        glColor4f( color[0] , color[1] , color[2] , color[3] )
         
         if plane == "xy" :
             glRotatef( 0 , 1 , 0 , 0 )#
@@ -99,6 +95,7 @@ class AxisOgl(object):
         elif plane == "-xy" :
             glRotatef( 180 , 0 , 1 , 0 )#
         
+        glColor4f( color[0] , color[1] , color[2] , color[3] )
         
         glBegin(GL_LINES)
         for i in range( 1 , int(leng) ):
@@ -110,6 +107,8 @@ class AxisOgl(object):
             
         glEnd()
         
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL)
+        glColor4f( color[0] , color[1] , color[2] , color[3]/2.0 )
         #glBegin( GL_TRIANGLES )
         #
         #glVertex3f( 0.0  , 0.0  , 0.0 )
