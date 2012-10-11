@@ -25,7 +25,7 @@ class MyTimeFormatter( object ):
     
     def to_str( self , t  ):
         
-        tf = [ "y " , "d " , ":" , ":" , ":" , "m" ]
+        tf = [ "%4dy " , "%3dd " , "%02dh " , "%02dm " , "%02ds " , "%07.3fms " ]
         
         days_y = 365.256363004
         sec_y = days_y * 3600 * 24
@@ -38,15 +38,12 @@ class MyTimeFormatter( object ):
         msec  = float( 1000 * ( t - int( t ) ) )
         
         res = ""
-        
-        #if days >= 365 :
-        #    return time.strftime( "%a, %d %b %Y %H:%M:%S +0000" , time.gmtime( t ) )
-        
+                
         i = 0
         f = False
         for tt in list( [ years , days , hr , minu , sec , msec ] ):
             if tt > 0 or f : 
-                res = res + str(tt) + tf[i] 
+                res = res +  tf[i] % tt
                 f = True
             i+=1
             

@@ -81,16 +81,15 @@ def DrawGLScene():
     
     
     fm = tf.MyTimeFormatter()
-    
-    if j % 100 == 0 :
-        print( " %s" % fm.to_str( sim_time ) )
-    
-    glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT )
         
-    #glut_print( 1 , 1 , GLUT_BITMAP_9_BY_15 , fm.to_str( sim_time ) , 1.0 , 1.0 , 1.0 , 1.0 )
+    glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT )
     
-    #glutSwapBuffers()
-    #return 
+    Set2DMode( animation )
+        
+    glut_print( 0.02 , 0.02 , GLUT_BITMAP_9_BY_15 , fm.to_str( sim_time ) , 1.0 , 1.0 , 1.0 , 1.0 )
+    
+    SetPerspective( DrawGLScene.animation )
+
     
     glPushMatrix()
     
@@ -98,6 +97,8 @@ def DrawGLScene():
     glFogf (GL_FOG_DENSITY, 0.05)
     
     glLoadIdentity()  
+    
+    
     
     if DrawGLScene.animation.state == "trackball_down" and DrawGLScene.animation.motion:
         ( ax , ay , az ) = DrawGLScene.animation.rotatation_axis
@@ -110,7 +111,6 @@ def DrawGLScene():
     DrawGLScene.animation.rot_matrix = glGetFloatv( GL_MODELVIEW_MATRIX )
     
     glLoadIdentity()
-    
     glTranslatef( tr[0] , tr[1] , -15.0 )          
     glMultMatrixf( DrawGLScene.animation.rot_matrix )
 
@@ -136,6 +136,26 @@ def DrawGLScene():
     glutSwapBuffers()
 
 
+def Set2DMode( animation ):
+    
+    glMatrixMode(GL_PROJECTION)
+    glLoadIdentity()
+    gluOrtho2D(0.0, 1.0, 0.0, 1.0)
+    glMatrixMode(GL_MODELVIEW)
+    
+
+def SetPerspective( animation ):
+    
+    per = animation.perspective
+    
+    ( w , h ) = animation.win_size
+    
+    glMatrixMode(GL_PROJECTION)
+    glLoadIdentity()
+    gluPerspective( per[0] , float(w)/float(h), per[1] , per[2] )
+    glMatrixMode(GL_MODELVIEW)
+
+
 def ReSizeGLScene(Width, Height):
     
     if Height == 0:                        
@@ -144,13 +164,10 @@ def ReSizeGLScene(Width, Height):
     per = ReSizeGLScene.animation.perspective
     
     MousePressed.animation.win_size = ( Width , Height )
-
-    glViewport(0, 0, Width, Height)        
-    glMatrixMode(GL_PROJECTION)
-    glLoadIdentity()
-    gluPerspective( per[0] , float(Width)/float(Height), per[1] , per[2] )
-    glMatrixMode(GL_MODELVIEW)
-
+    glViewport(0, 0, Width, Height)
+    
+    SetPerspective( MousePressed.animation )
+    
    
 def KeyPressed():
     pass
@@ -214,12 +231,11 @@ def glut_print( x,  y,  font,  text, r,  g , b , a):
     if glIsEnabled(GL_BLEND) :
         blending = True
         
-    #glEnable(GL_BLEND)
+    glPushMatrix()
     glColor3f(1,1,1)
     glRasterPos2f(x,y)
-    glutBitmapString( font , ctypes.c_char_p( "Hallo" ) )
-    #for ch in text :
-    #    glutBitmapCharacter( font , ctypes.c_int( ord(ch) ) )
+    glutBitmapString( font , ctypes.c_char_p( text ) )
+    glPopMatrix()
 
     
     if not blending :

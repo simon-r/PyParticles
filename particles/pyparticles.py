@@ -15,10 +15,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import particles.particles_set as ps
-import particles.rand_cluster as clu
-import particles.gravity as gr
-
 import matplotlib.animation as animation
 
 
@@ -53,6 +49,8 @@ import particles.vector_field_force as vf
 import particles.linear_spring as ls
 import particles.file_cluster as fc
 
+import particles.problem_config as pc 
+
 import sys
 
 if sys.version_info[0] == 2:
@@ -72,17 +70,32 @@ class MyField( vf.VectorFieldForce ):
 
 
 def main():
-        
+       
+    cfg = pc.ParticlesConfig()
+    
+    cfg.write_example_config_file()
+    
+    cfg.read_config( "example.cfg" )
+    ( an , pset , force , ode_solver ) = cfg.build_problem()
+    
+    #print( dir( cfg ))
+    
+    an.build_animation()
+    an.start()
+    
+    return
+    
     n = 700
-    dt = 10*3600
+    dt = 3600
+    #dt = 0.0023453
     
     steps = 1000000
     
     G = 0.001
     G = 6.67384e-11
     
-    FLOOR = -5
-    CEILING = 5
+    FLOOR = -10
+    CEILING = 10
     
     ff = fc.FileCluster()
     ff.open( "solar_sys.csv" )
@@ -123,9 +136,9 @@ def main():
     pset.set_boundary( bound )
     grav.update_force( pset )
     
-    #solver = els.EulerSolver( grav , pset , dt )
+    solver = els.EulerSolver( grav , pset , dt )
     #solver = lps.LeapfrogSolver( grav , pset , dt )
-    solver = svs.StormerVerletSolver( grav , pset , dt )
+    #solver = svs.StormerVerletSolver( grav , pset , dt )
     #solver = rks.RungeKuttaSolver( grav , pset , dt )    
         
     a = aogl.AnimatedGl()

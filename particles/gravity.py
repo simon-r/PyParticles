@@ -31,7 +31,7 @@ class Gravity( fr.Force ) :
         self.__D = np.zeros( ( size , size ) )
         self.__M = np.zeros( ( size , size ) )
         if m != None :
-            self.set_messes( m )
+            self.set_masses( m )
         
     
     def set_masses( self , m ):
