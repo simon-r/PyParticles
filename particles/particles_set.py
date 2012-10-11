@@ -18,20 +18,27 @@
 import numpy as np
 
 class ParticlesSet:
-    def __init__( self , size=1 , dim=3 , boundary=None , label=False ):
+    def __init__( self , size=1 , dim=3 , boundary=None , label=False , mass=True , velocity=True ):
         
         if size < 0 :
             raise
         
         self.__X = np.zeros((size,dim))
-        self.__V = np.zeros((size,dim))
         
-        self.__mass = np.zeros((size,1))
+        if velocity:
+            self.__V = np.zeros((size,dim))
+        else:
+            self.__V = None
+        
+        if mass :
+            self.__mass = np.zeros((size,1))
+        else:
+            self.__mass = None
         
         if not label :
             self.__label = None
         else:
-            self.__label = []
+            self.__label = list( "" for i in range(size) )
         
         self.__size = int( size )
         self.__dim  = int( dim )
@@ -42,7 +49,16 @@ class ParticlesSet:
         self.__unit = 1.0
         self.__mass_unit = 1.0
         
-
+        
+    def realloc( self , size , dim , boundary=None , label=False , mass=True , velocity=True ) :
+        del self.__X
+        del self.__V
+        del self.__mass
+        del self.__label
+        
+        self.__init__( size , dim , boundary , label , mass , velocity )
+        
+        
     def set_unit( self , u ):
         self.__unit = u
         
@@ -70,12 +86,7 @@ class ParticlesSet:
     
     M = property( getM )
     
-    def realloc( self , size , dim ) :
-        del self.__X
-        del self.__V
-        del self.__mass
-        
-        self.__init__( size , dim )
+
     
     def getV(self):
         return self.__V
@@ -102,11 +113,14 @@ class ParticlesSet:
     def centre_of_mass(self):
         return self.__centre_mass
     
-    def dim(self):
+    def get_dim(self):
         return self.__dim
     
-    def size( self ):
+    def get_size( self ):
         return self.__size
+    
+    dim = property( get_dim )
+    size = property( get_size )
     
     def add_clusters( self , Cs , n ):
         i = 0

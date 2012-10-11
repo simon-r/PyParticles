@@ -34,7 +34,7 @@ class RungeKuttaSolver( os.OdeSolver ) :
         self.__Kx3 = np.zeros( self.force.A.shape )
         self.__Kx4 = np.zeros( self.force.A.shape )
         
-        self.__tmp_pset = ps.ParticlesSet( p_set.size() , p_set.dim() )
+        self.__tmp_pset = ps.ParticlesSet( p_set.size , p_set.dim )
     
     
     def __step__( self , dt ):

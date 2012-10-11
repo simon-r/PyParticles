@@ -37,6 +37,9 @@ import particles.linear_spring as ls
 import particles.trackball as trk
 import particles.axis_ogl as axgl
 import particles.translate_scene as tran
+import particles.time_formatter as tf
+import ctypes 
+
 
 import sys
 
@@ -55,6 +58,7 @@ def InitGL( Width , Height , ReSizeFun ):                # We call this right af
     glDepthFunc(GL_LESS)                # The Type Of Depth Test To Do
     glEnable(GL_DEPTH_TEST)                # Enables Depth Testing
     glShadeModel(GL_SMOOTH)                # Enables Smooth Color Shading
+    glEnable(GL_TEXTURE_2D)
     
     glEnable (GL_BLEND)
     glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
@@ -71,8 +75,24 @@ def DrawGLScene():
     
     tr = DrawGLScene.animation.translation
     unit = DrawGLScene.animation.pset.unit
+    mass_unit = DrawGLScene.animation.pset.mass_unit
+    
+    sim_time = DrawGLScene.animation.ode_solver.time
+    
+    
+    fm = tf.MyTimeFormatter()
+    
+    if j % 100 == 0 :
+        print( " %s" % fm.to_str( sim_time ) )
     
     glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT )
+        
+    #glut_print( 1 , 1 , GLUT_BITMAP_9_BY_15 , fm.to_str( sim_time ) , 1.0 , 1.0 , 1.0 , 1.0 )
+    
+    #glutSwapBuffers()
+    #return 
+    
+    glPushMatrix()
     
     glEnable (GL_FOG)
     glFogf (GL_FOG_DENSITY, 0.05)
@@ -99,19 +119,20 @@ def DrawGLScene():
     DrawGLScene.animation.axis.draw_axis()
     
     glPointParameterf( GL_POINT_SIZE_MAX , 10.0 )
-    glPointParameterf( GL_POINT_SIZE_MIN , 0.1 )    
+    glPointParameterf( GL_POINT_SIZE_MIN , 5 )    
     
-    for i in range( DrawGLScene.animation.pset.size() ):
-        glPointSize( DrawGLScene.animation.pset.M[i] )
+    for i in range( DrawGLScene.animation.pset.size ):
+        glPointSize( DrawGLScene.animation.pset.M[i] / mass_unit )
         glBegin(GL_POINTS)
         glColor3f( 1.0 , 1.0 , 1.0 )    
-        #glPointSize( DrawGLScene.animation.pset.M[i] )
+                
         glVertex3f( DrawGLScene.animation.pset.X[i,0] / unit ,
                     DrawGLScene.animation.pset.X[i,1] / unit ,
                     DrawGLScene.animation.pset.X[i,2] / unit )
 
         glEnd()
     
+    glPopMatrix()
     glutSwapBuffers()
 
 
@@ -186,7 +207,24 @@ def MouseMotion( x , y ) :
         
     #print( axis )
     #print( angle )
+
+def glut_print( x,  y,  font,  text, r,  g , b , a):
     
+    blending = False 
+    if glIsEnabled(GL_BLEND) :
+        blending = True
+        
+    #glEnable(GL_BLEND)
+    glColor3f(1,1,1)
+    glRasterPos2f(x,y)
+    glutBitmapString( font , ctypes.c_char_p( "Hallo" ) )
+    #for ch in text :
+    #    glutBitmapCharacter( font , ctypes.c_int( ord(ch) ) )
+
+    
+    if not blending :
+        glDisable(GL_BLEND) 
+
 
 
 class AnimatedGl( pan.Animation ):
@@ -309,7 +347,9 @@ class AnimatedGl( pan.Animation ):
         
         if fovy <= 2 and f < 0 :
             f = 0.0
-        
+        elif fovy > 179 and f > 0 :
+            f = 0.0
+            
         MousePressed.animation.perspective = ( fovy+f*2 , near , far )
         ReSizeGLScene( w , h )
         

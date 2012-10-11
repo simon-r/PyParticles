@@ -39,6 +39,7 @@ import particles.gravity as gr
 import particles.euler_solver as els
 import particles.leapfrog_solver as lps
 import particles.runge_kutta_solver as rks
+import particles.stormer_verlet_solver as svs
 
 import matplotlib.animation as animation
 
@@ -73,11 +74,12 @@ class MyField( vf.VectorFieldForce ):
 def main():
         
     n = 700
-    dt = 2*3600
+    dt = 10*3600
+    
     steps = 1000000
     
     G = 0.001
-    G = 6.674e-11
+    G = 6.67384e-11
     
     FLOOR = -5
     CEILING = 5
@@ -106,10 +108,10 @@ def main():
     #            vel_rng=(0.2,0.4) , vel_mdl="const" , vel_dir=[-1.0,0.0,0.0] )
     #
     
-    grav = gr.Gravity( pset.size() , Consts=G )
+    grav = gr.Gravity( pset.size , Consts=G )
     #grav = cf.ConstForce(n , u_force=[0,0,-1.0] )
-    #grav = MyField( n , 3 )
-    #grav = ls.LinearSpring( n , Consts=0.1 )
+    #grav = MyField( pset.size , dim=3 )
+    #grav = ls.LinearSpring( pset.size , Consts=10e8 )
     
     grav.set_masses( pset.M )
     
@@ -123,7 +125,8 @@ def main():
     
     #solver = els.EulerSolver( grav , pset , dt )
     #solver = lps.LeapfrogSolver( grav , pset , dt )
-    solver = rks.RungeKuttaSolver( grav , pset , dt )    
+    solver = svs.StormerVerletSolver( grav , pset , dt )
+    #solver = rks.RungeKuttaSolver( grav , pset , dt )    
         
     a = aogl.AnimatedGl()
    # a = anim.AnimatedScatter()
