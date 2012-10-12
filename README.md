@@ -1,4 +1,4 @@
-### PyParticles ###
+# PyParticles #
 
 PyParticles is a particle simulation toolbox entirely written in python
 
@@ -6,7 +6,7 @@ PyParticles is a particle simulation toolbox entirely written in python
 
 Simulate a particle by particle model with the most popular integrations methods, and it represents the results on a OpenGL or Matplotlib plot.
 
-#PyParticle includes:#
+###PyParticle includes:###
 
 1. Euler method
 2. Leap Frog method
