@@ -21,3 +21,17 @@ As a forces model it includes:
 4. User defined field
 
 PyParticle offers an easy to use class structure with a fully interchangable integrations method or force model, it also implements the possibility to add some boudary model.
+
+##Command line tool usage:##
+Start the demo simulation:
+
+    pypaticle
+    
+Start a simulation described in a config file
+
+    pyparticle <file_name>
+    
+Write out a model config file
+    
+    pyparticle -m
+
