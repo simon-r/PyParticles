@@ -55,49 +55,43 @@ import sys
 if sys.version_info[0] == 2:
     import particles.animated_ogl as aogl
 
-
-
-
-ConfigParser.ConfigParser.add_comment = lambda self, section, option, value: self.set(section, '# '+option, value)
-
-class ParticlesConfig(object):
     """
     Parse the config files used for generating the problems:
     
     Config file description:
     
-    # Section: pset_origin
-    #  Define the origin of the particles data set.
-    #
-    #  Varibles:
-    #   media_origin = [file]  # Where data the is stored
-    #   file_name = <file>     # the dataset file name
+    - Section: pset_origin
+    -  Define the origin of the particles data set.
+    -
+    -  Varibles:
+    -   media_origin = [file]   Where data the is stored
+    -   file_name = <file>      the dataset file name
     [pset_origin]
     media_origin = file
     file_name = solar_sys.csv
     
-    # Section: set_config
-    #  Particles data set configauration
-    #
-    #  Varibles:
-    #   len_unit  = <number>         # How many meters is a unit,
-    #   mass_unit = <number>         # How many Kg is a unit
-    #                                Note: len_unit & mass_unit are used only for drawing the particles
-    #   boundary  = [open|periodic]  # The boundary model used in the simulation
+    - Section: set_config
+    -  Particles data set configauration
+    -
+    -  Varibles:
+    -   len_unit  = <number>         - How many meters is a unit,
+    -   mass_unit = <number>         - How many Kg is a unit
+    -                                Note: len_unit & mass_unit are used only for drawing the particles
+    -   boundary  = [open|periodic]  - The boundary model used in the simulation
     [set_config]
     len_unit = 149597870700.0
     mass_unit = 5.9736e24
     boundary = open
     
-    # Section: model
-    #  Simulation method and force model
-    #
-    #  Varibles:
-    #   force = [gravity|linear_spring|constant_force]                     # Force type used
-    #   ode_solver_name = [euler|runge_kutta|leap_frog|constant_force]     # Integration method
-    #   time_step = <number>                                               # time step used for the integration
-    #   force_const = <number>                                             # Force constant, like G
-    #   force_vector= <number>                                             # Force vector, for the constant force
+    - Section: model
+    -  Simulation method and force model
+    -
+    -  Varibles:
+    -   force = [gravity|linear_spring|constant_force]                     # Force type used
+    -   ode_solver_name = [euler|runge_kutta|leap_frog|constant_force]     # Integration method
+    -   time_step = <number>                                               # time step used for the integration
+    -   force_const = <number>                                             # Force constant, like G
+    -   force_vector= <number>                                             # Force vector, for the constant force
     [model]
     force = gravity
     ode_solver_name = euler
@@ -120,6 +114,82 @@ class ParticlesConfig(object):
     zlim = -5.0  5.0
 
     
+    """
+
+
+ConfigParser.ConfigParser.add_comment = lambda self, section, option, value: self.set(section, '# '+option, value)
+
+class ParticlesConfig(object):
+
+    """
+    Parse the config files used for generating the problems:
+    
+    Config file description:
+    
+    Section: pset_origin
+    ====================
+    B{Define the origin of the particles data set.}\n
+    B{Varibles:}
+        -   media_origin = [file]        Where data the is stored
+        -   file_name = <file>           the dataset file name
+
+    
+    Section: set_config
+    ===================
+    B{Particles data set configauration}\n
+    B{Varibles:}
+        -   len_unit  = <number>         How many meters is a unit,
+        -   mass_unit = <number>         How many Kg is a unit
+            -                                   Note: len_unit & mass_unit are used only for drawing the particles
+        -   boundary  = [open|periodic]  The boundary model used in the simulation
+
+    
+    Section: model
+    ==============
+    B{Simulation method and force model}\n
+    B{Varibles:}
+        -   force = [gravity|linear_spring|constant_force]                      Force type used
+        -   ode_solver_name = [euler|runge_kutta|leap_frog|constant_force]      Integration method
+        -   time_step = <number>                                                time step used for the integration
+        -   force_const = <number>                                              Force constant, like G
+        -   force_vector= <number>                                              Force vector, for the constant force
+
+    
+    Section: animation
+    ==================
+    B{Simulation control & graphic wiew}\n
+    B{Variables:}\n
+        -   animation_type = [opengl|matplotlib]   # Setup the output interface
+        -   xlim = <number> <number>    # define the limit of the picture (sometime unused)
+        -   ylim = <number> <number> 
+        -   zlim = <number> <number>
+
+    
+    Example:
+    ========
+    ::
+        [pset_origin]
+        media_origin = from_file
+        file_name = solar_sys.csv
+        
+        [set_config]
+        len_unit = 149597870700.0
+        mass_unit = 5.9736e24
+        boundary = open
+        
+        [model]
+        force = gravity
+        ode_solver_name = euler
+        time_step = 3600
+        steps = 1000000
+        force_const = 6.67384e-11
+        force_vector = 0 0 0
+        
+        [animation]
+        animation_type = opengl
+        xlim = -5.0  5.0
+        ylim = -5.0  5.0
+        zlim = -5.0  5.0 
     """
     def __init__(self):
         self.len_unit = 1.0
@@ -216,8 +286,8 @@ class ParticlesConfig(object):
         
         if self.boudary == "open" :
             self.pset.boundary = None
-        else :
-            self.pset.boundary = None
+        elif self.boudary == "periodic" :
+            self.pset.boundary = pb.PeriodicBoundary( bound=(-10,10) , dim=pset.dim )
         
         
         #print( self.pset.X )
