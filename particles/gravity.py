@@ -22,6 +22,9 @@ import particles.force as fr
 
 class Gravity( fr.Force ) :
     def __init__(self , size , dim=3 , m=None , Consts=1.0 ):
+        
+        np.seterr(all='ignore')
+        
         self.__dim = dim
         self.__size = size
         self.__G = Consts
@@ -32,6 +35,7 @@ class Gravity( fr.Force ) :
         self.__M = np.zeros( ( size , size ) )
         if m != None :
             self.set_masses( m )
+        
         
     
     def set_masses( self , m ):

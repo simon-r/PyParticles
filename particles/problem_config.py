@@ -61,15 +61,76 @@ if sys.version_info[0] == 2:
 ConfigParser.ConfigParser.add_comment = lambda self, section, option, value: self.set(section, '# '+option, value)
 
 class ParticlesConfig(object):
+    """
+    Parse the config files used for generating the problems:
+    
+    Config file description:
+    
+    # Section: pset_origin
+    #  Define the origin of the particles data set.
+    #
+    #  Varibles:
+    #   media_origin = [file]  # Where data the is stored
+    #   file_name = <file>     # the dataset file name
+    [pset_origin]
+    media_origin = file
+    file_name = solar_sys.csv
+    
+    # Section: set_config
+    #  Particles data set configauration
+    #
+    #  Varibles:
+    #   len_unit  = <number>         # How many meters is a unit,
+    #   mass_unit = <number>         # How many Kg is a unit
+    #                                Note: len_unit & mass_unit are used only for drawing the particles
+    #   boundary  = [open|periodic]  # The boundary model used in the simulation
+    [set_config]
+    len_unit = 149597870700.0
+    mass_unit = 5.9736e24
+    boundary = open
+    
+    # Section: model
+    #  Simulation method and force model
+    #
+    #  Varibles:
+    #   force = [gravity|linear_spring|constant_force]                     # Force type used
+    #   ode_solver_name = [euler|runge_kutta|leap_frog|constant_force]     # Integration method
+    #   time_step = <number>                                               # time step used for the integration
+    #   force_const = <number>                                             # Force constant, like G
+    #   force_vector= <number>                                             # Force vector, for the constant force
+    [model]
+    force = gravity
+    ode_solver_name = euler
+    time_step = 3600
+    steps = 1000000
+    force_const = 6.67384e-11
+    force_vector = 0 0 0
+    
+    # Section: animation
+    #  Simulation control & graphic wiew
+    #  Variables:
+    #   animation_type = [opengl|matplotlib]   # Setup the output interface
+    #   xlim = <number> <number>    # define the limit of the picture (sometime unused)
+    #   ylim = <number> <number> 
+    #   zlim = <number> <number> 
+    [animation]
+    animation_type = opengl
+    xlim = -5.0  5.0
+    ylim = -5.0  5.0
+    zlim = -5.0  5.0
+
+    
+    """
     def __init__(self):
-        pass
+        self.len_unit = 1.0
+        self.mass_unit = 1.0
     
-    def write_example_config_file( self , file_name='example.cfg' ):
-    
+    def write_example_config_file( self , file_name='example_pyparticles_config.cfg' ):
+        """ Write a generic config file """
         config = ConfigParser.ConfigParser()
     
         config.add_section('pset_origin')
-        config.set('pset_origin', 'from_file', 'True')
+        config.set('pset_origin', 'media_origin', 'from_file')
         config.set('pset_origin', 'file_name', 'solar_sys.csv')
     
         config.add_section('set_config')
@@ -106,7 +167,7 @@ class ParticlesConfig(object):
         
         #########################################################
         ## Section pset_origin
-        self.from_file = config.getboolean( 'pset_origin' , 'from_file' ) 
+        self.media_origin = config.get( 'pset_origin' , 'media_origin' ) 
         self.pset_file_name = config.get( 'pset_origin' , 'file_name' )
         
         #########################################################
@@ -138,14 +199,18 @@ class ParticlesConfig(object):
         return ( self.animation , self.pset , self.force , self.ode_solver )
     
     def get_particle_set( self ):
+        
+        print("")
+        
         self.pset = ps.ParticlesSet()
         
-        if self.from_file :
+        if self.media_origin == "from_file" :
             ff = fc.FileCluster()
             ff.open( self.pset_file_name )
             ff.insert3( self.pset )
             ff.close()
-        
+            print( " setup - particles set - file name: %s " % self.pset_file_name )
+            
         self.pset.unit = self.len_unit
         self.pset.mass_unit = self.mass_unit
         
@@ -154,24 +219,46 @@ class ParticlesConfig(object):
         else :
             self.pset.boundary = None
         
+        
+        #print( self.pset.X )
+        #print( self.pset.M )
+        #print( self.pset.V )
+        
+        print( " setup - particles set - size:      %d " % self.pset.size )
+        print( " setup - particles set - dim:       %d " % self.pset.dim )
+        print( " setup - particles set - len  unit: %e " % self.pset.unit )
+        print( " setup - particles set - mass unit: %e " % self.pset.mass_unit )
+        
+        
         return self.pset
     
     
     def get_force(self):
+        
+        print("")
+        
         self.force = None
         
         if self.force_name == "gravity" :
-            self.force = gr.Gravity( self.pset.size , self.pset.dim , float(self.force_const) )
-            print( " setup: Gravity - size: %d  dim:  %f  G: %s " %
-                  ( self.pset.size , self.pset.dim , float(self.force_const) ) )
+            self.force = gr.Gravity( self.pset.size , self.pset.dim , Consts=float(self.force_const) )
+            
+            print( " setup - force - Type:  Gravity " )
+            print( " setup - force - G:     %e " % float(self.force_const) )
             
         elif self.force_name == "linear_spring" :
-            self.force = ls.LinearSpring( self.pset.size , self.pset.dim , self.force_const )
+            self.force = ls.LinearSpring( self.pset.size , self.pset.dim , Consts=self.force_const )
+            
+            print( " setup - force - Type:  Linear spring " )
+            print( " setup - force - K:     %e " % float(self.force_const) )
             
         elif self.force_name == "constant_force" :
             fv =re.split( r"\s+" , self.force_vector )
+            
             self.force = cf.ConstForce( self.pset.size , self.pset.dim ,
                                         u_force=( float(fv[0]) , float(fv[1]) , float(fv[2]) ) )
+            
+            print( " setup - force - Type:  Constant " )
+            print( " setup - force - Vect:  %e  %e  %e " % ( float(fv[0]) , float(fv[1]) , float(fv[2]) )  )
         
         self.force.set_masses( self.pset.M )
         
@@ -179,34 +266,49 @@ class ParticlesConfig(object):
     
     def get_ode_solver(self):
         
+        print("")
+        
         self.ode_solver = None
         
         if self.ode_solver_name == "euler" :
             self.ode_solver = els.EulerSolver( self.force , self.pset , self.time_step )
             
+            print( " setup - Integration method:  EULER "  )
+               
         elif self.ode_solver_name == "runge_kutta" :
             self.ode_solver = rks.RungeKuttaSolver( self.force , self.pset , self.time_step )
             
+            print( " setup - Integration method:  Runge Kutta "  )
+            
         elif self.ode_solver_name == "leap_frog" :
             self.ode_solver = lps.LeapfrogSolver( self.force , self.pset , self.time_step )            
-        
-        elif self.ode_solver_name == "euler" :
-            self.ode_solver = els.EulerSolver( self.force , self.pset , self.time_step )
+            
+            print( " setup - Integration method:  Leap Frog "  )
         
         elif self.ode_solver_name == "stormer_verlet" :
             self.ode_solver = svs.StormerVerletSolver( self.force , self.pset , self.time_step )
-            
+        
+            print( " setup - Integration method:  Stormer Verlet " )
+        
+        print( " setup - Integration method - time step: %e " %  self.time_step )   
         return self.ode_solver
     
     def get_animation(self):
+        """ Build an Animation object and return the reference to the object """
+        print("")
         
         self.animation = None
         
         if self.animation_type == "opengl" :
             self.animation = aogl.AnimatedGl()
             
+            print(" setup - animation - type: OpenGL")
+
+            
         elif self.animation_type == "matplotlib" :
             self.animation = anim.AnimatedScatter()
+            
+            print(" setup - animation - type: MatPlotlib")
             
         self.animation.ode_solver = self.ode_solver
         self.animation.pset       = self.pset

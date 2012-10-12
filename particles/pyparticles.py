@@ -49,7 +49,13 @@ import particles.vector_field_force as vf
 import particles.linear_spring as ls
 import particles.file_cluster as fc
 
+import particles.solar_system as sol
+
+import particles.parse_args as arg 
+
 import particles.problem_config as pc 
+
+
 
 import sys
 
@@ -70,18 +76,56 @@ class MyField( vf.VectorFieldForce ):
 
 
 def main():
-       
+    
+    options = arg.parse_args()
+    
     cfg = pc.ParticlesConfig()
     
-    cfg.write_example_config_file()
+    if options.config_model :
+        file_name = "example_pyparticles_config.cfg"
+        cfg.write_example_config_file("example_pyparticles_config.cfg")
+        print( "A file named: %s has been ritten in the current directory" % file_name )
+        print( "" )
+        return     
     
-    cfg.read_config( "example.cfg" )
-    ( an , pset , force , ode_solver ) = cfg.build_problem()
     
-    #print( dir( cfg ))
+    if options.path_name == None:
+        
+        print("")
+        print("Start the simulation example:")
+        print(" Solar system")
+        print("")
+        print(" Use your mouse for rotate, zoom and tranlate the scene.")
+        print("")
+        print("For more details type:")
+        print(" pyparticles --help")
+        print("")
+        
+        sol.solar_system()
+        return 
     
-    an.build_animation()
-    an.start()
+
+    
+    if options.path_name != None :
+        
+        cfg.read_config( options.path_name )
+        ( an , pset , force , ode_solver ) = cfg.build_problem()
+        an.build_animation()
+        
+        print("")
+        print("Start the simulation described in: %s ... " % options.path_name )
+        
+        an.start()
+        return 
+    
+    
+    return 
+    
+    ##################################
+    ##################################
+    ##################################
+    
+    #### Old code .....
     
     return
     
@@ -97,14 +141,14 @@ def main():
     FLOOR = -10
     CEILING = 10
     
+
+
     ff = fc.FileCluster()
-    ff.open( "solar_sys.csv" )
+    ff.open( options.path_name )
     
     pset = ps.ParticlesSet( n )
-    
     ff.insert3( pset )
-    
-    ff.close()
+    ff.close()  
         
     pset.unit = 149597870700.0
     pset.mass_unit = 5.9736e24
