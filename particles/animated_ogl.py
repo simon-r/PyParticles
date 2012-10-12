@@ -262,8 +262,8 @@ class AnimatedGl( pan.Animation ):
         self.__trans_x = 0.0
         self.__trans_y = 0.0
 
-        self.__win_width = 800
-        self.__win_height = 600
+        self.__win_width = 1000
+        self.__win_height = 800
         
         self.__trackb = trk.TrackBall( self.win_size )
         self.__tran   = tran.TranslateScene( self.win_size )

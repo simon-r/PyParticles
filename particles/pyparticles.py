@@ -77,6 +77,8 @@ class MyField( vf.VectorFieldForce ):
 
 def main():
     
+    np.seterr(all='ignore')
+    
     options = arg.parse_args()
     
     cfg = pc.ParticlesConfig()
@@ -95,7 +97,7 @@ def main():
         print("Start the simulation example:")
         print(" Solar system")
         print("")
-        print(" Use your mouse for rotate, zoom and tranlate the scene.")
+        print(" Use your mouse for rotating, zooming and tranlating the scene.")
         print("")
         print("For more details type:")
         print(" pyparticles --help")
