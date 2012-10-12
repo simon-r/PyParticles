@@ -41,6 +41,7 @@ Write out a model config file
     pyparticle -m
     
 Write out some informations
+
     pyparticles --help
     pyparticles --version
     
