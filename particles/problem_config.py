@@ -37,8 +37,7 @@ import particles.leapfrog_solver as lps
 import particles.runge_kutta_solver as rks
 import particles.stormer_verlet_solver as svs
 
-import matplotlib.animation as animation
-
+import particles.midpoint_solver as mds
 
 import numpy as np
 import particles.periodic_boundary as pb
@@ -54,67 +53,6 @@ import sys
 
 if sys.version_info[0] == 2:
     import particles.animated_ogl as aogl
-
-    """
-    Parse the config files used for generating the problems:
-    
-    Config file description:
-    
-    - Section: pset_origin
-    -  Define the origin of the particles data set.
-    -
-    -  Varibles:
-    -   media_origin = [file]   Where data the is stored
-    -   file_name = <file>      the dataset file name
-    [pset_origin]
-    media_origin = file
-    file_name = solar_sys.csv
-    
-    - Section: set_config
-    -  Particles data set configauration
-    -
-    -  Varibles:
-    -   len_unit  = <number>         - How many meters is a unit,
-    -   mass_unit = <number>         - How many Kg is a unit
-    -                                Note: len_unit & mass_unit are used only for drawing the particles
-    -   boundary  = [open|periodic]  - The boundary model used in the simulation
-    [set_config]
-    len_unit = 149597870700.0
-    mass_unit = 5.9736e24
-    boundary = open
-    
-    - Section: model
-    -  Simulation method and force model
-    -
-    -  Varibles:
-    -   force = [gravity|linear_spring|constant_force]                     # Force type used
-    -   ode_solver_name = [euler|runge_kutta|leap_frog|constant_force]     # Integration method
-    -   time_step = <number>                                               # time step used for the integration
-    -   force_const = <number>                                             # Force constant, like G
-    -   force_vector= <number>                                             # Force vector, for the constant force
-    [model]
-    force = gravity
-    ode_solver_name = euler
-    time_step = 3600
-    steps = 1000000
-    force_const = 6.67384e-11
-    force_vector = 0 0 0
-    
-    # Section: animation
-    #  Simulation control & graphic wiew
-    #  Variables:
-    #   animation_type = [opengl|matplotlib]   # Setup the output interface
-    #   xlim = <number> <number>    # define the limit of the picture (sometime unused)
-    #   ylim = <number> <number> 
-    #   zlim = <number> <number> 
-    [animation]
-    animation_type = opengl
-    xlim = -5.0  5.0
-    ylim = -5.0  5.0
-    zlim = -5.0  5.0
-
-    
-    """
 
 
 ConfigParser.ConfigParser.add_comment = lambda self, section, option, value: self.set(section, '# '+option, value)
@@ -148,7 +86,7 @@ class ParticlesConfig(object):
     ==============
     B{Simulation method and force model}\n
     B{Varibles:}
-        -   force = [gravity|linear_spring|constant_force]                      Force type used
+        -   force = [gravity|linear_spring|constant_force|midpoint]             Force type used
         -   ode_solver_name = [euler|runge_kutta|leap_frog|constant_force]      Integration method
         -   time_step = <number>                                                time step used for the integration
         -   force_const = <number>                                              Force constant, like G
@@ -359,6 +297,11 @@ class ParticlesConfig(object):
             self.ode_solver = svs.StormerVerletSolver( self.force , self.pset , self.time_step )
         
             print( " setup - Integration method:  Stormer Verlet " )
+            
+        elif self.ode_solver_name == "midpoint" :
+            self.ode_solver = mds.MidpointSolver( self.force , self.pset , self.time_step )
+        
+            print( " setup - Integration method:  Midpoint " )
         
         print( " setup - Integration method - time step: %e " %  self.time_step )   
         return self.ode_solver

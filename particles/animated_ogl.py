@@ -251,7 +251,7 @@ class AnimatedGl( pan.Animation ):
         # perspective sutup
         self.__fovy = 40.0
         self.__near = 1.0
-        self.__far  = 30.0
+        self.__far  = 300.0
     
         self.__xrot_ax = 1.0
         self.__yrot_ax = 0.0

@@ -35,11 +35,8 @@ import particles.euler_solver as els
 import particles.leapfrog_solver as lps
 import particles.runge_kutta_solver as rks
 import particles.stormer_verlet_solver as svs
+import particles.midpoint_solver as mds
 
-import matplotlib.animation as animation
-
-from mpl_toolkits.mplot3d import Axes3D
-import matplotlib.pyplot as plt
 import numpy as np
 import particles.periodic_boundary as pb
 import particles.rebound_boundary as rb
@@ -123,6 +120,7 @@ def solar_system():
     solver = lps.LeapfrogSolver( grav , pset , dt )
     #solver = svs.StormerVerletSolver( grav , pset , dt )
     #solver = rks.RungeKuttaSolver( grav , pset , dt )    
+    #solver = mds.MidpointSolver( grav , pset , dt )    
         
     a = aogl.AnimatedGl()
    # a = anim.AnimatedScatter()

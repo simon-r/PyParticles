@@ -1,52 +1,64 @@
-# PyParticles #
+
+PyParticles 
+===========
 
 PyParticles is a particle simulation toolbox entirely written in python
 
-##Features##
+**Index**
+
+.. toctree::
+   :maxdepth: 4
+
+   Config File
+
+Features
+--------
 
 Simulate a particle by particle model with the most popular integrations methods, and it represents the results on a OpenGL or Matplotlib plot.
 
-###PyParticle includes:###
+**PyParticle includes** the followings integrations methods 
 
-1. Euler method
-2. Leap Frog method
-3. Rung Kutta method
-4. Stormer Verlet method
+#. Euler method
+#. Leap Frog method
+#. Rung Kutta method
+#. Midpoint
+#. Stormer Verlet method
 
-As a forces model it includes:
+**As a forces model** it includes:
 
-1. Gravity
-2. Particle by Particle spring
-3. Constant
-4. User defined field
+#. Gravity
+#. Particle by Particle spring
+#. Constant
+#. User defined field
 
-PyParticle offers an easy to use class structure with a fully interchangable integrations method or force model, it also implements the possibility to add some boudary model.
+PyParticle offers an easy to use class structure with a fully *interchangable* integrations method or force model, it also implements the possibility to add some boudary model.
 
-##Command line tool usage:##
+Command line tool usage:
+------------------------
 
 In PyParticles a simulation model is entierly described in a config file that scholuld be edited by the user.
 
 The following are the main command of the PyParticles application.
 
-Start the demo simulation:
+Start the demo simulation: ::
 
     pypaticle
     
-Start a simulation described in a config file
+Start a simulation described in a config file ::
 
     pyparticle <file_name>
     
-Write out a model config file
+Write out a model config file ::
     
     pyparticle -m
     
-Write out some informations
+Print out the help and version ::
 
     pyparticles --help
     pyparticles --version
     
 
-Config file Example:
+Config file Example: ::
 
     [pset_origin]
     media_origin = from_file
@@ -70,3 +82,13 @@ Config file Example:
     xlim = -5.0  5.0
     ylim = -5.0  5.0
     zlim = -5.0  5.0
+
+
+
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
