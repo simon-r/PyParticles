@@ -4,13 +4,6 @@ PyParticles
 
 PyParticles is a particle simulation toolbox entirely written in python
 
-**Index**
-
-.. toctree::
-   :maxdepth: 4
-
-   Config File
-
 Features
 --------
 
@@ -84,11 +77,3 @@ Config file Example: ::
     zlim = -5.0  5.0
 
 
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
