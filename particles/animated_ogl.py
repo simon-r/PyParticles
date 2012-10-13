@@ -373,7 +373,7 @@ class AnimatedGl( pan.Animation ):
         self.__window = None
         
         glutInit(sys.argv)
-        glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH)
+        glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH | GLUT_MULTISAMPLE)
         glutInitWindowSize( self.win_size[0] , self.win_size[1] )
         glutInitWindowPosition(20, 20)
         
