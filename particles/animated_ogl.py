@@ -114,8 +114,7 @@ def DrawGLScene():
     glTranslatef( tr[0] , tr[1] , -15.0 )          
     glMultMatrixf( DrawGLScene.animation.rot_matrix )
 
-    glEnable(GL_POINT_SMOOTH)
-        
+    
     DrawGLScene.animation.axis.draw_axis()
     
     DrawGLScene.animation.draw_particles.draw()
@@ -352,7 +351,16 @@ class AnimatedGl( pan.Animation ):
         
     win_size = property( get_win_size , set_win_size )
     
-
+    
+    def get_trajectory( self ) :
+        return super(AnimatedGl,self).get_trajectory()
+    
+    def set_trajectory( self , tr ):
+        super(AnimatedGl,self).set_trajectory( tr )
+        self.draw_particles.trajectory = tr
+        
+    trajectory = property( get_trajectory , set_trajectory , doc="enable or disable the trajectory" )
+    
     
     def zoom_scene( self , f ):
         

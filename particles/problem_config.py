@@ -55,57 +55,85 @@ if sys.version_info[0] == 2:
     import particles.animated_ogl as aogl
 
 
-ConfigParser.ConfigParser.add_comment = lambda self, section, option, value: self.set(section, '# '+option, value)
+"""
 
-class ParticlesConfig(object):
+Config file
+===========
 
-    """
-    Parse the config files used for generating the problems:
+Config file description:
     
-    Config file description:
+Section: pset_origin
+--------------------
+
+    **Define the origin of the particles data set.**
+
+    **Varibles**
+
+           ==========================        ========================
+           Variable                          Description
+           ==========================        ========================
+           media_origin = [file|rand]        Where data the is stored
+           file_name = <file>                the dataset file name
+           ==========================        ========================
     
-    Section: pset_origin
-    ====================
-    B{Define the origin of the particles data set.}\n
-    B{Varibles:}
-        -   media_origin = [file]        Where data the is stored
-        -   file_name = <file>           the dataset file name
+Section: set_config
+-------------------
+    **Particles data set configauration**
+
+    **Varibles:**
+
+           ===========================  ==============================================
+           Variable                     Description
+           ===========================  ==============================================
+           len_unit  = <number>         How many meters is a unit,
+           mass_unit = <number>         How many Kg is a unit
+           boundary  = [open|periodic]  The boundary model used in the simulation
+           sim_log = <number>           The size of the log queue (0 disable the log)
+           sim_log_X = [True|False]     If sim_log is enabled log the position
+           sim_log_V = [True|False]     If sim_log is enabled log the velocities
+           rand_part_nr = <number>      The total number of particles for a rand set
+           ===========================  ==============================================
+
+           Note: len_unit & mass_unit are used only for drawing the particles
+    
+Section: model
+--------------
+    **Simulation method and force model**
+
+    **Varibles:**
+
+           ==============================================================      =====================================
+           Variable                                                            Description
+           ==============================================================      =====================================
+           force = [gravity|linear_spring|constant_force]                      Force type used
+           ode_solver_name = [euler|runge_kutta|leap_frog|midpoint]            Integration method
+           time_step = <number>                                                time step used for the integration
+           force_const = <number>                                              Force constant, like G
+           force_vector= <number>                                              Force vector, for the constant force
+           ==============================================================      =====================================
 
     
-    Section: set_config
-    ===================
-    B{Particles data set configauration}\n
-    B{Varibles:}
-        -   len_unit  = <number>         How many meters is a unit,
-        -   mass_unit = <number>         How many Kg is a unit
-            -                                   Note: len_unit & mass_unit are used only for drawing the particles
-        -   boundary  = [open|periodic]  The boundary model used in the simulation
+Section: animation
+------------------
+    **Simulation control & graphic wiew**
+
+    **Variables:**
+
+           ==============================================================      =================================================
+           Variable                                                            Description
+           ==============================================================      =================================================
+           animation_type = [opengl|matplotlib]                                Setup the output interface
+           draw_log = [True|False]                                             Draw the simulation log (if enabled)
+           xlim = <number> <number>                                            define the limit of the picture (sometime unused)
+           ylim = <number> <number> 
+           zlim = <number> <number>
+           ==============================================================      =================================================
 
     
-    Section: model
-    ==============
-    B{Simulation method and force model}\n
-    B{Varibles:}
-        -   force = [gravity|linear_spring|constant_force|midpoint]             Force type used
-        -   ode_solver_name = [euler|runge_kutta|leap_frog|constant_force]      Integration method
-        -   time_step = <number>                                                time step used for the integration
-        -   force_const = <number>                                              Force constant, like G
-        -   force_vector= <number>                                              Force vector, for the constant force
-
-    
-    Section: animation
-    ==================
-    B{Simulation control & graphic wiew}\n
-    B{Variables:}\n
-        -   animation_type = [opengl|matplotlib]   # Setup the output interface
-        -   xlim = <number> <number>    # define the limit of the picture (sometime unused)
-        -   ylim = <number> <number> 
-        -   zlim = <number> <number>
-
-    
-    Example:
-    ========
+Example:
+--------
     ::
+
         [pset_origin]
         media_origin = from_file
         file_name = solar_sys.csv
@@ -128,6 +156,16 @@ class ParticlesConfig(object):
         xlim = -5.0  5.0
         ylim = -5.0  5.0
         zlim = -5.0  5.0 
+
+"""
+
+
+ConfigParser.ConfigParser.add_comment = lambda self, section, option, value: self.set(section, '# '+option, value)
+
+class ParticlesConfig(object):
+
+    """
+    Parse the config files used for generating the problems:
     """
     def __init__(self):
         self.len_unit = 1.0
@@ -145,6 +183,10 @@ class ParticlesConfig(object):
         config.set('set_config', 'len_unit', '149597870700.0')
         config.set('set_config', 'mass_unit', '5.9736e24')
         config.set('set_config', 'boundary', 'open')
+        config.set('set_config', 'sim_log', '0')
+        config.set('set_config', 'sim_log_X', 'True')
+        config.set('set_config', 'sim_log_V', 'False')
+        config.set('set_config', 'rand_part_nr', '500')
         
         config.add_section('model')
         config.set('model', 'force', 'gravity')
@@ -152,11 +194,12 @@ class ParticlesConfig(object):
         config.set('model', 'time_step', '3600')
         config.set('model', 'steps', '1000000')
         config.set('model', 'force_const', '6.67384e-11')
-        config.set( 'model' , 'force_vector' , '0 0 0' )    
+        config.set('model' , 'force_vector' , '0 0 0' )    
         
     
         config.add_section('animation')
         config.set('animation', 'animation_type', 'opengl')
+        config.set('animation', 'draw_trajectory', 'False')
         config.set('animation', 'xlim', '-5.0  5.0')
         config.set('animation', 'ylim', '-5.0  5.0')
         config.set('animation', 'zlim', '-5.0  5.0')
@@ -166,10 +209,13 @@ class ParticlesConfig(object):
             config.write(configfile)
         
         
-        ###################################################################
-        ## read and parse config file
-        ###################################################################
+    ###################################################################
+    ## read and parse config file
+    ###################################################################
     def read_config( self , file_name ):
+        """
+        Read the configuration file
+        """
         config = ConfigParser.ConfigParser()
         config.read( file_name )
         
@@ -182,23 +228,32 @@ class ParticlesConfig(object):
         ## Section set_config
         self.len_unit  = config.getfloat( 'set_config' , 'len_unit' )
         self.mass_unit = config.getfloat( 'set_config' , 'mass_unit' )
-        self.boudary = config.get( 'set_config' , 'boundary' )
+        self.boudary   = config.get( 'set_config' , 'boundary' )
+        self.sim_log   = config.getint( 'set_config' , 'sim_log' )
+        self.sim_log_X = config.getboolean( 'set_config' , 'sim_log_X' )
+        self.sim_log_V = config.getboolean( 'set_config' , 'sim_log_V' )
         
         #########################################################
         ## Section model
-        self.force_name = config.get( 'model' , 'force' )
+        self.force_name      = config.get( 'model' , 'force' )
         self.ode_solver_name = config.get( 'model' , 'ode_solver_name' )
-        self.time_step = config.getfloat( 'model' , 'time_step' )
-        self.steps = config.getint( 'model' , 'steps' )
-        self.force_const = config.get( 'model' , 'force_const' )
+        self.time_step       = config.getfloat( 'model' , 'time_step' )
+        self.steps           = config.getint( 'model' , 'steps' )
+        self.force_const     = config.get( 'model' , 'force_const' )
         
         if self.force_name == "constant_force" :
             self.force_vector = config.get( 'model' , 'force_vector' , '-1 0 0' )
         
+        ###################################################################
         ## Section animation
-        self.animation_type = config.get( 'animation' , 'animation_type' )
+        self.animation_type  = config.get( 'animation' , 'animation_type' )
+        self.draw_trajectory = config.getboolean( 'animation' , 'draw_trajectory' )
         
     def build_problem( self ):
+        """
+        Build the main problem and return the four main objects:
+            return ( self.animation , self.pset , self.force , self.ode_solver )
+        """
         self.get_particle_set()
         self.get_force()
         self.get_ode_solver()
@@ -206,7 +261,11 @@ class ParticlesConfig(object):
         
         return ( self.animation , self.pset , self.force , self.ode_solver )
     
+    ################################################################################
     def get_particle_set( self ):
+        """
+        Build and return a set of particles (class: particles_set)
+        """
         
         print("")
         
@@ -218,31 +277,44 @@ class ParticlesConfig(object):
             ff.insert3( self.pset )
             ff.close()
             print( " setup - particles set - file name: %s " % self.pset_file_name )
-            
+        
+        
+        print( " setup - particles set - size:      %d " % self.pset.size )
+        print( " setup - particles set - dim:       %d " % self.pset.dim )
+        
         self.pset.unit = self.len_unit
         self.pset.mass_unit = self.mass_unit
         
+        print( " setup - particles set - len  unit:      %e " % self.pset.unit )
+        print( " setup - particles set - len  mass unit: %e " % self.pset.mass_unit )
+        
+        
+        
         if self.boudary == "open" :
             self.pset.boundary = None
+            print( " setup - particles set - Boundary: open " )
+            
         elif self.boudary == "periodic" :
             self.pset.boundary = pb.PeriodicBoundary( bound=(-10,10) , dim=pset.dim )
-        
+            print( " setup - particles set - Boundary: pariodic " )
+            
+        if self.sim_log > 0 :
+            self.pset.enable_log( log_X=self.sim_log_X , log_V=self.sim_log_V , log_max_size=self.sim_log )
+            
+            print( " setup - particles set - Simulation log size %d " %  self.sim_log  )
+            print( " setup - particles set - Simulation log : X = %r  ;  V = %r " % ( self.sim_log_X , self.sim_log_V )  )
         
         #print( self.pset.X )
         #print( self.pset.M )
         #print( self.pset.V )
         
-        print( " setup - particles set - size:      %d " % self.pset.size )
-        print( " setup - particles set - dim:       %d " % self.pset.dim )
-        print( " setup - particles set - len  unit: %e " % self.pset.unit )
-        print( " setup - particles set - mass unit: %e " % self.pset.mass_unit )
-        
-        
         return self.pset
     
-    
+    ################################################################################
     def get_force(self):
-        
+        """
+        Build and return an object for mdeling the force (derived form the abstract class force)
+        """
         print("")
         
         self.force = None
@@ -272,8 +344,11 @@ class ParticlesConfig(object):
         
         return self.force
     
+    ################################################################################
     def get_ode_solver(self):
-        
+        """
+        Build and return an object for solving the Newton Law of motion (derived form the abstract class ode_solver)
+        """
         print("")
         
         self.ode_solver = None
@@ -306,8 +381,11 @@ class ParticlesConfig(object):
         print( " setup - Integration method - time step: %e " %  self.time_step )   
         return self.ode_solver
     
+    ################################################################################
     def get_animation(self):
-        """ Build an Animation object and return the reference to the object """
+        """
+        Build an Animation object and return the reference to the object
+        """
         print("")
         
         self.animation = None
@@ -322,6 +400,10 @@ class ParticlesConfig(object):
             self.animation = anim.AnimatedScatter()
             
             print(" setup - animation - type: MatPlotlib")
+            
+        if self.draw_trajectory == True :
+            self.animation.trajectory = self.draw_trajectory
+            print(" setup - animation - Draw trajectory : %r " % self.draw_trajectory)
             
         self.animation.ode_solver = self.ode_solver
         self.animation.pset       = self.pset

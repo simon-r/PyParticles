@@ -33,6 +33,7 @@ class DrawParticlesGL(object):
     
     def __init__( self , pset=None ):
         self.__pset = pset
+        self.__trajectory = False
     
     def get_pset(self):
         return self.__pset
@@ -42,6 +43,14 @@ class DrawParticlesGL(object):
         
     pset = property( get_pset , set_pset )
     
+    
+    def get_trajectory( self ) :
+        return self.__trajectory
+    
+    def set_trajectory( self , tr ):
+        self.__trajectory = tr
+        
+    trajectory = property( get_trajectory , set_trajectory , doc="enable or disable the trajectory" )
     
     
     def draw_trajectory(self):
@@ -74,6 +83,8 @@ class DrawParticlesGL(object):
         unit = self.pset.unit
         mass_unit = self.pset.mass_unit
     
+        glEnable(GL_POINT_SMOOTH)
+    
         for i in range( self.pset.size ):
             
             glPointSize( self.pset.M[i] / mass_unit )
@@ -87,7 +98,7 @@ class DrawParticlesGL(object):
     
             glEnd()
         
-        if self.pset.log_X_enabled :
+        if self.pset.log_X_enabled and self.trajectory :
             self.draw_trajectory()
 
                 

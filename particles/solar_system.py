@@ -57,7 +57,9 @@ if sys.version_info[0] == 2:
 
 
 def solar_system():
-        
+    """
+    Solar system demo
+    """
     dt = 10*3600
     steps = 1000000
     
@@ -66,9 +68,12 @@ def solar_system():
     FLOOR = -10
     CEILING = 10
     
-    pset = ps.ParticlesSet( 10 , 3 )
+    pset = ps.ParticlesSet( 11 , 3 )
     
-    pset.X[:] = np.array(  [[  1.49597871e+11 ,  0.00000000e+00  , 0.00000000e+00],    # Earth
+    # Coordinates
+    pset.X[:] = np.array(  [
+                            [  0.00000000e+00 ,  0.00000000e+00  , 0.00000000e+00],    # Sun
+                            [  1.49597871e+11 ,  0.00000000e+00  , 0.00000000e+00],    # Earth
                             [  7.78357721e+11 ,  0.00000000e+00 ,  0.00000000e+00],    # Jupiter
                             [  2.27987155e+11 ,  0.00000000e+00  , 0.00000000e+00],    # Mars
                             [  5.83431696e+10 ,  0.00000000e+00  , 0.00000000e+00],    # Mercury
@@ -77,9 +82,13 @@ def solar_system():
                             [  1.42701409e+12 ,  0.00000000e+00  , 0.00000000e+00],    # Saturn
                             [  2.86928716e+12 ,  0.00000000e+00  , 0.00000000e+00],    # Uranus
                             [  1.04718509e+11 ,  0.00000000e+00  , 0.00000000e+00],    # Venus
-                            [  0.00000000e+00 ,  0.00000000e+00  , 0.00000000e+00]] )  # Sun
+                            [  4.138325875e+11,  0.00000000e+00  , 0.00000000e+00]     # Ceres
+                            ]) 
     
-    pset.M[:] = np.array(  [[  5.98000000e+24] ,
+    # Mass
+    pset.M[:] = np.array(  [
+                            [  1.98910000e+30] ,
+                            [  5.98000000e+24] ,
                             [  1.90000000e+27] ,
                             [  6.42000000e+23] ,
                             [  3.30000000e+23] ,
@@ -88,9 +97,12 @@ def solar_system():
                             [  5.69000000e+26] ,
                             [  8.68000000e+25] ,
                             [  4.87000000e+24] ,
-                            [  1.98910000e+30]] )
+                            [  9.43000000e+20]
+                            ] )
 
-    pset.V[:] = np.array( [[  0. , 29800.  ,    0.] ,
+    # Speed
+    pset.V[:] = np.array( [ [ 0. ,   0.    ,    0.] ,
+                            [ 0. , 29800.  ,    0.] ,
                             [ 0. , 13100.  ,    0.] ,
                             [ 0. , 24100.  ,    0.] ,
                             [ 0. , 47900.  ,    0.] ,
@@ -99,8 +111,10 @@ def solar_system():
                             [ 0. ,  9600.  ,    0.] ,
                             [ 0. ,  6800.  ,    0.] ,
                             [ 0. , 35000.  ,    0.] ,
-                            [ 0. ,     0.  ,    0.]] )
+                            [ 0  , 17882.  ,    0.]
+                            ] )
 
+    # Inclination
     incl = np.array([ 0.0 ,
                       1.305 ,
                       1.850 ,
@@ -110,14 +124,48 @@ def solar_system():
                       2.485 ,
                       0.772 ,
                       3.394 ,
-                      0.0   ])
+                      0.0 ,
+                      10.587 ,
+                      ])
+    
+    # Longitude of the ascending node
+    lan = np.array([ 0.0 ,
+                     348.73936 ,
+                     100.492 ,
+                     49.562 ,
+                     48.331 ,
+                     131.794310 ,
+                     110.286 ,
+                     113.642 ,
+                     73.989 ,
+                     76.678 ,
+                     80.3932 ,
+                    ])
 
 
 
     incl[:] = incl * 2.0*np.pi / 360.0
     
+    lan[:]  = lan * 2.0*np.pi / 360.0
+    
     pset.V[:,2] = np.sin( incl ) * pset.V[:,1]
     pset.V[:,1] = np.cos( incl ) * pset.V[:,1]
+    
+    for i in range ( pset.V.shape[0] ) :
+        x = pset.V[i,0]
+        y = pset.V[i,1]
+        
+        pset.V[i,0] = x * np.cos( lan[i] ) - y * np.sin( lan[i] )
+        pset.V[i,1] = x * np.sin( lan[i] ) + y * np.cos( lan[i] )
+        
+
+    for i in range ( pset.X.shape[0] ) :
+        x = pset.X[i,0]
+        y = pset.X[i,1]
+        
+        pset.X[i,0] = x * np.cos( lan[i] ) - y * np.sin( lan[i] )
+        pset.X[i,1] = x * np.sin( lan[i] ) + y * np.cos( lan[i] )
+
         
     pset.unit = 149597870700.0
     pset.mass_unit = 5.9736e24
@@ -136,13 +184,15 @@ def solar_system():
     grav.update_force( pset )
     
     #solver = els.EulerSolver( grav , pset , dt )
-    solver = lps.LeapfrogSolver( grav , pset , dt )
+    #solver = lps.LeapfrogSolver( grav , pset , dt )
     #solver = svs.StormerVerletSolver( grav , pset , dt )
-    #solver = rks.RungeKuttaSolver( grav , pset , dt )    
+    solver = rks.RungeKuttaSolver( grav , pset , dt )    
     #solver = mds.MidpointSolver( grav , pset , dt )    
         
     a = aogl.AnimatedGl()
    # a = anim.AnimatedScatter()
+   
+    a.trajectory = True
         
     
     a.xlim = ( FLOOR , CEILING )

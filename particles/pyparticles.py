@@ -86,7 +86,7 @@ def main():
     if options.config_model :
         file_name = "example_pyparticles_config.cfg"
         cfg.write_example_config_file("example_pyparticles_config.cfg")
-        print( "A file named: %s has been ritten in the current directory" % file_name )
+        print( "A file named: %s has been written in the current directory" % file_name )
         print( "" )
         return     
     
@@ -112,6 +112,7 @@ def main():
         
         cfg.read_config( options.path_name )
         ( an , pset , force , ode_solver ) = cfg.build_problem()
+        
         an.build_animation()
         
         print("")
@@ -120,14 +121,14 @@ def main():
         an.start()
         return 
     
-    
+    print("Ops ... ")
     return 
     
     ##################################
     ##################################
     ##################################
     
-    #### Old code .....
+    #### Old test code .....
     
     
     

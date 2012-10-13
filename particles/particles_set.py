@@ -83,7 +83,9 @@ class ParticlesSet(object):
     def realloc( self , size , dim , boundary=None ,
                  label=False , mass=True , velocity=True ,
                  log_X=False , log_V=False , log_max_size=0 ):
-        
+        """
+        Realloc the particle set, it uses the same args of the constructor
+        """
         del self.__X
         del self.__V
         del self.__mass
