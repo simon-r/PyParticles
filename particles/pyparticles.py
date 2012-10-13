@@ -106,7 +106,7 @@ def main():
         sol.solar_system()
         return 
     
-
+    
     
     if options.path_name != None :
         
@@ -129,42 +129,42 @@ def main():
     
     #### Old code .....
     
-    return
+    
     
     n = 700
-    dt = 3600
+    dt = 0.005
     #dt = 0.0023453
     
     steps = 1000000
     
     G = 0.001
-    G = 6.67384e-11
+    #G = 6.67384e-11
     
     FLOOR = -10
     CEILING = 10
     
 
 
-    ff = fc.FileCluster()
-    ff.open( options.path_name )
+    #ff = fc.FileCluster()
+    #ff.open( options.path_name )
     
     pset = ps.ParticlesSet( n )
-    ff.insert3( pset )
-    ff.close()  
+    #ff.insert3( pset )
+    #ff.close()  
         
-    pset.unit = 149597870700.0
-    pset.mass_unit = 5.9736e24
+    #pset.unit = 149597870700.0
+    #pset.mass_unit = 5.9736e24
     
     
     cs = clu.RandCluster()
     
-    #cs.insert3( pset.X , M=pset.M , V=pset.V ,
-    #            n = n/2 , centre=(-1.5,1,0.5) , mass_rng=(0.5,5.0) ,
-    #            vel_rng=(0,0) , vel_mdl="bomb" )
-    #
-    #cs.insert3( pset.X , M=pset.M , V=pset.V ,
-    #            start_indx=int(n/2) , n = int(n/2) , centre=(1.5,-0.5,0.5) ,
-    #            vel_rng=(0.2,0.4) , vel_mdl="const" , vel_dir=[-1.0,0.0,0.0] )
+    cs.insert3( pset.X , M=pset.M , V=pset.V ,
+                n = n/2 , centre=(-1.5,1,0.5) , mass_rng=(0.5,5.0) ,
+                vel_rng=(0,0) , vel_mdl="bomb" )
+    
+    cs.insert3( pset.X , M=pset.M , V=pset.V ,
+                start_indx=int(n/2) , n = int(n/2) , centre=(1.5,-0.5,0.5) ,
+                vel_rng=(0.2,0.4) , vel_mdl="const" , vel_dir=[-1.0,0.0,0.0] )
     #
     
     grav = gr.Gravity( pset.size , Consts=G )

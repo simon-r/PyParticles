@@ -69,7 +69,7 @@ class DrawParticlesGL(object):
     def draw(self):
         
         glPointParameterf( GL_POINT_SIZE_MAX , 10.0 )
-        glPointParameterf( GL_POINT_SIZE_MIN , 5 )    
+        glPointParameterf( GL_POINT_SIZE_MIN , 4.0 )    
     
         unit = self.pset.unit
         mass_unit = self.pset.mass_unit

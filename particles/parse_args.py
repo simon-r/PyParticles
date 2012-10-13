@@ -16,13 +16,13 @@
 
 
 import argparse
-
+from particles.pypart_global import py_particle_version
 
 def parse_args():
     desc = "PyParticles is a particle simulation tool box that support the most diffused numerical integration " 
     desc = desc + " and forces models "
 
-    parser = argparse.ArgumentParser( description=desc , version="%(prog)s " + "0.1.0"  )
+    parser = argparse.ArgumentParser( description=desc , version="%(prog)s " + py_particle_version()  )
 
 
     parser.add_argument("-m", "--config_model",

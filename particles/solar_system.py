@@ -101,7 +101,23 @@ def solar_system():
                             [ 0. , 35000.  ,    0.] ,
                             [ 0. ,     0.  ,    0.]] )
 
+    incl = np.array([ 0.0 ,
+                      1.305 ,
+                      1.850 ,
+                      7.005 ,
+                      1.767975,
+                      17.151 ,
+                      2.485 ,
+                      0.772 ,
+                      3.394 ,
+                      0.0   ])
 
+
+
+    incl[:] = incl * 2.0*np.pi / 360.0
+    
+    pset.V[:,2] = np.sin( incl ) * pset.V[:,1]
+    pset.V[:,1] = np.cos( incl ) * pset.V[:,1]
         
     pset.unit = 149597870700.0
     pset.mass_unit = 5.9736e24
