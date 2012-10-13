@@ -1,4 +1,3 @@
-
 PyParticles 
 ===========
 
@@ -24,12 +23,12 @@ Simulate a particle by particle model with the most popular integrations methods
 #. Constant
 #. User defined field
 
-PyParticle offers an easy to use class structure with a fully *interchangable* integrations method or force model, it also implements the possibility to add some boudary model.
+PyParticle offers an easy to use class structure with a fully * interchangeable* integrations method or force model, it also implements the possibility to add some boundary model.
 
 Command line tool usage:
 ------------------------
 
-In PyParticles a simulation model is entierly described in a config file that scholuld be edited by the user.
+In PyParticles a simulation model is entirely described in a config file that should be edited by the user.
 
 The following are the main command of the PyParticles application.
 
