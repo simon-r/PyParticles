@@ -16,9 +16,12 @@
 
 
 import numpy as np
+from collections import deque
 
 class ParticlesSet:
-    def __init__( self , size=1 , dim=3 , boundary=None , label=False , mass=True , velocity=True ):
+    def __init__( self , size=1 , dim=3 , boundary=None ,
+                 label=False , mass=True , velocity=True ,
+                 log_X=False , log_V=False , log_max_size=0 ):
         
         if size < 0 :
             raise
@@ -48,6 +51,19 @@ class ParticlesSet:
         
         self.__unit = 1.0
         self.__mass_unit = 1.0
+        
+        if log_pos == True :
+            self.__log_X = deque([])
+        else :
+            self.__log_X = None
+            
+        if log_vel == True :
+            self.__log_V = deque([])
+        else :
+            self.__log_V = None
+            
+        self.__log_max_size = log_size
+        self.__log_len = 0
         
         
     def realloc( self , size , dim , boundary=None , label=False , mass=True , velocity=True ) :
@@ -105,6 +121,73 @@ class ParticlesSet:
 
     boundary = property( get_boundary , set_boundary )
 
+    
+    def get_log_max_size(self):
+        return self.__log_max_size
+    
+    log_max_size = property( get_log_max_size )
+    
+    
+    def get_log_size(self):
+        return self.__log_len
+    
+    log_size = property( get_log_size )
+
+    def get_log_X_enabled(self):
+        return ( self.__log_X != None )
+    
+    def get_log_V_enabled(self):
+        return ( self.__log_V != None )
+
+    def get_log_enabled(self):
+        return ( self.log_V_enabled or self.log_X_enabled )
+
+    log_V_enabled = property( get_log_V_enabled , doc="return true if the logging of the position is enabled")
+    log_X_enabled = property( get_log_X_enabled , doc="return true if the logging of the velocity is enabled")
+    
+    log_enabled = property( get_log_enabled , doc="return true if the logging of position or velocity is enabled")
+
+    
+
+    def log(self):
+        """
+        if the log is enable, save the current satus in the log queue.
+        The last element of the queue will be removed if we reach the max allowed size
+        """
+        delta_x = 0
+        delta_v = 0
+        
+        if self.__log_X != None :
+            lX = zeros(( self.size , self.dim ))
+            lX[:] = self.X
+            
+            if self.log_size > self.log_max_size :
+                self.__log_X.popleft()
+                delta_x -= 1
+            
+            self.__log_X.append( lx )
+            delta_x += 1
+        
+        if self.__log_V != None :
+            lV = zeros(( self.size , self.dim ))
+            lV[:] = self.V
+            
+            if self.log_size > self.log_max_size :
+                self.__log_V.popleft()
+                delta_v -= 1
+            
+            self.__log_X.append( lV )
+            delta_v+=1
+            
+        self.__log_len += max( [ delta_x , delta_v ]  )
+            
+
+    def get_logX( self , i ):
+        return self.__log_X
+        
+    def get_logV( self , i ):
+        return self.__log_V
+    
 
     def update_centre_of_mass(self):
         self.__centre_mass = np.sum( self.__X * self.__mass , axis=0 ) / np.float( self.__size )
