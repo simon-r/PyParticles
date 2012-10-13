@@ -38,6 +38,8 @@ import particles.trackball as trk
 import particles.axis_ogl as axgl
 import particles.translate_scene as tran
 import particles.time_formatter as tf
+import particles.draw_particles_ogl as drp
+
 import ctypes 
 
 
@@ -98,8 +100,6 @@ def DrawGLScene():
     
     glLoadIdentity()  
     
-    
-    
     if DrawGLScene.animation.state == "trackball_down" and DrawGLScene.animation.motion:
         ( ax , ay , az ) = DrawGLScene.animation.rotatation_axis
         angle = DrawGLScene.animation.rotation_angle
@@ -118,20 +118,8 @@ def DrawGLScene():
         
     DrawGLScene.animation.axis.draw_axis()
     
-    glPointParameterf( GL_POINT_SIZE_MAX , 10.0 )
-    glPointParameterf( GL_POINT_SIZE_MIN , 5 )    
-    
-    for i in range( DrawGLScene.animation.pset.size ):
-        glPointSize( DrawGLScene.animation.pset.M[i] / mass_unit )
-        glBegin(GL_POINTS)
-        glColor3f( 1.0 , 1.0 , 1.0 )    
-                
-        glVertex3f( DrawGLScene.animation.pset.X[i,0] / unit ,
-                    DrawGLScene.animation.pset.X[i,1] / unit ,
-                    DrawGLScene.animation.pset.X[i,2] / unit )
-
-        glEnd()
-    
+    DrawGLScene.animation.draw_particles.draw()
+        
     glPopMatrix()
     glutSwapBuffers()
 
@@ -274,7 +262,18 @@ class AnimatedGl( pan.Animation ):
         self.motion = False
         
         self.axis = axgl.AxisOgl()
+        self.draw_particles = drp.DrawParticlesGL()
     
+
+    def get_pset(self):
+        return super(AnimatedGl,self).get_pset()
+        
+    def set_pset( self , pset ):
+        super(AnimatedGl,self).set_pset( pset )
+        self.draw_particles.pset = pset
+        
+    pset = property( get_pset , set_pset )
+
 
     def get_rotation_axis( self ):
         return ( self.__xrot_ax , self.__yrot_ax , self.__zrot_ax ) 
@@ -411,7 +410,11 @@ class AnimatedGl( pan.Animation ):
         
         
     def data_stream(self):
-        self.ode_solver.step()            
+        
+        self.pset.log()
+        
+        self.ode_solver.step()
+        
         return self.ode_solver.steps_cnt
         
     

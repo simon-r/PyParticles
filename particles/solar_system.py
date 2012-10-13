@@ -58,7 +58,7 @@ if sys.version_info[0] == 2:
 
 def solar_system():
         
-    dt = 5*3600
+    dt = 10*3600
     steps = 1000000
     
     G = 6.67384e-11
@@ -114,6 +114,9 @@ def solar_system():
     bound = None
     
     pset.set_boundary( bound )
+    
+    pset.enable_log( True , log_max_size=700 )
+    
     grav.update_force( pset )
     
     #solver = els.EulerSolver( grav , pset , dt )
