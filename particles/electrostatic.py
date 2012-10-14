@@ -21,6 +21,10 @@ import scipy.spatial.distance as dist
 import particles.force as fr
 
 class Electrostatic( fr.Force ) :
+    """
+    Compute the electrostatic force.
+        Note: The real force of an eletrodynamic system is given by the **Maxwell equations**! and not from the Culomb law.
+    """
     def __init__(self , size , dim=3 , m=None , Consts=1.0 ):
         
         self.__dim = dim
@@ -31,14 +35,18 @@ class Electrostatic( fr.Force ) :
         self.__V = np.zeros( ( size , size ) )
         self.__D = np.zeros( ( size , size ) )
         self.__Q = np.zeros( ( size , size ) )
+        self.__M = np.zeros( ( size , 1 ) )
         if m != None :
             self.set_masses( m )
         
         
     
     def set_masses( self , m ):
-        self.__Q[:,:] = m
+        self.__M[:] = m
         
+    def set_charges( self , q ):
+        self.__Q[:,:] = q
+        self.__Q[:,:] = self.__Q * self.__Q.T
     
     def update_force( self , p_set ):        
         self.__D[:] = dist.squareform( dist.pdist( p_set.X , 'euclidean' ) )
@@ -54,7 +62,7 @@ class Electrostatic( fr.Force ) :
             self.__V[:,:] = p_set.X[:,i]
             self.__V[:,:] = ( self.__V[:,:].T - p_set.X[:,i] ).T 
                         
-            self.__A[:,i] = np.sum( self.__Fm * self.__V[:,:] , 0 )
+            self.__A[:,i] = np.sum( self.__Fm * self.__V[:,:] , 0 ) / self.__M 
         
         
         return self.__A
@@ -66,7 +74,7 @@ class Electrostatic( fr.Force ) :
 
 
     def getF(self):
-        return self.__A * self.__Q[:,0]
+        return self.__A * self.__M
     
     F = property( getF )
 

@@ -29,6 +29,9 @@ class TranslateScene(object):
         self.__win_height = 600
         
         self.win_size = w_size
+        
+        self.factor = 100
+        self.__fovy   = 2.0
     
     def get_V( self ):
         return self.__v 
@@ -37,6 +40,17 @@ class TranslateScene(object):
         self.__v = v
         
     V = property( get_V , set_V )
+    
+    
+    def get_fovy( self ):
+        return self.__fovy 
+    
+    def set_fovy( self , fv ):
+        if fv > 2.0 :
+            fv = 2.0 
+        self.__fovy = fv
+        
+    fovy = property( get_fovy , set_fovy )    
     
         
     def get_win_size( self ):
@@ -64,7 +78,7 @@ class TranslateScene(object):
         
         velocity = np.linalg.norm( direction )
         
-        delta = direction * velocity * 200.0
+        delta = direction * velocity * self.factor * self.fovy
         
         return ( delta[0] , delta[1] )
         

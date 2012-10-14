@@ -35,6 +35,9 @@ class DrawParticlesGL(object):
         self.__pset = pset
         self.__trajectory = False
         self.__trajectory_step = 1
+        
+        self.__color_fun = lambda pset , i : ( 1.0 , 1.0 , 1.0 , 1.0 )
+    
     
     def get_pset(self):
         return self.__pset
@@ -44,6 +47,16 @@ class DrawParticlesGL(object):
         
     pset = property( get_pset , set_pset )
     
+    
+    def set_color_fun( self , fun ):
+        self.__color_fun = fun
+    
+    def get_color_fun( self , fun ):
+        return self.__color_fun
+    
+    color_fun = property( get_color_fun , set_color_fun , "Set and get the function for calculating the particle color:\n"
+                                                            " definition of the color fun: "
+                                                            " \n (R,G,B,A) = cfun( pset , index ) " )
     
     def get_trajectory( self ) :
         return self.__trajectory
@@ -62,7 +75,8 @@ class DrawParticlesGL(object):
         
     trajectory_step = property( get_trajectory_step , set_trajectory_step , doc="set or get the step for drawing the trajectory" )
 
- 
+    
+    
     
     def draw_trajectory(self):
         
@@ -89,9 +103,12 @@ class DrawParticlesGL(object):
             glEnd()
 
     
+    def get_pcolor(self):
+        return 
+    
     
     def draw(self):
-        
+         
         glPointParameterf( GL_POINT_SIZE_MAX , 10.0 )
         glPointParameterf( GL_POINT_SIZE_MIN , 4.0 )    
     
@@ -105,7 +122,8 @@ class DrawParticlesGL(object):
             glPointSize( self.pset.M[i] / mass_unit )
             
             glBegin(GL_POINTS)
-            glColor3f( 1.0 , 1.0 , 1.0 )    
+            
+            glColor4f( *self.__color_fun( self.pset , i ) )    
                     
             glVertex3f( self.pset.X[i,0] / unit ,
                         self.pset.X[i,1] / unit ,

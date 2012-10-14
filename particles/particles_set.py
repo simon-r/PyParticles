@@ -221,6 +221,7 @@ class ParticlesSet(object):
     
     unit = property( get_unit , set_unit )
     
+    
     def set_mass_unit( self , u ):
         self.__mass_unit = u
         

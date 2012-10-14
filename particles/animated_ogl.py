@@ -140,6 +140,7 @@ def SetPerspective( animation ):
     glMatrixMode(GL_PROJECTION)
     glLoadIdentity()
     gluPerspective( per[0] , float(w)/float(h), per[1] , per[2] )
+    
     glMatrixMode(GL_MODELVIEW)
 
 
@@ -379,12 +380,19 @@ class AnimatedGl( pan.Animation ):
         
         ( fovy , near , far ) = MousePressed.animation.perspective
         
-        if fovy <= 2 and f < 0 :
+        if fovy <= 2.0 and f < 0 :
+            f = -0.04
+        if fovy <= 0.2 and f < 0 :
             f = 0.0
-        elif fovy > 179 and f > 0 :
+        if fovy < 2.0 and f > 0 :
+            f = 0.04
+        if fovy > 179 and f > 0 :
             f = 0.0
             
+        
         MousePressed.animation.perspective = ( fovy+f*2 , near , far )
+        MousePressed.animation.translate_scene.fovy = fovy+f*2
+        
         ReSizeGLScene( w , h )
         
     
