@@ -55,7 +55,8 @@ class DrawParticlesGL(object):
         return self.__color_fun
     
     color_fun = property( get_color_fun , set_color_fun , "Set and get the function for calculating the particle color:\n"
-                                                            " definition of the color fun: "
+                                                            " definition of the function color,"
+                                                            " it take as args a particle_set obj. and the particle index "
                                                             " \n (R,G,B,A) = cfun( pset , index ) " )
     
     def get_trajectory( self ) :
@@ -86,21 +87,29 @@ class DrawParticlesGL(object):
         unit = self.pset.unit
         glLineWidth( 1.0 )
         
-        for i in range( self.pset.size ) :
+        if self.trajectory_step <= 1 :
             
-            glBegin(GL_LINE_STRIP)
-            j = 1
-            for X in self.pset.logX :
-                j += 0
-                if ( j % self.trajectory_step ) == 0  :
-                    continue
-                #    pass
-                #print( j )
-                glVertex3f( X[i,0] / unit ,
-                            X[i,1] / unit ,
-                            X[i,2] / unit )
+            for i in range( self.pset.size ) :
+                glBegin(GL_LINE_STRIP)
+                for X in self.pset.logX :
+                    glVertex3f( X[i,0] / unit ,
+                                X[i,1] / unit ,
+                                X[i,2] / unit )
 
-            glEnd()
+                glEnd()        
+        else:
+            
+            for i in range( self.pset.size ) :
+                glBegin(GL_LINE_STRIP)
+                j = 0
+                for X in self.pset.logX :
+                    j += 1
+                    if ( j % self.trajectory_step ) == 0  :
+                        glVertex3f( X[i,0] / unit ,
+                                    X[i,1] / unit ,
+                                    X[i,2] / unit )
+    
+                glEnd()
 
     
     def get_pcolor(self):

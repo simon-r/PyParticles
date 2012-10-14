@@ -60,7 +60,7 @@ def solar_system():
     """
     Solar system demo
     """
-    dt = 3600
+    dt = 6*3600
     steps = 1000000
     
     G = 6.67384e-11
@@ -199,7 +199,7 @@ def solar_system():
    # a = anim.AnimatedScatter()
    
     a.trajectory = True
-    a.trajectory_step = 20
+    a.trajectory_step = 1
         
     
     a.xlim = ( FLOOR , CEILING )

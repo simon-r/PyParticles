@@ -96,6 +96,7 @@ def main():
         print("")
         print("Start the simulation example:")
         print(" Solar system")
+        print(" -- Try to watch the Moon ... around the Earth ")
         print("")
         print(" Use your mouse for rotating, zooming and tranlating the scene.")
         print("")

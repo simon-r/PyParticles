@@ -252,7 +252,16 @@ class ParticlesConfig(object):
         Read the configuration file
         """
         config = ConfigParser.ConfigParser(self.default)
-        config.read( file_name )
+        
+        fp = None
+        
+        try :
+            fp = open( file_name )
+        except IOError:
+            print(" Error - config file not fount: %s " % file_name )
+            exit()
+        
+        config.readfp( fp )
         
         #########################################################
         ## Section pset_origin
