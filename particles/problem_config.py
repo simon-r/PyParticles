@@ -160,7 +160,10 @@ Example:
 """
 
 
-ConfigParser.ConfigParser.add_comment = lambda self, section, option, value: self.set(section, '# '+option, value)
+#ConfigParser.ConfigParser.add_comment = lambda self, section, option, value: self.set(section, '# '+option, value)
+
+
+
 
 class ParticlesConfig(object):
 
@@ -170,6 +173,37 @@ class ParticlesConfig(object):
     def __init__(self):
         self.len_unit = 1.0
         self.mass_unit = 1.0
+        
+        self.default = {
+            # section pset_origin
+            'media_origin': 'from_file' ,
+            'file_name': 'solar_sys.csv' ,
+            
+            # section set_config
+            'len_unit': '149597870700.0' ,
+            'mass_unit': '5.9736e24' ,
+            'boundary': 'open' ,
+            'sim_log': '0' ,
+            'sim_log_X': 'True' ,
+            'sim_log_V': 'False' ,
+            'rand_part_nr': '500' ,
+            
+            # section model
+            'force': 'gravity' ,
+            'ode_solver_name': 'euler' ,
+            'time_step': '3600' ,
+            'steps': '1000000' ,
+            'force_const': '6.67384e-11' ,
+            'force_vector': '0 0 0' ,
+            
+            # section animation
+            'animation_type': 'opengl' ,
+            'draw_trajectory': 'False' ,
+            'trajectory_step': '15' ,
+            'xlim': '-5.0  5.0' ,
+            'ylim': '-5.0  5.0' ,
+            'zlim': '-5.0  5.0' ,
+            }
     
     def write_example_config_file( self , file_name='example_pyparticles_config.cfg' ):
         """ Write a generic config file """
@@ -200,6 +234,7 @@ class ParticlesConfig(object):
         config.add_section('animation')
         config.set('animation', 'animation_type', 'opengl')
         config.set('animation', 'draw_trajectory', 'False')
+        config.set('animation', 'trajectory_step', '15')
         config.set('animation', 'xlim', '-5.0  5.0')
         config.set('animation', 'ylim', '-5.0  5.0')
         config.set('animation', 'zlim', '-5.0  5.0')
@@ -216,7 +251,7 @@ class ParticlesConfig(object):
         """
         Read the configuration file
         """
-        config = ConfigParser.ConfigParser()
+        config = ConfigParser.ConfigParser(self.default)
         config.read( file_name )
         
         #########################################################
@@ -248,6 +283,7 @@ class ParticlesConfig(object):
         ## Section animation
         self.animation_type  = config.get( 'animation' , 'animation_type' )
         self.draw_trajectory = config.getboolean( 'animation' , 'draw_trajectory' )
+        self.trajectory_step = config.getint( 'animation' , 'trajectory_step' )
         
     def build_problem( self ):
         """
@@ -403,7 +439,12 @@ class ParticlesConfig(object):
             
         if self.draw_trajectory == True :
             self.animation.trajectory = self.draw_trajectory
-            print(" setup - animation - Draw trajectory : %r " % self.draw_trajectory)
+            self.animation.trajectory_step = self.trajectory_step
+            
+            print(" setup - animation - Draw trajectory : %r " % self.draw_trajectory )
+            print(" setup - animation - Trajectory step : %d " % self.trajectory_step )
+            if self.sim_log == 0 :
+                print("  !! Warning - animation - Trajectory will be not drawn: sim_log is disabled  " )
             
         self.animation.ode_solver = self.ode_solver
         self.animation.pset       = self.pset

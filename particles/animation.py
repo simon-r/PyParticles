@@ -46,6 +46,7 @@ class Animation(object):
         self.__zl = (-1,1)
         
         self.__trajectory = False
+        self.__trajectory_step = 1
         
         
     def set_ode_solver( self , solver ):
@@ -106,6 +107,15 @@ class Animation(object):
         
     trajectory = property( get_trajectory , set_trajectory , doc="enable or disable the trajectory" )
     
+    
+    def get_trajectory_step( self ) :
+        return self.__trajectory_step
+    
+    def set_trajectory_step( self , trs ):
+        self.__trajectory_step = trs
+        
+    trajectory_step = property( get_trajectory_step , set_trajectory_step , doc="set or get the step for drawing the trajectory" )
+
      
     def build_animation(self):
         pass

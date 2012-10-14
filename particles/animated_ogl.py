@@ -362,6 +362,17 @@ class AnimatedGl( pan.Animation ):
     trajectory = property( get_trajectory , set_trajectory , doc="enable or disable the trajectory" )
     
     
+    def get_trajectory_step( self ) :
+        return super(AnimatedGl,self).get_rajectory_step()
+    
+    def set_trajectory_step( self , trs ):
+        super(AnimatedGl,self).set_trajectory_step( trs )
+        self.draw_particles.set_trajectory_step( trs )
+        
+    trajectory_step = property( get_trajectory_step , set_trajectory_step , doc="set or get the step for drawing the trajectory" )
+
+    
+    
     def zoom_scene( self , f ):
         
         (w,h) = MousePressed.animation.win_size

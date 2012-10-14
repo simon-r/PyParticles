@@ -34,6 +34,7 @@ class DrawParticlesGL(object):
     def __init__( self , pset=None ):
         self.__pset = pset
         self.__trajectory = False
+        self.__trajectory_step = 1
     
     def get_pset(self):
         return self.__pset
@@ -52,10 +53,20 @@ class DrawParticlesGL(object):
         
     trajectory = property( get_trajectory , set_trajectory , doc="enable or disable the trajectory" )
     
+
+    def get_trajectory_step( self ) :
+        return self.__trajectory_step
+    
+    def set_trajectory_step( self , trs ):
+        self.__trajectory_step = trs
+        
+    trajectory_step = property( get_trajectory_step , set_trajectory_step , doc="set or get the step for drawing the trajectory" )
+
+ 
     
     def draw_trajectory(self):
         
-        if self.pset.log_size < 3 :
+        if self.pset.log_size < self.trajectory_step + 1 :
             return 
         
         unit = self.pset.unit
@@ -64,9 +75,13 @@ class DrawParticlesGL(object):
         for i in range( self.pset.size ) :
             
             glBegin(GL_LINE_STRIP)
-            
+            j = 1
             for X in self.pset.logX :
-                
+                j += 0
+                if ( j % self.trajectory_step ) == 0  :
+                    continue
+                #    pass
+                #print( j )
                 glVertex3f( X[i,0] / unit ,
                             X[i,1] / unit ,
                             X[i,2] / unit )

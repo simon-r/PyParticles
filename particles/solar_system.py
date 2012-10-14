@@ -60,7 +60,7 @@ def solar_system():
     """
     Solar system demo
     """
-    dt = 10*3600
+    dt = 12*3600
     steps = 1000000
     
     G = 6.67384e-11
@@ -84,6 +84,7 @@ def solar_system():
                             [  1.04718509e+11 ,  0.00000000e+00  , 0.00000000e+00],    # Venus
                             [  4.138325875e+11,  0.00000000e+00  , 0.00000000e+00]     # Ceres
                             ]) 
+    
     
     # Mass
     pset.M[:] = np.array(  [
@@ -116,6 +117,7 @@ def solar_system():
 
     # Inclination
     incl = np.array([ 0.0 ,
+                      0.0 ,
                       1.305 ,
                       1.850 ,
                       7.005 ,
@@ -124,7 +126,6 @@ def solar_system():
                       2.485 ,
                       0.772 ,
                       3.394 ,
-                      0.0 ,
                       10.587 ,
                       ])
     
@@ -179,7 +180,7 @@ def solar_system():
     
     pset.set_boundary( bound )
     
-    pset.enable_log( True , log_max_size=700 )
+    pset.enable_log( True , log_max_size=1000 )
     
     grav.update_force( pset )
     
@@ -193,6 +194,7 @@ def solar_system():
    # a = anim.AnimatedScatter()
    
     a.trajectory = True
+    a.trajectory_step = 20
         
     
     a.xlim = ( FLOOR , CEILING )
