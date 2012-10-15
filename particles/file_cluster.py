@@ -15,6 +15,7 @@
 #along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import numpy as np
+import csv
 import re
 
 
@@ -22,85 +23,88 @@ class FileCluster(object):
     def __init__(self):
         pass
 
-    def open( self , cfile ):
-        if type( cfile ) is str :
-            self.__f = open( cfile )
-        else :
-            self.__f = cfile
+    def open( self , cfile , mode="r" ):
+        #if type( cfile ) is str :
+        #    self.__f = open( cfile , mode )
+        #else :
+        #    self.__f = cfile
             
-        
+        self.__cfile = cfile
             
-    
+            
     def close(self):
-        self.__f.close()
+        pass
+        #self.__f.close()
+
 
     def insert3( self , pset ):
-        rd = True
+        
+        ff = open( self.__cfile , 'rb')
+        csv_w = csv.reader( ff , delimiter=' ')
+        
         i = -1
         
-        size = 1
-        dim = 3
+        dim = 0
+        size = 0
+        print( self.__cfile )
+        #print( csv_w )
         
-        xi = np.zeros((3))
-        vi = np.zeros((3))
+        label = False
         
-        re_flags = ( re.IGNORECASE | re.UNICODE )
-        
-        while rd :
-            line = self.__f.readline()
-            
-            #print( line )
-            
-            if line == "" :
-                rd = False
-                continue
+        for row in csv_w :
+            #print( row )
             if i == -1 :
-                m = re.search( r"(\d+)\s+(\d+)" , line , re_flags )
-                if m != None and m.lastindex == 2:
-                    size = int( m.group(1) )
-                    dim  = int( m.group(2) )
-                else:
-                    raise
-                
-                reg_str = r""
-                
-                for j in range( 2*dim + 1 ):
-                    reg_str = reg_str + "(\d*\.{0,1}\d+)\s+"
+                size = int(row[0])
+                dim = int(row[1])
+                try:
+                    il = row.index( "Label" )
+                    label = True
+                except:
+                    label = False
                     
-                #reg_str.append( "([\w|\d|\s]+)$" )
-                        
-                pset.realloc( size , dim )
-                    
+                pset.realloc( size , dim , label=il)
+                
             else :
+                for j in range( dim ) :
+                    pset.X[i,j] = float(row[j])
+                    pset.V[i,j] = float(row[j+dim])
                 
-                m = re.search( reg_str , line , re_flags )
+                pset.M[i] = float( row[dim*2] )
                 
-                xi[0] = float( m.group(1) )
-                xi[1] = float( m.group(2) )
-                xi[2] = float( m.group(3) )
+                if label :
+                    pset.label[i] = row[dim*2+1] 
                 
-                pset.X[i,:] = xi
-                
-                
-                vi[0] = float( m.group(4) )
-                vi[1] = float( m.group(5) ) 
-                vi[2] = float( m.group(6) )
-                
-                pset.V[i,:] = vi
-                
-                pset.M[i] = float( m.group(7) )
+            i+=1
             
-            i += 1
+        #print( pset.label )
+        ff.close()
+        #exit()
         
-        #print( "--------------" )
-        #print( pset.X )
-        #print( "--------------" )
-        #print( pset.V )
-        #print( "--------------" )
-        #print( pset.M )
+
+
+    def write_out( self , pset ):
         
-    def write_out( self , X , M=None ,V=None ):
-        pass
+        ff = open( self.__cfile , 'wb')
+        csv_w = csv.writer( ff , delimiter=' ')
+        
+        head = [ str(pset.size) , str(pset.dim) ]
+        
+        try:
+            foo = pset.Q
+            head.append("Charge")
+        except:
+            pass
+        
+        if pset.label != None :
+            head.append( "Label" )
+        
+        csv_w.writerow( head )
+        
+        for i in range( pset.size ):
+            lst = pset.get_list( i , to=float )
+            csv_w.writerow( lst )
+            
+        ff.close()
 
 
 

@@ -213,7 +213,7 @@ class ParticlesConfig(object):
             'rc_radius': '1.0' ,
             'rc_mass_rng': '0.5 1.5' ,
             'rc_vel_rng': '0.5 1.0' ,
-            'rc_vel_mdl': 'const' ,
+            'rc_vel_mdl': 'no' ,
             'rc_vel_dir': '0 1 0' ,
             }
     
@@ -543,11 +543,11 @@ class ParticlesConfig(object):
                 
                 rc_vel_rng  = config.get     ( sect , 'rc_vel_rng' )
                 rc_vel_rng  = read_str_list  ( rc_vel_rng , to=float )
-                print(" setup - rand cluster - vel range : %s " % (rc_vel_rng,) )
+                print(" setup - rand cluster - velocity range : %s " % (rc_vel_rng,) )
                 
                 rc_vel_dir  = config.get     ( sect , 'rc_vel_dir' )
                 rc_vel_dir  = read_str_list  ( rc_vel_dir , to=float )
-                print(" setup - rand cluster - mass range : %s " % (rc_vel_dir,) )                
+                print(" setup - rand cluster - velocity direction : %s " % (rc_vel_dir,) )                
                 
                 rc_vel_mdl  = config.get     ( sect , 'rc_vel_mdl' )
                 print(" setup - rand cluster - volocity model : %s " % (rc_vel_mdl,) )
@@ -556,7 +556,7 @@ class ParticlesConfig(object):
                 cs = clu.RandCluster()
                 
                 if ( indx + rc_part_nr ) > self.pset.size :
-                    print(" !! Error the total size of rand cluster is too big")
+                    print(" !! Error the total size of the rand clusters is too big")
                     exit()
                 
                 cs.insert3( X=self.pset.X ,

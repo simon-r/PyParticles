@@ -52,7 +52,6 @@ class RandCluster( clu.Cluster ):
             self.bomb_vel( X , V , n=n , start_indx=start_indx , centre=centre , randg=randg , vel_rng=vel_rng)
             
         if V != None and "const" in vel_mdl :
-            print("ciao")
             self.const_vel( X , V , n=n , start_indx=start_indx , randg=randg , vel_rng=vel_rng , vel_dir=vel_dir )
     
     
@@ -85,7 +84,7 @@ class RandCluster( clu.Cluster ):
         
         v_dir = np.zeros( V[si:ei,:].shape ) + vel_dir
         
-        print( np.array(vel_dir) )
+        #print( np.array(vel_dir) )
         
         V[si:ei,:] = V[si:ei,:] + ( v_dir.T * ( vel_rng[0] + randg( n ) * ( vel_rng[1] - vel_rng[0] ) ) ).T
         

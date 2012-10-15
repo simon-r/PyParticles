@@ -68,7 +68,21 @@ def solar_system():
     FLOOR = -10
     CEILING = 10
     
-    pset = ps.ParticlesSet( 12 , 3 )
+    pset = ps.ParticlesSet( 12 , 3 , label=True )
+    
+    pset.label[0] = "Sun"
+    pset.label[1] = "Earth"
+    pset.label[2] = "Jupiter"
+    pset.label[3] = "Mars"
+    pset.label[4] = "Mercury"
+    pset.label[5] = "Neptune"
+    pset.label[6] = "Pluto"
+    pset.label[7] = "Saturn"
+    pset.label[8] = "Uranus"
+    pset.label[9] = "Venus"
+    pset.label[10] = "Ceres"
+    pset.label[11] = "Moon"
+    
     
     # Coordinates
     pset.X[:] = np.array(  [
@@ -172,6 +186,11 @@ def solar_system():
         pset.X[i,0] = x * np.cos( lan[i] ) - y * np.sin( lan[i] )
         pset.X[i,1] = x * np.sin( lan[i] ) + y * np.cos( lan[i] )
 
+    
+    outf = fc.FileCluster()
+    outf.open( "solar_system.csv" , "wb" )
+    outf.write_out( pset )
+    
         
     pset.unit = 149597870700.0
     pset.mass_unit = 5.9736e24

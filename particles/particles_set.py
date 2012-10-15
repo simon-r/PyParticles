@@ -112,6 +112,31 @@ class ParticlesSet(object):
     
     V = property( getV , doc="return the reference to the velocities array" )
 
+
+    def get_list( self , i , to=float ):
+        lstX = []
+        lstV = []
+        lstM =  to( self.M[i] )
+        
+        for j in range(  self.dim ):
+            lstX.append( to( self.X[i,j] ) )
+            lstV.append( to( self.V[i,j] ) )
+        
+        lst = lstX + lstV
+        lst.append( lstM )
+        
+        if self.__label != None :
+            lst.append( self.__label[i] )
+            
+        return lst
+
+
+    def get_label( self ):
+        return self.__label
+    
+    label = property( get_label , doc="return the reference to the label list" )
+    
+
     def update_boundary( self ):
         """ Update the particle set according to the boudary rule"""
         if self.__bound != None :
