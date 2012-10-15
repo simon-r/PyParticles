@@ -82,17 +82,18 @@ Section: set_config
 
     **Varibles:**
 
-           ===========================  ==============================================
-           Variable                     Description
-           ===========================  ==============================================
-           len_unit  = <number>         How many meters is a unit,
-           mass_unit = <number>         How many Kg is a unit
-           boundary  = [open|periodic]  The boundary model used in the simulation
-           sim_log = <number>           The size of the log queue (0 disable the log)
-           sim_log_X = [True|False]     If sim_log is enabled log the position
-           sim_log_V = [True|False]     If sim_log is enabled log the velocities
-           rand_part_nr = <number>      The total number of particles for a rand set
-           ===========================  ==============================================
+           ===========================          ==============================================
+           Variable                             Description
+           ===========================          ==============================================
+           len_unit  = <number>                 How many meters is a unit,
+           mass_unit = <number>                 How many Kg is a unit
+           boundary  = [open|periodic|rebound]  The boundary model used in the simulation
+           boundary_lim = <#> <#>               Define the size of the boundary
+           sim_log = <number>                   The size of the log queue (0 disable the log)
+           sim_log_X = [True|False]             If sim_log is enabled log the position
+           sim_log_V = [True|False]             If sim_log is enabled log the velocities
+           rand_part_nr = <number>              The total number of particles for a rand set
+           ===========================          ==============================================
 
            Note: len_unit & mass_unit are used only for drawing the particles
     
@@ -171,8 +172,9 @@ class ParticlesConfig(object):
     Parse the config files used for generating the problems:
     """
     def __init__(self):
-        self.len_unit = 1.0
-        self.mass_unit = 1.0
+        
+        self.file_name = ""
+        
         
         self.default = {
             # section pset_origin
@@ -183,6 +185,7 @@ class ParticlesConfig(object):
             'len_unit': '149597870700.0' ,
             'mass_unit': '5.9736e24' ,
             'boundary': 'open' ,
+            'boundary_lim': '-7 7' ,
             'sim_log': '0' ,
             'sim_log_X': 'True' ,
             'sim_log_V': 'False' ,
@@ -203,6 +206,15 @@ class ParticlesConfig(object):
             'xlim': '-5.0  5.0' ,
             'ylim': '-5.0  5.0' ,
             'zlim': '-5.0  5.0' ,
+            
+            # section rand_cluster_* TODO 
+            'rc_part_nr': '100' ,
+            'rc_centre': '0 0 0' ,
+            'rc_radius': '1.0' ,
+            'rc_mass_rng': '0.5 1.5' ,
+            'rc_vel_rng': '0.5 1.0' ,
+            'rc_vel_mdl': 'const' ,
+            'rc_vel_dir': '0 1 0' ,
             }
     
     def write_example_config_file( self , file_name='example_pyparticles_config.cfg' ):
@@ -217,6 +229,7 @@ class ParticlesConfig(object):
         config.set('set_config', 'len_unit', '149597870700.0')
         config.set('set_config', 'mass_unit', '5.9736e24')
         config.set('set_config', 'boundary', 'open')
+        config.set('set_config', 'boundary_lim', '-7 7')
         config.set('set_config', 'sim_log', '0')
         config.set('set_config', 'sim_log_X', 'True')
         config.set('set_config', 'sim_log_V', 'False')
@@ -239,6 +252,15 @@ class ParticlesConfig(object):
         config.set('animation', 'ylim', '-5.0  5.0')
         config.set('animation', 'zlim', '-5.0  5.0')
     
+        config.add_section('rand_cluster_any')
+        config.set('rand_cluster_any', 'rc_part_nr', '100')
+        config.set('rand_cluster_any', 'rc_centre', '0 0 0')
+        config.set('rand_cluster_any', 'rc_radius', '1.0')
+        config.set('rand_cluster_any', 'rc_mass_rng', '0.5  1.0')
+        config.set('rand_cluster_any', 'rc_vel_rng', '0.5 1.0')
+        config.set('rand_cluster_any', 'rc_vel_mdl', 'bomb')
+        config.set('rand_cluster_any', 'rc_vel_dir', '0 1 0')
+    
         # Writing our configuration file to 'example.cfg'
         with open( file_name , 'wb' ) as configfile:
             config.write(configfile)
@@ -251,6 +273,9 @@ class ParticlesConfig(object):
         """
         Read the configuration file
         """
+        
+        self.file_name = file_name
+        
         config = ConfigParser.ConfigParser(self.default)
         
         fp = None
@@ -270,12 +295,14 @@ class ParticlesConfig(object):
         
         #########################################################
         ## Section set_config
-        self.len_unit  = config.getfloat( 'set_config' , 'len_unit' )
-        self.mass_unit = config.getfloat( 'set_config' , 'mass_unit' )
-        self.boudary   = config.get( 'set_config' , 'boundary' )
-        self.sim_log   = config.getint( 'set_config' , 'sim_log' )
-        self.sim_log_X = config.getboolean( 'set_config' , 'sim_log_X' )
-        self.sim_log_V = config.getboolean( 'set_config' , 'sim_log_V' )
+        self.len_unit    = config.getfloat( 'set_config' , 'len_unit' )
+        self.mass_unit   = config.getfloat( 'set_config' , 'mass_unit' )
+        self.boudary     = config.get( 'set_config' , 'boundary' )
+        self.boudary_lim = config.get( 'set_config' , 'boundary_lim' )
+        self.sim_log     = config.getint( 'set_config' , 'sim_log' )
+        self.sim_log_X   = config.getboolean( 'set_config' , 'sim_log_X' )
+        self.sim_log_V   = config.getboolean( 'set_config' , 'sim_log_V' )
+        self.rand_part_nr= config.getint( 'set_config' , 'rand_part_nr' )
         
         #########################################################
         ## Section model
@@ -322,7 +349,12 @@ class ParticlesConfig(object):
             ff.insert3( self.pset )
             ff.close()
             print( " setup - particles set - file name: %s " % self.pset_file_name )
-        
+        elif self.media_origin == "rand" :
+            self.pset.realloc( self.rand_part_nr , dim=3 )
+            self.__get_rand_clusters()
+        else:
+            print("  !! Error - particles set - media origin: %s don't exist  " % self.media_origin )
+            
         
         print( " setup - particles set - size:      %d " % self.pset.size )
         print( " setup - particles set - dim:       %d " % self.pset.dim )
@@ -340,8 +372,16 @@ class ParticlesConfig(object):
             print( " setup - particles set - Boundary: open " )
             
         elif self.boudary == "periodic" :
-            self.pset.boundary = pb.PeriodicBoundary( bound=(-10,10) , dim=pset.dim )
-            print( " setup - particles set - Boundary: pariodic " )
+            bound = read_str_list( self.boudary_lim )
+            self.pset.boundary = pb.PeriodicBoundary( bound=bound , dim=self.pset.dim )
+            print( " setup - particles set - Boundary: periodic " )
+            print( " setup - particles set - Boundary size : %s " % (bound,) )
+            
+        elif self.boudary == "rebound" :
+            bound = read_str_list( self.boudary_lim )
+            self.pset.boundary = rb.ReboundBoundary( bound=bound , dim=self.pset.dim )
+            print( " setup - particles set - Boundary: rebound " )
+            print( " setup - particles set - Boundary size : %s " % (bound,) )
             
         if self.sim_log > 0 :
             self.pset.enable_log( log_X=self.sim_log_X , log_V=self.sim_log_V , log_max_size=self.sim_log )
@@ -377,10 +417,9 @@ class ParticlesConfig(object):
             print( " setup - force - K:     %e " % float(self.force_const) )
             
         elif self.force_name == "constant_force" :
-            fv =re.split( r"\s+" , self.force_vector )
+            fv = read_str_list( self.force_vector )
             
-            self.force = cf.ConstForce( self.pset.size , self.pset.dim ,
-                                        u_force=( float(fv[0]) , float(fv[1]) , float(fv[2]) ) )
+            self.force = cf.ConstForce( self.pset.size , dim=self.pset.dim , u_force=fv )
             
             print( " setup - force - Type:  Constant " )
             print( " setup - force - Vect:  %e  %e  %e " % ( float(fv[0]) , float(fv[1]) , float(fv[2]) )  )
@@ -461,6 +500,92 @@ class ParticlesConfig(object):
         
             
         return self.animation
+    
+    ################################################################################
+    def __get_rand_clusters(self):
+        
+
+            # 'rc_part_nr': '100' ,
+            # 'rc_centre': '0 0 0' ,
+            # 'rc_radius': '1.0' ,
+            # 'rc_mass_rng': '0.5 1.5' ,
+            # 'rc_vel_rng': '0.5 1.0' ,
+            # 'rc_vel_mdl': 'const' ,
+            # 'rc_vel_dir': '0 1 0' ,
+        
+        config = ConfigParser.ConfigParser(self.default)
+        config.read( self.file_name )
+        
+        indx = 0
+        
+        l_sec = config.sections()
+        
+        for se in l_sec :
+            m = re.search( r"(^rand_cluster_\w+)" , se )
+            
+            if m != None :
+                sect = m.group(1)
+                print(" setup - rand cluster - name : %s " % sect )
+                
+                rc_part_nr  = config.getfloat( sect , 'rc_part_nr' )
+                print(" setup - rand cluster - size : %d " % rc_part_nr )
+                
+                rc_centre   = config.get     ( sect , 'rc_centre' )
+                rc_centre   = read_str_list  ( rc_centre , to=float )
+                print(" setup - rand cluster - centre : %s " % (rc_centre,) )
+                
+                rc_radius   = config.getfloat( sect , 'rc_radius' )
+                print(" setup - rand cluster - radius : %f " % rc_radius )
+                
+                rc_mass_rng = config.get     ( sect , 'rc_mass_rng' )
+                rc_mass_rng = read_str_list  ( rc_mass_rng , to=float )
+                print(" setup - rand cluster - mass range : %s " % (rc_mass_rng,) )
+                
+                rc_vel_rng  = config.get     ( sect , 'rc_vel_rng' )
+                rc_vel_rng  = read_str_list  ( rc_vel_rng , to=float )
+                print(" setup - rand cluster - vel range : %s " % (rc_vel_rng,) )
+                
+                rc_vel_dir  = config.get     ( sect , 'rc_vel_dir' )
+                rc_vel_dir  = read_str_list  ( rc_vel_dir , to=float )
+                print(" setup - rand cluster - mass range : %s " % (rc_vel_dir,) )                
+                
+                rc_vel_mdl  = config.get     ( sect , 'rc_vel_mdl' )
+                print(" setup - rand cluster - volocity model : %s " % (rc_vel_mdl,) )
+                
+                
+                cs = clu.RandCluster()
+                
+                if ( indx + rc_part_nr ) > self.pset.size :
+                    print(" !! Error the total size of rand cluster is too big")
+                    exit()
+                
+                cs.insert3( X=self.pset.X ,
+                            M=self.pset.M ,
+                            V=self.pset.V ,
+                            start_indx=indx ,
+                            n = int(rc_part_nr) ,
+                            centre=rc_centre ,
+                            vel_rng=rc_vel_rng ,
+                            vel_mdl=rc_vel_mdl ,
+                            vel_dir=rc_vel_dir )
+                
+                indx += rc_part_nr
+                print("")
+                
+        
+def read_str_list( string , to=float ):
+    
+    a = re.split( "\s+" , string )
+    c = a.count( "" )
+    
+    for i in range(c):
+        a.remove("")
+        
+    r = []
+    for i in a :
+        r.append( to(i) )
+    
+    return tuple(r)
         
         
         

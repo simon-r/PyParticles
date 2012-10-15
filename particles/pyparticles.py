@@ -190,7 +190,7 @@ def main():
     #solver = rks.RungeKuttaSolver( grav , pset , dt )    
         
     a = aogl.AnimatedGl()
-   # a = anim.AnimatedScatter()
+    # a = anim.AnimatedScatter()
         
     
     a.xlim = ( FLOOR , CEILING )
