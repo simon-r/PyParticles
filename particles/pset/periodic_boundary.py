@@ -1,3 +1,4 @@
+
 # PyParticles : Particles simulation in python
 # Copyright (C) 2012  Simone Riva
 #
@@ -14,21 +15,22 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-
 import numpy as np
-import particles.ode_solver as os
+import particles.pset.boundary as bd
 
-class EulerSolver( os.OdeSolver ) :
-    def __init__( self , force , p_set , dt ):
-        super(EulerSolver,self).__init__( force , p_set , dt )
-        
+
+class PeriodicBoundary( bd.Boundary ):
+
+    def __init__( self , bound=(-1,1) , dim=3 ):
+        self.set_boundary( bound , dim )
+
     
-    def __step__( self , dt ):
-
+    def boundary( self , p_set ):
+        for i in range( self.dim ) :
+            delta = self.bound[i,1] - self.bound[i,0]
             
-        self.force.update_force( self.pset )
-        
-        self.pset.V[:] = self.pset.V + self.force.A * dt
-        self.pset.X[:] = self.pset.X + self.pset.V * dt
-        
-        self.pset.update_boundary() 
+            b_mi = p_set.X[:,i] < self.bound[i,0]
+            b_mx = p_set.X[:,i] > self.bound[i,1]
+            
+            p_set.X[b_mi,i] = p_set.X[b_mi,i] + delta
+            p_set.X[b_mx,i] = p_set.X[b_mx,i] - delta

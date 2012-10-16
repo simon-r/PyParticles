@@ -16,7 +16,7 @@
 
 
 import numpy as np
-import particles.boundary as bd
+import particles.pset.boundary as bd
 
 class ReboundBoundary( bd.Boundary ):
     

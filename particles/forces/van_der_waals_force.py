@@ -18,27 +18,34 @@ import numpy as np
 import sys
 import scipy.spatial.distance as dist
 
-import particles.force as fr
+import particles.forces.force as fr
 
-class VectorFieldForce( fr.Force ) :
-    def __init__(self , size , dim=3 , m=None ):
+class VanDerWaals( fr.Force ) :
+    def __init__(self , size , dim=3 , m=None , Consts=1.0 ):
+        
         self.__dim = dim
         self.__size = size
+        
+        self.__C = Consts # Hamaker coefficient (A)
+                
         self.__A = np.zeros( ( size , dim ) )
-        self.__M = np.zeros( ( size , size ) )
+        self.__F = np.zeros( ( size , dim ) )
+        self.__Fm = np.zeros( ( size , size ) )
+        
+        self.__R = np.zeros( ( size , 1 ) )
         if m != None :
             self.set_messes( m )
         
     
     def set_masses( self , m ):
-        self.__M[:] = m
+        self.__R[:] = m
+        
     
     def update_force( self , p_set ):
-        self.__A[:] = self.vect_fun( p_set.X )
+        
+        self.__D[:] = dist.squareform( dist.pdist( p_set.X , 'euclidean' ) )
+        
         return self.__A
-    
-    def vect_fun( self , X ):
-        NotImplementedError(" %s : is virtual and must be overridden." % sys._getframe().f_code.co_name )
     
     def getA(self):
         return self.__A
@@ -47,6 +54,7 @@ class VectorFieldForce( fr.Force ) :
 
 
     def getF(self):
-        return self.__A * self.__M[:]
+        return self.__F
     
     F = property( getF )
+

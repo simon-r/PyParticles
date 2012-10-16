@@ -23,37 +23,37 @@ import matplotlib.pyplot as plt
 import matplotlib
 import numpy as np
 
-import particles.animated_scatter as anim
+import particles.animation.animated_scatter as anim
 
-import particles.particles_set as ps
+import particles.pset.particles_set as ps
 
 import particles.animation as pan
 
-import particles.rand_cluster as clu
-import particles.gravity as gr
-import particles.euler_solver as els
-import particles.leapfrog_solver as lps
-import particles.runge_kutta_solver as rks
-import particles.stormer_verlet_solver as svs
-import particles.midpoint_solver as mds
+import particles.pset.rand_cluster as clu
+import particles.forces.gravity as gr
+import particles.ode.euler_solver as els
+import particles.ode.leapfrog_solver as lps
+import particles.ode.runge_kutta_solver as rks
+import particles.ode.stormer_verlet_solver as svs
+import particles.ode.midpoint_solver as mds
 
 import numpy as np
-import particles.periodic_boundary as pb
-import particles.rebound_boundary as rb
-import particles.const_force as cf
-import particles.vector_field_force as vf
-import particles.linear_spring as ls
-import particles.file_cluster as fc
+#import particles.periodic_boundary as pb
+#import particles.rebound_boundary as rb
+#import particles.forces.const_force as cf
+#import particles.forces.vector_field_force as vf
+#import particles.forces.linear_spring as ls
+import particles.pset.file_cluster as fc
 
 
-import particles.parse_args as arg 
+#import particles.parse_args as arg 
 
-import particles.problem_config as pc 
+#import particles.problem_config as pc 
 
 import sys
 
 if sys.version_info[0] == 2:
-    import particles.animated_ogl as aogl
+    import particles.animation.animated_ogl as aogl
 
 
 def solar_system():

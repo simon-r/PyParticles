@@ -16,8 +16,8 @@
 
 
 import numpy as np
-import particles.ode_solver as os
-import particles.particles_set as ps
+import particles.ode.ode_solver as os
+import particles.pset.particles_set as ps
 
 class RungeKuttaSolver( os.OdeSolver ) :
     def __init__( self , force , p_set , dt ):

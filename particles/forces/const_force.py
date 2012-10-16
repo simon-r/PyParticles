@@ -15,7 +15,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import numpy as np
-import particles.force as fr
+import particles.forces.force as fr
 
 
 class ConstForce( fr.Force ) :

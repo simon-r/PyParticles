@@ -14,12 +14,12 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import particles.particles_set as ps
+import particles.pset.particles_set as ps
 
 import particles.animation as pan
 
 import particles.rand_cluster as clu
-import particles.gravity as gr
+import particles.forces.gravity as gr
 import particles.euler_solver as els
 import particles.leapfrog_solver as lps
 import particles.runge_kutta_solver as rks

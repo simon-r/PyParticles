@@ -18,7 +18,7 @@
 
 
 import numpy as np
-import particles.particles_set as ps
+import particles.pset.particles_set as ps
 
 class ElectricallyChargeedParticlesSet ( ps.ParticlesSet ):
     def __init__( self , size=1 , dim=3 , boundary=None ,

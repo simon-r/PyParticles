@@ -16,7 +16,7 @@
 
 
 import argparse
-from particles.pypart_global import py_particle_version
+from particles.utils.pypart_global import py_particle_version
 
 def parse_args():
     desc = "PyParticles is a particle simulation tool box that support the most diffused numerical integration " 

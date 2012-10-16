@@ -18,52 +18,38 @@ import numpy as np
 import sys
 import scipy.spatial.distance as dist
 
-import particles.force as fr
+import particles.forces.force as fr
 
-class Electrostatic( fr.Force ) :
-    """
-    Compute the electrostatic force.
-        Note: The real force of an eletrodynamic system is given by the **Maxwell equations**! and not from the Culomb law.
-    """
+class LinearSpring( fr.Force ) :
     def __init__(self , size , dim=3 , m=None , Consts=1.0 ):
         
         self.__dim = dim
         self.__size = size
-        self.__K = Consts # Culomb constant!
+        
+        self.__K = Consts
+                
         self.__A = np.zeros( ( size , dim ) )
+        self.__F = np.zeros( ( size , dim ) )
         self.__Fm = np.zeros( ( size , size ) )
-        self.__V = np.zeros( ( size , size ) )
-        self.__D = np.zeros( ( size , size ) )
-        self.__Q = np.zeros( ( size , size ) )
+        
         self.__M = np.zeros( ( size , 1 ) )
         if m != None :
-            self.set_masses( m )
-        
+            self.set_messes( m )
         
     
     def set_masses( self , m ):
         self.__M[:] = m
         
-    def set_charges( self , q ):
-        self.__Q[:,:] = q
-        self.__Q[:,:] = self.__Q * self.__Q.T
     
-    def update_force( self , p_set ):        
-        self.__D[:] = dist.squareform( dist.pdist( p_set.X , 'euclidean' ) )
+    def update_force( self , p_set ):
         
-        
-        self.__Fm[:] = self.__K * self.__Q[:] / ( ( self.__D[:] ) ** 3.0 )
-
-        for j in range( self.__size ) :
-            self.__Fm[j,j] = 0.0
-        
-              
         for i in range( self.__dim ):
-            self.__V[:,:] = p_set.X[:,i]
-            self.__V[:,:] = ( self.__V[:,:].T - p_set.X[:,i] ).T 
-                        
-            self.__A[:,i] = np.sum( self.__Fm * self.__V[:,:] , 0 ) / self.__M 
+            self.__Fm[:,:] = p_set.X[:,i]
+            self.__Fm[:,:] = -self.__K * ( self.__Fm[:,:].T - p_set.X[:,i] ).T 
         
+            self.__F[:,i] = np.sum( self.__Fm , 0 )
+        
+        self.__A[:,:] = self.__F[:,:] / self.__M[:]
         
         return self.__A
     
@@ -74,7 +60,6 @@ class Electrostatic( fr.Force ) :
 
 
     def getF(self):
-        return self.__A * self.__M
+        return self.__F
     
     F = property( getF )
-

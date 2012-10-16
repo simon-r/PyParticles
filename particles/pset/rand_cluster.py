@@ -15,7 +15,7 @@
 #along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import numpy as np
-import particles.cluster as clu
+import particles.pset.cluster as clu
 
 
 class RandCluster( clu.Cluster ):

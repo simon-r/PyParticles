@@ -16,22 +16,29 @@
 
 
 import numpy as np
-import particles.ode_solver as os
+import particles.ode.ode_solver as os
+import particles.pset.particles_set as ps
 
-class LeapfrogSolver( os.OdeSolver ) :
+class MidpointSolver( os.OdeSolver ) :
     def __init__( self , force , p_set , dt ):
-        super(LeapfrogSolver,self).__init__( force , p_set , dt )
-        self.__Ai = np.zeros( self.force.A.shape )
+        
+        super(MidpointSolver,self).__init__( force , p_set , dt )
+        
+        self.__mid_pset = ps.ParticlesSet( p_set.size , p_set.dim )
+    
     
     def __step__( self , dt ):
-            
-        self.pset.X[:] = self.pset.X + self.pset.V * dt + 0.5*self.force.A * dt**2.0
-        self.__Ai[:] = self.force.A
+    
         
-        self.force.update_force( self.pset )
+        self.__mid_pset.X[:] = self.pset.X[:] + dt/2.0 * self.pset.V
         
-        self.pset.V[:] = self.pset.V + 0.5 * ( self.__Ai + self.force.A ) * dt
+        self.force.update_force( self.__mid_pset )
         
+        self.__mid_pset.V[:] = self.pset.V[:] + dt/2.0 * self.force.A
+        
+        self.pset.V[:] = self.pset.V[:] + dt * self.force.A
+        self.pset.X[:] = self.pset.X[:] + dt * self.__mid_pset.V[:]
         
         self.pset.update_boundary() 
+        self.force.update_force( self.pset )
 

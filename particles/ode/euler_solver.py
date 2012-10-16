@@ -16,29 +16,19 @@
 
 
 import numpy as np
-import particles.ode_solver as os
-import particles.particles_set as ps
+import particles.ode.ode_solver as os
 
-class MidpointSolver( os.OdeSolver ) :
+class EulerSolver( os.OdeSolver ) :
     def __init__( self , force , p_set , dt ):
+        super(EulerSolver,self).__init__( force , p_set , dt )
         
-        super(MidpointSolver,self).__init__( force , p_set , dt )
-        
-        self.__mid_pset = ps.ParticlesSet( p_set.size , p_set.dim )
-    
     
     def __step__( self , dt ):
-    
+
+            
+        self.force.update_force( self.pset )
         
-        self.__mid_pset.X[:] = self.pset.X[:] + dt/2.0 * self.pset.V
-        
-        self.force.update_force( self.__mid_pset )
-        
-        self.__mid_pset.V[:] = self.pset.V[:] + dt/2.0 * self.force.A
-        
-        self.pset.V[:] = self.pset.V[:] + dt * self.force.A
-        self.pset.X[:] = self.pset.X[:] + dt * self.__mid_pset.V[:]
+        self.pset.V[:] = self.pset.V + self.force.A * dt
+        self.pset.X[:] = self.pset.X + self.pset.V * dt
         
         self.pset.update_boundary() 
-        self.force.update_force( self.pset )
-

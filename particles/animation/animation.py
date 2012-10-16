@@ -16,23 +16,19 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import particles.particles_set as ps
-import particles.rand_cluster as clu
-import particles.gravity as gr
-import particles.euler_solver as els
-import particles.leapfrog_solver as lps
-import particles.runge_kutta_solver as rks
+import particles.pset.particles_set as ps
+import particles.pset.rand_cluster as clu
+#import particles.euler_solver as els
+#import particles.leapfrog_solver as lps
+#import particles.runge_kutta_solver as rks
 
 import matplotlib.animation as animation
 
-from mpl_toolkits.mplot3d import Axes3D
+#from mpl_toolkits.mplot3d import Axes3D
 import matplotlib.pyplot as plt
 import numpy as np
-import particles.periodic_boundary as pb
-import particles.rebound_boundary as rb
-import particles.const_force as cf
-import particles.vector_field_force as vf
-import particles.linear_spring as ls
+#import particles.periodic_boundary as pb
+#import particles.rebound_boundary as rb
 
 
 class Animation(object):

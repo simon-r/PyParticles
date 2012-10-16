@@ -18,40 +18,27 @@ import numpy as np
 import sys
 import scipy.spatial.distance as dist
 
-import particles.force as fr
+import particles.forces.force as fr
 
-class LinearSpring( fr.Force ) :
-    def __init__(self , size , dim=3 , m=None , Consts=1.0 ):
-        
+class VectorFieldForce( fr.Force ) :
+    def __init__(self , size , dim=3 , m=None ):
         self.__dim = dim
         self.__size = size
-        
-        self.__K = Consts
-                
         self.__A = np.zeros( ( size , dim ) )
-        self.__F = np.zeros( ( size , dim ) )
-        self.__Fm = np.zeros( ( size , size ) )
-        
-        self.__M = np.zeros( ( size , 1 ) )
+        self.__M = np.zeros( ( size , size ) )
         if m != None :
             self.set_messes( m )
         
     
     def set_masses( self , m ):
         self.__M[:] = m
-        
     
     def update_force( self , p_set ):
-        
-        for i in range( self.__dim ):
-            self.__Fm[:,:] = p_set.X[:,i]
-            self.__Fm[:,:] = -self.__K * ( self.__Fm[:,:].T - p_set.X[:,i] ).T 
-        
-            self.__F[:,i] = np.sum( self.__Fm , 0 )
-        
-        self.__A[:,:] = self.__F[:,:] / self.__M[:]
-        
+        self.__A[:] = self.vect_fun( p_set.X )
         return self.__A
+    
+    def vect_fun( self , X ):
+        NotImplementedError(" %s : is virtual and must be overridden." % sys._getframe().f_code.co_name )
     
     def getA(self):
         return self.__A
@@ -60,6 +47,6 @@ class LinearSpring( fr.Force ) :
 
 
     def getF(self):
-        return self.__F
+        return self.__A * self.__M[:]
     
     F = property( getF )
