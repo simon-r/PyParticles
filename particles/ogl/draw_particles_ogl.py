@@ -54,7 +54,7 @@ class DrawParticlesGL(object):
     def get_color_fun( self , fun ):
         return self.__color_fun
     
-    color_fun = property( get_color_fun , set_color_fun , "Set and get the function for calculating the particle color:\n"
+    color_fun = property( get_color_fun , set_color_fun , doc="Set and get the function for calculating the particle color:\n"
                                                             " definition of the function color,"
                                                             " it take as args a particle_set obj. and the particle index "
                                                             " \n (R,G,B,A) = cfun( pset , index ) " )
@@ -128,7 +128,7 @@ class DrawParticlesGL(object):
     
         for i in range( self.pset.size ):
             
-            glPointSize( self.pset.M[i] / mass_unit )
+            glPointSize( 0.01 + self.pset.M[i] / mass_unit )
             
             glBegin(GL_POINTS)
             

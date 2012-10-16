@@ -34,7 +34,7 @@ class ParticlesSet(object):
         ============= =============== =======================================================
     """
     def __init__( self , size=1 , dim=3 , boundary=None ,
-                 label=False , mass=True , velocity=True ,
+                 label=False , mass=True , velocity=True , charge=False ,
                  log_X=False , log_V=False , log_max_size=0 ):
         
         if size < 0 :
@@ -51,6 +51,11 @@ class ParticlesSet(object):
             self.__mass = np.zeros((size,1))
         else:
             self.__mass = None
+        
+        if charge :
+            self.__Q = np.zeros(( size , 1 ))
+        else:
+            self.__Q = None
         
         if not label :
             self.__label = None
@@ -79,12 +84,20 @@ class ParticlesSet(object):
         self.__log_max_size = log_max_size
         self.__log_len = 0
         
+        self.__property_dict =  dict( [ [ "M" , self.__mass ] ,
+                                        [ "V" , self.__V ] ,
+                                        [ "X" , self.__X ] ,
+                                        [ "Q" , self.__Q ] ,
+                                        [ "Label" , self.__label ]
+                                       ] )
+        
         
     def realloc( self , size , dim , boundary=None ,
-                 label=False , mass=True , velocity=True ,
+                 label=False , mass=True , velocity=True , charge=False ,
                  log_X=False , log_V=False , log_max_size=0 ):
         """
-        Realloc the particle set, it uses the same args of the constructor
+        Realloc the particle set, it uses the same args of the constructor, 
+         Attention! this method remove the dictionary of the of the extra properties
         """
         del self.__X
         del self.__V
@@ -92,10 +105,65 @@ class ParticlesSet(object):
         del self.__label
         del self.__log_X
         del self.__log_V
+        del self.__property_dict
         
-        self.__init__( size , dim , boundary , label , mass , velocity , log_X , log_V , log_max_size )
+        self.__init__( size , dim , boundary , label , mass , velocity , charge , log_X , log_V , log_max_size )
         
+    
+    def resize( self , new_size ):
+        """
+        Resize the particles set with the new_size: if the new size is bigger the old data are copied in the new particles,
+        if it is smaller it cancels the data.
+        The dim of the set is not changed.
+        """
         
+        for k in self.__property_dict.keys() :
+            if self.__property_dict[k] == None :
+                continue 
+            
+            if k == "Label" :
+                lst = list( "" for i in range(new_size) )
+                
+                mn = min( [ self.size , new_size ] )
+                lst[:mn] = self.__label[:mn]
+                
+            else :
+                self.__property_dict[k] = np.resize( self.__property_dict[k]  ,
+                                                 ( new_size , self.__property_dict[k].shape[1] ) )
+        
+        self.__size = int( new_size )
+
+
+    def get_by_name( self , property_name ):
+        """
+        Return a property reference by name:
+        for example 'X' , 'V' , 'M' ...
+        
+            # set to [1,2,3] the position of the 10th particle
+            pset.get_by_name('X')[10,:] = [1,2,3]
+        """
+        return self.__property_dict[property_name]
+
+
+    def add_property_by_name( self , property_name , dim=None ):
+        """
+        Insert a new property by name. If the dim is not specified it uses the current dimension of the set.
+        A property by default is a float array.
+        For example 'friction' or 'radius':
+            # Add the friction to the particles
+            pset.add_property_by_name( "friction" , dim=1 )
+        """
+        
+        if dim == None :
+            dim = self.dim
+        
+        self.__property_dict[property_name] = np.zeros(( size , dim ))
+
+    def get_properties_names(self):
+        """
+        Return a list of containig the names of all properties
+        """
+        return self.__property_dict.keys()
 
     def getX(self):
         return self.__X
@@ -106,6 +174,13 @@ class ParticlesSet(object):
         return self.__mass
     
     M = property( getM , doc="return the reference to the array of the masses" )
+    
+
+    def getQ(self):
+        return self.__Q
+    
+    Q = property( getQ , doc="return the reference to the array of the charges" )
+
     
     def getV(self):
         return self.__V
@@ -148,7 +223,7 @@ class ParticlesSet(object):
     def set_boundary( self , boundary):
         self.__bound = boundary
 
-    boundary = property( get_boundary , set_boundary , "return the reference to the boudary, None if the boudary are not set or open")
+    boundary = property( get_boundary , set_boundary , doc="return the reference to the boudary, None if the boudary are not set or open")
 
     
     def get_log_max_size( self ):
@@ -157,7 +232,7 @@ class ParticlesSet(object):
     def set_log_max_size( self , log_max_size ):
         self.__log_max_size = log_max_size
     
-    log_max_size = property( get_log_max_size , set_log_max_size , "set and get the max allowed size of the log")
+    log_max_size = property( get_log_max_size , set_log_max_size , doc="set and get the max allowed size of the log")
     
     
     def enable_log( self , log_X=True , log_V=False , log_max_size=0 ):
