@@ -49,7 +49,7 @@ import particles.vector_field_force as vf
 import particles.linear_spring as ls
 import particles.file_cluster as fc
 
-import particles.solar_system as sol
+import particles.demo.solar_system as sol
 
 import particles.parse_args as arg 
 
