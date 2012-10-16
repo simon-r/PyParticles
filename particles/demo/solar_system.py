@@ -23,14 +23,10 @@ import matplotlib.pyplot as plt
 import matplotlib
 import numpy as np
 
-import particles.animation.animated_scatter as anim
-
 import particles.pset.particles_set as ps
 
-import particles.animation as pan
-
-import particles.pset.rand_cluster as clu
 import particles.forces.gravity as gr
+
 import particles.ode.euler_solver as els
 import particles.ode.leapfrog_solver as lps
 import particles.ode.runge_kutta_solver as rks
@@ -38,11 +34,6 @@ import particles.ode.stormer_verlet_solver as svs
 import particles.ode.midpoint_solver as mds
 
 import numpy as np
-#import particles.periodic_boundary as pb
-#import particles.rebound_boundary as rb
-#import particles.forces.const_force as cf
-#import particles.forces.vector_field_force as vf
-#import particles.forces.linear_spring as ls
 import particles.pset.file_cluster as fc
 
 
@@ -187,9 +178,9 @@ def solar_system():
         pset.X[i,1] = x * np.sin( lan[i] ) + y * np.cos( lan[i] )
 
     
-    outf = fc.FileCluster()
-    outf.open( "solar_system.csv" , "wb" )
-    outf.write_out( pset )
+    #outf = fc.FileCluster()
+    #outf.open( "solar_system.csv" , "wb" )
+    #outf.write_out( pset )
     
         
     pset.unit = 149597870700.0

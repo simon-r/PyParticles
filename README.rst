@@ -34,20 +34,23 @@ The following are the main command of the PyParticles application.
 
 Start the demo simulation: ::
 
-    pypaticle
+    pypaticle_app
     
+
 Start a simulation described in a config file ::
 
-    pyparticle <file_name>
+    pyparticle_app <file_name>
     
+
 Write out a model config file ::
     
-    pyparticle -m
+    pyparticle_app -m
     
+
 Print out the help and version ::
 
-    pyparticles --help
-    pyparticles --version
+    pyparticles_app --help
+    pyparticles_app --version
     
 
 Config file Example: ::
