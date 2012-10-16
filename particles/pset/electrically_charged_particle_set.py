@@ -21,6 +21,9 @@ import numpy as np
 import particles.pset.particles_set as ps
 
 class ElectricallyChargeedParticlesSet ( ps.ParticlesSet ):
+    """
+    Deprecated !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    """
     def __init__( self , size=1 , dim=3 , boundary=None ,
                   label=False , mass=True  , charge=True , velocity=True ,
                   log_X=False , log_V=False , log_max_size=0
