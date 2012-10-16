@@ -84,12 +84,16 @@ class ParticlesSet(object):
         self.__log_max_size = log_max_size
         self.__log_len = 0
         
-        self.__property_dict =  dict( [ [ "M" , self.__mass ] ,
-                                        [ "V" , self.__V ] ,
-                                        [ "X" , self.__X ] ,
-                                        [ "Q" , self.__Q ] ,
-                                        [ "Label" , self.__label ]
-                                       ] )
+        self.__property_dict = dict()
+        self.__property_dict['X'] = self.__X
+        self.__property_dict['V'] = self.__V
+        self.__property_dict['M'] = self.__mass
+        
+        if self.__label != None :
+            self.__property_dict['label'] = self.__label
+            
+        if self.__Q :
+            self.__property_dict['Q'] = self.__Q
         
         
     def realloc( self , size , dim , boundary=None ,
@@ -112,24 +116,48 @@ class ParticlesSet(object):
     
     def resize( self , new_size ):
         """
-        Resize the particles set with the new_size: if the new size is bigger the old data are copied in the new particles,
+        Resize the particles set with the new_size.
+        If the new size is bigger the old data are copied in the new particles, according to the function numpy.resize
         if it is smaller it cancels the data.
-        The dim of the set is not changed.
+        
+        If the property is a list new elements will be filled with 'None' or empty string for the labels
+        
+        The dim of the set will be not changed.
         """
         
         for k in self.__property_dict.keys() :
             if self.__property_dict[k] == None :
                 continue 
             
-            if k == "Label" :
+            if k == "label" :
                 lst = list( "" for i in range(new_size) )
                 
                 mn = min( [ self.size , new_size ] )
                 lst[:mn] = self.__label[:mn]
                 
+                self.__property_dict[k] = list( lst )
+                self.__label = lst
+                
+            elif isinstance( self.__property_dict[k] , list ) :
+                lst = list( None for i in range(new_size) )
+                
+                mn = min( [ self.size , new_size ] )
+                lst[:mn] = self.__property_dict[k][:mn]
+                self.__property_dict[k] = lst
+                
             else :
-                self.__property_dict[k] = np.resize( self.__property_dict[k]  ,
-                                                 ( new_size , self.__property_dict[k].shape[1] ) )
+                NP = np.resize( self.__property_dict[k]  ,
+                                ( new_size , self.__property_dict[k].shape[1] ) )
+                self.__property_dict[k] = NP
+                
+                if k == "M" :
+                    self.__mass = NP
+                elif k == "X" :
+                    self.__X = NP
+                elif k == "V" :
+                    self.__V = NP
+                elif k == "Q" :
+                    self.__Q = NP                    
         
         self.__size = int( new_size )
 
@@ -145,10 +173,17 @@ class ParticlesSet(object):
         return self.__property_dict[property_name]
 
 
-    def add_property_by_name( self , property_name , dim=None ):
+    def add_property_by_name( self , property_name , dim=None , model="numpy_array" , to_type=np.float64 ):
         """
         Insert a new property by name. If the dim is not specified it uses the current dimension of the set.
-        A property by default is a float array.
+        If the model of the property is 'list' the dim is forced to 1
+        
+        Arguments:
+            property_name : the name of the new property
+            dim : the dimension of the new property ( 2 = "2D  , 3 = 3D ... )
+            model : 'list' or 'numpy_array'
+            to_type=np.float64 : an array-numpy compatible type for the model 'numpy_array' [ np.float64 , np.int64 ... ]
+        
         For example 'friction' or 'radius':
             # Add the friction to the particles
             pset.add_property_by_name( "friction" , dim=1 )
@@ -157,7 +192,10 @@ class ParticlesSet(object):
         if dim == None :
             dim = self.dim
         
-        self.__property_dict[property_name] = np.zeros(( size , dim ))
+        if model == "numpy_array" :
+            self.__property_dict[property_name] = to_type( np.zeros(( self.size , dim ) ) )
+        elif model == "list" :
+            self.__property_dict[property_name] = list( None for i in range(self.size) )
 
     def get_properties_names(self):
         """
@@ -189,6 +227,14 @@ class ParticlesSet(object):
 
 
     def get_list( self , i , to=float ):
+        """
+        return a list containing all data of the i-th particle
+        """
+        #
+        #lst = []
+        #for k in self.__property_dict.keys() :
+        #    pass
+                 
         lstX = []
         lstV = []
         lstM =  to( self.M[i] )

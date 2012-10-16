@@ -77,63 +77,63 @@ class MyField( vf.VectorFieldForce ):
 
 def main():
     
-    np.seterr(all='ignore')
-    
-    options = arg.parse_args()
-    
-    cfg = pc.ParticlesConfig()
-    
-    if options.config_model :
-        file_name = "example_pyparticles_config.cfg"
-        cfg.write_example_config_file("example_pyparticles_config.cfg")
-        print( "A file named: %s has been written in the current directory" % file_name )
-        print( "" )
-        return     
-    
-    
-    if options.path_name == None:
-        
-        print("")
-        print("Start the simulation example:")
-        print(" Solar system")
-        print(" -- Try to watch the Moon ... around the Earth ")
-        print("")
-        print(" Use your mouse for rotating, zooming and tranlating the scene.")
-        print("")
-        print("For more details type:")
-        print(" pyparticles --help")
-        print("")
-        
-        sol.solar_system()
-        return 
-    
-    
-    
-    if options.path_name != None :
-        
-        cfg.read_config( options.path_name )
-        ( an , pset , force , ode_solver ) = cfg.build_problem()
-        
-        an.build_animation()
-        
-        print("")
-        print("Start the simulation described in: %s ... " % options.path_name )
-        
-        an.start()
-        return 
-    
-    print("Ops ... ")
-    return 
+    #np.seterr(all='ignore')
+    #
+    #options = arg.parse_args()
+    #
+    #cfg = pc.ParticlesConfig()
+    #
+    #if options.config_model :
+    #    file_name = "example_pyparticles_config.cfg"
+    #    cfg.write_example_config_file("example_pyparticles_config.cfg")
+    #    print( "A file named: %s has been written in the current directory" % file_name )
+    #    print( "" )
+    #    return     
+    #
+    #
+    #if options.path_name == None:
+    #    
+    #    print("")
+    #    print("Start the simulation example:")
+    #    print(" Solar system")
+    #    print(" -- Try to watch the Moon ... around the Earth ")
+    #    print("")
+    #    print(" Use your mouse for rotating, zooming and tranlating the scene.")
+    #    print("")
+    #    print("For more details type:")
+    #    print(" pyparticles --help")
+    #    print("")
+    #    
+    #    sol.solar_system()
+    #    return 
+    #
+    #
+    #
+    #if options.path_name != None :
+    #    
+    #    cfg.read_config( options.path_name )
+    #    ( an , pset , force , ode_solver ) = cfg.build_problem()
+    #    
+    #    an.build_animation()
+    #    
+    #    print("")
+    #    print("Start the simulation described in: %s ... " % options.path_name )
+    #    
+    #    an.start()
+    #    return 
+    #
+    #print("Ops ... ")
+    #return 
     
     ##################################
     ##################################
     ##################################
     
-    #### Old test code .....
+    #### Old test code .....and tests .... 
     
     
     
-    n = 700
+    n = 10
     dt = 0.005
     #dt = 0.0023453
     
@@ -150,7 +150,28 @@ def main():
     #ff = fc.FileCluster()
     #ff.open( options.path_name )
     
-    pset = ps.ParticlesSet( n )
+    pset = ps.ParticlesSet( n , label=True )
+    
+    pset.label[8] = "tttt"
+    pset.label[9] = "tzzzttt"
+    
+    pset.add_property_by_name("ciao",dim=1 , model="list")
+    
+    pset.get_by_name("ciao")[3] = 100
+    pset.get_by_name("X")[3,:] = 101
+    
+    pset.resize( 12 )
+    
+    print( pset.get_by_name( "ciao" ) )
+    print( pset.get_by_name( "X" ) )
+    print("")
+    print( pset.X )
+    print( pset.label )
+    
+    return
+    
+    
+    
     #ff.insert3( pset )
     #ff.close()  
         
