@@ -184,8 +184,8 @@ class ParticlesSet(object):
             model : 'list' or 'numpy_array'
             to_type=np.float64 : an array-numpy compatible type for the model 'numpy_array' [ np.float64 , np.int64 ... ]
         
-        For example 'friction' or 'radius':
-            # Add the friction to the particles
+        For example add 'friction' or 'radius':
+            # Add the friction to the particles set
             pset.add_property_by_name( "friction" , dim=1 )
         """
         
@@ -197,16 +197,19 @@ class ParticlesSet(object):
         elif model == "list" :
             self.__property_dict[property_name] = list( None for i in range(self.size) )
 
+
     def get_properties_names(self):
         """
         Return a list of containig the names of all properties
         """
         return self.__property_dict.keys()
 
+
     def getX(self):
         return self.__X
     
     X = property( getX , doc="return the reference to the array of the positions" )
+
     
     def getM(self):
         return self.__mass
@@ -229,6 +232,7 @@ class ParticlesSet(object):
     def get_list( self , i , to=float ):
         """
         return a list containing all data of the i-th particle
+            TODO: adapt to property by name
         """
         #
         #lst = []

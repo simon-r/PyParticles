@@ -77,53 +77,53 @@ class MyField( vf.VectorFieldForce ):
 
 def main():
     
-    #np.seterr(all='ignore')
-    #
-    #options = arg.parse_args()
-    #
-    #cfg = pc.ParticlesConfig()
-    #
-    #if options.config_model :
-    #    file_name = "example_pyparticles_config.cfg"
-    #    cfg.write_example_config_file("example_pyparticles_config.cfg")
-    #    print( "A file named: %s has been written in the current directory" % file_name )
-    #    print( "" )
-    #    return     
-    #
-    #
-    #if options.path_name == None:
-    #    
-    #    print("")
-    #    print("Start the simulation example:")
-    #    print(" Solar system")
-    #    print(" -- Try to watch the Moon ... around the Earth ")
-    #    print("")
-    #    print(" Use your mouse for rotating, zooming and tranlating the scene.")
-    #    print("")
-    #    print("For more details type:")
-    #    print(" pyparticles --help")
-    #    print("")
-    #    
-    #    sol.solar_system()
-    #    return 
-    #
-    #
-    #
-    #if options.path_name != None :
-    #    
-    #    cfg.read_config( options.path_name )
-    #    ( an , pset , force , ode_solver ) = cfg.build_problem()
-    #    
-    #    an.build_animation()
-    #    
-    #    print("")
-    #    print("Start the simulation described in: %s ... " % options.path_name )
-    #    
-    #    an.start()
-    #    return 
-    #
-    #print("Ops ... ")
-    #return 
+    np.seterr(all='ignore')
+    
+    options = arg.parse_args()
+    
+    cfg = pc.ParticlesConfig()
+    
+    if options.config_model :
+        file_name = "example_pyparticles_config.cfg"
+        cfg.write_example_config_file("example_pyparticles_config.cfg")
+        print( "A file named: %s has been written in the current directory" % file_name )
+        print( "" )
+        return     
+    
+    
+    if options.path_name == None:
+        
+        print("")
+        print("Start the simulation example:")
+        print(" Solar system")
+        print(" -- Try to watch the Moon ... around the Earth ")
+        print("")
+        print(" Use your mouse for rotating, zooming and tranlating the scene.")
+        print("")
+        print("For more details type:")
+        print(" pyparticles --help")
+        print("")
+        
+        sol.solar_system()
+        return 
+    
+    
+    
+    if options.path_name != None :
+        
+        cfg.read_config( options.path_name )
+        ( an , pset , force , ode_solver ) = cfg.build_problem()
+        
+        an.build_animation()
+        
+        print("")
+        print("Start the simulation described in: %s ... " % options.path_name )
+        
+        an.start()
+        return 
+    
+    print("Ops ... ")
+    return 
     
     ##################################
     ##################################
