@@ -18,22 +18,13 @@ import particles.pset.particles_set as ps
 
 import particles.animation.animation as pan
 
-#import particles.rand_cluster as clu
-import particles.forces.gravity as gr
-#import particles.euler_solver as els
-#import particles.leapfrog_solver as lps
-#import particles.runge_kutta_solver as rks
+
+#import particles.forces.gravity as gr
 
 import matplotlib.animation as animation
 
-#from mpl_toolkits.mplot3d import Axes3D
-import matplotlib.pyplot as plt
 import numpy as np
-#import particles.periodic_boundary as pb
-#import particles.rebound_boundary as rb
-#import particles.forces.const_force as cf
-#import particles.forces.vector_field_force as vf
-#import particles.forces.linear_spring as ls
+
 import particles.ogl.trackball as trk
 import particles.ogl.axis_ogl as axgl
 import particles.ogl.translate_scene as tran

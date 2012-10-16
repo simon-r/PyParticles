@@ -236,6 +236,13 @@ class ParticlesSet(object):
     
     
     def enable_log( self , log_X=True , log_V=False , log_max_size=0 ):
+        """
+        Eanble the X and V logging:
+        args:
+        log_X=True : log the positions
+        log_V=False : log the velocity
+        log_max_size: max size of the log queue
+        """
         if ( not self.log_X_enabled ) and log_X :
             self.__log_X = deque([])
             
@@ -268,7 +275,7 @@ class ParticlesSet(object):
 
     def log(self):
         """
-        if the log is enable, save the current satus in the log queue.
+        if the log is enable, save the current status in the log queue.
         The last element of the queue will be removed if we reach the max allowed size
         """
         delta_x = 0
