@@ -25,13 +25,16 @@ class ParticlesSet(object):
         ============= =============== =======================================================
         size:         (default 0)     Number of particles
         dim :         (default 3)     dimensions of the system 2 or 3 ... 2D 3D
-        mass:         (dafault True)  if True the particles have a mass, a charge ...
+        mass:         (dafault True)  if True the particles have a mass.
         label:        (default False) if true it's possible to set a name for each particle
         velocity:     (dafault True)  if true the particles has a velocity
+        charge:       (default False) if true if True the particles have a charge.
         log_X:        (default False) if true it's possible to logging the position
         log_V:        (default False) if true it's possible to logging the velocity
         log_max_size: (default 0) set the maximal size of the log queue
         ============= =============== =======================================================
+        
+        Note: Position X and velocity V property are mandatory.
     """
     def __init__( self , size=1 , dim=3 , boundary=None ,
                  label=False , mass=True , velocity=True , charge=False ,
@@ -87,7 +90,9 @@ class ParticlesSet(object):
         self.__property_dict = dict()
         self.__property_dict['X'] = self.__X
         self.__property_dict['V'] = self.__V
-        self.__property_dict['M'] = self.__mass
+        
+        if self.__mass  != None :
+            self.__property_dict['M'] = self.__mass
         
         if self.__label != None :
             self.__property_dict['label'] = self.__label
