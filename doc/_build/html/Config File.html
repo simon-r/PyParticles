@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Config file &mdash; PyParticles 0.1.0 documentation</title>
+    <title>Problem Config file &mdash; PyParticles 0.1.0 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -47,9 +47,21 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="config-file">
-<h1>Config file<a class="headerlink" href="#config-file" title="Permalink to this headline">¶</a></h1>
-<p>Config file description:</p>
+  <div class="section" id="problem-config-file">
+<h1>Problem Config file<a class="headerlink" href="#problem-config-file" title="Permalink to this headline">¶</a></h1>
+<p>The config file is used to generate a simulation model that can be executed with the application <em>pyparticle_app</em>:</p>
+<div class="highlight-python"><pre>pyparticle_app ma_simul.cfg</pre>
+</div>
+<p>The config files are based on the sintax <strong>rfc822</strong> used by the python <em>configparser</em> module, very easy to read and edit and used in numerous applications.</p>
+<p>Creating a simulation using the config file is quite easy, as first you must create a model file with the commands:</p>
+<div class="highlight-python"><pre>pyparticle_app -m
+mv example_pyparticles_config.cfg my_sim.cfg</pre>
+</div>
+<p>And after this you must edit the file according you criteria.
+Observe that the uneeded parameters are ignored; if there are an editing error normally is used the default value or the application exit with an exception.</p>
+<div class="section" id="config-file-description">
+<h2>Config file description:<a class="headerlink" href="#config-file-description" title="Permalink to this headline">¶</a></h2>
+</div>
 <div class="section" id="section-pset-origin">
 <h2>Section: pset_origin<a class="headerlink" href="#section-pset-origin" title="Permalink to this headline">¶</a></h2>
 <blockquote>
@@ -58,8 +70,8 @@
 <blockquote>
 <div><table border="1" class="docutils">
 <colgroup>
-<col width="47%" />
-<col width="53%" />
+<col width="52%" />
+<col width="48%" />
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">Variable</th>
@@ -67,7 +79,7 @@
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td>media_origin = [file]</td>
+<tr class="row-even"><td>media_origin = [file|rand]</td>
 <td>Where data the is stored</td>
 </tr>
 <tr class="row-odd"><td>file_name = &lt;file&gt;</td>
@@ -84,30 +96,7 @@
 <div><p><strong>Particles data set configauration</strong></p>
 <p><strong>Varibles:</strong></p>
 <blockquote>
-<div><table border="1" class="docutils">
-<colgroup>
-<col width="39%" />
-<col width="61%" />
-</colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Variable</th>
-<th class="head">Description</th>
-</tr>
-</thead>
-<tbody valign="top">
-<tr class="row-even"><td>len_unit  = &lt;number&gt;</td>
-<td>How many meters is a unit,</td>
-</tr>
-<tr class="row-odd"><td>mass_unit = &lt;number&gt;</td>
-<td>How many Kg is a unit</td>
-</tr>
-<tr class="row-even"><td>boundary  = [open|periodic]</td>
-<td>The boundary model used in the simulation</td>
-</tr>
-</tbody>
-</table>
-<p>Note: len_unit &amp; mass_unit are used only for drawing the particles</p>
-</div></blockquote>
+<div>Note: len_unit &amp; mass_unit are used only for drawing the particles</div></blockquote>
 </div></blockquote>
 </div>
 <div class="section" id="section-model">
@@ -127,10 +116,10 @@
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td>force = [gravity|linear_spring|constant_force|midpoint]</td>
+<tr class="row-even"><td>force = [gravity|linear_spring|constant_force]</td>
 <td>Force type used</td>
 </tr>
-<tr class="row-odd"><td>ode_solver_name = [euler|runge_kutta|leap_frog|constant_force]</td>
+<tr class="row-odd"><td>ode_solver_name = [euler|runge_kutta|leap_frog|midpoint]</td>
 <td>Integration method</td>
 </tr>
 <tr class="row-even"><td>time_step = &lt;number&gt;</td>
@@ -167,13 +156,16 @@
 <tr class="row-even"><td>animation_type = [opengl|matplotlib]</td>
 <td>Setup the output interface</td>
 </tr>
-<tr class="row-odd"><td>xlim = &lt;number&gt; &lt;number&gt;</td>
+<tr class="row-odd"><td>draw_log = [True|False]</td>
+<td>Draw the simulation log (if enabled)</td>
+</tr>
+<tr class="row-even"><td>xlim = &lt;number&gt; &lt;number&gt;</td>
 <td>define the limit of the picture (sometime unused)</td>
 </tr>
-<tr class="row-even"><td>ylim = &lt;number&gt; &lt;number&gt;</td>
+<tr class="row-odd"><td>ylim = &lt;number&gt; &lt;number&gt;</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td>zlim = &lt;number&gt; &lt;number&gt;</td>
+<tr class="row-even"><td>zlim = &lt;number&gt; &lt;number&gt;</td>
 <td>&nbsp;</td>
 </tr>
 </tbody>
@@ -181,11 +173,12 @@
 </div></blockquote>
 </div></blockquote>
 </div>
-<div class="section" id="example">
-<h2>Example:<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
-<blockquote>
-<div><div class="highlight-python"><pre>[pset_origin]
-media_origin = from_file
+<div class="section" id="examples">
+<h2>Examples:<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt><em>The solar system</em>:</dt>
+<dd><div class="first last highlight-python"><pre>[pset_origin]
+media_origin = file
 file_name = solar_sys.csv
 
 [set_config]
@@ -207,7 +200,72 @@ xlim = -5.0  5.0
 ylim = -5.0  5.0
 zlim = -5.0  5.0</pre>
 </div>
-</div></blockquote>
+</dd>
+<dt><em>Random cluster:</em></dt>
+<dd><div class="first last highlight-python"><pre># this is a comment
+[pset_origin]
+media_origin = rand
+# Ignored !!!
+file_name = solar_sys.csv
+
+[set_config]
+len_unit = 1
+mass_unit = 1
+boundary = open
+boundary_lim = -7 7
+sim_log = 0
+sim_log_x = True
+sim_log_v = False
+# Attention: the total number of particles is here !!
+rand_part_nr = 350
+
+[model]
+force = gravity
+ode_solver_name = runge_kutta
+time_step = 0.005
+steps = 1000000
+force_const = 0.001
+# ignored
+force_vector = 0 0 -7
+
+[animation]
+animation_type = opengl
+draw_trajectory = False
+trajectory_step = 15
+xlim = -5.0  5.0
+ylim = -5.0  5.0
+zlim = -5.0  5.0
+
+# Randon cluster definition
+[rand_cluster_bar]
+rc_part_nr = 150
+rc_centre = 0 0 1
+rc_radius = 1.0
+rc_mass_rng = 0.5  1.0
+rc_vel_rng = 0.1 0.2
+rc_vel_mdl = no
+rc_vel_dir = 0 1 0
+
+[rand_cluster_foo]
+rc_part_nr = 150
+rc_centre = 0 0 -1
+rc_radius = 2.0
+rc_mass_rng = 0.5  2.0
+rc_vel_rng = 0.021 0.2
+rc_vel_mdl = const
+rc_vel_dir = 1 1 0
+
+[rand_cluster_foobar]
+rc_part_nr = 50
+rc_centre = 0 3 -3
+rc_radius = 2.0
+rc_mass_rng = 0.2  2.0
+rc_vel_rng = .1 .2
+rc_vel_mdl = bomb
+rc_vel_dir = 0 1 0</pre>
+</div>
+</dd>
+</dl>
 </div>
 </div>
 
@@ -219,12 +277,13 @@ zlim = -5.0  5.0</pre>
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Config file</a><ul>
+<li><a class="reference internal" href="#">Problem Config file</a><ul>
+<li><a class="reference internal" href="#config-file-description">Config file description:</a></li>
 <li><a class="reference internal" href="#section-pset-origin">Section: pset_origin</a></li>
 <li><a class="reference internal" href="#section-set-config">Section: set_config</a></li>
 <li><a class="reference internal" href="#section-model">Section: model</a></li>
 <li><a class="reference internal" href="#section-animation">Section: animation</a></li>
-<li><a class="reference internal" href="#example">Example:</a></li>
+<li><a class="reference internal" href="#examples">Examples:</a></li>
 </ul>
 </li>
 </ul>

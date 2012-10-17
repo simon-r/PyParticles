@@ -85,7 +85,7 @@ Section: set_config
            ===========================          ==============================================
            Variable                             Description
            ===========================          ==============================================
-           len_unit  = <number>                 How many meters is a unit,
+           len_unit  = <number>                 How many meters is a unit
            mass_unit = <number>                 How many Kg is a unit
            boundary  = [open|periodic|rebound]  The boundary model used in the simulation
            boundary_lim = <#> <#>               Define the size of the boundary

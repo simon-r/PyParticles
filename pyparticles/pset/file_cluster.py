@@ -57,7 +57,7 @@ class FileCluster(object):
                 size = int(row[0])
                 dim = int(row[1])
                 try:
-                    il = row.index( "Label" )
+                    il = row.index( "label" )
                     label = True
                 except:
                     label = False

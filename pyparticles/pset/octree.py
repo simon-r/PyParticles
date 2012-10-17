@@ -129,8 +129,13 @@ class TreeElement( object ):
         return
                 
 
-    def print_tree( self , pset , d ):
-        
+    def print_tree( self , pset , d=1 ):
+        """
+        Print the structure of the tree and return the maximal depth
+        Args:
+            pset: the particles set
+            d = current depth (1 for the first node)
+        """
         if self.__particle == None  :
             return 
         
