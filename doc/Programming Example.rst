@@ -7,12 +7,12 @@ The Solar System
 Below I describe step by step how to build the simulation of the solar system included as example in the main application.
 
 
-First you need to import numpy, as PyParticle is completely based on the arrays of numpy
+First you need to import numpy, since PyParticle is completely based on the arrays of numpy
 ::
     
     import numpy as np
 
-Particle_set is the basic container for use with the systems of particles, then must always be imported
+Particle_set is the main container to be used with the systems of particles, then must always be imported.
 ::
     
     import pyparticles.pset.particles_set as ps
@@ -22,7 +22,7 @@ Import the force model used in this simulation, the gravity:
     
     import pyparticles.forces.gravity as gr
 
-You must then importatre the module of the numerical procedure for solving the equation of motion. In this case I import them all.
+You must then import the module of the numerical procedure for solving the equation of motion. In this case I import them all.
 ::
 
     import pyparticles.ode.euler_solver as els
@@ -32,7 +32,7 @@ You must then importatre the module of the numerical procedure for solving the e
     import pyparticles.ode.midpoint_solver as mds
     
     
-Import the 'animation' to control the simulation and visualization: animation_ogl uses OpenGL as the graphics engine.
+Import the 'animation' to control the simulation and the visualization: animation_ogl uses OpenGL as the graphics engine.
 ::
 
     import pyparticles.animation.animated_ogl as aogl
