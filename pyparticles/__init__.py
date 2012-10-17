@@ -1,5 +1,3 @@
-#!/usr/bin/python2
-
 # PyParticles : Particles simulation in python
 #Copyright (C) 2012  Simone Riva
 #
@@ -16,11 +14,5 @@
 #You should have received a copy of the GNU General Public License
 #along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import sys
-import pyparticles.main
 
-sys.path.append( "particles" )
-
-
-pyparticles.main.main()
-
+__all__ = ["particles"]
