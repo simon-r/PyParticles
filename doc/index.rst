@@ -10,6 +10,7 @@ PyParticles is a particle simulation toolbox entirely written in python
    :maxdepth: 4
 
    Config File
+   Programming Example
 
 Features
 --------
