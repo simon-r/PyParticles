@@ -17,9 +17,9 @@
 #along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import sys
-import particles.pyparticles
+import pyparticles.pyparticles
 
-sys.path.append( "particles" )
+sys.path.append( "pyparticles" )
 
 
 particles.pyparticles.main()
