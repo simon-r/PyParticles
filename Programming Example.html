@@ -52,11 +52,11 @@
 <div class="section" id="the-solar-system">
 <h2>The Solar System<a class="headerlink" href="#the-solar-system" title="Permalink to this headline">¶</a></h2>
 <p>Below I describe step by step how to build the simulation of the solar system included as example in the main application.</p>
-<p>First you need to import numpy, as PyParticle is completely based on the arrays of numpy</p>
+<p>First you need to import numpy, since PyParticle is completely based on the arrays of numpy</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 </pre></div>
 </div>
-<p>Particle_set is the basic container for use with the systems of particles, then must always be imported</p>
+<p>Particle_set is the main container to be used with the systems of particles, then must always be imported.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">pyparticles.pset.particles_set</span> <span class="kn">as</span> <span class="nn">ps</span>
 </pre></div>
 </div>
@@ -64,7 +64,7 @@
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">pyparticles.forces.gravity</span> <span class="kn">as</span> <span class="nn">gr</span>
 </pre></div>
 </div>
-<p>You must then importatre the module of the numerical procedure for solving the equation of motion. In this case I import them all.</p>
+<p>You must then import the module of the numerical procedure for solving the equation of motion. In this case I import them all.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">pyparticles.ode.euler_solver</span> <span class="kn">as</span> <span class="nn">els</span>
 <span class="kn">import</span> <span class="nn">pyparticles.ode.leapfrog_solver</span> <span class="kn">as</span> <span class="nn">lps</span>
 <span class="kn">import</span> <span class="nn">pyparticles.ode.runge_kutta_solver</span> <span class="kn">as</span> <span class="nn">rks</span>
@@ -72,7 +72,7 @@
 <span class="kn">import</span> <span class="nn">pyparticles.ode.midpoint_solver</span> <span class="kn">as</span> <span class="nn">mds</span>
 </pre></div>
 </div>
-<p>Import the &#8216;animation&#8217; to control the simulation and visualization: animation_ogl uses OpenGL as the graphics engine.</p>
+<p>Import the &#8216;animation&#8217; to control the simulation and the visualization: animation_ogl uses OpenGL as the graphics engine.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">pyparticles.animation.animated_ogl</span> <span class="kn">as</span> <span class="nn">aogl</span>
 </pre></div>
 </div>
