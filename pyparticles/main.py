@@ -54,7 +54,8 @@ import pyparticles.demo.solar_system as sol
 
 import pyparticles.utils.parse_args as arg 
 
-import pyparticles.utils.problem_config as pc 
+import pyparticles.utils.problem_config as pc
+import pyparticles.pset.octree as ot
 
 
 
@@ -77,6 +78,8 @@ class MyField( vf.VectorFieldForce ):
 
 
 def main():
+    
+    #my_test()
     
     np.seterr(all='ignore')
     
@@ -125,12 +128,19 @@ def main():
     
     print("Ops ... ")
     return 
+
+
+
     
     ##################################
     ##################################
-    ##################################
-    
+    ##################################    
     #### Old test code .....and tests .... 
+    
+
+def my_test() :
+    
+    
     
     
     
@@ -161,14 +171,39 @@ def main():
     pset.get_by_name("ciao")[3] = 100
     pset.get_by_name("X")[3,:] = 101
     
-    pset.resize( 12 )
+    sz = 50000
+    pset.resize( sz )
     
-    print( pset.get_by_name( "ciao" ) )
-    print( pset.get_by_name( "X" ) )
+    tree = ot.OcTree()
+    
+    pset.get_by_name("X")[:] = np.random.rand(sz,3)
+    pset.get_by_name("M")[:] = 1.0
+    
+    pset.update_centre_of_mass()
+    
+    print(" C O M pset")
+    print( pset.centre_of_mass() )
     print("")
-    print( pset.X )
-    print( pset.label )
     
+    tree.set_global_boundary()
+    
+    tree.build_tree( pset )
+    
+    print(" C O M")
+    print( tree.centre_of_mass )
+    print("")
+    
+    tree.print_tree()
+    
+    
+    #print( pset.get_by_name( "ciao" ) )
+    #print( pset.get_by_name( "X" ) )
+    #print("")
+    #print( pset.X )
+    #print( pset.label )
+    
+    
+    exit()
     return
     
     
