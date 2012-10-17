@@ -51,6 +51,7 @@ import pyparticles.forces.linear_spring as ls
 import pyparticles.pset.file_cluster as fc
 
 import pyparticles.demo.solar_system as sol
+import pyparticles.demo.springs as spr
 
 import pyparticles.utils.parse_args as arg 
 
@@ -95,6 +96,13 @@ def main():
         return     
     
     
+    if options.springs_demo :
+        print("")
+        print("Start the simulation example:")
+        print(" 3 body springs")
+        spr.springs()
+        return     
+    
     if options.path_name == None:
         
         print("")
@@ -107,7 +115,7 @@ def main():
         print("For more details type:")
         print(" pyparticles --help")
         print("")
-        
+            
         sol.solar_system()
         return 
     

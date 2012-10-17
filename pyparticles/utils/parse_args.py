@@ -30,6 +30,10 @@ def parse_args():
         dest="config_model",
         help="Write out the model of a config file and exit")
     
+    parser.add_argument( "--springs_demo",
+        action="store_true",
+        dest="springs_demo",
+        help="Execute the buildin springs demo")
 
     parser.add_argument(
         dest="path_name",

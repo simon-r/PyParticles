@@ -133,8 +133,8 @@ class TreeElement( object ):
         """
         Print the structure of the tree and return the maximal depth
         Args:
-            pset: the particles set
-            d = current depth (1 for the first node)
+            # pset: the particles set
+            # d = current depth (1 for the first node)
         """
         if self.__particle == None  :
             return 
@@ -161,6 +161,15 @@ class TreeElement( object ):
             
         return mx
         
+
+    def depth( self , d = 1 ):
+        mx = d
+        if self.__tree != None:
+            for tr in self.__tree :
+                mx = max ( tr.print_tree( pset , d+1 ) , mx )
+            
+        return mx
+    
 
     def get_up(self):
         return ( 0.5 , 1.0 )
