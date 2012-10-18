@@ -169,6 +169,11 @@ class TreeElement( object ):
             indx[:] = indx * self.__up
         
         ix = np.sum( indx )
+        self.__tree[ix].insert_particle( pset , i )
+            
+        return
+                        
+        
         #print ( indx )
         #print("")
         #print ( "ix %d" % ix )
@@ -179,10 +184,7 @@ class TreeElement( object ):
         #    print ("Fatal!!!!")
         #    exit()
         #
-        #self.__tree[ix].insert_particle( pset , i )
-            
-        return
-                
+
 
     def print_tree( self , pset , d=1 ):
         """

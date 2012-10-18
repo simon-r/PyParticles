@@ -105,8 +105,8 @@ def DrawGLScene():
     glTranslatef( tr[0] , tr[1] , -15.0 )          
     glMultMatrixf( DrawGLScene.animation.rot_matrix )
 
-    
-    DrawGLScene.animation.axis.draw_axis()
+    if DrawGLScene.animation.view_axis :
+        DrawGLScene.animation.axis.draw_axis()
     
     DrawGLScene.animation.draw_particles.draw()
         
@@ -148,8 +148,10 @@ def ReSizeGLScene(Width, Height):
     SetPerspective( MousePressed.animation )
     
    
-def KeyPressed():
-    pass
+def KeyPressed( c , x , y ):    
+    if c == 'a' :
+        KeyPressed.animation.view_axis = not KeyPressed.animation.view_axis
+
 
 def MousePressed(  button , state , x , y ):
     #print ("--------------------")
@@ -251,6 +253,8 @@ class AnimatedGl( pan.Animation ):
         
         self.state = "trackball_down"
         self.motion = False
+        
+        self.view_axis = True
         
         self.axis = axgl.AxisOgl()
         self.draw_particles = drp.DrawParticlesGL()
@@ -411,6 +415,8 @@ class AnimatedGl( pan.Animation ):
         
         ReSizeFun = ReSizeGLScene
         ReSizeFun.animation = self
+        
+        KeyPressed.animation = self
         
         glutReshapeFunc( ReSizeFun )
         glutKeyboardFunc( KeyPressed )
