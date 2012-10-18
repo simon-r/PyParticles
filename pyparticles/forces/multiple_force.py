@@ -18,24 +18,45 @@
 import numpy as np
 import sys
 
-class Force(object):
-    def __init__(self , size , dim , m=None , Conts=1.0 ):
-        NotImplementedError(" %s : is virtual and must be overridden." % sys._getframe().f_code.co_name )
+class MultipleForce(object):
+    def __init__(self , size , dim , m=None , Conts=None ):
+        
+        self.__forces = []
+        
+        self.__M = np.zeros(( size , 1 ))
+        self.__A = np.zeros(( size , dim ))
+        self.__F = np.zeros(( size , dim ))
+        
+        if m != None :
+            self.set_masses( m )
     
         
+    def append_force( self , force ):
+        self.__forces.append( force )
+        
+
     def set_masses( self , m ):
-        NotImplementedError(" %s : is virtual and must be overridden." % sys._getframe().f_code.co_name )
+        self.__M[:] = m
+        
+        for f in self.__forces :
+            f.set_masses( m )
+
     
     def update_force( self , p_set ):
-        NotImplementedError(" %s : is virtual and must be overridden." % sys._getframe().f_code.co_name )
+        self.A[:] = 0.0
+        for f in self.__forces :
+            self.A[:] = self.A[:] + f.update_force( p_set )
+            
+        self.__F = self.__A[:] * self.__M[:]
+        return self.__A
             
     def getA(self):
-        NotImplementedError(" %s : is virtual and must be overridden." % sys._getframe().f_code.co_name )
+        return self.__A
         
     A = property( getA )
         
     def getF(self):
-        NotImplementedError(" %s : is virtual and must be overridden." % sys._getframe().f_code.co_name )
+        return self.__F
     
     F = property( getF )
     
