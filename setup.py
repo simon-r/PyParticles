@@ -20,7 +20,9 @@ import shutil
 import subprocess
 import sys
 import re
+import sys
 
+is_winows = sys.platform.startswith('linux')
 
 from distutils.core import setup
 from pyparticles.utils.pypart_global import py_particle_version
@@ -33,16 +35,20 @@ class particles_install(install):
     def run(self):
         
         install.run(self)
-        
-        man_dir = os.path.abspath("./man/")
-
-        prefix = re.sub( r'^/' , '' , self.prefix )
-
-        output = subprocess.Popen([os.path.join(man_dir, "install.sh")],
-                stdout=subprocess.PIPE,
-                cwd=man_dir,
-                env=dict({"PREFIX": os.path.join( self.root , prefix ) }, **dict(os.environ))).communicate()[0]
-        print( output )
+    
+        # man ... Linux only    
+        if sys.platform.startswith('linux'):
+            
+            man_dir = os.path.abspath("./man/")
+    
+            prefix = re.sub( r'^/' , '' , self.prefix )
+    
+            output = subprocess.Popen([os.path.join(man_dir, "install.sh")],
+                    stdout=subprocess.PIPE,
+                    cwd=man_dir,
+                    env=dict({"PREFIX": os.path.join( self.root , prefix ) }, **dict(os.environ))).communicate()[0]
+            
+            print( output )
 
 
 
@@ -53,7 +59,14 @@ setup(name = "pyparticles",
     author = "Simone Riva",
     author_email = "simone.rva [at] gmail.com",
     url = "https://github.com/simon-r/PyParticles",
-    packages = ['pyparticles'],
+    packages = ['pyparticles' ,
+                'pyparticles.utils' ,
+                'pyparticles.ode' ,
+                'pyparticles.forces' ,
+                'pyparticles.animation' ,
+                'pyparticles.demo' ,
+                'pyparticles.pset' ,
+                'pyparticles.ogl' ],
     scripts = ["pyparticles_app"],
     long_description = "Particles simulation toolbox in python, with some force model and integrations methods. Particles includes an OpenGL GUI and an easy to use problem comfiguration" ,
     classifiers=[

@@ -19,7 +19,11 @@ import numpy as np
 import sys
 
 class MultipleForce(object):
-    def __init__(self , size , dim , m=None , Conts=None ):
+    """
+    Combine the effect of some forces, for example constant force and springs.
+    It behaves like any other force, and can be used with all methods of numerical integration. 
+    """
+    def __init__(self , size , dim=3 , m=None , Conts=None ):
         
         self.__forces = []
         
@@ -32,10 +36,16 @@ class MultipleForce(object):
     
         
     def append_force( self , force ):
+        """
+        Append a new force to the forces list
+        """
         self.__forces.append( force )
         
 
     def set_masses( self , m ):
+        """
+        Set the masses in the forces system
+        """
         self.__M[:] = m
         
         for f in self.__forces :
