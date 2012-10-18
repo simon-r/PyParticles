@@ -1,6 +1,6 @@
 
 # PyParticles : Particles simulation in python
-# Copyright (C) 2012  Simone Riva
+# Copyright (C) 2012  Simone Riva : simone.rva {at} gmail {dot} com
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -96,14 +96,14 @@ def main():
         return     
     
     
-    if options.springs_demo :
+    if options.demo == "springs" :
         print("")
         print("Start the simulation example:")
         print(" 3 body springs")
         spr.springs()
         return     
     
-    if options.path_name == None:
+    if options.path_name == None or options.demo == "solar_system":
         
         print("")
         print("Start the simulation example:")

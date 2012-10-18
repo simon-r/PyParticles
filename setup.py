@@ -23,7 +23,7 @@ import re
 
 
 from distutils.core import setup
-from particles.pypart_global import py_particle_version
+from pyparticles.utils.pypart_global import py_particle_version
 from distutils.command.install import install
 
 
@@ -36,7 +36,6 @@ class particles_install(install):
         
         man_dir = os.path.abspath("./man/")
 
-    
         prefix = re.sub( r'^/' , '' , self.prefix )
 
         output = subprocess.Popen([os.path.join(man_dir, "install.sh")],
@@ -50,12 +49,12 @@ class particles_install(install):
 
 setup(name = "pyparticles",
     version = "%s" % py_particle_version() ,
-    description = "Particles simulation toolbox in python, with some force model and integrations methods",
+    description = "Particles simulation toolbox for python, with some force model and integrations methods",
     author = "Simone Riva",
     author_email = "simone.rva [at] gmail.com",
     url = "https://github.com/simon-r/PyParticles",
     packages = ['pyparticles'],
-    scripts = ["pyparticles"],
+    scripts = ["pyparticles_app"],
     long_description = "Particles simulation toolbox in python, with some force model and integrations methods. Particles includes an OpenGL GUI and an easy to use problem comfiguration" ,
     classifiers=[
         'Development Status :: %s Stable' % py_particle_version() ,
