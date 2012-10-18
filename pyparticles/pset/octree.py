@@ -36,6 +36,14 @@ class TreeElement( object ):
         
         self.__tree = None
         
+        self.__left =  np.int8( np.array([ 1 , 0 , 0 , 1 , 1 , 0 , 0 , 1 ]) )
+        self.__right = np.int8( np.array([ 0 , 1 , 1 , 0 , 0 , 1 , 1 , 0 ]) )
+        
+        self.__near =  np.int8( np.array([ 1 , 1 , 0 , 0 , 1 , 1 , 0 , 0 ]) )
+        self.__far  =  np.int8( np.array([ 0 , 0 , 1 , 1 , 0 , 0 , 1 , 1 ]) )
+        
+        self.__up   =  np.int8( np.array([ 0 , 0 , 0 , 0 , 1 , 1 , 1 , 1 ]) )
+        self.__down =  np.int8( np.array([ 1 , 1 , 1 , 1 , 0 , 0 , 0 , 0 ]) )
         
       
 
@@ -122,10 +130,57 @@ class TreeElement( object ):
         # update centre of mass
         self.__centre_of_mass = ( self.__centre_of_mass * self.__part_cnt + pset.X[i,:] ) / ( self.__part_cnt + 1 )
         self.__part_cnt += 1
-        for st in self.__tree :
-            if st.is_in( pset.X[i,:] ) :
-                st.insert_particle( pset , i )
-                break
+
+        # Old version, a bit slower.
+        #j = 0
+        #jj = 0
+        #for st in self.__tree :
+        #    if st.is_in( pset.X[i,:] ) :
+        #        jj = j
+        #        st.insert_particle( pset , i )
+        #        break
+        #    j += 1
+        
+        #return
+    
+        indx = np.int8( np.array( [0,1,2,3,4,5,6,7]) )
+            
+        if pset.X[i,0] >= self.__ref_vertex[0] and pset.X[i,0] < self.__ref_vertex[0] + self.__edge_len/2.0  :
+            # Left
+            indx[:] = indx * self.__left
+        elif pset.X[i,0] >= self.__ref_vertex[0] + self.__edge_len/2.0 and pset.X[i,0] < self.__ref_vertex[0] + self.__edge_len :
+            # Right
+            indx[:] = indx * self.__right
+
+            
+        if pset.X[i,1] >= self.__ref_vertex[1] and  pset.X[i,1] < self.__ref_vertex[1] + self.__edge_len/2.0  :
+            # near
+            indx[:] = indx * self.__near
+        elif pset.X[i,1] >= self.__ref_vertex[1] + self.__edge_len/2.0 and pset.X[i,1] < self.__ref_vertex[1] + self.__edge_len :
+            # far
+            indx[:] = indx * self.__far
+
+         
+        if pset.X[i,2] >= self.__ref_vertex[2] and  pset.X[i,2] < self.__ref_vertex[2] + self.__edge_len/2.0  :
+            # down
+            indx[:] = indx * self.__down
+        elif pset.X[i,2] >= self.__ref_vertex[2] + self.__edge_len/2.0 and pset.X[i,2] < self.__ref_vertex[2] + self.__edge_len :
+            # up
+            indx[:] = indx * self.__up
+        
+        ix = np.sum( indx )
+        #print ( indx )
+        #print("")
+        #print ( "ix %d" % ix )
+        #print ( "jj %d" % jj )
+        #print ( "----------" )
+        
+        #if jj != ix :
+        #    print ("Fatal!!!!")
+        #    exit()
+        #
+        #self.__tree[ix].insert_particle( pset , i )
+            
         return
                 
 
@@ -172,6 +227,9 @@ class TreeElement( object ):
     
 
     def get_up(self):
+        """
+        Z axis
+        """
         return ( 0.5 , 1.0 )
     
     def get_down(self):

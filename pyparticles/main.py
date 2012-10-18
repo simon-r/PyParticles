@@ -58,6 +58,8 @@ import pyparticles.utils.parse_args as arg
 import pyparticles.utils.problem_config as pc
 import pyparticles.pset.octree as ot
 
+import time 
+
 
 
 import sys
@@ -80,7 +82,7 @@ class MyField( vf.VectorFieldForce ):
 
 def main():
     
-    #my_test()
+    my_test()
     
     np.seterr(all='ignore')
     
@@ -179,7 +181,7 @@ def my_test() :
     pset.get_by_name("ciao")[3] = 100
     pset.get_by_name("X")[3,:] = 101
     
-    sz = 5000
+    sz = 50000
     pset.resize( sz )
     
     tree = ot.OcTree()
@@ -195,13 +197,17 @@ def my_test() :
     
     tree.set_global_boundary()
     
+    a = time.time()
     tree.build_tree( pset )
+    b = time.time()
+    
+    print( "Tot time: % f" %(b-a) )
     
     print(" C O M")
     print( tree.centre_of_mass )
     print("")
     
-    tree.print_tree()
+    #tree.print_tree()
     
     
     #print( pset.get_by_name( "ciao" ) )
