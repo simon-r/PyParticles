@@ -82,7 +82,7 @@ class MyField( vf.VectorFieldForce ):
 
 def main():
     
-    my_test()
+    #my_test()
     
     np.seterr(all='ignore')
     
