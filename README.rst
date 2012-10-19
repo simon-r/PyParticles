@@ -5,16 +5,7 @@ PyParticles is a particle simulation toolbox entirely written in python
 
 Visit: http://pyparticles.wordpress.com/
 
-Requirements
-------------
-| PyParticles require the following packages:
 
-| **numpy** : http://scipy.org/Download
-| **scipy** : http://scipy.org/Download
-| **pyopengl** : http://pyopengl.sourceforge.net/
-| **matplotlib** : http://matplotlib.org/
-
-For more details about the installation visit the Blog: http://pyparticles.wordpress.com/installation/
 
 Features
 --------
@@ -37,6 +28,19 @@ Simulate a particle by particle model with the most popular integrations methods
 #. User defined field
 
 PyParticle offers an easy to use class structure with a fully * interchangeable* integrations method or force model, it also implements the possibility to add some boundary model.
+
+
+Requirements
+------------
+| PyParticles require the following packages:
+
+| **numpy** : http://scipy.org/Download
+| **scipy** : http://scipy.org/Download
+| **pyopengl** : http://pyopengl.sourceforge.net/
+| **matplotlib** : http://matplotlib.org/
+
+For more details about the installation visit the Blog: http://pyparticles.wordpress.com/installation/
+
 
 Command line tool usage:
 ------------------------
