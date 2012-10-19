@@ -15,8 +15,10 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import pyparticles.pset.particles_set as ps
+import multiprocessing as mpr
 
 import numpy as np
+
 
 class TreeElement( object ):
     """
@@ -45,6 +47,7 @@ class TreeElement( object ):
         self.__up   =  np.int8( np.array([ 0 , 0 , 0 , 0 , 1 , 1 , 1 , 1 ]) )
         self.__down =  np.int8( np.array([ 1 , 1 , 1 , 1 , 0 , 0 , 0 , 0 ]) )
         
+        self.__semaphore = mpr.Semaphore()
       
 
     def get_particle( self ) :
@@ -107,6 +110,10 @@ class TreeElement( object ):
 
         return np.all( np.logical_and( a , b ) )
     
+    def insert_particle_mp( self , pset , i ):
+        pass
+        
+        
     def insert_particle( self , pset , i ) :
         if self.particle == None and self.__tree == None :
             self.__particle = i
@@ -143,7 +150,7 @@ class TreeElement( object ):
         
         #return
     
-        indx = np.int8( np.array( [0,1,2,3,4,5,6,7]) )
+        indx = np.int8( np.array( [0,1,2,3,4,5,6,7] ) )
             
         if pset.X[i,0] >= self.__ref_vertex[0] and pset.X[i,0] < self.__ref_vertex[0] + self.__edge_len/2.0  :
             # Left
@@ -188,10 +195,10 @@ class TreeElement( object ):
 
     def print_tree( self , pset , d=1 ):
         """
-        Print the structure of the tree and return the maximal depth
-        Args:
-            # pset: the particles set
-            # d = current depth (1 for the first node)
+        |Print the structure of the tree and return the maximal depth
+        |Args:
+        |    # pset: the particles set
+        |    # d = current depth (1 for the first node)
         """
         if self.__particle == None  :
             return 
@@ -223,7 +230,7 @@ class TreeElement( object ):
         mx = d
         if self.__tree != None:
             for tr in self.__tree :
-                mx = max ( tr.print_tree( pset , d+1 ) , mx )
+                mx = max ( tr.depth( pset , d+1 ) , mx )
             
         return mx
     
@@ -260,7 +267,7 @@ class TreeElement( object ):
 
 class OcTree ( object ):
     """
-    OcTree particles container class
+    |OcTree particles container class
     """
     def __init__( self ):
         self.__tree = None
@@ -273,10 +280,10 @@ class OcTree ( object ):
                             edge_len   = 1.0 ) :
         
         """
-        Define the size of the octree cube
-        Arguments:
-            ref_vertex : the ( down , near , left ) vertex
-            edge_len   : leght of the edge 
+        |Define the size of the octree cube
+        |Arguments:
+        |    ref_vertex : the ( down , near , left ) vertex
+        |    edge_len   : leght of the edge 
         """
         
         self.__ref_vertex[:] = ref_vertex
@@ -288,11 +295,61 @@ class OcTree ( object ):
         
     centre_of_mass = property( get_centre_of_mass , doc="return the centre of mass of the particles set" )
     
+    
+    def build_tree_mp( self , pset ) :
+        """
+        |Build the octree with the given particles set with a parrallel processig procedure
+        |   Arguments:
+        |   pset: a ParticlesSet object used to build the tree
+        """
+        
+        if self.__tree == None :
+            self.__tree = TreeElement()
+        else :
+            del self.__tree
+            self.__tree = TreeElement()
+        
+        self.__tree.set_local_boundary( self.__ref_vertex , self.__edge_len )
+        
+        self.__pset = pset
+        
+        cpu = mpr.cpu_count()             
+        jobs_queue = mpr.Queue()
+        
+        parent_conn =  list( None for i in range(cpu) )
+        child_conn = list( None for i in range(cpu) )
+        
+        procs = list( None for i in range(cpu) )
+        
+        for i in range( cpu ) :
+            ( parent_conn[i] , child_conn[i] ) = mpr.Pipe()
+            procs[i] = Process(target=self.__build_tree_process , args=( jobs_queue , child_conn[i] ) )
+            parent_conn[i].send( [ pset , self.__tree ] )
+        
+        for i in range( pset.size ):
+            jobs_queue.put( i )
+      
+      
+    def __build_tree_process( self , queue , child_conn )  :
+        
+        t_args = child_conn.recv()
+        pset = t_args[0]
+        tree = t_args[1]
+        
+        # get the first job.
+        i = queue.get()
+        
+        flag = True
+        while flag :
+            pass
+            if queue.empty() :
+                flag = False
+    
     def build_tree( self , pset ) :
         """
-        Build the octree with the given particles set
-            Arguments:
-            pset: a ParticlesSet object used to build the tree
+        |Build the octree with the given particles set
+        |    Arguments:
+        |    pset: a ParticlesSet object used to build the tree
         """
         
         if self.__tree == None :
