@@ -181,7 +181,7 @@ def my_test() :
     pset.get_by_name("ciao")[3] = 100
     pset.get_by_name("X")[3,:] = 101
     
-    sz = 50000
+    sz = 50
     pset.resize( sz )
     
     tree = ot.OcTree()

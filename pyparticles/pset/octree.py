@@ -47,8 +47,7 @@ class TreeElement( object ):
         self.__up   =  np.int8( np.array([ 0 , 0 , 0 , 0 , 1 , 1 , 1 , 1 ]) )
         self.__down =  np.int8( np.array([ 1 , 1 , 1 , 1 , 0 , 0 , 0 , 0 ]) )
         
-        self.__semaphore = mpr.Semaphore()
-      
+        
 
     def get_particle( self ) :
         return self.__particle
@@ -320,14 +319,20 @@ class OcTree ( object ):
         child_conn = list( None for i in range(cpu) )
         
         procs = list( None for i in range(cpu) )
-        
+
         for i in range( cpu ) :
             ( parent_conn[i] , child_conn[i] ) = mpr.Pipe()
-            procs[i] = Process(target=self.__build_tree_process , args=( jobs_queue , child_conn[i] ) )
+            procs[i] = mpr.Process(target=self.__build_tree_process , args=( jobs_queue , child_conn[i] ) )
             parent_conn[i].send( [ pset , self.__tree ] )
         
         for i in range( pset.size ):
             jobs_queue.put( i )
+        
+        for i in range( cpu ) :
+            procs[i].start()
+            
+        for p in procs :
+            p.join()
       
       
     def __build_tree_process( self , queue , child_conn )  :
@@ -337,13 +342,15 @@ class OcTree ( object ):
         tree = t_args[1]
         
         # get the first job.
-        i = queue.get()
         
         flag = True
         while flag :
-            pass
             if queue.empty() :
                 flag = False
+                continue
+            i = queue.get()
+            print( i )
+            
     
     def build_tree( self , pset ) :
         """
