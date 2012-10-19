@@ -81,6 +81,9 @@ def DrawGLScene():
         
     glut_print( 0.02 , 0.02 , GLUT_BITMAP_9_BY_15 , fm.to_str( sim_time ) , 1.0 , 1.0 , 1.0 , 1.0 )
     
+    if DrawGLScene.animation.print_help :
+        print_help()
+    
     SetPerspective( DrawGLScene.animation )
 
     
@@ -151,6 +154,9 @@ def ReSizeGLScene(Width, Height):
 def KeyPressed( c , x , y ):    
     if c == 'a' :
         KeyPressed.animation.view_axis = not KeyPressed.animation.view_axis
+        
+    if c == 'h' :
+        KeyPressed.animation.print_help = not KeyPressed.animation.print_help
 
 
 def MousePressed(  button , state , x , y ):
@@ -206,6 +212,16 @@ def MouseMotion( x , y ) :
     #print( axis )
     #print( angle )
 
+def print_help():
+    
+    y = 0.9
+    
+    glut_print( 0.1 , y , GLUT_BITMAP_9_BY_15 , "a = Toggle axis" , 1 , 1 , 1 , 1 )
+    y -= 0.1
+    
+    glut_print( 0.1 , y , GLUT_BITMAP_9_BY_15 , "h = Toggle help message" , 1 , 1 , 1 , 1 )
+    y -= 0.1
+
 def glut_print( x,  y,  font,  text, r,  g , b , a):
     
     blending = False 
@@ -255,6 +271,7 @@ class AnimatedGl( pan.Animation ):
         self.motion = False
         
         self.view_axis = True
+        self.print_help = False
         
         self.axis = axgl.AxisOgl()
         self.draw_particles = drp.DrawParticlesGL()

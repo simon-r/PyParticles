@@ -22,5 +22,33 @@ import pyparticles.pset.particles_set as ps
 
 
 class ConstrainedParticlesSet ( ps.ParticlesSet ):
-    def __init__ (self):
-        pass
+    def __init__ ( self , size=1 , dim=3 , boundary=None ,
+                  label=False , mass=True , velocity=True , charge=False ,
+                  log_X=False , log_V=False , log_max_size=0 ):
+        
+        self.__X_cr   = None
+        self.__X_cr_i = None
+        
+        super(ConstrainedParticlesSet.self).__init__( size , dim , boundary , label , mass , velocity , charge , log_X , log_V , log_max_size )
+        
+    
+    def add_x_constraint( indx , constr ):
+        """
+        |Add new postional contraint
+        |Arguments:
+        |   indx: indicies of the new contraints
+        |   constr: the new contraints
+        """
+        if  self.__X_cr == None :
+            self.__X_cr = np.array( constr )
+            self.__X_cr_i = np.array( indx )
+            return 
+        
+        self.__X_cr_i = np.concatenate( ( self.__X_cr_i , indx ) )
+        self.__X_cr = np.concatenate( ( self.__X_cr , constr ) )
+        
+    def remove_x_constraint( indxs ):
+        
+        ix = np.array([]) 
+        for i in indxs :
+            

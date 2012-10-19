@@ -3,6 +3,19 @@ PyParticles
 
 PyParticles is a particle simulation toolbox entirely written in python
 
+Visit: http://pyparticles.wordpress.com/
+
+Requirements
+------------
+| PyParticles require the following packages:
+
+| **numpy** : http://scipy.org/Download
+| **scipy** : http://scipy.org/Download
+| **pyopengl** : http://pyopengl.sourceforge.net/
+| **matplotlib** : http://matplotlib.org/
+
+For more details about the installation visit the Blog: http://pyparticles.wordpress.com/installation/
+
 Features
 --------
 
