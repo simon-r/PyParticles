@@ -26,6 +26,7 @@ import pyparticles.pset.particles_set as ps
 import pyparticles.forces.linear_spring as ls
 import pyparticles.forces.const_force as cf
 import pyparticles.forces.multiple_force as mf
+import pyparticles.forces.drag as dr 
 
 import pyparticles.pset.rebound_boundary as rb
 
@@ -44,7 +45,7 @@ if sys.version_info[0] == 2:
 
 def springs() :
     
-    dt = 0.03
+    dt = 0.02
     steps = 1000000
     
     G = 0.5
@@ -75,24 +76,26 @@ def springs() :
     
     springs = ls.LinearSpring( pset.size , Consts=G )
     constf  = cf.ConstForce( pset.size , u_force=[ 0,0,-1.5 ] )
+    drag = dr.Drag( pset.size , Consts=0.2 )
     
     mlf = mf.MultipleForce( pset.size , 3 )
     
     mlf.append_force( springs )
     mlf.append_force( constf )
+    #mlf.append_force( drag )
     
     
-    #bound = rb.ReboundBoundary( bound=(-10,10) )
-    #pset.set_boundary( bound )
+    bound = rb.ReboundBoundary( bound=(-10,10) )
+    pset.set_boundary( bound )
     
-    #mlf.set_masses( pset.M )
+    mlf.set_masses( pset.M )
     springs.set_masses( pset.M )
     
-    springs.update_force( pset )
-    #mlf.update_force( pset )
+    #springs.update_force( pset )
+    mlf.update_force( pset )
     
-    solver = rks.RungeKuttaSolver( springs , pset , dt )
-    #solver = rks.RungeKuttaSolver( mlf , pset , dt )
+    #solver = rks.RungeKuttaSolver( springs , pset , dt )
+    solver = rks.RungeKuttaSolver( mlf , pset , dt )
     
     pset.enable_log( True , log_max_size=1000 )
     

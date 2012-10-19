@@ -61,6 +61,30 @@ def InitGL( Width , Height , ReSizeFun ):                # We call this right af
     
     ReSizeFun(Width, Height)
     
+    #light_ambient = np.array( [  0.0 , 0.0 , 0.0 , 1.0  ] )
+    #light_diffuse = np.array( [  1.0 , 1.0 , 1.0 , 1.0  ] )
+    #light_specular = np.array( [  1.0 , 1.0 , 1.0 , 1.0  ] )
+    #light_position = np.array( [  2.0 , 5.0 , 5.0 , 10.0  ] )
+    # 
+    #mat_ambient = np.array( [  0.7 , 0.7 , 0.7 , 1.0  ] )
+    #mat_diffuse = np.array( [  0.8 , 0.8 , 0.8 , 1.0  ] )
+    #mat_specular = np.array( [  1.0 , 1.0 , 1.0 , 1.0  ] )
+    #high_shininess = np.array( [  100.0  ] )
+    #
+    #glEnable(GL_LIGHT0)
+    #glEnable(GL_NORMALIZE)
+    #glEnable(GL_COLOR_MATERIAL)
+    #glEnable(GL_LIGHTING)
+    #
+    #glLightfv(GL_LIGHT0, GL_AMBIENT,  light_ambient)
+    #glLightfv(GL_LIGHT0, GL_DIFFUSE,  light_diffuse)
+    #glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular)
+    #glLightfv(GL_LIGHT0, GL_POSITION, light_position) 
+    #
+    #glMaterialfv(GL_FRONT, GL_AMBIENT,   mat_ambient)
+    #glMaterialfv(GL_FRONT, GL_DIFFUSE,   mat_diffuse)
+    #glMaterialfv(GL_FRONT, GL_SPECULAR,  mat_specular)
+    #glMaterialfv(GL_FRONT, GL_SHININESS, high_shininess)
 
 def DrawGLScene():
     
@@ -157,6 +181,19 @@ def KeyPressed( c , x , y ):
         
     if c == 'h' :
         KeyPressed.animation.print_help = not KeyPressed.animation.print_help
+        
+    if c == 't' :
+        KeyPressed.animation.trajectory = not KeyPressed.animation.trajectory
+        
+    if c == 'p' :
+        KeyPressed.animation.draw_particles.set_particle_model( model="point" )
+        
+    if c == 's' :
+        KeyPressed.animation.draw_particles.set_particle_model( model="sphere" )
+    
+    if c == 'o' :
+        KeyPressed.animation.draw_particles.set_particle_model( model="teapot" )
+        
 
 
 def MousePressed(  button , state , x , y ):
@@ -216,10 +253,16 @@ def print_help():
     
     y = 0.9
     
-    glut_print( 0.1 , y , GLUT_BITMAP_9_BY_15 , "a = Toggle axis" , 1 , 1 , 1 , 1 )
-    y -= 0.1
+    glut_print( 0.1 , y , GLUT_BITMAP_9_BY_15 , "a: Axis ON/OFF" , 1 , 1 , 1 , 1 )
+    y -= 0.05
     
-    glut_print( 0.1 , y , GLUT_BITMAP_9_BY_15 , "h = Toggle help message" , 1 , 1 , 1 , 1 )
+    glut_print( 0.1 , y , GLUT_BITMAP_9_BY_15 , "t: Trajectory ON/OFF" , 1 , 1 , 1 , 1 )
+    y -= 0.05
+    
+    glut_print( 0.1 , y , GLUT_BITMAP_9_BY_15 , "Point model - p: point | s: sphere | o: teapot " , 1 , 1 , 1 , 1 )
+    y -= 0.1    
+    
+    glut_print( 0.1 , y , GLUT_BITMAP_9_BY_15 , "h: Toggle help message" , 1 , 1 , 1 , 1 )
     y -= 0.1
 
 def glut_print( x,  y,  font,  text, r,  g , b , a):

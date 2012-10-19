@@ -32,12 +32,14 @@ class ConstrainedParticlesSet ( ps.ParticlesSet ):
         super(ConstrainedParticlesSet.self).__init__( size , dim , boundary , label , mass , velocity , charge , log_X , log_V , log_max_size )
         
     
-    def add_x_constraint( indx , constr ):
+    def add_x_constraint( self , indx , constr ):
         """
-        |Add new postional contraint
-        |Arguments:
-        |   indx: indicies of the new contraints
-        |   constr: the new contraints
+        | Add new postional contraint
+        | contraints are concatenad to the stored contraints, we don't tests the uniqness of the indicies.
+        | be careful with the double indicies
+        | Arguments:
+        |   #. indx: indicies of the new contraints
+        |   #. constr: the new contraints
         """
         if  self.__X_cr == None :
             self.__X_cr = np.array( constr )
@@ -46,9 +48,47 @@ class ConstrainedParticlesSet ( ps.ParticlesSet ):
         
         self.__X_cr_i = np.concatenate( ( self.__X_cr_i , indx ) )
         self.__X_cr = np.concatenate( ( self.__X_cr , constr ) )
+
         
-    def remove_x_constraint( indxs ):
-        
+    def remove_x_constraint( self , indxs ):
+        """
+        | Remove the element indixed in indxs from the contraits 
+        | Arguments:
+        |    #. indxs: an interable containig the indicies of the old contraints.
+        """
         ix = np.array([]) 
         for i in indxs :
+            e, = np.where( i )
+            ix = np.concatenate( ( ix, e ) )
             
+        self.__X_cr = np.delete( __X_cr , ix , 0 )
+        self.__X_cr_i = np.delete( __X_cr_i , ix , 0 )
+
+
+    def get_cx_indicies(self):
+        """
+        Return a copy of the constrained indicies of the position
+        """
+        return copy(self.__X_cr_i)
+        
+
+    def clear_all_x_constraint(self):
+        """
+        clear all positional contraints 
+        """
+        del self.__X_cr
+        del self.__X_cr_i
+        self.__X_cr   = None
+        self.__X_cr_i = None
+        
+
+    def get_cX( self ):
+        return self.X[elf.__X_cr_i]
+    
+    cX = property( get_cX , doc="return the constrained X alements" )
+    
+    
+    
+    
+    
+    

@@ -295,7 +295,7 @@ class OcTree ( object ):
     centre_of_mass = property( get_centre_of_mass , doc="return the centre of mass of the particles set" )
     
     
-    def build_tree_mp( self , pset ) :
+    def __build_tree_mp( self , pset ) :
         """
         |Build the octree with the given particles set with a parrallel processig procedure
         |   Arguments:
