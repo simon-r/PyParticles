@@ -39,7 +39,7 @@ class Measure( object ):
     def set_force( self , force ):
         self.__force = force
     
-    pset = property( get_force , set_force , doc="set and get the current force model" )
+    force = property( get_force , set_force , doc="set and get the current force model" )
     
     
     def get_parameter( self , name , val ):
@@ -52,11 +52,20 @@ class Measure( object ):
     
     parameter = property( get_parameter , doc="return the reference to the dict of the used paramenter" )
     
-    def value( self ):
+    
+    def update_measure( self ):
         """
-        The value of the current measure
+        compute and return the value of the measured quantity
         """
         NotImplementedError(" %s : is virtual and must be overridden." % sys._getframe().f_code.co_name )
+    
+    
+    def value( self ):
+        """
+        Return the value of the current measure
+        """
+        NotImplementedError(" %s : is virtual and must be overridden." % sys._getframe().f_code.co_name )
+    
     
     def shape(self ):
         """

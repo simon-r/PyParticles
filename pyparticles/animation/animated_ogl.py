@@ -45,12 +45,15 @@ except:
 
     
     
-def InitGL( Width , Height , ReSizeFun ):                # We call this right after our OpenGL window is created.
-    glClearColor(0.0, 0.0, 0.0, 0.0)    # This Will Clear The Background Color To Black
-    glClearDepth(1.0)                    # Enables Clearing Of The Depth Buffer
-    glDepthFunc(GL_LESS)                # The Type Of Depth Test To Do
-    glEnable(GL_DEPTH_TEST)                # Enables Depth Testing
-    glShadeModel(GL_SMOOTH)                # Enables Smooth Color Shading
+def InitGL( Width , Height , ReSizeFun ):
+    """
+    Inizialise OpenGl 
+    """
+    glClearColor(0.0, 0.0, 0.0, 0.0)    
+    glClearDepth(1.0)                   
+    glDepthFunc(GL_LESS)                
+    glEnable(GL_DEPTH_TEST)             
+    glShadeModel(GL_SMOOTH)        
     glEnable(GL_TEXTURE_2D)
     
     glEnable (GL_BLEND)
@@ -61,32 +64,53 @@ def InitGL( Width , Height , ReSizeFun ):                # We call this right af
     
     ReSizeFun(Width, Height)
     
-    #light_ambient = np.array( [  0.0 , 0.0 , 0.0 , 1.0  ] )
-    #light_diffuse = np.array( [  1.0 , 1.0 , 1.0 , 1.0  ] )
-    #light_specular = np.array( [  1.0 , 1.0 , 1.0 , 1.0  ] )
-    #light_position = np.array( [  2.0 , 5.0 , 5.0 , 10.0  ] )
-    # 
-    #mat_ambient = np.array( [  0.7 , 0.7 , 0.7 , 1.0  ] )
-    #mat_diffuse = np.array( [  0.8 , 0.8 , 0.8 , 1.0  ] )
-    #mat_specular = np.array( [  1.0 , 1.0 , 1.0 , 1.0  ] )
-    #high_shininess = np.array( [  100.0  ] )
-    #
+    InitLight()
+
+
+
+def InitLight() :
+    light_ambient = np.array( [  0.0 , 0.0 , 0.0 , 1.0  ] )
+    light_diffuse = np.array( [  1.0 , 1.0 , 1.0 , 1.0  ] )
+    light_specular = np.array( [  1.0 , 1.0 , 1.0 , 1.0  ] )
+    light_position = np.array( [  2.0 , 5.0 , 5.0 , 10.0  ] )
+     
+    mat_ambient = np.array( [  0.7 , 0.7 , 0.7 , 1.0  ] )
+    mat_diffuse = np.array( [  0.8 , 0.8 , 0.8 , 1.0  ] )
+    mat_specular = np.array( [  1.0 , 1.0 , 1.0 , 1.0  ] )
+    high_shininess = np.array( [  100.0  ] )
+    
     #glEnable(GL_LIGHT0)
     #glEnable(GL_NORMALIZE)
     #glEnable(GL_COLOR_MATERIAL)
     #glEnable(GL_LIGHTING)
-    #
-    #glLightfv(GL_LIGHT0, GL_AMBIENT,  light_ambient)
-    #glLightfv(GL_LIGHT0, GL_DIFFUSE,  light_diffuse)
-    #glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular)
-    #glLightfv(GL_LIGHT0, GL_POSITION, light_position) 
-    #
-    #glMaterialfv(GL_FRONT, GL_AMBIENT,   mat_ambient)
-    #glMaterialfv(GL_FRONT, GL_DIFFUSE,   mat_diffuse)
-    #glMaterialfv(GL_FRONT, GL_SPECULAR,  mat_specular)
-    #glMaterialfv(GL_FRONT, GL_SHININESS, high_shininess)
+    
+    glLightfv(GL_LIGHT0, GL_AMBIENT,  light_ambient)
+    glLightfv(GL_LIGHT0, GL_DIFFUSE,  light_diffuse)
+    glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular)
+    glLightfv(GL_LIGHT0, GL_POSITION, light_position) 
+    
+    glMaterialfv(GL_FRONT, GL_AMBIENT,   mat_ambient)
+    glMaterialfv(GL_FRONT, GL_DIFFUSE,   mat_diffuse)
+    glMaterialfv(GL_FRONT, GL_SPECULAR,  mat_specular)
+    glMaterialfv(GL_FRONT, GL_SHININESS, high_shininess)    
+
+def enableLight():
+    glEnable(GL_LIGHT0)
+    glEnable(GL_NORMALIZE)
+    glEnable(GL_COLOR_MATERIAL)
+    glEnable(GL_LIGHTING)
+    
+def disableLight():
+    glDisable(GL_LIGHT0)
+    glDisable(GL_NORMALIZE)
+    glDisable(GL_COLOR_MATERIAL)
+    glDisable(GL_LIGHTING)    
+    
 
 def DrawGLScene():
+    """
+    Draw the current particle scene.
+    """
     
     j = DrawGLScene.stream()
     
@@ -194,6 +218,12 @@ def KeyPressed( c , x , y ):
     if c == 'o' :
         KeyPressed.animation.draw_particles.set_particle_model( model="teapot" )
         
+    if c == 'L' :
+        enableLight()
+        
+    if c == 'l' :
+        disableLight()
+        
 
 
 def MousePressed(  button , state , x , y ):
@@ -254,16 +284,19 @@ def print_help():
     y = 0.9
     
     glut_print( 0.1 , y , GLUT_BITMAP_9_BY_15 , "a: Axis ON/OFF" , 1 , 1 , 1 , 1 )
-    y -= 0.05
     
+    y -= 0.05
     glut_print( 0.1 , y , GLUT_BITMAP_9_BY_15 , "t: Trajectory ON/OFF" , 1 , 1 , 1 , 1 )
+    
     y -= 0.05
-    
     glut_print( 0.1 , y , GLUT_BITMAP_9_BY_15 , "Point model - p: point | s: sphere | o: teapot " , 1 , 1 , 1 , 1 )
-    y -= 0.1    
     
+    y -= 0.05
+    glut_print( 0.1 , y , GLUT_BITMAP_9_BY_15 , "Lighting - L: On  l: OFF " , 1 , 1 , 1 , 1 )
+    
+    y -= 0.1    
     glut_print( 0.1 , y , GLUT_BITMAP_9_BY_15 , "h: Toggle help message" , 1 , 1 , 1 , 1 )
-    y -= 0.1
+    
 
 def glut_print( x,  y,  font,  text, r,  g , b , a):
     

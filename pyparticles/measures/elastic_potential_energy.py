@@ -17,27 +17,36 @@
 import numpy as np
 import scipy.spatial.distance as dist
 
-class ElasticPotentialEnergy( object ):
+import pyparticles.measures.measure as me
+
+class ElasticPotentialEnergy( me.Measure ):
     """
     Mesure for computing the total potential energy of the particle system
     """
-    def __init__( self , pset=None ):
-        super( Mass , self ).__init__( pset=pset , force=force )
+    def __init__( self , pset=None , force=None ):
+        
+        self.__pot = 0.0
+        
+        super( ElasticPotentialEnergy , self ).__init__( pset , force )
     
-     
-    def value( self ):
+    
+    def value(self):
         """
-        The value of the potential energy taken from the current status of the psrticles system.
+        return the current value of the potential energy
+        """
+        return self.__pot
+    
+    
+    def update_measure( self ):
+        """
+        Compute and return the elestic potential energy on the current state of the pset 
         """
         
-        m = self.pset.size
+        D = dist.pdist( self.pset.X , 'euclidean' )
+        self.__pot = np.sum( 1.0/2.0 * D**2 * self.force.const )
         
-        s = (m * (m - 1) / 2) 
+        return self.__pot
         
-        self.__D = dist.pdist( p_set.X , 'euclidean' )
-        
-        
-        return 22
     
     def shape( self ):
         """

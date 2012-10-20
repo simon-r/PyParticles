@@ -30,6 +30,10 @@ import pyparticles.forces.drag as dr
 
 import pyparticles.pset.rebound_boundary as rb
 
+import pyparticles.measures.elastic_potential_energy as epe
+import pyparticles.measures.kinetic_energy as ke
+
+
 
 import pyparticles.ode.euler_solver as els
 import pyparticles.ode.leapfrog_solver as lps
@@ -84,6 +88,14 @@ def springs() :
     mlf.append_force( constf )
     #mlf.append_force( drag )
     
+    #pot = epe.ElasticPotentialEnergy( pset , springs )
+    #ken = ke.KineticEnergy( pset , springs )
+    #
+    #pot.update_measure()
+    #ken.update_measure()
+    #
+    #print( "Potential = %f " % pot.value() )
+    #print( "Kinetic = %f " % ken.value() )
     
     bound = rb.ReboundBoundary( bound=(-10,10) )
     pset.set_boundary( bound )

@@ -15,32 +15,41 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import numpy as np
+import scipy.spatial.distance as dist
 
-class Mass( object ):
+import pyparticles.measures.measure as me
+
+class KineticEnergy( me.Measure ):
     """
-    Mesure for computing the total mass of the particle system
+    Mesure for computing the total potential energy of the particle system
     """
-    def __init__( self , pset=None, force=None  ):
-        super( Mass , self ).__init__( pset=pset , force=force )
-        self.__M = 0.0
-    
-     
-    def update_measure( self ):
-        """
-        Compute and return the totale mass of the system
-        """
-        self.__M = np.sum( self.pset.M[:] )
-        return self.__M
-    
+    def __init__( self , pset=None , force=None ):
+        
+        self.__ke = 0.0
+        
+        super( KineticEnergy , self ).__init__( pset , force )
+        
     
     def value(self):
         """
-        Return the current measured total mass 
+        return the current value of the potential energy
         """
-        return self.__M
+        return self.__ke
     
     
-    def shape(self ):
+    def update_measure( self ):
+        """
+        Compute and return the elestic potential energy on the current state of the pset 
+        """
+        
+        self.__Va = np.sum( self.pset.V**2.0 , 0 )
+        
+        self.__ke = np.sum( 1.0/2.0 * self.__Va * self.pset.M )
+        
+        return self.__ke
+        
+    
+    def shape( self ):
         """
         return a tuple containing the shape of the measures dataset
         """
@@ -48,12 +57,12 @@ class Mass( object ):
     
     def dim( self ):
         """
-        return the dimension of the measure: 1 for the mass
+        return the dimension of the measure: 1 for the potential energy
         """
         return 1
     
     def name(self):
         """
-        Return the string: "mass"
+        Return the string: "potential energy"
         """
-        return "mass"
+        return "potential energy"    

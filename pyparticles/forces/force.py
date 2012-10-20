@@ -40,3 +40,7 @@ class Force(object):
     F = property( getF )
     
     
+    def get_const( self ):
+        NotImplementedError(" %s : is virtual and must be overridden." % sys._getframe().f_code.co_name )        
+
+    const = property( get_const )
