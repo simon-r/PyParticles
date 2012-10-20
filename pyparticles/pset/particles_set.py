@@ -100,6 +100,8 @@ class ParticlesSet(object):
         if self.__Q :
             self.__property_dict['Q'] = self.__Q
         
+        self.__notify_set_changed = []
+        
         
     def realloc( self , size , dim , boundary=None ,
                  label=False , mass=True , velocity=True , charge=False ,
@@ -269,6 +271,46 @@ class ParticlesSet(object):
     
     label = property( get_label , doc="return the reference to the label list" )
     
+
+    def append( self , p_dict ) :
+        """
+        | Append the particle(s) decribed in the given dictionary
+        | If the particle don't contain every required data will be rejected
+         The dictionary *p_dict* must contains the name of the property and it's value, and it **must include all property**, also the user defined!
+        """
+        
+        for k in p_dict.keys():
+            if not self.__property_dict.has_key( k ) :
+                raise ValueError
+        
+        for kpr in self.__property_dict.keys() :
+            if isinstance( self.__property_dict[kpr] , list ):
+                self.__property_dict[kpr].append( p_dict[kpr] )
+            else :
+                self.__property_dict[kpr] = np.append( self.__property_dict[kpr] , p_dict[kpr] , 0 )
+                if kpr == "X" :
+                    self.__X = self.__property_dict[kpr]
+                elif kpr == "V" :
+                    self.__V = self.__property_dict[kpr]
+                elif kpr == "M" :
+                    self.__mass = self.__property_dict[kpr]
+                elif kpr == "Q" :
+                    self.__Q = self.__property_dict[kpr]                    
+
+        self.notify_set_changed()
+    
+    def notify_set_changed(self):
+        """
+        Call this methos when the particle set is modified.
+        """
+        for e in self.__notify_set_changed :
+            e.particles_set_changed( self )
+
+    def add_set_changed_listener( self , listener ) :
+        """
+        Add an object that contains a member methond called: *particles_set_changed( pset )* that there will be called if the particle set will be modified.
+        """
+        self.__notify_set_changed.append( listener )
 
     def update_boundary( self ):
         """

@@ -15,4 +15,4 @@
 #along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-__all__ = ["particles"]
+__all__ = [ "pset" , "ogl" , "ode" , "utils" , "forces" , "demo" , "animation" , "measures" ]
