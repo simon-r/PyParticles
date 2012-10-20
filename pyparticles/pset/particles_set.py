@@ -20,8 +20,8 @@ from collections import deque
 
 class ParticlesSet(object):
     """
-    |The main class for storing the particles data set.
-    |Constructor arguments:
+    | The main class for storing the particles data set.
+    | Constructor arguments:
         ============= =============== =======================================================
         size:         (default 0)     Number of particles
         dim :         (default 3)     dimensions of the system 2 or 3 ... 2D 3D
@@ -34,7 +34,7 @@ class ParticlesSet(object):
         log_max_size: (default 0) set the maximal size of the log queue
         ============= =============== =======================================================
         
-    |    Note: Position X and velocity V property are mandatory.
+    |    Note: The properties: position X and velocity V are mandatory.
     """
     def __init__( self , size=1 , dim=3 , boundary=None ,
                  label=False , mass=True , velocity=True , charge=False ,
@@ -107,8 +107,8 @@ class ParticlesSet(object):
                  label=False , mass=True , velocity=True , charge=False ,
                  log_X=False , log_V=False , log_max_size=0 ):
         """
-        |Realloc the particle set, it uses the same args of the constructor, 
-        | **Attention!** this method remove the dictionary of the of the extra properties
+        | Realloc the particle set, it uses the same args of the constructor, 
+        |  **Attention!** this method remove the dictionary of the of the extra properties
         """
         del self.__X
         del self.__V
@@ -123,13 +123,13 @@ class ParticlesSet(object):
     
     def resize( self , new_size ):
         """
-        |Resize the particles set with the new_size.
-        |If the new size is bigger the old data are copied in the new particles, according to the function numpy.resize
-        |if it is smaller it cancels the data.
+        | Resize the particles set with the new_size.
+        | If the new size is bigger the old data are copied in the new particles, according to the function numpy.resize
+        | if it is smaller it cancels the data.
         |
-        |If the property is a list, the new elements will be filled with 'None' or empty string for the labels
+        | If the property is a list, the new elements will be filled with 'None' or empty string for the labels
         |
-        |The dim of the set will be not changed.
+        | The dim of the set will be not changed.
         """
         
         for k in self.__property_dict.keys() :
@@ -183,15 +183,16 @@ class ParticlesSet(object):
 
     def add_property_by_name( self , property_name , dim=None , model="numpy_array" , to_type=np.float64 ):
         """
-        |Insert a new property by name. If the dim is not specified it uses the current dimension of the set.
-        |If the model of the property is 'list' the dim is forced to 1
+        | Insert a new property by name. If the dim is not specified it uses the current dimension of the set.
+        | If the model of the property is 'list' the dim is forced to 1
         
-        |Arguments:
-            #. property_name : the name of the new property
-            #. dim : the dimension of the new property ( 2 = "2D  , 3 = 3D ... )
-            #. model : 'list' or 'numpy_array'
-            #. to_type=np.float64 : an array-numpy compatible type for the model 'numpy_array' [ np.float64 , np.int64 ... ]
-        
+        | Arguments:
+            ===================  =====================================================================================================
+             property_name       the name of the new property
+             dim                 the dimension of the new property ( 2 = "2D  , 3 = 3D ... )
+             model               'list' or 'numpy_array'
+             to_type=np.float64  an array-numpy compatible type for the model 'numpy_array' [ np.float64 , np.int64 ... ]
+            ===================  =====================================================================================================                     
         For example add 'friction' or 'radius':
         ::
         
@@ -377,8 +378,8 @@ class ParticlesSet(object):
 
     def log(self):
         """
-        |if the log is enabled, save the current status in the log queue.
-        |The last element of the queue will be removed if we reach the max allowed size
+        | if the log is enabled, save the current status in the log queue.
+        | The last element of the queue will be removed if we reach the max allowed size
         """
         delta_x = 0
         delta_v = 0

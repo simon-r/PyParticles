@@ -21,7 +21,7 @@ import pyparticles.measures.measure as me
 
 class ElasticPotentialEnergy( me.Measure ):
     """
-    Mesure for computing the total potential energy of the particle system
+    Class derived from Measure usedfor computing the total elastic potential energy of the particle system
     """
     def __init__( self , pset=None , force=None ):
         

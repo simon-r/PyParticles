@@ -11,6 +11,7 @@ PyParticles is a particle simulation toolbox entirely written in python
 
    Config File
    Programming Example
+   Packages Descriptions
 
 Features
 --------

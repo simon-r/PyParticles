@@ -48,6 +48,9 @@ if sys.version_info[0] == 2:
 
 
 def springs() :
+    """
+    Springs demo
+    """
     
     dt = 0.02
     steps = 1000000

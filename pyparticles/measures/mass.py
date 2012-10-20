@@ -18,7 +18,7 @@ import numpy as np
 
 class Mass( object ):
     """
-    Mesure for computing the total mass of the particle system
+    'Meaure' for computing the total mass of the particle system
     """
     def __init__( self , pset=None, force=None  ):
         super( Mass , self ).__init__( pset=pset , force=force )

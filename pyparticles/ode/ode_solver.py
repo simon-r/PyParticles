@@ -19,7 +19,39 @@ import numpy as np
 import sys
 
 class OdeSolver(object) :
+    """
+    Base abstract class for defining the integration method of the ordinary differential equation like Runge Kutta or Euler method,
+    the user must overide the method **__step__**
+    | Example (Euler method):
+    | ::
+    
+        import numpy as np
+        import pyparticles.ode.ode_solver as os
+       
+        class EulerSolver( os.OdeSolver ) :
+           def __init__( self , force , p_set , dt ):
+               super(EulerSolver,self).__init__( force , p_set , dt )
+           
+        def __step__( self , dt ):
+   
+           self.force.update_force( self.pset )
+           
+           self.pset.V[:] = self.pset.V + self.force.A * dt
+           self.pset.X[:] = self.pset.X + self.pset.V * dt
+           
+           self.pset.update_boundary() 
+    
+    """
     def __init__( self , force , p_set , dt ):
+        """
+        | Constructor:
+        Arguments:
+        ========  ================
+        force     the force model
+        p_set     the particle set
+        dt        delta time
+        ========  ================
+        """
         self.__force = force
         self.__p_set = p_set
         self.__dt = dt
@@ -32,7 +64,7 @@ class OdeSolver(object) :
     def set_dt( self , dt ):
         self.__dt = dt
 
-    dt = property( get_dt , set_dt )
+    dt = property( get_dt , set_dt , doc="get and set the delta time of the step")
     
     
     def get_steps(self):
@@ -41,7 +73,7 @@ class OdeSolver(object) :
     def del_steps(self):
         self.__steps_cnt = 0
     
-    steps_cnt = property( get_steps , fdel=del_steps )
+    steps_cnt = property( get_steps , fdel=del_steps , doc="return the count of the performed steps")
     
     
     def get_time(self):
@@ -50,7 +82,7 @@ class OdeSolver(object) :
     def set_time( self , t0 ):
         self.__time = t0
         
-    time = property( get_time , set_time )
+    time = property( get_time , set_time , doc="get and set the current simulation time" )
     
     
     def get_force( self ):
@@ -59,7 +91,7 @@ class OdeSolver(object) :
     def set_force( self , force ):
         self.__force = force
         
-    force = property( get_force , set_force )
+    force = property( get_force , set_force , doc="get and set the used force model")
     
     
     def update_force( self ):
@@ -71,10 +103,14 @@ class OdeSolver(object) :
     def set_pset( self , p_set ):
         self.__p_set = p_set
         
-    pset = property( get_pset , set_pset )
+    pset = property( get_pset , set_pset , "get and set the used particles set")
     
     
     def step( self , dt=None ):
+        """
+        Perform an integration step. If the dt is not given (reccomended) it uses the stored *dt*.
+        You must alway use this method for executing a step.
+        """
         if dt == None:
             dt = self.dt
         
@@ -84,4 +120,7 @@ class OdeSolver(object) :
         self.__step__( dt )
         
     def __step__( self , dt ):
+        """
+        Abstract methos that contain the code for computing the new status of the particles system. This methos must be overidden by the user.
+        """
         NotImplementedError(" %s : is virtual and must be overridden." % sys._getframe().f_code.co_name )
