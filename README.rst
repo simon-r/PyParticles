@@ -59,6 +59,11 @@ Start a simulation described in a config file ::
     pyparticle_app <file_name>
     
 
+Start the specified demo simulation ::
+
+    pypaticle_app --demo springs
+    pypaticle_app --demo solar_system
+
 Write out a model config file ::
     
     pyparticle_app -m
@@ -69,6 +74,9 @@ Print out the help and version ::
     pyparticles_app --help
     pyparticles_app --version
     
+
+During the simulation you can toggle the help message by pressing **h**
+
 
 Config file Example: ::
 
