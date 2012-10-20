@@ -15,8 +15,9 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import numpy as np
+import scipy.spatial.distance as dist
 
-class PotentialEnergy( object ):
+class ElasticPotentialEnergy( object ):
     """
     Mesure for computing the total potential energy of the particle system
     """
@@ -28,6 +29,14 @@ class PotentialEnergy( object ):
         """
         The value of the potential energy taken from the current status of the psrticles system.
         """
+        
+        m = self.pset.size
+        
+        s = (m * (m - 1) / 2) 
+        
+        self.__D = dist.pdist( p_set.X , 'euclidean' )
+        
+        
         return 22
     
     def shape( self ):
