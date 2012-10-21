@@ -197,8 +197,8 @@ class TreeElement( object ):
         Print the structure of the tree and return the maximal depth
         
         Args:
-            # pset: the particles set
-            # d  current depth (1 for the first node)
+            pset: the particles set
+            d:  current depth (1 for the first node)
         """
         if self.__particle == None  :
             return 
@@ -364,6 +364,8 @@ class OcTree ( object ):
         Build the octree with the given particles set
         
            Arguments:
+           
+            ==== ============================================
             ==== ============================================
             pset a ParticlesSet object used to build the tree
             ==== ============================================

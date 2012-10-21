@@ -22,7 +22,8 @@ class ParticlesSet(object):
     """
     The main class for storing the particles data set.
     
-    Constructor arguments:
+        ============= =============== =======================================================
+        Arguments:
         ============= =============== =======================================================
         size:         (default 0)     Number of particles
         dim :         (default 3)     dimensions of the system 2 or 3 ... 2D 3D
@@ -190,13 +191,15 @@ class ParticlesSet(object):
         
         If the model of the property is 'list' the dim is forced to 1
         
-         Arguments:
-            ===================  =====================================================================================================
+            ===================  ==============================================================================
+            Arguments:
+            ===================  ==============================================================================
              property_name       the name of the new property
              dim                 the dimension of the new property ( 2 = "2D  , 3 = 3D ... )
              model               'list' or 'numpy_array'
              to_type=np.float64  an array-numpy type for the model 'numpy_array' [ np.float64 , np.int64 ... ]
-            ===================  =====================================================================================================                     
+            ===================  ==============================================================================
+            
         For example add 'friction' or 'radius':
         ::
         

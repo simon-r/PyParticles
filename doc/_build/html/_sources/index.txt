@@ -13,8 +13,19 @@ PyParticles is a particle simulation toolbox entirely written in python
    Programming Example
    Packages Descriptions
 
+
+
 Features
 --------
+
+            ===================  ==============================================================================
+            Arguments:
+            ===================  ==============================================================================
+             property_name       the name of the new property
+             dim                 the dimension of the new property ( 2 = "2D  , 3 = 3D ... )
+             model               'list' or 'numpy_array'
+             to_type=np.float64  an array-numpy type for the model 'numpy_array' [ np.float64 , np.int64 ... ]
+            ===================  ==============================================================================
 
 Simulate a particle by particle model with the most popular integrations methods, and it represents the results on a OpenGL or Matplotlib plot.
 
