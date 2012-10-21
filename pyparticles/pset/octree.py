@@ -194,10 +194,11 @@ class TreeElement( object ):
 
     def print_tree( self , pset , d=1 ):
         """
-        |Print the structure of the tree and return the maximal depth
-        |Args:
-        |    # pset: the particles set
-        |    # d = current depth (1 for the first node)
+        Print the structure of the tree and return the maximal depth
+        
+        Args:
+            # pset: the particles set
+            # d  current depth (1 for the first node)
         """
         if self.__particle == None  :
             return 
@@ -279,10 +280,13 @@ class OcTree ( object ):
                             edge_len   = 1.0 ) :
         
         """
-        |Define the size of the octree cube
-        |Arguments:
-        |    ref_vertex : the ( down , near , left ) vertex
-        |    edge_len   : leght of the edge 
+        Define the size of the octree cube
+        
+        Arguments:
+           ==========  =================================
+           ref_vertex  the ( down , near , left ) vertex
+           edge_len    leght of the edge
+           ==========  =================================
         """
         
         self.__ref_vertex[:] = ref_vertex
@@ -297,9 +301,12 @@ class OcTree ( object ):
     
     def __build_tree_mp( self , pset ) :
         """
-        |Build the octree with the given particles set with a parrallel processig procedure
-        |   Arguments:
-        |   pset: a ParticlesSet object used to build the tree
+        Build the octree with the given particles set with a parrallel processig procedure
+        
+          Arguments:
+           ==== ============================================
+           pset a ParticlesSet object used to build the tree
+           ==== ============================================
         """
         
         if self.__tree == None :
@@ -354,9 +361,12 @@ class OcTree ( object ):
     
     def build_tree( self , pset ) :
         """
-        |Build the octree with the given particles set
-        |    Arguments:
-        |    pset: a ParticlesSet object used to build the tree
+        Build the octree with the given particles set
+        
+           Arguments:
+            ==== ============================================
+            pset a ParticlesSet object used to build the tree
+            ==== ============================================
         """
         
         if self.__tree == None :

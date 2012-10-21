@@ -34,12 +34,12 @@ class ConstrainedParticlesSet ( ps.ParticlesSet ):
     
     def add_x_constraint( self , indx , constr ):
         """
-        | Add new postional contraint
-        | contraints are concatenad to the stored contraints, we don't tests the uniqness of the indicies.
-        | be careful with the double indicies
-        | Arguments:
-        |   #. indx: indicies of the new contraints
-        |   #. constr: the new contraints
+        Add new postional contraint
+        contraints are concatenad to the stored contraints, we don't tests the uniqness of the indicies.
+        be careful with the double indicies
+        Arguments:
+           #. indx: indicies of the new contraints
+           #. constr: the new contraints
         """
         if  self.__X_cr == None :
             self.__X_cr = np.array( constr )
@@ -52,9 +52,9 @@ class ConstrainedParticlesSet ( ps.ParticlesSet ):
         
     def remove_x_constraint( self , indxs ):
         """
-        | Remove the element indixed in indxs from the contraits 
-        | Arguments:
-        |    #. indxs: an interable containig the indicies of the old contraints.
+        Remove the element indixed in indxs from the contraits 
+         Arguments:
+            #. indxs: an interable containig the indicies of the old contraints.
         """
         ix = np.array([]) 
         for i in indxs :

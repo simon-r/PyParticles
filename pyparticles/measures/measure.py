@@ -14,6 +14,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+import numpy as np
 
 class Measure( object ):
     """
@@ -21,7 +22,7 @@ class Measure( object ):
     """
     def __init__( self , pset=None , force=None ):
         """
-        | Constructor:
+        Constructor:
           ======= ==============================================================================
           pset    The particles set
           force   The model of the used force
@@ -102,7 +103,7 @@ class MeasureParticles( Measure ):
     """
     def __init__( self , pset=None , force=None , subset=None , model="part_by_part" ):
         """
-        | Constructor:
+        Constructor:
           ======= ==============================================================================
           pset    The particles set
           force   The model of the used force

@@ -32,6 +32,7 @@ import pyparticles.pset.rebound_boundary as rb
 
 import pyparticles.measures.elastic_potential_energy as epe
 import pyparticles.measures.kinetic_energy as ke
+import pyparticles.measures.momentum as mm
 
 
 
@@ -52,7 +53,7 @@ def springs() :
     Springs demo
     """
     
-    dt = 0.02
+    dt = 0.002
     steps = 1000000
     
     G = 0.5
@@ -88,7 +89,7 @@ def springs() :
     mlf = mf.MultipleForce( pset.size , 3 )
     
     mlf.append_force( springs )
-    mlf.append_force( constf )
+    #mlf.append_force( constf )
     #mlf.append_force( drag )
     
     #pot = epe.ElasticPotentialEnergy( pset , springs )
@@ -99,6 +100,12 @@ def springs() :
     #
     #print( "Potential = %f " % pot.value() )
     #print( "Kinetic = %f " % ken.value() )
+    
+    #P = mm.MomentumParticles( pset , subset=np.array([1,2]) , model="part_by_part")
+    #
+    #P.update_measure()
+    #
+    #print( P.value() )
     
     bound = rb.ReboundBoundary( bound=(-10,10) )
     pset.set_boundary( bound )

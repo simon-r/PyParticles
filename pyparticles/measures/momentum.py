@@ -23,14 +23,14 @@ class MomentumSystem( me.Measure ):
     """
     'Measure' for computing the total momentum of the particle system
     """
-    def __init__( self , pset=None , force=None ):
+    def __init__( self , pset=None ):
         
         if pset != None :
             self.__P = np.zeros(( pset.dim ))
         else :
             self.__P = None
         
-        super( MomentumSystem , self ).__init__( pset , force )
+        super( MomentumSystem , self ).__init__( pset=pset , force=None )
         
         
     def value(self):
@@ -73,19 +73,19 @@ class MomentumSystem( me.Measure ):
 class MomentumParticles( me.MeasureParticles ):
     """
     'Measure' for computing the momentum particle by particle or of a subsystem
-    | Example: ::
+     Example: ::
     
         P = MomentumParticles( pset , subset=np.array([1,4,5]) , model="part_by_part")
         P.update_measure()
         print( P.value )
-            [[ 1.1 , 2.3 , 3.2 ],
-             [ 1.7 , 5.2 , 6.9 ],
-             [ 1.8 , 2.3 , 1.7 ]
-            ]
+        >    [[ 1.1 , 2.3 , 3.2 ],
+        >     [ 1.7 , 5.2 , 6.9 ],
+        >     [ 1.8 , 2.3 , 1.7 ]
+        >    ]
     """
     def __init__( self , pset=None , force=None , subset=None , model="part_by_part" ):
         """
-        | Constructor:
+         Constructor:
           ======= ==============================================================================
           pset    The particles set
           force   The model of the used force

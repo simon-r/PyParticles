@@ -26,8 +26,9 @@ class Gravity( fr.Force ) :
     """
     def __init__(self , size , dim=3 , m=None , Consts=1.0 ):
         """
-        | Constructor:
-        |   Arguments:
+         Constructor:
+         
+           Arguments:
             =======  ======================================
             size     the number of particles in the system
             dim      the dimension of the system
