@@ -53,7 +53,7 @@ def springs() :
     Springs demo
     """
     
-    dt = 0.002
+    dt = 0.04
     steps = 1000000
     
     G = 0.5
@@ -92,11 +92,11 @@ def springs() :
     #mlf.append_force( constf )
     #mlf.append_force( drag )
     
-    #pot = epe.ElasticPotentialEnergy( pset , springs )
-    #ken = ke.KineticEnergy( pset , springs )
+    pot = epe.ElasticPotentialEnergy( pset , springs )
+    ken = ke.KineticEnergy( pset , springs )
     #
-    #pot.update_measure()
-    #ken.update_measure()
+    pot.update_measure()
+    ken.update_measure()
     #
     #print( "Potential = %f " % pot.value() )
     #print( "Kinetic = %f " % ken.value() )
@@ -113,7 +113,7 @@ def springs() :
     mlf.set_masses( pset.M )
     springs.set_masses( pset.M )
     
-    #springs.update_force( pset )
+    springs.update_force( pset )
     mlf.update_force( pset )
     
     #solver = rks.RungeKuttaSolver( springs , pset , dt )
@@ -130,6 +130,9 @@ def springs() :
     a.ode_solver = solver
     a.pset = pset
     a.steps = steps
+    
+    a.add_measure( ken )
+    a.add_measure( pot )
     
     a.build_animation()
     

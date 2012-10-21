@@ -4,7 +4,7 @@ PyParticles
 PyParticles is a particle simulation toolbox entirely written in python
 
 Visit: http://pyparticles.wordpress.com/
-
+Docs:  http://simon-r.github.com/PyParticles/index.html
 
 
 Features

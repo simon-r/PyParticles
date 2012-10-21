@@ -73,7 +73,7 @@ class MomentumSystem( me.Measure ):
 class MomentumParticles( me.MeasureParticles ):
     """
     'Measure' for computing the momentum particle by particle or of a subsystem
-     Example: ::
+    Example: ::
     
         P = MomentumParticles( pset , subset=np.array([1,4,5]) , model="part_by_part")
         P.update_measure()
@@ -82,17 +82,19 @@ class MomentumParticles( me.MeasureParticles ):
         >     [ 1.7 , 5.2 , 6.9 ],
         >     [ 1.8 , 2.3 , 1.7 ]
         >    ]
+     
+    Constructor:
+      ========= ==============================================================================
+      Arguments
+      ========= ==============================================================================
+      pset      The particles set
+      force     The model of the used force
+      subset    a numpy 1D array containing the indicies of the measured particles
+      model     a strung describing the model for the measure: "part_by_part" or "subsystem"
+      ========= ==============================================================================       
     """
     def __init__( self , pset=None , force=None , subset=None , model="part_by_part" ):
-        """
-         Constructor:
-          ======= ==============================================================================
-          pset    The particles set
-          force   The model of the used force
-          subset  a numpy 1D array containing the indicies of the measured particles
-          model   a strung describing the model for the measure: "part_by_part" or "subsystem"
-          ======= ==============================================================================
-        """        
+      
         if pset != None and model == "subsystem" :
             self.__P = np.zeros(( pset.dim ))
         elif pset != None and model == "part_by_part" and subset != None :

@@ -43,7 +43,7 @@ class ElasticPotentialEnergy( me.Measure ):
         """
         
         D = dist.pdist( self.pset.X , 'euclidean' )
-        self.__pot = np.sum( 1.0/2.0 * D**2 * self.force.const )
+        self.__pot = np.sum( 1.0/2.0 * D**2.0 * self.force.const )
         
         return self.__pot
         

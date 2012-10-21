@@ -37,9 +37,12 @@ class ConstrainedParticlesSet ( ps.ParticlesSet ):
         Add new postional contraint
         contraints are concatenad to the stored contraints, we don't tests the uniqness of the indicies.
         be careful with the double indicies
-        Arguments:
-           #. indx: indicies of the new contraints
-           #. constr: the new contraints
+            ========== ================================
+            Arguments:
+            ========== ================================
+            indx:      indicies of the new contraints
+            constr:    the new contraints
+            ========== ================================
         """
         if  self.__X_cr == None :
             self.__X_cr = np.array( constr )

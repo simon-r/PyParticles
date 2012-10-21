@@ -42,9 +42,9 @@ class KineticEnergy( me.Measure ):
         Compute and return the elestic potential energy on the current state of the pset 
         """
         
-        self.__Va = np.sum( self.pset.V**2.0 , 0 )
+        self.__Va = np.sum( self.pset.V**2.0 , 1 )
         
-        self.__ke = np.sum( 1.0/2.0 * self.__Va * self.pset.M )
+        self.__ke = np.sum( 1.0/2.0 * self.__Va * self.pset.M.T )
         
         return self.__ke
         
@@ -65,4 +65,4 @@ class KineticEnergy( me.Measure ):
         """
         Return the string: "potential energy"
         """
-        return "potential energy"    
+        return "kinetic energy"    

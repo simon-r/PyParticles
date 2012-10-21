@@ -23,8 +23,8 @@ class OdeSolver(object) :
     Base abstract class for defining the integration method of the ordinary differential equation like Runge Kutta or Euler method,
     the user must overide the method **__step__**
     
-     Example (Euler method):
-     ::
+    Example (Euler method):
+    ::
     
         import numpy as np
         import pyparticles.ode.ode_solver as os
@@ -42,18 +42,17 @@ class OdeSolver(object) :
            
            self.pset.update_boundary() 
     
+    Constructor:
+    =========  ================
+    Arguments
+    =========  ================
+    force      the force model
+    p_set      the particle set
+    dt         delta time
+    =========  ================    
+    
     """
     def __init__( self , force , p_set , dt ):
-        """
-        Constructor:
-        
-        Arguments:
-        ========  ================
-        force     the force model
-        p_set     the particle set
-        dt        delta time
-        ========  ================
-        """
         self.__force = force
         self.__p_set = p_set
         self.__dt = dt

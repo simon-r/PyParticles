@@ -129,6 +129,9 @@ def DrawGLScene():
         
     glut_print( 0.02 , 0.02 , GLUT_BITMAP_9_BY_15 , fm.to_str( sim_time ) , 1.0 , 1.0 , 1.0 , 1.0 )
     
+    if DrawGLScene.animation.measures_cnt() > 0 :
+        print_measures()
+    
     if DrawGLScene.animation.print_help :
         print_help()
     
@@ -282,7 +285,6 @@ def MouseMotion( x , y ) :
 def print_help():
     
     y = 0.9
-    
     glut_print( 0.1 , y , GLUT_BITMAP_9_BY_15 , "a: Axis ON/OFF" , 1 , 1 , 1 , 1 )
     
     y -= 0.05
@@ -296,6 +298,21 @@ def print_help():
     
     y -= 0.1    
     glut_print( 0.1 , y , GLUT_BITMAP_9_BY_15 , "h: Toggle help message" , 1 , 1 , 1 , 1 )
+    
+    
+def print_measures():
+    
+    mnames = print_measures.animation.get_measures_names()
+    
+    y = 0.9
+    
+    for na in mnames:
+        m = print_measures.animation.get_measure_value( na )
+        #tot += m
+        glut_print( 0.7 , y , GLUT_BITMAP_9_BY_15 , " %s:  %s " % ( na , m ) , 1 , 1 , 1 , 1 )
+        y -= 0.05
+        
+    #glut_print( 0.7 , y , GLUT_BITMAP_9_BY_15 , " Total energy:  %s " % ( tot ) , 1 , 1 , 1 , 1 )    
     
 
 def glut_print( x,  y,  font,  text, r,  g , b , a):
@@ -520,6 +537,8 @@ class AnimatedGl( pan.Animation ):
         m_move = MouseMotion
         m_move.animation = self
         
+        print_measures.animation = self
+        
         glutMouseFunc( pressed )
         glutMotionFunc( m_move )
         
@@ -531,6 +550,8 @@ class AnimatedGl( pan.Animation ):
         self.pset.log()
         
         self.ode_solver.step()
+        
+        self.perform_measurement()
         
         return self.ode_solver.steps_cnt
         
