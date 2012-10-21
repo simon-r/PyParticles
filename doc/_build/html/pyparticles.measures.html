@@ -1,0 +1,440 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>measures Package &mdash; PyParticles 0.1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="PyParticles 0.1.0 documentation" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="index.html">PyParticles 0.1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="measures-package">
+<h1>measures Package<a class="headerlink" href="#measures-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-pyparticles.measures.elastic_potential_energy">
+<span id="elastic-potential-energy-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">elastic_potential_energy</span></tt> Module<a class="headerlink" href="#module-pyparticles.measures.elastic_potential_energy" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyparticles.measures.elastic_potential_energy.ElasticPotentialEnergy">
+<em class="property">class </em><tt class="descclassname">pyparticles.measures.elastic_potential_energy.</tt><tt class="descname">ElasticPotentialEnergy</tt><big>(</big><em>pset=None</em>, <em>force=None</em><big>)</big><a class="headerlink" href="#pyparticles.measures.elastic_potential_energy.ElasticPotentialEnergy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pyparticles.measures.measure.Measure" title="pyparticles.measures.measure.Measure"><tt class="xref py py-class docutils literal"><span class="pre">pyparticles.measures.measure.Measure</span></tt></a></p>
+<p>Class derived from Measure usedfor computing the total elastic potential energy of the particle system</p>
+<dl class="method">
+<dt id="pyparticles.measures.elastic_potential_energy.ElasticPotentialEnergy.dim">
+<tt class="descname">dim</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.measures.elastic_potential_energy.ElasticPotentialEnergy.dim" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the dimension of the measure: 1 for the potential energy</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.measures.elastic_potential_energy.ElasticPotentialEnergy.name">
+<tt class="descname">name</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.measures.elastic_potential_energy.ElasticPotentialEnergy.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the string: &#8220;potential energy&#8221;</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.measures.elastic_potential_energy.ElasticPotentialEnergy.shape">
+<tt class="descname">shape</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.measures.elastic_potential_energy.ElasticPotentialEnergy.shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a tuple containing the shape of the measures dataset</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.measures.elastic_potential_energy.ElasticPotentialEnergy.update_measure">
+<tt class="descname">update_measure</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.measures.elastic_potential_energy.ElasticPotentialEnergy.update_measure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute and return the elestic potential energy on the current state of the pset</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.measures.elastic_potential_energy.ElasticPotentialEnergy.value">
+<tt class="descname">value</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.measures.elastic_potential_energy.ElasticPotentialEnergy.value" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the current value of the potential energy</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyparticles.measures.kinetic_energy">
+<span id="kinetic-energy-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">kinetic_energy</span></tt> Module<a class="headerlink" href="#module-pyparticles.measures.kinetic_energy" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyparticles.measures.kinetic_energy.KineticEnergy">
+<em class="property">class </em><tt class="descclassname">pyparticles.measures.kinetic_energy.</tt><tt class="descname">KineticEnergy</tt><big>(</big><em>pset=None</em>, <em>force=None</em><big>)</big><a class="headerlink" href="#pyparticles.measures.kinetic_energy.KineticEnergy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pyparticles.measures.measure.Measure" title="pyparticles.measures.measure.Measure"><tt class="xref py py-class docutils literal"><span class="pre">pyparticles.measures.measure.Measure</span></tt></a></p>
+<p>Mesure for computing the total potential energy of the particle system</p>
+<dl class="method">
+<dt id="pyparticles.measures.kinetic_energy.KineticEnergy.dim">
+<tt class="descname">dim</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.measures.kinetic_energy.KineticEnergy.dim" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the dimension of the measure: 1 for the potential energy</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.measures.kinetic_energy.KineticEnergy.name">
+<tt class="descname">name</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.measures.kinetic_energy.KineticEnergy.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the string: &#8220;potential energy&#8221;</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.measures.kinetic_energy.KineticEnergy.shape">
+<tt class="descname">shape</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.measures.kinetic_energy.KineticEnergy.shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a tuple containing the shape of the measures dataset</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.measures.kinetic_energy.KineticEnergy.update_measure">
+<tt class="descname">update_measure</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.measures.kinetic_energy.KineticEnergy.update_measure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute and return the elestic potential energy on the current state of the pset</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.measures.kinetic_energy.KineticEnergy.value">
+<tt class="descname">value</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.measures.kinetic_energy.KineticEnergy.value" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the current value of the potential energy</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyparticles.measures.mass">
+<span id="mass-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">mass</span></tt> Module<a class="headerlink" href="#module-pyparticles.measures.mass" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyparticles.measures.mass.Mass">
+<em class="property">class </em><tt class="descclassname">pyparticles.measures.mass.</tt><tt class="descname">Mass</tt><big>(</big><em>pset=None</em>, <em>force=None</em><big>)</big><a class="headerlink" href="#pyparticles.measures.mass.Mass" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>&#8216;Meaure&#8217; for computing the total mass of the particle system</p>
+<dl class="method">
+<dt id="pyparticles.measures.mass.Mass.dim">
+<tt class="descname">dim</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.measures.mass.Mass.dim" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the dimension of the measure: 1 for the mass</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.measures.mass.Mass.name">
+<tt class="descname">name</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.measures.mass.Mass.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the string: &#8220;mass&#8221;</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.measures.mass.Mass.shape">
+<tt class="descname">shape</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.measures.mass.Mass.shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a tuple containing the shape of the measures dataset</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.measures.mass.Mass.update_measure">
+<tt class="descname">update_measure</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.measures.mass.Mass.update_measure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute and return the totale mass of the system</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.measures.mass.Mass.value">
+<tt class="descname">value</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.measures.mass.Mass.value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the current measured total mass</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyparticles.measures.measure">
+<span id="measure-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">measure</span></tt> Module<a class="headerlink" href="#module-pyparticles.measures.measure" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyparticles.measures.measure.Measure">
+<em class="property">class </em><tt class="descclassname">pyparticles.measures.measure.</tt><tt class="descname">Measure</tt><big>(</big><em>pset=None</em>, <em>force=None</em><big>)</big><a class="headerlink" href="#pyparticles.measures.measure.Measure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Main abstract class for defining the measurments procedures of the system, for example the total kinetic energy.</p>
+<dl class="method">
+<dt id="pyparticles.measures.measure.Measure.dim">
+<tt class="descname">dim</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.measures.measure.Measure.dim" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the dimension of the measure, for the dimensionless measure it must return 1 (like kinetic energy or mass)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyparticles.measures.measure.Measure.force">
+<tt class="descname">force</tt><a class="headerlink" href="#pyparticles.measures.measure.Measure.force" title="Permalink to this definition">¶</a></dt>
+<dd><p>set and get the current force model</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.measures.measure.Measure.get_force">
+<tt class="descname">get_force</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.measures.measure.Measure.get_force" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.measures.measure.Measure.get_parameter">
+<tt class="descname">get_parameter</tt><big>(</big><em>name</em>, <em>val</em><big>)</big><a class="headerlink" href="#pyparticles.measures.measure.Measure.get_parameter" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the reference to the dict of the used paramenter</p>
+<p>A paramenter shold be the volume, some constant ....</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.measures.measure.Measure.get_pset">
+<tt class="descname">get_pset</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.measures.measure.Measure.get_pset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.measures.measure.Measure.name">
+<tt class="descname">name</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.measures.measure.Measure.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a string containig the name of the measure</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyparticles.measures.measure.Measure.parameter">
+<tt class="descname">parameter</tt><a class="headerlink" href="#pyparticles.measures.measure.Measure.parameter" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the reference to the dict of the used paramenter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyparticles.measures.measure.Measure.pset">
+<tt class="descname">pset</tt><a class="headerlink" href="#pyparticles.measures.measure.Measure.pset" title="Permalink to this definition">¶</a></dt>
+<dd><p>set and get the current measured particle set</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.measures.measure.Measure.set_force">
+<tt class="descname">set_force</tt><big>(</big><em>force</em><big>)</big><a class="headerlink" href="#pyparticles.measures.measure.Measure.set_force" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.measures.measure.Measure.set_pset">
+<tt class="descname">set_pset</tt><big>(</big><em>pset</em><big>)</big><a class="headerlink" href="#pyparticles.measures.measure.Measure.set_pset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.measures.measure.Measure.shape">
+<tt class="descname">shape</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.measures.measure.Measure.shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a tuple containing the shape of the measures dataset</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.measures.measure.Measure.update_measure">
+<tt class="descname">update_measure</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.measures.measure.Measure.update_measure" title="Permalink to this definition">¶</a></dt>
+<dd><p>compute and return the value of the measured quantity</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.measures.measure.Measure.value">
+<tt class="descname">value</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.measures.measure.Measure.value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the value of the current measure</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyparticles.measures.measure.MeasureParticles">
+<em class="property">class </em><tt class="descclassname">pyparticles.measures.measure.</tt><tt class="descname">MeasureParticles</tt><big>(</big><em>pset=None</em>, <em>force=None</em>, <em>subset=None</em>, <em>model='part_by_part'</em><big>)</big><a class="headerlink" href="#pyparticles.measures.measure.MeasureParticles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pyparticles.measures.measure.Measure" title="pyparticles.measures.measure.Measure"><tt class="xref py py-class docutils literal"><span class="pre">pyparticles.measures.measure.Measure</span></tt></a></p>
+<p>Abstract class used fopr measuring a subset of partiles or a set of singles particles.</p>
+<dl class="method">
+<dt id="pyparticles.measures.measure.MeasureParticles.get_model">
+<tt class="descname">get_model</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.measures.measure.MeasureParticles.get_model" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.measures.measure.MeasureParticles.get_subset">
+<tt class="descname">get_subset</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.measures.measure.MeasureParticles.get_subset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyparticles.measures.measure.MeasureParticles.model">
+<tt class="descname">model</tt><a class="headerlink" href="#pyparticles.measures.measure.MeasureParticles.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>set and get the measurement model: &#8220;part_by_part&#8221; or &#8220;subsystem&#8221;</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.measures.measure.MeasureParticles.set_model">
+<tt class="descname">set_model</tt><big>(</big><em>model</em><big>)</big><a class="headerlink" href="#pyparticles.measures.measure.MeasureParticles.set_model" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.measures.measure.MeasureParticles.set_subset">
+<tt class="descname">set_subset</tt><big>(</big><em>subset</em><big>)</big><a class="headerlink" href="#pyparticles.measures.measure.MeasureParticles.set_subset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyparticles.measures.measure.MeasureParticles.subset">
+<tt class="descname">subset</tt><a class="headerlink" href="#pyparticles.measures.measure.MeasureParticles.subset" title="Permalink to this definition">¶</a></dt>
+<dd><p>get and set the subset of particles to be measured</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyparticles.measures.momentum">
+<span id="momentum-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">momentum</span></tt> Module<a class="headerlink" href="#module-pyparticles.measures.momentum" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyparticles.measures.momentum.MomentumParticles">
+<em class="property">class </em><tt class="descclassname">pyparticles.measures.momentum.</tt><tt class="descname">MomentumParticles</tt><big>(</big><em>pset=None</em>, <em>force=None</em>, <em>subset=None</em>, <em>model='part_by_part'</em><big>)</big><a class="headerlink" href="#pyparticles.measures.momentum.MomentumParticles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pyparticles.measures.measure.MeasureParticles" title="pyparticles.measures.measure.MeasureParticles"><tt class="xref py py-class docutils literal"><span class="pre">pyparticles.measures.measure.MeasureParticles</span></tt></a></p>
+<p>&#8216;Measure&#8217; for computing the momentum particle by particle or of a subsystem
+| Example:</p>
+<div class="highlight-python"><pre>P = MomentumParticles( pset , subset=np.array([1,4,5]) , model="part_by_part")
+P.update_measure()
+print( P.value )
+    [[ 1.1 , 2.3 , 3.2 ],
+     [ 1.7 , 5.2 , 6.9 ],
+     [ 1.8 , 2.3 , 1.7 ]
+    ]</pre>
+</div>
+<dl class="method">
+<dt id="pyparticles.measures.momentum.MomentumParticles.dim">
+<tt class="descname">dim</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.measures.momentum.MomentumParticles.dim" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the dimension of the measure: Dim: (2D or 3D) for the momentum</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.measures.momentum.MomentumParticles.name">
+<tt class="descname">name</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.measures.momentum.MomentumParticles.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the string: &#8220;momentum&#8221;</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.measures.momentum.MomentumParticles.shape">
+<tt class="descname">shape</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.measures.momentum.MomentumParticles.shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a tuple containing the shape of the measures dataset</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.measures.momentum.MomentumParticles.update_measure">
+<tt class="descname">update_measure</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.measures.momentum.MomentumParticles.update_measure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute and return the total momentum of the specified particles</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.measures.momentum.MomentumParticles.value">
+<tt class="descname">value</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.measures.momentum.MomentumParticles.value" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the current value of the momentum</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyparticles.measures.momentum.MomentumSystem">
+<em class="property">class </em><tt class="descclassname">pyparticles.measures.momentum.</tt><tt class="descname">MomentumSystem</tt><big>(</big><em>pset=None</em>, <em>force=None</em><big>)</big><a class="headerlink" href="#pyparticles.measures.momentum.MomentumSystem" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pyparticles.measures.measure.Measure" title="pyparticles.measures.measure.Measure"><tt class="xref py py-class docutils literal"><span class="pre">pyparticles.measures.measure.Measure</span></tt></a></p>
+<p>&#8216;Measure&#8217; for computing the total momentum of the particle system</p>
+<dl class="method">
+<dt id="pyparticles.measures.momentum.MomentumSystem.dim">
+<tt class="descname">dim</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.measures.momentum.MomentumSystem.dim" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the dimension of the measure: Dim  for the momentum</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.measures.momentum.MomentumSystem.name">
+<tt class="descname">name</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.measures.momentum.MomentumSystem.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the string: &#8220;momentum&#8221;</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.measures.momentum.MomentumSystem.shape">
+<tt class="descname">shape</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.measures.momentum.MomentumSystem.shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a tuple containing the shape of the measures dataset</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.measures.momentum.MomentumSystem.update_measure">
+<tt class="descname">update_measure</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.measures.momentum.MomentumSystem.update_measure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute and return the total momentum of the system</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.measures.momentum.MomentumSystem.value">
+<tt class="descname">value</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.measures.momentum.MomentumSystem.value" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the current value of the total momentum</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">measures Package</a><ul>
+<li><a class="reference internal" href="#module-pyparticles.measures.elastic_potential_energy"><tt class="docutils literal"><span class="pre">elastic_potential_energy</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pyparticles.measures.kinetic_energy"><tt class="docutils literal"><span class="pre">kinetic_energy</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pyparticles.measures.mass"><tt class="docutils literal"><span class="pre">mass</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pyparticles.measures.measure"><tt class="docutils literal"><span class="pre">measure</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pyparticles.measures.momentum"><tt class="docutils literal"><span class="pre">momentum</span></tt> Module</a></li>
+</ul>
+</li>
+</ul>
+
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/pyparticles.measures.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="index.html">PyParticles 0.1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012, Simone Riva.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

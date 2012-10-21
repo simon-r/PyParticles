@@ -1,0 +1,197 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>utils Package &mdash; PyParticles 0.1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="PyParticles 0.1.0 documentation" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="index.html">PyParticles 0.1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="utils-package">
+<h1>utils Package<a class="headerlink" href="#utils-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-pyparticles.utils.parse_args">
+<span id="parse-args-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">parse_args</span></tt> Module<a class="headerlink" href="#module-pyparticles.utils.parse_args" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="pyparticles.utils.parse_args.parse_args">
+<tt class="descclassname">pyparticles.utils.parse_args.</tt><tt class="descname">parse_args</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.utils.parse_args.parse_args" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-pyparticles.utils.problem_config">
+<span id="problem-config-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">problem_config</span></tt> Module<a class="headerlink" href="#module-pyparticles.utils.problem_config" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyparticles.utils.problem_config.ParticlesConfig">
+<em class="property">class </em><tt class="descclassname">pyparticles.utils.problem_config.</tt><tt class="descname">ParticlesConfig</tt><a class="headerlink" href="#pyparticles.utils.problem_config.ParticlesConfig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Parse the config files used for generating the problems:</p>
+<dl class="method">
+<dt id="pyparticles.utils.problem_config.ParticlesConfig.build_problem">
+<tt class="descname">build_problem</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.utils.problem_config.ParticlesConfig.build_problem" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build the main problem and return the four main objects:
+return ( self.animation , self.pset , self.force , self.ode_solver )</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.utils.problem_config.ParticlesConfig.get_animation">
+<tt class="descname">get_animation</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.utils.problem_config.ParticlesConfig.get_animation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build an Animation object and return the reference to the object</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.utils.problem_config.ParticlesConfig.get_force">
+<tt class="descname">get_force</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.utils.problem_config.ParticlesConfig.get_force" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build and return an object for mdeling the force (derived form the abstract class force)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.utils.problem_config.ParticlesConfig.get_ode_solver">
+<tt class="descname">get_ode_solver</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.utils.problem_config.ParticlesConfig.get_ode_solver" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build and return an object for solving the Newton Law of motion (derived form the abstract class ode_solver)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.utils.problem_config.ParticlesConfig.get_particle_set">
+<tt class="descname">get_particle_set</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.utils.problem_config.ParticlesConfig.get_particle_set" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build and return a set of particles (class: particles_set)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.utils.problem_config.ParticlesConfig.read_config">
+<tt class="descname">read_config</tt><big>(</big><em>file_name</em><big>)</big><a class="headerlink" href="#pyparticles.utils.problem_config.ParticlesConfig.read_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read the configuration file</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.utils.problem_config.ParticlesConfig.write_example_config_file">
+<tt class="descname">write_example_config_file</tt><big>(</big><em>file_name='example_pyparticles_config.cfg'</em><big>)</big><a class="headerlink" href="#pyparticles.utils.problem_config.ParticlesConfig.write_example_config_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write a generic config file</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="pyparticles.utils.problem_config.read_str_list">
+<tt class="descclassname">pyparticles.utils.problem_config.</tt><tt class="descname">read_str_list</tt><big>(</big><em>string</em>, <em>to=&lt;type 'float'&gt;</em><big>)</big><a class="headerlink" href="#pyparticles.utils.problem_config.read_str_list" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-pyparticles.utils.pypart_global">
+<span id="pypart-global-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">pypart_global</span></tt> Module<a class="headerlink" href="#module-pyparticles.utils.pypart_global" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="pyparticles.utils.pypart_global.py_particle_version">
+<tt class="descclassname">pyparticles.utils.pypart_global.</tt><tt class="descname">py_particle_version</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.utils.pypart_global.py_particle_version" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-pyparticles.utils.time_formatter">
+<span id="time-formatter-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">time_formatter</span></tt> Module<a class="headerlink" href="#module-pyparticles.utils.time_formatter" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyparticles.utils.time_formatter.MyTimeFormatter">
+<em class="property">class </em><tt class="descclassname">pyparticles.utils.time_formatter.</tt><tt class="descname">MyTimeFormatter</tt><a class="headerlink" href="#pyparticles.utils.time_formatter.MyTimeFormatter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="pyparticles.utils.time_formatter.MyTimeFormatter.to_str">
+<tt class="descname">to_str</tt><big>(</big><em>t</em><big>)</big><a class="headerlink" href="#pyparticles.utils.time_formatter.MyTimeFormatter.to_str" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">utils Package</a><ul>
+<li><a class="reference internal" href="#module-pyparticles.utils.parse_args"><tt class="docutils literal"><span class="pre">parse_args</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pyparticles.utils.problem_config"><tt class="docutils literal"><span class="pre">problem_config</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pyparticles.utils.pypart_global"><tt class="docutils literal"><span class="pre">pypart_global</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pyparticles.utils.time_formatter"><tt class="docutils literal"><span class="pre">time_formatter</span></tt> Module</a></li>
+</ul>
+</li>
+</ul>
+
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/pyparticles.utils.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="index.html">PyParticles 0.1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012, Simone Riva.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

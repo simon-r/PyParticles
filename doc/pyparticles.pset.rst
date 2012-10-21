@@ -1,0 +1,83 @@
+pset Package
+============
+
+:mod:`boundary` Module
+----------------------
+
+.. automodule:: pyparticles.pset.boundary
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+:mod:`cluster` Module
+---------------------
+
+.. automodule:: pyparticles.pset.cluster
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+:mod:`constrained_particles_set` Module
+---------------------------------------
+
+.. automodule:: pyparticles.pset.constrained_particles_set
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+:mod:`electrically_charged_particle_set` Module
+-----------------------------------------------
+
+.. automodule:: pyparticles.pset.electrically_charged_particle_set
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+:mod:`file_cluster` Module
+--------------------------
+
+.. automodule:: pyparticles.pset.file_cluster
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+:mod:`octree` Module
+--------------------
+
+.. automodule:: pyparticles.pset.octree
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+:mod:`particles_set` Module
+---------------------------
+
+.. automodule:: pyparticles.pset.particles_set
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+:mod:`periodic_boundary` Module
+-------------------------------
+
+.. automodule:: pyparticles.pset.periodic_boundary
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+:mod:`rand_cluster` Module
+--------------------------
+
+.. automodule:: pyparticles.pset.rand_cluster
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+:mod:`rebound_boundary` Module
+------------------------------
+
+.. automodule:: pyparticles.pset.rebound_boundary
+    :members:
+    :undoc-members:
+    :show-inheritance:
+

@@ -1,0 +1,524 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>forces Package &mdash; PyParticles 0.1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="PyParticles 0.1.0 documentation" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="index.html">PyParticles 0.1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="forces-package">
+<h1>forces Package<a class="headerlink" href="#forces-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-pyparticles.forces.const_force">
+<span id="const-force-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">const_force</span></tt> Module<a class="headerlink" href="#module-pyparticles.forces.const_force" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyparticles.forces.const_force.ConstForce">
+<em class="property">class </em><tt class="descclassname">pyparticles.forces.const_force.</tt><tt class="descname">ConstForce</tt><big>(</big><em>size, u_force=[0, 0, 0], dim=3, m=None, Consts=1.0</em><big>)</big><a class="headerlink" href="#pyparticles.forces.const_force.ConstForce" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pyparticles.forces.force.Force" title="pyparticles.forces.force.Force"><tt class="xref py py-class docutils literal"><span class="pre">pyparticles.forces.force.Force</span></tt></a></p>
+<dl class="attribute">
+<dt id="pyparticles.forces.const_force.ConstForce.A">
+<tt class="descname">A</tt><a class="headerlink" href="#pyparticles.forces.const_force.ConstForce.A" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyparticles.forces.const_force.ConstForce.F">
+<tt class="descname">F</tt><a class="headerlink" href="#pyparticles.forces.const_force.ConstForce.F" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.forces.const_force.ConstForce.getA">
+<tt class="descname">getA</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.forces.const_force.ConstForce.getA" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.forces.const_force.ConstForce.getF">
+<tt class="descname">getF</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.forces.const_force.ConstForce.getF" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.forces.const_force.ConstForce.set_masses">
+<tt class="descname">set_masses</tt><big>(</big><em>m</em><big>)</big><a class="headerlink" href="#pyparticles.forces.const_force.ConstForce.set_masses" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.forces.const_force.ConstForce.update_force">
+<tt class="descname">update_force</tt><big>(</big><em>p_set</em><big>)</big><a class="headerlink" href="#pyparticles.forces.const_force.ConstForce.update_force" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyparticles.forces.drag">
+<span id="drag-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">drag</span></tt> Module<a class="headerlink" href="#module-pyparticles.forces.drag" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyparticles.forces.drag.Drag">
+<em class="property">class </em><tt class="descclassname">pyparticles.forces.drag.</tt><tt class="descname">Drag</tt><big>(</big><em>size</em>, <em>dim=3</em>, <em>m=None</em>, <em>Consts=1.0</em><big>)</big><a class="headerlink" href="#pyparticles.forces.drag.Drag" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pyparticles.forces.force.Force" title="pyparticles.forces.force.Force"><tt class="xref py py-class docutils literal"><span class="pre">pyparticles.forces.force.Force</span></tt></a></p>
+<dl class="attribute">
+<dt id="pyparticles.forces.drag.Drag.A">
+<tt class="descname">A</tt><a class="headerlink" href="#pyparticles.forces.drag.Drag.A" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyparticles.forces.drag.Drag.F">
+<tt class="descname">F</tt><a class="headerlink" href="#pyparticles.forces.drag.Drag.F" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.forces.drag.Drag.getA">
+<tt class="descname">getA</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.forces.drag.Drag.getA" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.forces.drag.Drag.getF">
+<tt class="descname">getF</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.forces.drag.Drag.getF" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.forces.drag.Drag.set_masses">
+<tt class="descname">set_masses</tt><big>(</big><em>m</em><big>)</big><a class="headerlink" href="#pyparticles.forces.drag.Drag.set_masses" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.forces.drag.Drag.update_force">
+<tt class="descname">update_force</tt><big>(</big><em>pset</em><big>)</big><a class="headerlink" href="#pyparticles.forces.drag.Drag.update_force" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyparticles.forces.electrostatic">
+<span id="electrostatic-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">electrostatic</span></tt> Module<a class="headerlink" href="#module-pyparticles.forces.electrostatic" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyparticles.forces.electrostatic.Electrostatic">
+<em class="property">class </em><tt class="descclassname">pyparticles.forces.electrostatic.</tt><tt class="descname">Electrostatic</tt><big>(</big><em>size</em>, <em>dim=3</em>, <em>m=None</em>, <em>Consts=1.0</em><big>)</big><a class="headerlink" href="#pyparticles.forces.electrostatic.Electrostatic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pyparticles.forces.force.Force" title="pyparticles.forces.force.Force"><tt class="xref py py-class docutils literal"><span class="pre">pyparticles.forces.force.Force</span></tt></a></p>
+<dl class="docutils">
+<dt>Compute the electrostatic force.</dt>
+<dd>Note: The real force of an eletrodynamic system is given by the <strong>Maxwell equations</strong>! and not from the Culomb law.</dd>
+</dl>
+<dl class="attribute">
+<dt id="pyparticles.forces.electrostatic.Electrostatic.A">
+<tt class="descname">A</tt><a class="headerlink" href="#pyparticles.forces.electrostatic.Electrostatic.A" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyparticles.forces.electrostatic.Electrostatic.F">
+<tt class="descname">F</tt><a class="headerlink" href="#pyparticles.forces.electrostatic.Electrostatic.F" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.forces.electrostatic.Electrostatic.getA">
+<tt class="descname">getA</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.forces.electrostatic.Electrostatic.getA" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.forces.electrostatic.Electrostatic.getF">
+<tt class="descname">getF</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.forces.electrostatic.Electrostatic.getF" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.forces.electrostatic.Electrostatic.set_charges">
+<tt class="descname">set_charges</tt><big>(</big><em>q</em><big>)</big><a class="headerlink" href="#pyparticles.forces.electrostatic.Electrostatic.set_charges" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.forces.electrostatic.Electrostatic.set_masses">
+<tt class="descname">set_masses</tt><big>(</big><em>m</em><big>)</big><a class="headerlink" href="#pyparticles.forces.electrostatic.Electrostatic.set_masses" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.forces.electrostatic.Electrostatic.update_force">
+<tt class="descname">update_force</tt><big>(</big><em>p_set</em><big>)</big><a class="headerlink" href="#pyparticles.forces.electrostatic.Electrostatic.update_force" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyparticles.forces.force">
+<span id="force-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">force</span></tt> Module<a class="headerlink" href="#module-pyparticles.forces.force" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyparticles.forces.force.Force">
+<em class="property">class </em><tt class="descclassname">pyparticles.forces.force.</tt><tt class="descname">Force</tt><big>(</big><em>size</em>, <em>dim</em>, <em>m=None</em>, <em>Conts=1.0</em><big>)</big><a class="headerlink" href="#pyparticles.forces.force.Force" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="attribute">
+<dt id="pyparticles.forces.force.Force.A">
+<tt class="descname">A</tt><a class="headerlink" href="#pyparticles.forces.force.Force.A" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyparticles.forces.force.Force.F">
+<tt class="descname">F</tt><a class="headerlink" href="#pyparticles.forces.force.Force.F" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyparticles.forces.force.Force.const">
+<tt class="descname">const</tt><a class="headerlink" href="#pyparticles.forces.force.Force.const" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.forces.force.Force.getA">
+<tt class="descname">getA</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.forces.force.Force.getA" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.forces.force.Force.getF">
+<tt class="descname">getF</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.forces.force.Force.getF" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.forces.force.Force.get_const">
+<tt class="descname">get_const</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.forces.force.Force.get_const" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.forces.force.Force.set_masses">
+<tt class="descname">set_masses</tt><big>(</big><em>m</em><big>)</big><a class="headerlink" href="#pyparticles.forces.force.Force.set_masses" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.forces.force.Force.update_force">
+<tt class="descname">update_force</tt><big>(</big><em>p_set</em><big>)</big><a class="headerlink" href="#pyparticles.forces.force.Force.update_force" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyparticles.forces.gravity">
+<span id="gravity-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">gravity</span></tt> Module<a class="headerlink" href="#module-pyparticles.forces.gravity" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyparticles.forces.gravity.Gravity">
+<em class="property">class </em><tt class="descclassname">pyparticles.forces.gravity.</tt><tt class="descname">Gravity</tt><big>(</big><em>size</em>, <em>dim=3</em>, <em>m=None</em>, <em>Consts=1.0</em><big>)</big><a class="headerlink" href="#pyparticles.forces.gravity.Gravity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pyparticles.forces.force.Force" title="pyparticles.forces.force.Force"><tt class="xref py py-class docutils literal"><span class="pre">pyparticles.forces.force.Force</span></tt></a></p>
+<p>Compute the gravitational forve between the particles</p>
+<dl class="attribute">
+<dt id="pyparticles.forces.gravity.Gravity.A">
+<tt class="descname">A</tt><a class="headerlink" href="#pyparticles.forces.gravity.Gravity.A" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the currents accelerations of the particles (getter only)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyparticles.forces.gravity.Gravity.F">
+<tt class="descname">F</tt><a class="headerlink" href="#pyparticles.forces.gravity.Gravity.F" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the currents forces on the particles (getter only)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.forces.gravity.Gravity.getA">
+<tt class="descname">getA</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.forces.gravity.Gravity.getA" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the currents accelerations of the particles</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.forces.gravity.Gravity.getF">
+<tt class="descname">getF</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.forces.gravity.Gravity.getF" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the currents forces on the particles</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.forces.gravity.Gravity.set_masses">
+<tt class="descname">set_masses</tt><big>(</big><em>m</em><big>)</big><a class="headerlink" href="#pyparticles.forces.gravity.Gravity.set_masses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the masses used for computing the forces.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.forces.gravity.Gravity.update_force">
+<tt class="descname">update_force</tt><big>(</big><em>p_set</em><big>)</big><a class="headerlink" href="#pyparticles.forces.gravity.Gravity.update_force" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the force of the current status of the system and return the accelerations of every particle in a <em>size by dim</em> array</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyparticles.forces.linear_spring">
+<span id="linear-spring-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">linear_spring</span></tt> Module<a class="headerlink" href="#module-pyparticles.forces.linear_spring" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyparticles.forces.linear_spring.LinearSpring">
+<em class="property">class </em><tt class="descclassname">pyparticles.forces.linear_spring.</tt><tt class="descname">LinearSpring</tt><big>(</big><em>size</em>, <em>dim=3</em>, <em>m=None</em>, <em>Consts=1.0</em><big>)</big><a class="headerlink" href="#pyparticles.forces.linear_spring.LinearSpring" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pyparticles.forces.force.Force" title="pyparticles.forces.force.Force"><tt class="xref py py-class docutils literal"><span class="pre">pyparticles.forces.force.Force</span></tt></a></p>
+<div class="line-block">
+<div class="line">Compute the forces according to the Hooke&#8217;s law.</div>
+<div class="line">Args of the contructor:
+#. size: size of the particles system
+#. dim: dimension of the system
+#. m : an array containig the masses
+#. const: spring constant ( K ) </div>
+</div>
+<dl class="attribute">
+<dt id="pyparticles.forces.linear_spring.LinearSpring.A">
+<tt class="descname">A</tt><a class="headerlink" href="#pyparticles.forces.linear_spring.LinearSpring.A" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyparticles.forces.linear_spring.LinearSpring.F">
+<tt class="descname">F</tt><a class="headerlink" href="#pyparticles.forces.linear_spring.LinearSpring.F" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyparticles.forces.linear_spring.LinearSpring.const">
+<tt class="descname">const</tt><a class="headerlink" href="#pyparticles.forces.linear_spring.LinearSpring.const" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.forces.linear_spring.LinearSpring.getA">
+<tt class="descname">getA</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.forces.linear_spring.LinearSpring.getA" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.forces.linear_spring.LinearSpring.getF">
+<tt class="descname">getF</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.forces.linear_spring.LinearSpring.getF" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.forces.linear_spring.LinearSpring.get_const">
+<tt class="descname">get_const</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.forces.linear_spring.LinearSpring.get_const" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.forces.linear_spring.LinearSpring.set_masses">
+<tt class="descname">set_masses</tt><big>(</big><em>m</em><big>)</big><a class="headerlink" href="#pyparticles.forces.linear_spring.LinearSpring.set_masses" title="Permalink to this definition">¶</a></dt>
+<dd><p>set the masses of the particles</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.forces.linear_spring.LinearSpring.update_force">
+<tt class="descname">update_force</tt><big>(</big><em>p_set</em><big>)</big><a class="headerlink" href="#pyparticles.forces.linear_spring.LinearSpring.update_force" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyparticles.forces.multiple_force">
+<span id="multiple-force-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">multiple_force</span></tt> Module<a class="headerlink" href="#module-pyparticles.forces.multiple_force" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyparticles.forces.multiple_force.MultipleForce">
+<em class="property">class </em><tt class="descclassname">pyparticles.forces.multiple_force.</tt><tt class="descname">MultipleForce</tt><big>(</big><em>size</em>, <em>dim=3</em>, <em>m=None</em>, <em>Conts=None</em><big>)</big><a class="headerlink" href="#pyparticles.forces.multiple_force.MultipleForce" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Combine the effect of some forces, for example constant force and springs.
+It behaves like any other force, and can be used with all methods of numerical integration.</p>
+<dl class="attribute">
+<dt id="pyparticles.forces.multiple_force.MultipleForce.A">
+<tt class="descname">A</tt><a class="headerlink" href="#pyparticles.forces.multiple_force.MultipleForce.A" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyparticles.forces.multiple_force.MultipleForce.F">
+<tt class="descname">F</tt><a class="headerlink" href="#pyparticles.forces.multiple_force.MultipleForce.F" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.forces.multiple_force.MultipleForce.append_force">
+<tt class="descname">append_force</tt><big>(</big><em>force</em><big>)</big><a class="headerlink" href="#pyparticles.forces.multiple_force.MultipleForce.append_force" title="Permalink to this definition">¶</a></dt>
+<dd><p>Append a new force to the forces list</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.forces.multiple_force.MultipleForce.getA">
+<tt class="descname">getA</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.forces.multiple_force.MultipleForce.getA" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.forces.multiple_force.MultipleForce.getF">
+<tt class="descname">getF</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.forces.multiple_force.MultipleForce.getF" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.forces.multiple_force.MultipleForce.set_masses">
+<tt class="descname">set_masses</tt><big>(</big><em>m</em><big>)</big><a class="headerlink" href="#pyparticles.forces.multiple_force.MultipleForce.set_masses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the masses in the forces system</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.forces.multiple_force.MultipleForce.update_force">
+<tt class="descname">update_force</tt><big>(</big><em>p_set</em><big>)</big><a class="headerlink" href="#pyparticles.forces.multiple_force.MultipleForce.update_force" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyparticles.forces.van_der_waals_force">
+<span id="van-der-waals-force-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">van_der_waals_force</span></tt> Module<a class="headerlink" href="#module-pyparticles.forces.van_der_waals_force" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyparticles.forces.van_der_waals_force.VanDerWaals">
+<em class="property">class </em><tt class="descclassname">pyparticles.forces.van_der_waals_force.</tt><tt class="descname">VanDerWaals</tt><big>(</big><em>size</em>, <em>dim=3</em>, <em>m=None</em>, <em>Consts=1.0</em><big>)</big><a class="headerlink" href="#pyparticles.forces.van_der_waals_force.VanDerWaals" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pyparticles.forces.force.Force" title="pyparticles.forces.force.Force"><tt class="xref py py-class docutils literal"><span class="pre">pyparticles.forces.force.Force</span></tt></a></p>
+<dl class="attribute">
+<dt id="pyparticles.forces.van_der_waals_force.VanDerWaals.A">
+<tt class="descname">A</tt><a class="headerlink" href="#pyparticles.forces.van_der_waals_force.VanDerWaals.A" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyparticles.forces.van_der_waals_force.VanDerWaals.F">
+<tt class="descname">F</tt><a class="headerlink" href="#pyparticles.forces.van_der_waals_force.VanDerWaals.F" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.forces.van_der_waals_force.VanDerWaals.getA">
+<tt class="descname">getA</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.forces.van_der_waals_force.VanDerWaals.getA" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.forces.van_der_waals_force.VanDerWaals.getF">
+<tt class="descname">getF</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.forces.van_der_waals_force.VanDerWaals.getF" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.forces.van_der_waals_force.VanDerWaals.set_masses">
+<tt class="descname">set_masses</tt><big>(</big><em>m</em><big>)</big><a class="headerlink" href="#pyparticles.forces.van_der_waals_force.VanDerWaals.set_masses" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.forces.van_der_waals_force.VanDerWaals.update_force">
+<tt class="descname">update_force</tt><big>(</big><em>p_set</em><big>)</big><a class="headerlink" href="#pyparticles.forces.van_der_waals_force.VanDerWaals.update_force" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyparticles.forces.vector_field_force">
+<span id="vector-field-force-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">vector_field_force</span></tt> Module<a class="headerlink" href="#module-pyparticles.forces.vector_field_force" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyparticles.forces.vector_field_force.VectorFieldForce">
+<em class="property">class </em><tt class="descclassname">pyparticles.forces.vector_field_force.</tt><tt class="descname">VectorFieldForce</tt><big>(</big><em>size</em>, <em>dim=3</em>, <em>m=None</em><big>)</big><a class="headerlink" href="#pyparticles.forces.vector_field_force.VectorFieldForce" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pyparticles.forces.force.Force" title="pyparticles.forces.force.Force"><tt class="xref py py-class docutils literal"><span class="pre">pyparticles.forces.force.Force</span></tt></a></p>
+<dl class="attribute">
+<dt id="pyparticles.forces.vector_field_force.VectorFieldForce.A">
+<tt class="descname">A</tt><a class="headerlink" href="#pyparticles.forces.vector_field_force.VectorFieldForce.A" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyparticles.forces.vector_field_force.VectorFieldForce.F">
+<tt class="descname">F</tt><a class="headerlink" href="#pyparticles.forces.vector_field_force.VectorFieldForce.F" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.forces.vector_field_force.VectorFieldForce.getA">
+<tt class="descname">getA</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.forces.vector_field_force.VectorFieldForce.getA" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.forces.vector_field_force.VectorFieldForce.getF">
+<tt class="descname">getF</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.forces.vector_field_force.VectorFieldForce.getF" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.forces.vector_field_force.VectorFieldForce.set_masses">
+<tt class="descname">set_masses</tt><big>(</big><em>m</em><big>)</big><a class="headerlink" href="#pyparticles.forces.vector_field_force.VectorFieldForce.set_masses" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.forces.vector_field_force.VectorFieldForce.update_force">
+<tt class="descname">update_force</tt><big>(</big><em>p_set</em><big>)</big><a class="headerlink" href="#pyparticles.forces.vector_field_force.VectorFieldForce.update_force" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.forces.vector_field_force.VectorFieldForce.vect_fun">
+<tt class="descname">vect_fun</tt><big>(</big><em>X</em><big>)</big><a class="headerlink" href="#pyparticles.forces.vector_field_force.VectorFieldForce.vect_fun" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">forces Package</a><ul>
+<li><a class="reference internal" href="#module-pyparticles.forces.const_force"><tt class="docutils literal"><span class="pre">const_force</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pyparticles.forces.drag"><tt class="docutils literal"><span class="pre">drag</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pyparticles.forces.electrostatic"><tt class="docutils literal"><span class="pre">electrostatic</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pyparticles.forces.force"><tt class="docutils literal"><span class="pre">force</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pyparticles.forces.gravity"><tt class="docutils literal"><span class="pre">gravity</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pyparticles.forces.linear_spring"><tt class="docutils literal"><span class="pre">linear_spring</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pyparticles.forces.multiple_force"><tt class="docutils literal"><span class="pre">multiple_force</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pyparticles.forces.van_der_waals_force"><tt class="docutils literal"><span class="pre">van_der_waals_force</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pyparticles.forces.vector_field_force"><tt class="docutils literal"><span class="pre">vector_field_force</span></tt> Module</a></li>
+</ul>
+</li>
+</ul>
+
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/pyparticles.forces.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="index.html">PyParticles 0.1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012, Simone Riva.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

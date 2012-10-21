@@ -7,12 +7,12 @@ PyParticles is a particle simulation toolbox entirely written in python
 **Index**
 
 .. toctree::
-   :maxdepth: 4
+   :maxdepth: 2
 
    Config File
    Programming Example
    Packages Descriptions
-
+   pyparticles
 
 
 Features
