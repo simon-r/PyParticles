@@ -17,9 +17,16 @@
 
 class Measure( object ):
     """
-    Main abstract class for defining the measurments procedures of the system, for example the kinetic energy.
+    Main abstract class for defining the measurments procedures of the system, for example the total kinetic energy.
     """
     def __init__( self , pset=None , force=None ):
+        """
+        | Constructor:
+          ======= ==============================================================================
+          pset    The particles set
+          force   The model of the used force
+          ======= ==============================================================================
+          """
         self.__pset  = pset
         self.__force = force
         self.__par   = dict()
@@ -84,4 +91,52 @@ class Measure( object ):
         return a string containig the name of the measure
         """
         NotImplementedError(" %s : is virtual and must be overridden." % sys._getframe().f_code.co_name )
+        
+        
+        
+        
+        
+class MeasureParticles( Measure ):
+    """
+    Abstract class used fopr measuring a subset of partiles or a set of singles particles.
+    """
+    def __init__( self , pset=None , force=None , subset=None , model="part_by_part" ):
+        """
+        | Constructor:
+          ======= ==============================================================================
+          pset    The particles set
+          force   The model of the used force
+          subset  a numpy 1D array containing the indicies of the measured particles
+          model   a strung describing the model for the measure: "part_by_part" or "subsystem"
+          ======= ==============================================================================
+        """
+        self.__subset = np.copy(subset)
+        
+        self.__model = None
+        
+        self.model = model
+        
+        super( MeasureParticles , self ).__init__( pset=pset , force=force )
+
+    
+    def set_subset( self , subset ):
+        self.__subset = np.copy(subset)    
+    
+    def get_subset( self ):
+        return self.__subset
+    
+    
+    subset = property( get_subset , set_subset , doc="get and set the subset of particles to be measured" )
+    
+    
+    def get_model ( self ):
+        return self.__model
+
+    def set_model ( self , model ):
+        if model not in [ "part_by_part" , "subsystem" ] :
+            ValueError
+            
+        self.__model = model
+    
+    model = property( get_model , set_model , doc="set and get the measurement model: \"part_by_part\" or \"subsystem\" ")
         

@@ -63,7 +63,7 @@ class ReboundBoundary( bd.Boundary ):
             p_set.X[b_mi,:] = p_set.X[b_mi,:] + 2.0 * self.__N[j,:] * ( v_mi - p_set.X[b_mi,:] )
             p_set.X[b_mx,:] = p_set.X[b_mx,:] + 2.0 * self.__N[j,:] * ( v_mx - p_set.X[b_mx,:] )            
             
-            p_set.V[b_mi,i] = -p_set.V[b_mi,i] ## !!!
+            p_set.V[b_mi,i] = -p_set.V[b_mi,i]
             p_set.V[b_mx,i] = -p_set.V[b_mx,i]
             
 

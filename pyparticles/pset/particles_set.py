@@ -191,13 +191,13 @@ class ParticlesSet(object):
              property_name       the name of the new property
              dim                 the dimension of the new property ( 2 = "2D  , 3 = 3D ... )
              model               'list' or 'numpy_array'
-             to_type=np.float64  an array-numpy compatible type for the model 'numpy_array' [ np.float64 , np.int64 ... ]
+             to_type=np.float64  an array-numpy type for the model 'numpy_array' [ np.float64 , np.int64 ... ]
             ===================  =====================================================================================================                     
         For example add 'friction' or 'radius':
         ::
         
             # Add the friction to the particles set
-            pset.add_property_by_name( "friction" , dim=1 )
+            pset.add_property_by_name( "friction" , dim=1 , to_type=np.float32 )
         """
         
         if dim == None :
