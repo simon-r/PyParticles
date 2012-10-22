@@ -33,6 +33,11 @@ import pyparticles.ode.runge_kutta_solver as rks
 import pyparticles.ode.stormer_verlet_solver as svs
 import pyparticles.ode.midpoint_solver as mds
 
+import pyparticles.measures.elastic_potential_energy as epe
+import pyparticles.measures.kinetic_energy as ke
+import pyparticles.measures.momentum as mm
+import pyparticles.measures.total_energy as te
+
 import numpy as np
 import pyparticles.pset.file_cluster as fc
 
@@ -205,6 +210,13 @@ def solar_system():
     solver = rks.RungeKuttaSolver( grav , pset , dt )    
     #solver = mds.MidpointSolver( grav , pset , dt )    
         
+        
+    ken = ke.KineticEnergy( pset , grav )
+    ken.set_str_format( "%e" )
+    
+    #
+    ken.update_measure()
+    
     a = aogl.AnimatedGl()
    # a = anim.AnimatedScatter()
    
@@ -219,6 +231,9 @@ def solar_system():
     a.ode_solver = solver
     a.pset = pset
     a.steps = steps
+    
+    #a.add_measure( ken )
+
     
     a.build_animation()
     

@@ -75,7 +75,7 @@ class Measure( object ):
         """
         NotImplementedError(" %s : is virtual and must be overridden." % sys._getframe().f_code.co_name )
     
-    def set_str_format( self , f="%f" ):
+    def set_str_format( self , f="%5.3f" ):
         self.__str_f = f
         
     def get_str_format( self ):

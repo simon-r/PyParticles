@@ -307,12 +307,10 @@ def print_measures():
     y = 0.9
     
     for na in mnames:
-        m = print_measures.animation.get_measure_value( na )
-        #tot += m
+        m = print_measures.animation.get_measure_value_str( na )
         glut_print( 0.7 , y , GLUT_BITMAP_9_BY_15 , " %s:  %s " % ( na , m ) , 1 , 1 , 1 , 1 )
         y -= 0.05
         
-    #glut_print( 0.7 , y , GLUT_BITMAP_9_BY_15 , " Total energy:  %s " % ( tot ) , 1 , 1 , 1 , 1 )    
     
 
 def glut_print( x,  y,  font,  text, r,  g , b , a):

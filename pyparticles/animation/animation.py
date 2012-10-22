@@ -66,6 +66,7 @@ class Animation(object):
         self.__trajectory_step = 1
         
         self.__measures = dict()
+        self.__measures_names = []
         
         
     def set_ode_solver( self , solver ):
@@ -82,12 +83,13 @@ class Animation(object):
         Add a class delegeted for performing a measure
         """
         self.__measures[measure.name()] = measure
+        self.__measures_names.append( measure.name() )
         
     def perform_measurement( self ):
         """
         Execute all listed measures
         """
-        for m in self.__measures :
+        for m in self.__measures_names :
             self.__measures[m].pset = self.pset
             self.__measures[m].update_measure()
             
@@ -97,6 +99,14 @@ class Animation(object):
         """
         return self.__measures[name].value()
     
+    
+    def get_measure_value_str( self , name ):
+        """
+        return a string containig the value of the measure
+        """
+        return self.__measures[name].value_str()
+    
+    
     def get_measure( self , name ):
         """
         return the measure named 'name'
@@ -104,7 +114,10 @@ class Animation(object):
         return self.__measures[name]
     
     def get_measures_names( self ):
-        return self.__measures.keys()
+        """
+        Return a list containg the names of the executed measured.
+        """
+        return self.__measures_names
     
     def measures_cnt( self ):
         return len( self.__measures )

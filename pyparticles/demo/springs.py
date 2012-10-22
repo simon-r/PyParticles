@@ -33,6 +33,7 @@ import pyparticles.pset.rebound_boundary as rb
 import pyparticles.measures.elastic_potential_energy as epe
 import pyparticles.measures.kinetic_energy as ke
 import pyparticles.measures.momentum as mm
+import pyparticles.measures.total_energy as te
 
 
 
@@ -53,7 +54,7 @@ def springs() :
     Springs demo
     """
     
-    dt = 0.04
+    dt = 0.02
     steps = 1000000
     
     G = 0.5
@@ -94,9 +95,13 @@ def springs() :
     
     pot = epe.ElasticPotentialEnergy( pset , springs )
     ken = ke.KineticEnergy( pset , springs )
+    tot = te.TotalEnergy( ken , pot )
+    
     #
     pot.update_measure()
     ken.update_measure()
+    tot.update_measure()
+    
     #
     #print( "Potential = %f " % pot.value() )
     #print( "Kinetic = %f " % ken.value() )
@@ -133,6 +138,7 @@ def springs() :
     
     a.add_measure( ken )
     a.add_measure( pot )
+    a.add_measure( tot )
     
     a.build_animation()
     
