@@ -23,19 +23,18 @@ import pyparticles.forces.force as fr
 class Gravity( fr.Force ) :
     """
     Compute the gravitational forve between the particles
-    """
-    def __init__(self , size , dim=3 , m=None , Consts=1.0 ):
-        """
+    
          Constructor:
-         
            Arguments:
             =======  ======================================
             size     the number of particles in the system
             dim      the dimension of the system
             m        a vector containig the masses
             Const    the gravitational constant
-            =======  ======================================
-        """
+            =======  ======================================    
+    
+    """
+    def __init__(self , size , dim=3 , m=None , Consts=1.0 ):
         
         self.__dim = dim
         self.__size = size
