@@ -27,10 +27,12 @@ class Measure( object ):
           pset    The particles set
           force   The model of the used force
           ======= ==============================================================================
-          """
+        """
         self.__pset  = pset
         self.__force = force
         self.__par   = dict()
+        
+        self.__str_f = "%f"
     
     def get_pset( self ):
         return self.__pset
@@ -53,8 +55,7 @@ class Measure( object ):
     def get_parameter( self , name , val ):
         """
         return the reference to the dict of the used paramenter
-        
-        A paramenter shold be the volume, some constant ....
+            A paramenter shold be the volume, some constant ....
         """
         return self.__par
     
@@ -74,6 +75,19 @@ class Measure( object ):
         """
         NotImplementedError(" %s : is virtual and must be overridden." % sys._getframe().f_code.co_name )
     
+    def set_str_format( self , f="%f" ):
+        self.__str_f = f
+        
+    def get_str_format( self ):
+        return self.__str_f
+    
+    str_format = property( get_str_format , set_str_format , doc="get ad set the string format for representing the value" )
+    
+    def value_str( self ):
+        """
+        return a string containig the value of the current neasure formmatted according to the format defined with the str_property format. By default if uses the simple floaf format
+        """
+        return self.str_format % ( self.value() )
     
     def shape(self ):
         """
