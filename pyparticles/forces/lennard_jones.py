@@ -31,6 +31,8 @@ class LenardJones( fr.Force ) :
         
         self.__pF = np.zeros(( (size**2-size)/2 ))
         
+        self.__V = np.zeros( ( size , size ) )
+        
         if m != None :
             selt.set_masses( m )
         
@@ -49,10 +51,17 @@ class LenardJones( fr.Force ) :
         
         r =  dist.pdist( p_set.X , 'euclidean' )
         
-        self.__pF[:] = 4.0 * self.__E * ( 12.0 * self.__O**12.0 / r**13.0 - 6.0 * self.__O**6.0 / r**7.0  )
+        self.__pF[:] = 4.0 * self.__E * ( 12.0 * self.__O**12.0 / r**13.0 - 6.0 * self.__O**6.0 / r**7.0  ) / ( r )
         
+        F = dist.squareform( self.__pF[:] )
         
-        
+        for i in range( pset.dim ) :
+            self.__V[:,:] = p_set.X[:,i]
+            self.__V[:,:] = ( self.__V[:,:].T - p_set.X[:,i] ).T
+            
+            self.__A[:,i] = np.sum( F * self.__V[:,:] / self.__M.T , 0 )
+            
+            
         return self.__A
     
     def getA(self):
