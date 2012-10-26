@@ -16,13 +16,17 @@
 
 import numpy as np
 import pyparticles.pset.cluster as clu
+import scipy.spatial.distance as dist
 
 
 class RandCluster( clu.Cluster ):
     def __init__(self):
         pass
     
-    def insert3( self , X , M=None ,V=None ,
+    def insert3( self ,
+                X , 
+                M=None ,
+                V=None ,
                 start_indx=0 ,
                 n=100 ,
                 centre=(0.0,0.0,0.0) ,
@@ -31,19 +35,35 @@ class RandCluster( clu.Cluster ):
                 vel_rng=(0.5,1.0) ,
                 vel_mdl=None ,
                 vel_dir=None ,
-                randg=np.random.rand ):
+                randg=np.random.rand ,
+                r_min=0.0 ):
         
-        r = randg(n)*radius
         
-        theta = np.random.rand(n) * 2.0*np.pi
-        phi   = np.random.rand(n) * np.pi
+        flag = True
         
         si = start_indx
         ei = start_indx + n
         
-        X[si:ei,0] = centre[0] + r * np.cos( theta ) * np.sin( phi )
-        X[si:ei,1] = centre[1] + r * np.sin( theta ) * np.sin( phi )
-        X[si:ei,2] = centre[2] + r * np.cos( phi )
+        rng = arange( si , ei )
+            
+        while flag :
+                
+            r = randg(n)*radius
+            
+            theta = np.random.rand(n) * 2.0*np.pi
+            phi   = np.random.rand(n) * np.pi
+            
+            X[ rng , 0 ] = centre[0] + r * np.cos( theta ) * np.sin( phi )
+            X[ rng , 1 ] = centre[1] + r * np.sin( theta ) * np.sin( phi )
+            X[ rng , 2 ] = centre[2] + r * np.cos( phi )
+        
+            if r_min == 0.0 :
+                flag = False
+            else:
+                d = dist.pdist( X[rng,:] )
+                indx = np.where( d < r_min )
+                
+            
         
         if M != None:
             M[si:ei,0] = mass_rng[0] + randg(n)*( mass_rng[1] - mass_rng[0] )
@@ -54,6 +74,7 @@ class RandCluster( clu.Cluster ):
         if V != None and "const" in vel_mdl :
             self.const_vel( X , V , n=n , start_indx=start_indx , randg=randg , vel_rng=vel_rng , vel_dir=vel_dir )
     
+        
     
     def bomb_vel( self , X , V ,
                   start_indx=0 ,
