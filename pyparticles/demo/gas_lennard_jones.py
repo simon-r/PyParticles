@@ -18,7 +18,7 @@ import numpy as np
 
 import pyparticles.pset.particles_set as ps
 
-import pyparticles.forces.lennard_jones as gr
+import pyparticles.forces.lennard_jones as lj
 
 import pyparticles.ode.euler_solver as els
 import pyparticles.ode.leapfrog_solver as lps
@@ -29,6 +29,11 @@ import pyparticles.ode.midpoint_solver as mds
 import pyparticles.measures.kinetic_energy as ke
 import pyparticles.measures.total_energy as te
 
+import pyparticles.pset.rand_cluster as rc
+import pyparticles.pset.periodic_boundary as pb
+
+import pyparticles.animation.animated_ogl as aogl
+
 import sys
 
 def gas_lj():
@@ -36,4 +41,47 @@ def gas_lj():
     Gas simulation based on the Lennard Jones force
     """
     
-    pass
+    steps = 1000000
+    dt = 0.001
+    
+    omicron = 0.05
+    epsilon = 1.0
+    
+    rand_c = rc.RandCluster()
+    
+    pset = ps.ParticlesSet( 700 )
+    
+    r_min = 2.0**(1./6.) * omicron
+    
+    rand_c.insert3( X=pset.X ,
+                    M=pset.M ,
+                    start_indx=0 ,
+                    n=pset.size ,
+                    radius=5.0 ,
+                    mass_rng=(0.1,0.3) ,
+                    r_min=r_min )
+    
+    lennard_jones = lj.LenardJones( pset.size , pset.dim , pset.M , Consts=( epsilon , omicron ) )
+    
+    solver = els.EulerSolver( lennard_jones , pset , dt )
+    #solver = lps.LeapfrogSolver( lennard_jones , pset , dt )
+    #solver = svs.StormerVerletSolver( lennard_jones , pset , dt )
+    #solver = rks.RungeKuttaSolver( lennard_jones , pset , dt )    
+    #solver = mds.MidpointSolver( lennard_jones , pset , dt ) 
+    
+    bound = pb.PeriodicBoundary( bound=(-6.0,6.0) )
+    
+    pset.set_boundary( bound )
+    
+    a = aogl.AnimatedGl()
+    
+    a.ode_solver = solver
+    a.pset = pset
+    a.steps = steps
+    
+    a.build_animation()
+    
+    a.start()
+    
+    return 
+    

@@ -351,6 +351,7 @@ class ParticlesConfig(object):
             ff.insert3( self.pset )
             ff.close()
             print( " setup - particles set - file name: %s " % self.pset_file_name )
+            
         elif self.media_origin == "rand" :
             self.pset.realloc( self.rand_part_nr , dim=3 )
             self.__get_rand_clusters()

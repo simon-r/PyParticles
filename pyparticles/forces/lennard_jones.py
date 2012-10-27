@@ -33,8 +33,10 @@ class LenardJones( fr.Force ) :
         
         self.__V = np.zeros( ( size , size ) )
         
+        self.__A = np.zeros( ( size , dim ) )
+        
         if m != None :
-            selt.set_masses( m )
+            self.set_masses( m )
         
         
     def set_masses( self , m ):
@@ -55,7 +57,7 @@ class LenardJones( fr.Force ) :
         
         F = dist.squareform( self.__pF[:] )
         
-        for i in range( pset.dim ) :
+        for i in range( p_set.dim ) :
             self.__V[:,:] = p_set.X[:,i]
             self.__V[:,:] = ( self.__V[:,:].T - p_set.X[:,i] ).T
             

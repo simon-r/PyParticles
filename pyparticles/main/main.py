@@ -52,6 +52,7 @@ import pyparticles.pset.file_cluster as fc
 
 import pyparticles.demo.solar_system as sol
 import pyparticles.demo.springs as spr
+import pyparticles.demo.gas_lennard_jones as lj
 
 import pyparticles.utils.parse_args as arg 
 
@@ -66,18 +67,6 @@ import sys
 
 if sys.version_info[0] == 2:
     import pyparticles.animation.animated_ogl as aogl
-
-
-
-
-class MyField( vf.VectorFieldForce ):
-    def __init__(self,size,dim):
-        super(MyField,self).__init__(size)
-        self.v = np.zeros((dim,size))
-    
-    def vect_fun( self , X ):
-        self.v[:] = ( X**2 ).T
-        return ( self.v * -X.T/np.sqrt( np.sum(self.v,0) ) ).T
 
 
 def main():
@@ -104,6 +93,13 @@ def main():
         print(" 3 body springs")
         spr.springs()
         return     
+    
+    if options.demo == "gas_lj" :
+        print("")
+        print("Start the simulation example:")
+        print(" Pseudo gas with Lennard Jones potential")
+        lj.gas_lj()
+        return    
     
     if options.path_name == None or options.demo == "solar_system":
         
@@ -141,12 +137,29 @@ def main():
 
 
 
+
+
+
+
+
+
     
     ##################################
     ##################################
     ##################################    
     #### Old test code .....and tests .... 
+   
     
+class MyField( vf.VectorFieldForce ):
+    def __init__(self,size,dim):
+        super(MyField,self).__init__(size)
+        self.v = np.zeros((dim,size))
+    
+    def vect_fun( self , X ):
+        self.v[:] = ( X**2 ).T
+        return ( self.v * -X.T/np.sqrt( np.sum(self.v,0) ) ).T
+
+
 
 def my_test() :
     
