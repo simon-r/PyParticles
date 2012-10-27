@@ -48,11 +48,8 @@ class RandCluster( clu.Cluster ):
         indx = range( si , ei )
             
         while flag :
-            
-            print( indx )
             nn = len( indx )
-            print( nn )
-                
+            
             r = randg(nn) * radius
             
             theta = np.random.rand(nn) * 2.0*np.pi
@@ -70,7 +67,7 @@ class RandCluster( clu.Cluster ):
                 d = dist.squareform( dist.pdist( X[rng,:] ) )
                 ax , bx = np.where( np.logical_and( d < r_min , d > 0.0 ) )
                 
-                indx = np.unique( np.concatenate(( ax , bx )) )
+                indx = np.int64( start_indx + np.unique( np.concatenate(( ax , bx )) ) )
                 
                 if len( indx ) == 0 :
                     flag = False
