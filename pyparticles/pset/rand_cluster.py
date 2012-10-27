@@ -41,27 +41,41 @@ class RandCluster( clu.Cluster ):
         
         flag = True
         
-        si = start_indx
-        ei = start_indx + n
+        si = int(start_indx)
+        ei = int(start_indx + n)
         
-        rng = arange( si , ei )
+        rng = range( si , ei )
+        indx = range( si , ei )
             
         while flag :
+            
+            print( indx )
+            nn = len( indx )
+            print( nn )
                 
-            r = randg(n)*radius
+            r = randg(nn) * radius
             
-            theta = np.random.rand(n) * 2.0*np.pi
-            phi   = np.random.rand(n) * np.pi
+            theta = np.random.rand(nn) * 2.0*np.pi
+            phi   = np.random.rand(nn) * np.pi
             
-            X[ rng , 0 ] = centre[0] + r * np.cos( theta ) * np.sin( phi )
-            X[ rng , 1 ] = centre[1] + r * np.sin( theta ) * np.sin( phi )
-            X[ rng , 2 ] = centre[2] + r * np.cos( phi )
+            X[ indx , 0 ] = centre[0] + r * np.cos( theta ) * np.sin( phi )
+            X[ indx , 1 ] = centre[1] + r * np.sin( theta ) * np.sin( phi )
+            X[ indx , 2 ] = centre[2] + r * np.cos( phi )
+        
+            #print( X[indx,:] )
         
             if r_min == 0.0 :
                 flag = False
             else:
-                d = dist.pdist( X[rng,:] )
-                indx = np.where( d < r_min )
+                d = dist.squareform( dist.pdist( X[rng,:] ) )
+                ax , bx = np.where( np.logical_and( d < r_min , d > 0.0 ) )
+                
+                indx = np.unique( np.concatenate(( ax , bx )) )
+                
+                if len( indx ) == 0 :
+                    flag = False
+                
+                
                 
             
         
