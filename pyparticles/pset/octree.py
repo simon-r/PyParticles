@@ -211,7 +211,7 @@ class TreeElement( object ):
         Search the elements included in the volume centred in *X* with the radius *r* and append the results in the list *res_list*.
             *res_list* contains the indicies of the particles included in the the sphere.
         """
-        while len(cand_queue) > 0 :
+        while len(cand_queue) :
             tree = cand_queue.pop()
             
             if distance( pset.X[tree.particle,:] , X ) <= r :
@@ -223,8 +223,8 @@ class TreeElement( object ):
             for t in tree.__tree:
                 if t.particle != None and box_intersects_sphere( t.min_vertex , t.max_vertex , X , r ) :
                     cand_queue.append( t )
-            
-
+                            
+                
     def print_tree( self , pset , d=1 ):
         """
         Print the structure of the tree and return the maximal depth

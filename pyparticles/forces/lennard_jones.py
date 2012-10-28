@@ -20,6 +20,7 @@ import scipy.spatial.distance as dist
 
 import pyparticles.forces.force as fr
 
+
 class LenardJones( fr.Force ) :
     def __init__( self , size , dim=3 , m=None , Consts=( 1.0 , 1.0 ) ):
         self.__dim = dim

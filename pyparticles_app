@@ -19,7 +19,7 @@
 import sys
 import pyparticles.main.main as main
 
-sys.path.append( "particles" )
+sys.path.append( "pyparticles" )
 
 
 main.main()

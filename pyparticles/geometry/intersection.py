@@ -24,10 +24,19 @@ def box_intersects_sphere( b_min , b_max , c , r ):
     r2 = r**2.0
     dmin = 0.0
     
-    for i in range(3):
-        if c[i] < b_min[i] :
-            dmin += ( c[i] - b_min[i] )**2.0
-        elif c[i] > b_max[i]:
-            dmin += ( c[i] - b_max[i] )**2.0
-        
+    if c[0] < b_min[0] :
+        dmin += ( c[0] - b_min[0] )**2.0
+    elif c[0] > b_max[0]:
+        dmin += ( c[0] - b_max[0] )**2.0
+    
+    if c[1] < b_min[1] :
+        dmin += ( c[1] - b_min[1] )**2.0
+    elif c[1] > b_max[1]:
+        dmin += ( c[1] - b_max[1] )**2.0
+    
+    if c[2] < b_min[2] :
+        dmin += ( c[2] - b_min[2] )**2.0
+    elif c[2] > b_max[2]:
+        dmin += ( c[2] - b_max[2] )**2.0
+    
     return dmin <= r2 
