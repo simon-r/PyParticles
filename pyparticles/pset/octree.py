@@ -15,9 +15,14 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import pyparticles.pset.particles_set as ps
+from pyparticles.geometry.intersection import box_intersects_sphere
+from pyparticles.geometry.dist import distace
+
 import multiprocessing as mpr
 
 import numpy as np
+
+from collections import deque
 
 
 class TreeElement( object ):
@@ -52,9 +57,19 @@ class TreeElement( object ):
     def get_particle( self ) :
         return self.__particle
     
-
-        
     particle = property( get_particle , doc="Get the particle index of the tree element" )
+    
+    
+    def get_min_vertex( self ):
+        return self.__ref_vertex
+    
+    min_vertex = property( get_min_vertex , doc="get the minimal vertex of the cube" )
+    
+    
+    def get_max_vertex( self ):
+        return self.__ref_vertex + np.array( [ self.__edge_len , self.__edge_len , self.__edge_len ] )
+
+    max_vertex = property( get_max_vertex , doc="get the maximal vertex of the cube" )
 
 
     def getM(self):
@@ -177,9 +192,6 @@ class TreeElement( object ):
         ix = np.sum( indx )
         self.__tree[ix].insert_particle( pset , i )
             
-        return
-                        
-        
         #print ( indx )
         #print("")
         #print ( "ix %d" % ix )
@@ -190,7 +202,24 @@ class TreeElement( object ):
         #    print ("Fatal!!!!")
         #    exit()
         #
+        return
 
+
+    def search_neighbour( self , cand_queue , res_list , pset , X , r ):
+        """
+        Search the elements included in the volume centred in *X* with the radius *r* and append the results in the list *res_list*.
+            *res_list* contains the indicies of the particles included in the the sphere.
+        """
+        while len(cand_queue) > 0 :
+            tree = cand_queuse.pop()
+            
+            if distance( pset.X[tree.particle,:] , X ) <= r :
+                res_list.append( tree.particle )
+            
+            for t in tree.__tree:
+                if t.particle != None and box_intersects_sphere( t.min_vertex , t.max_vertex , X , r ) :
+                    cand_queue.append( t )
+            
 
     def print_tree( self , pset , d=1 ):
         """
@@ -281,12 +310,12 @@ class OcTree ( object ):
         
         """
         Define the size of the octree cube
-        
-        Arguments:
-           ==========  =================================
-           ref_vertex  the ( down , near , left ) vertex
-           edge_len    leght of the edge
-           ==========  =================================
+            ==========  =================================
+            Arguments
+            ==========  =================================
+            ref_vertex  the ( down , near , left ) vertex
+            edge_len    leght of the edge
+            ==========  =================================
         """
         
         self.__ref_vertex[:] = ref_vertex
@@ -298,6 +327,26 @@ class OcTree ( object ):
         
     centre_of_mass = property( get_centre_of_mass , doc="return the centre of mass of the particles set" )
     
+    
+    def search_neighbour( self , X , r ):
+        """
+        return an array of particles indicies included in the region centred on *X* with a radius *r*
+        """
+        
+        res_list = []
+        
+        if self.__tree == None :
+            return np.array(res_list)
+        
+        if not self.__tree.is_in( X ):
+            return np.array(res_list)
+        
+        cq = deque( [ self.__tree ] )
+        
+        self.__tree.search_neighbour( cq , res_list , self.__pset , X , r )
+        
+        return np.array(res_list)
+        
     
     def __build_tree_mp( self , pset ) :
         """
@@ -363,12 +412,11 @@ class OcTree ( object ):
         """
         Build the octree with the given particles set
         
-           Arguments:
-           
-            ==== ============================================
-            ==== ============================================
-            pset a ParticlesSet object used to build the tree
-            ==== ============================================
+            ========= ============================================
+            Arguments
+            ========= ============================================
+            pset      a ParticlesSet object used to build the tree
+            ========= ============================================
         """
         
         if self.__tree == None :
