@@ -1,0 +1,348 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Programming examples &mdash; PyParticles 0.1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="PyParticles 0.1.0 documentation" href="index.html" />
+    <link rel="next" title="&lt;no title&gt;" href="Packages Descriptions.html" />
+    <link rel="prev" title="Problem Config file" href="Config File.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="Packages Descriptions.html" title="&lt;no title&gt;"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="Config File.html" title="Problem Config file"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">PyParticles 0.1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="programming-examples">
+<h1>Programming examples<a class="headerlink" href="#programming-examples" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="the-solar-system">
+<h2>The Solar System<a class="headerlink" href="#the-solar-system" title="Permalink to this headline">¶</a></h2>
+<p>Below I describe step by step how to build the simulation of the solar system included as example in the main application.</p>
+<p>First you need to import numpy, since PyParticle is completely based on the arrays of numpy</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+</pre></div>
+</div>
+<p>Particle_set is the main container to be used with the systems of particles, then must always be imported.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">pyparticles.pset.particles_set</span> <span class="kn">as</span> <span class="nn">ps</span>
+</pre></div>
+</div>
+<p>Import the force model used in this simulation, the gravity:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">pyparticles.forces.gravity</span> <span class="kn">as</span> <span class="nn">gr</span>
+</pre></div>
+</div>
+<p>You must then import the module of the numerical procedure for solving the equation of motion. In this case I import them all.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">pyparticles.ode.euler_solver</span> <span class="kn">as</span> <span class="nn">els</span>
+<span class="kn">import</span> <span class="nn">pyparticles.ode.leapfrog_solver</span> <span class="kn">as</span> <span class="nn">lps</span>
+<span class="kn">import</span> <span class="nn">pyparticles.ode.runge_kutta_solver</span> <span class="kn">as</span> <span class="nn">rks</span>
+<span class="kn">import</span> <span class="nn">pyparticles.ode.stormer_verlet_solver</span> <span class="kn">as</span> <span class="nn">svs</span>
+<span class="kn">import</span> <span class="nn">pyparticles.ode.midpoint_solver</span> <span class="kn">as</span> <span class="nn">mds</span>
+</pre></div>
+</div>
+<p>Import the &#8216;animation&#8217; to control the simulation and the visualization: animation_ogl uses OpenGL as the graphics engine.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">pyparticles.animation.animated_ogl</span> <span class="kn">as</span> <span class="nn">aogl</span>
+</pre></div>
+</div>
+<p>Let&#8217;s start</p>
+<p>Setup the main parameter of the simulation.</p>
+<p>A <em>dt</em> of 6h is reasonable for the solar system simulation.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">dt</span> <span class="o">=</span> <span class="mi">6</span><span class="o">*</span><span class="mi">3600</span>
+<span class="n">steps</span> <span class="o">=</span> <span class="mi">1000000</span>
+
+<span class="n">G</span> <span class="o">=</span> <span class="mf">6.67384e-11</span>
+
+<span class="n">FLOOR</span> <span class="o">=</span> <span class="o">-</span><span class="mi">10</span>
+<span class="n">CEILING</span> <span class="o">=</span> <span class="mi">10</span>
+</pre></div>
+</div>
+<p>Create an instance of the class &#8220;ParticlesSet&#8221; that will contain the positions of all the planets. In this example enables the possibility to assign names to the particles, with the option &#8216;label = True&#8217;</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">pset</span> <span class="o">=</span> <span class="n">ps</span><span class="o">.</span><span class="n">ParticlesSet</span><span class="p">(</span> <span class="mi">12</span> <span class="p">,</span> <span class="mi">3</span> <span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="bp">True</span> <span class="p">)</span>
+
+<span class="n">pset</span><span class="o">.</span><span class="n">label</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="s">&quot;Sun&quot;</span>
+<span class="n">pset</span><span class="o">.</span><span class="n">label</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="s">&quot;Earth&quot;</span>
+<span class="n">pset</span><span class="o">.</span><span class="n">label</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="s">&quot;Jupiter&quot;</span>
+<span class="n">pset</span><span class="o">.</span><span class="n">label</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="s">&quot;Mars&quot;</span>
+<span class="n">pset</span><span class="o">.</span><span class="n">label</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="s">&quot;Mercury&quot;</span>
+<span class="n">pset</span><span class="o">.</span><span class="n">label</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="s">&quot;Neptune&quot;</span>
+<span class="n">pset</span><span class="o">.</span><span class="n">label</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="o">=</span> <span class="s">&quot;Pluto&quot;</span>
+<span class="n">pset</span><span class="o">.</span><span class="n">label</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span> <span class="o">=</span> <span class="s">&quot;Saturn&quot;</span>
+<span class="n">pset</span><span class="o">.</span><span class="n">label</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span> <span class="o">=</span> <span class="s">&quot;Uranus&quot;</span>
+<span class="n">pset</span><span class="o">.</span><span class="n">label</span><span class="p">[</span><span class="mi">9</span><span class="p">]</span> <span class="o">=</span> <span class="s">&quot;Venus&quot;</span>
+<span class="n">pset</span><span class="o">.</span><span class="n">label</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="o">=</span> <span class="s">&quot;Ceres&quot;</span>
+<span class="n">pset</span><span class="o">.</span><span class="n">label</span><span class="p">[</span><span class="mi">11</span><span class="p">]</span> <span class="o">=</span> <span class="s">&quot;Moon&quot;</span>
+</pre></div>
+</div>
+<p>Set up the coordinates velocity and mass of the planets: That&#8217;s the real (or realistic) data in meter Kg and m/s.
+The data should be assigned in the property X, V, M of the container of particles <strong>pset</strong>, note that the size of X, V and M is constant and one must always use the method as shown below.
+These property can not be reassigned by the user.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Coordinates</span>
+<span class="n">pset</span><span class="o">.</span><span class="n">X</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>  <span class="p">[</span>
+                        <span class="p">[</span>  <span class="mf">0.00000000e+00</span> <span class="p">,</span>  <span class="mf">0.00000000e+00</span>  <span class="p">,</span> <span class="mf">0.00000000e+00</span><span class="p">],</span>    <span class="c"># Sun</span>
+                        <span class="p">[</span>  <span class="mf">1.49597871e+11</span> <span class="p">,</span>  <span class="mf">0.00000000e+00</span>  <span class="p">,</span> <span class="mf">0.00000000e+00</span><span class="p">],</span>    <span class="c"># Earth</span>
+                        <span class="p">[</span>  <span class="mf">7.78357721e+11</span> <span class="p">,</span>  <span class="mf">0.00000000e+00</span> <span class="p">,</span>  <span class="mf">0.00000000e+00</span><span class="p">],</span>    <span class="c"># Jupiter</span>
+                        <span class="p">[</span>  <span class="mf">2.27987155e+11</span> <span class="p">,</span>  <span class="mf">0.00000000e+00</span>  <span class="p">,</span> <span class="mf">0.00000000e+00</span><span class="p">],</span>    <span class="c"># Mars</span>
+                        <span class="p">[</span>  <span class="mf">5.83431696e+10</span> <span class="p">,</span>  <span class="mf">0.00000000e+00</span>  <span class="p">,</span> <span class="mf">0.00000000e+00</span><span class="p">],</span>    <span class="c"># Mercury</span>
+                        <span class="p">[</span>  <span class="mf">4.49691199e+12</span> <span class="p">,</span>  <span class="mf">0.00000000e+00</span>  <span class="p">,</span> <span class="mf">0.00000000e+00</span><span class="p">],</span>    <span class="c"># Neptune</span>
+                        <span class="p">[</span>  <span class="mf">5.91360383e+12</span> <span class="p">,</span>  <span class="mf">0.00000000e+00</span>  <span class="p">,</span> <span class="mf">0.00000000e+00</span><span class="p">],</span>    <span class="c"># Pluto</span>
+                        <span class="p">[</span>  <span class="mf">1.42701409e+12</span> <span class="p">,</span>  <span class="mf">0.00000000e+00</span>  <span class="p">,</span> <span class="mf">0.00000000e+00</span><span class="p">],</span>    <span class="c"># Saturn</span>
+                        <span class="p">[</span>  <span class="mf">2.86928716e+12</span> <span class="p">,</span>  <span class="mf">0.00000000e+00</span>  <span class="p">,</span> <span class="mf">0.00000000e+00</span><span class="p">],</span>    <span class="c"># Uranus</span>
+                        <span class="p">[</span>  <span class="mf">1.04718509e+11</span> <span class="p">,</span>  <span class="mf">0.00000000e+00</span>  <span class="p">,</span> <span class="mf">0.00000000e+00</span><span class="p">],</span>    <span class="c"># Venus</span>
+                        <span class="p">[</span>  <span class="mf">4.138325875e+11</span><span class="p">,</span>  <span class="mf">0.00000000e+00</span>  <span class="p">,</span> <span class="mf">0.00000000e+00</span><span class="p">],</span>    <span class="c"># Ceres</span>
+                        <span class="p">[</span>  <span class="mf">1.499604410e+11</span><span class="p">,</span>  <span class="mf">0.00000000e+00</span>  <span class="p">,</span> <span class="mf">0.00000000e+00</span><span class="p">]</span>     <span class="c"># Moon</span>
+                        <span class="p">])</span>
+
+
+<span class="c"># Mass</span>
+<span class="n">pset</span><span class="o">.</span><span class="n">M</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>  <span class="p">[</span>
+                        <span class="p">[</span>  <span class="mf">1.98910000e+30</span><span class="p">]</span> <span class="p">,</span>
+                        <span class="p">[</span>  <span class="mf">5.98000000e+24</span><span class="p">]</span> <span class="p">,</span>
+                        <span class="p">[</span>  <span class="mf">1.90000000e+27</span><span class="p">]</span> <span class="p">,</span>
+                        <span class="p">[</span>  <span class="mf">6.42000000e+23</span><span class="p">]</span> <span class="p">,</span>
+                        <span class="p">[</span>  <span class="mf">3.30000000e+23</span><span class="p">]</span> <span class="p">,</span>
+                        <span class="p">[</span>  <span class="mf">1.02000000e+26</span><span class="p">]</span> <span class="p">,</span>
+                        <span class="p">[</span>  <span class="mf">1.29000000e+22</span><span class="p">]</span> <span class="p">,</span>
+                        <span class="p">[</span>  <span class="mf">5.69000000e+26</span><span class="p">]</span> <span class="p">,</span>
+                        <span class="p">[</span>  <span class="mf">8.68000000e+25</span><span class="p">]</span> <span class="p">,</span>
+                        <span class="p">[</span>  <span class="mf">4.87000000e+24</span><span class="p">]</span> <span class="p">,</span>
+                        <span class="p">[</span>  <span class="mf">9.43000000e+20</span><span class="p">]</span> <span class="p">,</span>
+                        <span class="p">[</span>  <span class="mf">7.34770000e+22</span><span class="p">]</span>
+                        <span class="p">]</span> <span class="p">)</span>
+
+<span class="c"># Speed</span>
+<span class="n">pset</span><span class="o">.</span><span class="n">V</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span> <span class="p">[</span> <span class="p">[</span> <span class="mf">0.</span> <span class="p">,</span>   <span class="mf">0.</span>    <span class="p">,</span>    <span class="mf">0.</span><span class="p">]</span> <span class="p">,</span>
+                        <span class="p">[</span> <span class="mf">0.</span> <span class="p">,</span> <span class="mf">29800.</span>  <span class="p">,</span>    <span class="mf">0.</span><span class="p">]</span> <span class="p">,</span>
+                        <span class="p">[</span> <span class="mf">0.</span> <span class="p">,</span> <span class="mf">13100.</span>  <span class="p">,</span>    <span class="mf">0.</span><span class="p">]</span> <span class="p">,</span>
+                        <span class="p">[</span> <span class="mf">0.</span> <span class="p">,</span> <span class="mf">24100.</span>  <span class="p">,</span>    <span class="mf">0.</span><span class="p">]</span> <span class="p">,</span>
+                        <span class="p">[</span> <span class="mf">0.</span> <span class="p">,</span> <span class="mf">47900.</span>  <span class="p">,</span>    <span class="mf">0.</span><span class="p">]</span> <span class="p">,</span>
+                        <span class="p">[</span> <span class="mf">0.</span> <span class="p">,</span>  <span class="mf">5400.</span>  <span class="p">,</span>    <span class="mf">0.</span><span class="p">]</span> <span class="p">,</span>
+                        <span class="p">[</span> <span class="mf">0.</span> <span class="p">,</span>  <span class="mf">4700.</span>  <span class="p">,</span>    <span class="mf">0.</span><span class="p">]</span> <span class="p">,</span>
+                        <span class="p">[</span> <span class="mf">0.</span> <span class="p">,</span>  <span class="mf">9600.</span>  <span class="p">,</span>    <span class="mf">0.</span><span class="p">]</span> <span class="p">,</span>
+                        <span class="p">[</span> <span class="mf">0.</span> <span class="p">,</span>  <span class="mf">6800.</span>  <span class="p">,</span>    <span class="mf">0.</span><span class="p">]</span> <span class="p">,</span>
+                        <span class="p">[</span> <span class="mf">0.</span> <span class="p">,</span> <span class="mf">35000.</span>  <span class="p">,</span>    <span class="mf">0.</span><span class="p">]</span> <span class="p">,</span>
+                        <span class="p">[</span> <span class="mi">0</span>  <span class="p">,</span> <span class="mf">17882.</span>  <span class="p">,</span>    <span class="mf">0.</span><span class="p">]</span> <span class="p">,</span>
+                        <span class="p">[</span> <span class="mi">0</span>  <span class="p">,</span> <span class="mf">30822.</span>  <span class="p">,</span>    <span class="mf">0.</span><span class="p">]</span>
+                        <span class="p">]</span> <span class="p">)</span>
+</pre></div>
+</div>
+<p>To be more realistic we use also the &#8216;Inclination&#8217; and the &#8216;Longitude of the ascending node&#8217; of the orbits</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Inclination</span>
+<span class="n">incl</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span> <span class="mf">0.0</span> <span class="p">,</span>
+                  <span class="mf">0.0</span> <span class="p">,</span>
+                  <span class="mf">1.305</span> <span class="p">,</span>
+                  <span class="mf">1.850</span> <span class="p">,</span>
+                  <span class="mf">7.005</span> <span class="p">,</span>
+                  <span class="mf">1.767975</span><span class="p">,</span>
+                  <span class="mf">17.151</span> <span class="p">,</span>
+                  <span class="mf">2.485</span> <span class="p">,</span>
+                  <span class="mf">0.772</span> <span class="p">,</span>
+                  <span class="mf">3.394</span> <span class="p">,</span>
+                  <span class="mf">10.587</span> <span class="p">,</span>
+                  <span class="mf">0.0</span> <span class="p">,</span>
+                  <span class="p">])</span>
+
+<span class="c"># Longitude of the ascending node</span>
+<span class="n">lan</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span> <span class="mf">0.0</span> <span class="p">,</span>
+                 <span class="mf">348.73936</span> <span class="p">,</span>
+                 <span class="mf">100.492</span> <span class="p">,</span>
+                 <span class="mf">49.562</span> <span class="p">,</span>
+                 <span class="mf">48.331</span> <span class="p">,</span>
+                 <span class="mf">131.794310</span> <span class="p">,</span>
+                 <span class="mf">110.286</span> <span class="p">,</span>
+                 <span class="mf">113.642</span> <span class="p">,</span>
+                 <span class="mf">73.989</span> <span class="p">,</span>
+                 <span class="mf">76.678</span> <span class="p">,</span>
+                 <span class="mf">80.3932</span> <span class="p">,</span>
+                 <span class="mf">348.73936</span>
+                <span class="p">])</span>
+</pre></div>
+</div>
+<p>Rotate and correct the main coordinated to produce a more realistic scenario</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">incl</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">incl</span> <span class="o">*</span> <span class="mf">2.0</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mf">360.0</span>
+
+<span class="n">lan</span><span class="p">[:]</span>  <span class="o">=</span> <span class="n">lan</span> <span class="o">*</span> <span class="mf">2.0</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mf">360.0</span>
+
+<span class="n">pset</span><span class="o">.</span><span class="n">V</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span> <span class="n">incl</span> <span class="p">)</span> <span class="o">*</span> <span class="n">pset</span><span class="o">.</span><span class="n">V</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">pset</span><span class="o">.</span><span class="n">V</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span> <span class="n">incl</span> <span class="p">)</span> <span class="o">*</span> <span class="n">pset</span><span class="o">.</span><span class="n">V</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span> <span class="n">pset</span><span class="o">.</span><span class="n">V</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">pset</span><span class="o">.</span><span class="n">V</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">pset</span><span class="o">.</span><span class="n">V</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="n">pset</span><span class="o">.</span><span class="n">V</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span> <span class="n">lan</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="p">)</span> <span class="o">-</span> <span class="n">y</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span> <span class="n">lan</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="p">)</span>
+    <span class="n">pset</span><span class="o">.</span><span class="n">V</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span> <span class="n">lan</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="p">)</span> <span class="o">+</span> <span class="n">y</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span> <span class="n">lan</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="p">)</span>
+
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span> <span class="n">pset</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">pset</span><span class="o">.</span><span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">pset</span><span class="o">.</span><span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="n">pset</span><span class="o">.</span><span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span> <span class="n">lan</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="p">)</span> <span class="o">-</span> <span class="n">y</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span> <span class="n">lan</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="p">)</span>
+    <span class="n">pset</span><span class="o">.</span><span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span> <span class="n">lan</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="p">)</span> <span class="o">+</span> <span class="n">y</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span> <span class="n">lan</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="p">)</span>
+</pre></div>
+</div>
+<p>Define the len unit to the 1 UA ant the mass unit to the Earth mass</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">pset</span><span class="o">.</span><span class="n">unit</span> <span class="o">=</span> <span class="mf">149597870700.0</span>
+<span class="n">pset</span><span class="o">.</span><span class="n">mass_unit</span> <span class="o">=</span> <span class="mf">5.9736e24</span>
+</pre></div>
+</div>
+<p>Build the force model, the gravity and setup G as gravity constant.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">grav</span> <span class="o">=</span> <span class="n">gr</span><span class="o">.</span><span class="n">Gravity</span><span class="p">(</span> <span class="n">pset</span><span class="o">.</span><span class="n">size</span> <span class="p">,</span> <span class="n">Consts</span><span class="o">=</span><span class="n">G</span> <span class="p">)</span>
+<span class="n">grav</span><span class="o">.</span><span class="n">set_masses</span><span class="p">(</span> <span class="n">pset</span><span class="o">.</span><span class="n">M</span> <span class="p">)</span>
+</pre></div>
+</div>
+<p>That&#8217;s a model with open boundary:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">bound</span> <span class="o">=</span> <span class="bp">None</span>
+<span class="n">pset</span><span class="o">.</span><span class="n">set_boundary</span><span class="p">(</span> <span class="n">bound</span> <span class="p">)</span>
+</pre></div>
+</div>
+<p>Enable the positions log, useful for drawing the trajectory or for analizing the data.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">pset</span><span class="o">.</span><span class="n">enable_log</span><span class="p">(</span> <span class="bp">True</span> <span class="p">,</span> <span class="n">log_max_size</span><span class="o">=</span><span class="mi">1000</span> <span class="p">)</span>
+</pre></div>
+</div>
+<p>Compute the forces for the initial condition, <strong>don&#8217;t forget this step!</strong></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">grav</span><span class="o">.</span><span class="n">update_force</span><span class="p">(</span> <span class="n">pset</span> <span class="p">)</span>
+</pre></div>
+</div>
+<p>We use Runge kutta as integration method, or at you option, another one</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">solver</span> <span class="o">=</span> <span class="n">rks</span><span class="o">.</span><span class="n">RungeKuttaSolver</span><span class="p">(</span> <span class="n">grav</span> <span class="p">,</span> <span class="n">pset</span> <span class="p">,</span> <span class="n">dt</span> <span class="p">)</span>
+
+<span class="c">#solver = mds.MidpointSolver( grav , pset , dt )</span>
+<span class="c">#solver = els.EulerSolver( grav , pset , dt )</span>
+<span class="c">#solver = lps.LeapfrogSolver( grav , pset , dt )</span>
+<span class="c">#solver = svs.StormerVerletSolver( grav , pset , dt )</span>
+</pre></div>
+</div>
+<p>Create the controller of the simulation, in our case the one based on OpenGL</p>
+<div class="highlight-python"><pre> a = aogl.AnimatedGl()
+# a = anim.AnimatedScatter()</pre>
+</div>
+<p>Plot the trajectory with 1 as a step.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">a</span><span class="o">.</span><span class="n">trajectory</span> <span class="o">=</span> <span class="bp">True</span>
+<span class="n">a</span><span class="o">.</span><span class="n">trajectory_step</span> <span class="o">=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+<p>Setup the integration method (solver) and the particles set (pset) in the controller</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">a</span><span class="o">.</span><span class="n">ode_solver</span> <span class="o">=</span> <span class="n">solver</span>
+<span class="n">a</span><span class="o">.</span><span class="n">pset</span> <span class="o">=</span> <span class="n">pset</span>
+</pre></div>
+</div>
+<p>Set the maximal number of steps, and call the build procedure.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">a</span><span class="o">.</span><span class="n">steps</span> <span class="o">=</span> <span class="n">steps</span>
+
+<span class="n">a</span><span class="o">.</span><span class="n">build_animation</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>That&#8217;s all, we can start the simulation!</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">a</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>It&#8217;s easy? ... I think yes!</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Programming examples</a><ul>
+<li><a class="reference internal" href="#the-solar-system">The Solar System</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="Config File.html"
+                        title="previous chapter">Problem Config file</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="Packages Descriptions.html"
+                        title="next chapter">&lt;no title&gt;</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/Programming Example.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="Packages Descriptions.html" title="&lt;no title&gt;"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="Config File.html" title="Problem Config file"
+             >previous</a> |</li>
+        <li><a href="index.html">PyParticles 0.1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012, Simone Riva.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

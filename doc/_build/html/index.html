@@ -1,0 +1,220 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>PyParticles &mdash; PyParticles 0.1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="PyParticles 0.1.0 documentation" href="#" />
+    <link rel="next" title="Problem Config file" href="Config File.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="Config File.html" title="Problem Config file"
+             accesskey="N">next</a> |</li>
+        <li><a href="#">PyParticles 0.1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="pyparticles">
+<h1>PyParticles<a class="headerlink" href="#pyparticles" title="Permalink to this headline">¶</a></h1>
+<p>PyParticles is a particle simulation toolbox entirely written in python</p>
+<div class="section" id="index">
+<h2>Index<a class="headerlink" href="#index" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Config File.html">Problem Config file</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Config File.html#config-file-description">Config file description:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Config File.html#section-pset-origin">Section: pset_origin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Config File.html#section-set-config">Section: set_config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Config File.html#section-model">Section: model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Config File.html#section-animation">Section: animation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Config File.html#examples">Examples:</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Programming Example.html">Programming examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Programming Example.html#the-solar-system">The Solar System</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pyparticles.html">pyparticles Package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pyparticles.html#id1"><tt class="docutils literal"><span class="pre">pyparticles</span></tt> Package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyparticles.html#subpackages">Subpackages</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="features">
+<h2>Features<a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h2>
+<p>Simulate a particle by particle model with the most popular integrations methods, and it represents the results on a OpenGL or Matplotlib plot.</p>
+<p><strong>PyParticle includes</strong> the followings integrations methods</p>
+<ol class="arabic simple">
+<li>Euler method</li>
+<li>Leap Frog method</li>
+<li>Rung Kutta method</li>
+<li>Midpoint</li>
+<li>Stormer Verlet method</li>
+</ol>
+<p><strong>As a forces model</strong> it includes:</p>
+<ol class="arabic simple">
+<li>Gravity</li>
+<li>Particle by Particle spring</li>
+<li>Constant</li>
+<li>User defined field</li>
+</ol>
+<p>PyParticle offers an easy to use class structure with a fully <em>interchangable</em> integrations method or force model, it also implements the possibility to add some boudary model.</p>
+</div>
+<div class="section" id="command-line-tool-usage">
+<h2>Command line tool usage:<a class="headerlink" href="#command-line-tool-usage" title="Permalink to this headline">¶</a></h2>
+<p>In PyParticles a simulation model is entierly described in a config file that scholuld be edited by the user.</p>
+<p>The following are the main command of the PyParticles application.</p>
+<p>Start the demo simulation:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">pypaticle</span>
+</pre></div>
+</div>
+<p>Start a simulation described in a config file</p>
+<div class="highlight-python"><pre>pyparticle &lt;file_name&gt;</pre>
+</div>
+<p>Write out a model config file</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">pyparticle</span> <span class="o">-</span><span class="n">m</span>
+</pre></div>
+</div>
+<p>Print out the help and version</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">pyparticles</span> <span class="o">--</span><span class="n">help</span>
+<span class="n">pyparticles</span> <span class="o">--</span><span class="n">version</span>
+</pre></div>
+</div>
+<p>Config file Example:</p>
+<div class="highlight-python"><pre>[pset_origin]
+media_origin = from_file
+file_name = solar_sys.csv
+
+[set_config]
+len_unit = 149597870700.0
+mass_unit = 5.9736e24
+boundary = open
+
+[model]
+force = gravity
+ode_solver_name = euler
+time_step = 3600
+steps = 1000000
+force_const = 6.67384e-11
+force_vector = 0 0 0
+
+[animation]
+animation_type = opengl
+xlim = -5.0  5.0
+ylim = -5.0  5.0
+zlim = -5.0  5.0</pre>
+</div>
+</div>
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><a class="reference internal" href="genindex.html"><em>Index</em></a></li>
+<li><a class="reference internal" href="py-modindex.html"><em>Module Index</em></a></li>
+<li><a class="reference internal" href="search.html"><em>Search Page</em></a></li>
+</ul>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="#">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">PyParticles</a><ul>
+<li><a class="reference internal" href="#index">Index</a><ul>
+</ul>
+</li>
+<li><a class="reference internal" href="#features">Features</a></li>
+<li><a class="reference internal" href="#command-line-tool-usage">Command line tool usage:</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+</ul>
+
+  <h4>Next topic</h4>
+  <p class="topless"><a href="Config File.html"
+                        title="next chapter">Problem Config file</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/index.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="Config File.html" title="Problem Config file"
+             >next</a> |</li>
+        <li><a href="#">PyParticles 0.1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012, Simone Riva.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>
