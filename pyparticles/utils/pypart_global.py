@@ -19,7 +19,7 @@
 # Current version
 v_major    = 0
 v_minor    = 2
-v_revision = 0
+v_revision = 1
 ###########################
 
 def py_particle_version():

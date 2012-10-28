@@ -49,7 +49,7 @@ def gas_lj():
     
     rand_c = rc.RandCluster()
     
-    pset = ps.ParticlesSet( 700 )
+    pset = ps.ParticlesSet( 1000 )
     
     r_min = 2.0**(1./6.) * omicron
     
