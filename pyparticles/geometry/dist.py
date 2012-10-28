@@ -16,5 +16,8 @@
 
 import numpy as np
 
-def distace( x , y ):
-    return np.sqrt( (x-y)**2.0 )
+def distance( x , y ):
+    """
+    return the euclideian distance between *x* and *y*
+    """
+    return np.sqrt( np.sum( (x-y)**2.0 ) )

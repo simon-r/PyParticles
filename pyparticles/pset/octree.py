@@ -16,7 +16,7 @@
 
 import pyparticles.pset.particles_set as ps
 from pyparticles.geometry.intersection import box_intersects_sphere
-from pyparticles.geometry.dist import distace
+from pyparticles.geometry.dist import distance
 
 import multiprocessing as mpr
 
@@ -124,6 +124,7 @@ class TreeElement( object ):
 
         return np.all( np.logical_and( a , b ) )
     
+    
     def insert_particle_mp( self , pset , i ):
         pass
         
@@ -211,10 +212,13 @@ class TreeElement( object ):
             *res_list* contains the indicies of the particles included in the the sphere.
         """
         while len(cand_queue) > 0 :
-            tree = cand_queuse.pop()
+            tree = cand_queue.pop()
             
             if distance( pset.X[tree.particle,:] , X ) <= r :
                 res_list.append( tree.particle )
+            
+            if tree.__tree == None :
+                continue
             
             for t in tree.__tree:
                 if t.particle != None and box_intersects_sphere( t.min_vertex , t.max_vertex , X , r ) :

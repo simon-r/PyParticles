@@ -56,6 +56,8 @@ import pyparticles.utils.parse_args as arg
 import pyparticles.utils.problem_config as pc
 import pyparticles.pset.octree as ot
 
+from pyparticles.geometry.dist import distance
+
 import time 
 
 
@@ -195,7 +197,7 @@ def my_test() :
     pset.get_by_name("ciao")[3] = 100
     pset.get_by_name("X")[3,:] = 101
     
-    sz = 50
+    sz = 2000
     pset.resize( sz )
     
     tree = ot.OcTree()
@@ -217,9 +219,40 @@ def my_test() :
     
     print( "Tot time: % f" %(b-a) )
     
+    C = np.array([0.5,0.4,0.3])
+    R = 0.05
+    
+    a = time.time()
+    for ix in range( pset.size ):
+        nl = tree.search_neighbour( pset.X[ix,:] , R )
+    b = time.time()
+    
+    print( "Tot time octree : % f" %(b-a) )
+    
+    nl = np.sort( nl )
+    
+    print("")
+    print("nl:")
+    print( nl )
+    
+    print("")
+    print("dd:")
+    
+    a = time.time()
+    for ix in range( pset.size ):
+        dd = np.sqrt(  np.sum( (pset.X[ix,:] - pset.X)**2 , 1 ) ) 
+        din, = np.where( dd <= R )
+    b = time.time()
+    
+    print( "Tot time numpy : % f" %(b-a) )
+    
+    print( din )
+    
     print(" C O M")
     print( tree.centre_of_mass )
     print("")
+    
+    print ( np.all( nl == din ) )
     
     #tree.print_tree()
     
