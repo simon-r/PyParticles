@@ -17,14 +17,12 @@
 
 import matplotlib.animation as animation
 
-
+from pyparticles.utils.pypart_global import py_particle_version
 
 from mpl_toolkits.mplot3d import Axes3D
 import matplotlib.pyplot as plt
 import matplotlib
 import numpy as np
-
-
 
 import pyparticles.pset.particles_set as ps
 import pyparticles.animation.animated_scatter as anim
@@ -40,9 +38,8 @@ import pyparticles.ode.stormer_verlet_solver as svs
 
 import matplotlib.animation as animation
 
-from mpl_toolkits.mplot3d import Axes3D
-import matplotlib.pyplot as plt
-import numpy as np
+
+
 import pyparticles.pset.periodic_boundary as pb
 import pyparticles.pset.rebound_boundary as rb
 import pyparticles.forces.const_force as cf
@@ -78,6 +75,10 @@ def main():
     options = arg.parse_args()
     
     cfg = pc.ParticlesConfig()
+    
+    if options.version :
+        print( py_particle_version() )
+        return
     
     if options.config_model :
         file_name = "example_pyparticles_config.cfg"
