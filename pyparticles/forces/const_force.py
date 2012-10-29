@@ -17,7 +17,6 @@
 import numpy as np
 import pyparticles.forces.force as fr
 
-
 class ConstForce( fr.Force ) :
     def __init__(self , size , u_force=[0,0,0] , dim=3 , m=None , Consts=1.0 ):
         self.__dim = dim

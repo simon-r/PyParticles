@@ -47,7 +47,7 @@ def box_intersects_sphere( b_min , b_max , c , r ):
 
 def sphere_intersect_sphere( c1 , r1 , c2 , r2 ):
     """
-    returns the optimal intersection point if the two spheres centred in *c1* and *c2* and radius *r1*, *r2* are intersecting, else it returns *None*
+    returns the average intersection point if the two spheres centred in *c1* and *c2* and radius *r1*, *r2* are intersecting, else it returns *None*
     """
     d = dist.distance( c1 , c2 )
     

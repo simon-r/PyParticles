@@ -260,6 +260,9 @@ class TreeElement( object ):
         
 
     def depth( self , d = 1 ):
+        """
+        Compute and returns the maximal depth of the octree
+        """
         mx = d
         if self.__tree != None:
             for tr in self.__tree :

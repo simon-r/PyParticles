@@ -17,15 +17,23 @@
 import numpy as np
 import pyparticles.forces.force as fr
 
+import scipy.spatial.distance as dist
 
 class PseudoBubble( fr.Force ) :
-    def __init__(self , size , u_force=[0,0,0] , dim=3 , m=None , Consts=1.0 ):
+    def __init__(self , size , dim=3 , m=None , Consts=( 0.3 , 2.0 ) ):
         self.__dim = dim
         self.__size = size
-        self.__G = Consts
-        self.__UF = np.array( u_force )
+        
+        self.__R = Consts[0]
+        self.__B = Consts[1]
+        
         self.__A = np.zeros( ( size , dim ) )
         self.__M = np.zeros( ( size , 1 ) )
+        
+        self.__F = np.zeros( ( size , size ) )
+        #self.__D = np.zeros( ( size , size ) )
+        
+        self.__V = np.zeros( ( size , size ) )
         
         if m != None :
             self.set_messes( m )
@@ -35,9 +43,22 @@ class PseudoBubble( fr.Force ) :
         self.__M[:] = m
         
     
-    def update_force( self , p_set ):
+    def update_force( self , pset ):
         
+        D = dist.squareform( dist.pdist( pset.X ) )
+        b = np.logical_and( D <= self.__R , D != 0.0 )
         
+        #print(np.where(b))
+        
+        self.__F[:] = 0.0
+        
+        self.__F[b] = ( -( self.__B / self.__R ) * D[b] + self.__B ) / D[b]
+        
+        for i in range( pset.dim ) :
+            self.__V[:,:] = pset.X[:,i]
+            self.__V[:,:] = ( self.__V[:,:].T - pset.X[:,i] ).T
+            
+            self.__A[:,i] = np.sum( self.__F * self.__V[:,:] / self.__M.T , 0 )
         
         return self.__A
     

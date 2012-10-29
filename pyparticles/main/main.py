@@ -50,6 +50,7 @@ import pyparticles.pset.file_cluster as fc
 import pyparticles.demo.solar_system as sol
 import pyparticles.demo.springs as spr
 import pyparticles.demo.gas_lennard_jones as lj
+import pyparticles.demo.bubble as bu
 
 import pyparticles.utils.parse_args as arg 
 
@@ -103,6 +104,13 @@ def main():
         print(" Pseudo gas with Lennard Jones potential")
         lj.gas_lj()
         return    
+    
+    if options.demo == "bubble" :
+        print("")
+        print("Start the simulation example:")
+        print(" Pseudo bubble demo")
+        bu.bubble()
+        return   
     
     if options.path_name == None or options.demo == "solar_system":
         
@@ -167,6 +175,7 @@ class MyField( vf.VectorFieldForce ):
 def my_test() :
     
     
+    bu.bubble()
     
     
     
