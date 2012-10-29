@@ -17,6 +17,7 @@ Subpackages
     pyparticles.animation
     pyparticles.demo
     pyparticles.forces
+    pyparticles.geometry
     pyparticles.main
     pyparticles.measures
     pyparticles.ode

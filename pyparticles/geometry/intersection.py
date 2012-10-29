@@ -15,6 +15,9 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import numpy as np
+from numpy import linalg as LA
+
+import pyparticles.geometry.dist as dist
 
 def box_intersects_sphere( b_min , b_max , c , r ):
     """
@@ -39,4 +42,21 @@ def box_intersects_sphere( b_min , b_max , c , r ):
     elif c[2] > b_max[2]:
         dmin += ( c[2] - b_max[2] )**2.0
     
-    return dmin <= r2 
+    return dmin <= r2
+
+
+def sphere_intersect_sphere( c1 , r1 , c2 , r2 ):
+    """
+    returns the optimal intersection point if the two spheres centred in *c1* and *c2* and radius *r1*, *r2* are intersecting, else it returns *None*
+    """
+    d = dist.distance( c1 , c2 )
+    
+    if r1 + r2 >= d :
+        
+        u = ( c2 - c1 ) / LA.norm( c2 - c1 )
+        p = ( ( c1 + u*r1 ) + ( c2 - u*r2 ) ) / 2.0
+        
+        return p
+    else :
+        return None
+    
