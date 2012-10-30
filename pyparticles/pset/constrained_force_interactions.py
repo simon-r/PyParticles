@@ -29,7 +29,7 @@ import pyparticles.pset.constraint as ct
 class ConstrainedForceInteractions ( ct.Constraint ):
     def __init__ ( self , pset=None ):
         
-        self.__S = dok.dok_matrix( dtype=byte )
+        self.__S = dok.dok_matrix( (1,1) , dtype=np.byte )
         
         if pset != None :
             self.pset = pset 
@@ -37,11 +37,11 @@ class ConstrainedForceInteractions ( ct.Constraint ):
         
     
     def get_pset(self):
-        return super(ConstrainedForceInteractions,self).pset
+        return super(ConstrainedForceInteractions,self).get_pset()
     
     def set_pset( self , pset ):
         self.__S.resize( ( pset.size , pset.size ) )
-        super(ConstrainedForceInteractions,self).pset = pset
+        super(ConstrainedForceInteractions,self).set_pset( pset )
         
     pset = property( get_pset , set_pset )     
             
@@ -57,6 +57,7 @@ class ConstrainedForceInteractions ( ct.Constraint ):
                 cfi.add_connections( a )
         """
         for c in fc :
+            print(c)
             self.__S[ c[0] , c[1] ] = True
         
     def remove_connections( self , fc ):
@@ -80,6 +81,9 @@ class ConstrainedForceInteractions ( ct.Constraint ):
         """
         return np.bool8( self.__S.todense() )
     
+    dense = property( get_dense )
+    
+    
     def get_sparse(self):
         """
         Return the reference to the dok_matrix sparse matrix of the connections.
@@ -87,9 +91,13 @@ class ConstrainedForceInteractions ( ct.Constraint ):
         """
         return self.__S
     
-    def items():
+    sparse = property( get_sparse )
+    
+    
+    def get_items(self):
         """
         list of the commection ((i,j), value) pairs, ...)
         """
         return self.__S.items()
     
+    items = property( get_items )

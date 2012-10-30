@@ -60,6 +60,7 @@ import pyparticles.pset.octree as ot
 from pyparticles.geometry.dist import distance
 
 import pyparticles.pset.constrained_x as ct
+import pyparticles.pset.constrained_force_interactions as cfi
 
 import time 
 
@@ -206,7 +207,7 @@ def my_test() :
     pset.get_by_name("ciao")[3] = 100
     pset.get_by_name("X")[3,:] = 101
     
-    sz = 20
+    sz = 15
     pset.resize( sz )
     
     tree = ot.OcTree()
@@ -221,6 +222,15 @@ def my_test() :
     print("")
     
     csrt = ct.ConstrainedX( pset )
+    
+    cfit = cfi.ConstrainedForceInteractions( pset )
+    
+    cfit.add_connections( [[12,3],[4,4],[6,8],[1,1]] )
+    cfit.remove_connections( [[12,3]] )
+    
+    print( cfit.dense )
+    print( cfit.sparse )
+    print( cfit.items )
     
     cc = np.array( [[1,2,3],[3,3,3]] )
     cc = np.array( [[1,2,3],[3,3,5]] )
