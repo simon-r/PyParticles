@@ -145,7 +145,7 @@ def DrawGLScene():
     
     glLoadIdentity()  
     
-    if DrawGLScene.animation.state == "trackball_down" and DrawGLScene.animation.motion:
+    if DrawGLScene.animation.state == "trackball_down" and DrawGLScene.animation.motion or  joystick_func.animation.joy_state == "joy_on":
         ( ax , ay , az ) = DrawGLScene.animation.rotatation_axis
         angle = DrawGLScene.animation.rotation_angle
         glRotatef( angle , ax , ay , az )
@@ -282,6 +282,25 @@ def MouseMotion( x , y ) :
     #print( axis )
     #print( angle )
 
+def joystick_func( button_mask, x, y, z ):
+    #print( "------------------ "  )
+    #print( "butt %d: " % button_mask )
+    #print( "x %d " % x )
+    #print( "y %d " % y )
+    #print( "z %d " % z )
+    
+    if x == 0 and y == 0 :
+        joystick_func.animation.joy_state = "joy_off"
+        return
+        
+    ( axis , angle ) = joystick_func.animation.trackball.on_joystick( ( x , y ) )
+    
+    joystick_func.animation.rotation_angle = angle 
+    joystick_func.animation.rotatation_axis = ( axis[0] , axis[1] , axis[2] )
+    joystick_func.animation.joy_state = "joy_on"
+    
+    
+
 def print_help():
     
     y = 0.9
@@ -359,6 +378,7 @@ class AnimatedGl( pan.Animation ):
         self.rot_matrix = np.array( [ 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1 ]  )
         
         self.state = "trackball_down"
+        self.joy_state = "joy_off"
         self.motion = False
         
         self.view_axis = True
@@ -537,7 +557,10 @@ class AnimatedGl( pan.Animation ):
         m_move.animation = self
         
         print_measures.animation = self
+        joystick_func.animation = self
         
+        
+        glutJoystickFunc( joystick_func , 250 )
         glutMouseFunc( pressed )
         glutMotionFunc( m_move )
         

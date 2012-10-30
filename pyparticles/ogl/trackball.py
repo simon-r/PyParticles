@@ -18,6 +18,14 @@
 import numpy as np
 
 class TrackBall( object ):
+    """
+    Class used for controloing the rotation of the scene via mouse or joystick, by generating the virtual trackball effect
+    ====================== =========================
+    Contructor Arguments
+    ====================== =========================
+    w_size                 size of the windows
+    ====================== =========================
+    """
     def __init__( self , w_size ):
         
         self.__v     = np.array( [ 0.0 , 0.0 , 0.0 ] )
@@ -50,7 +58,9 @@ class TrackBall( object ):
     
         
     def track_ball_mapping( self , point ):
-        
+        """
+        Function to be called after a click on the mouse, it takes the current coordinates of the pointer.
+        """
         self.__v_old[:] = self.__v[:]
         
         self.__v[0] = ( 2.0 * point[0]   - self.win_size[0] ) / self.win_size[0]
@@ -73,6 +83,9 @@ class TrackBall( object ):
         
         
     def on_move( self , point ):
+        """
+        function to be called when the mouse is moved. argument requires the coordinates of the mouse pointer and it returns the axis of rotation and angle.
+        """
         
         self.track_ball_mapping( point )
         
@@ -81,11 +94,20 @@ class TrackBall( object ):
         velocity = np.linalg.norm( direction )
         
         rot_axis = np.cross( self.__v_old , self.__v )
-        
         rot_angle = velocity * 400.0
         
         rot_axis = rot_axis / np.linalg.norm( rot_axis ) 
         
         return ( rot_axis , rot_angle )
+   
     
-    
+    def on_joystick( self , jaxes ):
+        """
+        Given the axes ( x and y ) of the joystick. it returns to the axis and angle of rotation.
+        """
+        ws = self.win_size
+        
+        jd = 400
+        
+        self.track_ball_mapping( ( ws[0]/2 , ws[1]/2 ) )
+        return self.on_move( ( ws[0]/2 + jaxes[0]/jd , ws[1]/2 + jaxes[1]/jd ) )
