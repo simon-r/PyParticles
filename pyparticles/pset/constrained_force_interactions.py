@@ -18,13 +18,78 @@
 import numpy as np
 from collections import deque
 
+import scipy.sparse.dok as dok
+
 import pyparticles.pset.particles_set as ps
 
 import pyparticles.pset.constraint as ct
 
 
+
 class ConstrainedForceInteractions ( ct.Constraint ):
     def __init__ ( self , pset=None ):
         
+        self.__S = dok.dok_matrix( dtype=byte )
         
-        super(ConstrainedX,self).__init__( pset=pset )
+        if pset != None :
+            self.pset = pset 
+        
+        
+    
+    def get_pset(self):
+        return super(ConstrainedForceInteractions,self).pset
+    
+    def set_pset( self , pset ):
+        self.__S.resize( ( pset.size , pset.size ) )
+        super(ConstrainedForceInteractions,self).pset = pset
+        
+    pset = property( get_pset , set_pset )     
+            
+        
+    def add_connections( self , fc ):
+        """
+        Adds the connections listed in *fc* .
+            fc must be a list of list or a 2d array of pairs
+            for example::
+            
+                cfi = ConstrainedForceInteractions( pset )
+                a = [[1,1],[3.5]]
+                cfi.add_connections( a )
+        """
+        for c in fc :
+            self.__S[ c[0] , c[1] ] = True
+        
+    def remove_connections( self , fc ):
+        """
+        Removes the connections listed in *fc* .
+            fc must be a list of list or a 2d array of pairs
+            for example::
+            
+                cfi = ConstrainedForceInteractions( pset )
+                a = [[1,1],[3.5]]
+                cfi.remove_connections( a )
+        """       
+        for c in fc :
+            self.__S[ c[0] , c[1] ] = False
+
+
+    def get_dense(self):
+        """
+        Return the dense reppresentations of the connections matrix.
+            Don't use this function in a loop, don't use this function in a loop, but execute the conversion to a dense matix before the loop.
+        """
+        return np.bool8( self.__S.todense() )
+    
+    def get_sparse(self):
+        """
+        Return the reference to the dok_matrix sparse matrix of the connections.
+            For the operations with a dense matricies, don't use this function in a loop, but execute the conversion to a dense matix before the loop.
+        """
+        return self.__S
+    
+    def items():
+        """
+        list of the commection ((i,j), value) pairs, ...)
+        """
+        return self.__S.items()
+    
