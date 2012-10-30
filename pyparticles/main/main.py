@@ -59,6 +59,8 @@ import pyparticles.pset.octree as ot
 
 from pyparticles.geometry.dist import distance
 
+import pyparticles.pset.constrained_x as ct
+
 import time 
 
 
@@ -175,8 +177,6 @@ class MyField( vf.VectorFieldForce ):
 def my_test() :
     
     
-    bu.bubble()
-    
     
     
     n = 10
@@ -206,7 +206,7 @@ def my_test() :
     pset.get_by_name("ciao")[3] = 100
     pset.get_by_name("X")[3,:] = 101
     
-    sz = 2000
+    sz = 20
     pset.resize( sz )
     
     tree = ot.OcTree()
@@ -219,6 +219,24 @@ def my_test() :
     print(" C O M pset")
     print( pset.centre_of_mass() )
     print("")
+    
+    csrt = ct.ConstrainedX( pset )
+    
+    cc = np.array( [[1,2,3],[3,3,3]] )
+    cc = np.array( [[1,2,3],[3,3,5]] )
+    
+    csrt.add_x_constraint( [2,5] , cc )
+    csrt.add_x_constraint( [7,10] , cc )
+    
+    print( csrt.get_cx_indicies() )
+    print( csrt.cX )
+    
+    csrt.remove_x_constraint( [2,10] )
+    
+    print( csrt.get_cx_indicies() )
+    print( csrt.cX )
+    
+    exit() 
     
     tree.set_global_boundary()
     
