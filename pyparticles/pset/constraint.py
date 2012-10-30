@@ -20,16 +20,28 @@ from collections import deque
 
 import pyparticles.pset.particles_set as ps
 
+class Constraint( object ):
+    def __init__( self , pset=None ):
+        self.__pset = pset
+        
+        
+    def get_pset(self):
+        return self.__pset
+    
+    def set_pset( self , pset ):
+        self.__pset = pset
+        
+    pset = property( get_pset , set_pset )    
 
-class ConstrainedParticlesSet ( ps.ParticlesSet ):
-    def __init__ ( self , size=1 , dim=3 , boundary=None ,
-                  label=False , mass=True , velocity=True , charge=False ,
-                  log_X=False , log_V=False , log_max_size=0 ):
+
+
+class ConstrainedX ( ps.ParticlesSet ):
+    def __init__ ( self ):
         
         self.__X_cr   = None
         self.__X_cr_i = None
         
-        super(ConstrainedParticlesSet.self).__init__( size , dim , boundary , label , mass , velocity , charge , log_X , log_V , log_max_size )
+        super(ConstrainedX.self).__init__()
         
     
     def add_x_constraint( self , indx , constr ):
@@ -86,7 +98,7 @@ class ConstrainedParticlesSet ( ps.ParticlesSet ):
         
 
     def get_cX( self ):
-        return self.X[elf.__X_cr_i]
+        return self.pset.X[self.__X_cr_i]
     
     cX = property( get_cX , doc="return the constrained X alements" )
     

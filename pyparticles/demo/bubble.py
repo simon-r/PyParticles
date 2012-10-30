@@ -47,11 +47,11 @@ def bubble():
     steps = 1000000
     dt = 0.01
     
-    r_min=0.8
+    r_min=1.5
     
     rand_c = rc.RandCluster()
     
-    pset = ps.ParticlesSet( 1500 )
+    pset = ps.ParticlesSet( 1000 )
     
     rand_c.insert3( X=pset.X ,
                     M=pset.M ,
@@ -72,9 +72,9 @@ def bubble():
     
     multif.set_masses( pset.M )
     
-    solver = els.EulerSolver( multif , pset , dt )
+    #solver = els.EulerSolver( multif , pset , dt )
     #solver = lps.LeapfrogSolver( lennard_jones , pset , dt )
-    #solver = svs.StormerVerletSolver( lennard_jones , pset , dt )
+    solver = svs.StormerVerletSolver( multif , pset , dt )
     #solver = rks.RungeKuttaSolver( lennard_jones , pset , dt )    
     #solver = mds.MidpointSolver( lennard_jones , pset , dt ) 
     
