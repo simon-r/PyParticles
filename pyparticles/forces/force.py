@@ -26,7 +26,7 @@ class Force(object):
     def set_masses( self , m ):
         NotImplementedError(" %s : is virtual and must be overridden." % sys._getframe().f_code.co_name )
     
-    def update_force( self , p_set , sub_forces=False , main_force=None ):
+    def update_force( self , p_set ):
         NotImplementedError(" %s : is virtual and must be overridden." % sys._getframe().f_code.co_name )
             
     def getA(self):
@@ -40,11 +40,7 @@ class Force(object):
     F = property( getF )
     
     
-    def get_shape(self):
-        NotImplementedError(" %s : is virtual and must be overridden." % sys._getframe().f_code.co_name )
-        
-    shape = property( get_shape )
-    
-    
-    def add_sub_force( self , sub_force ):
-        print( "Sub force not yet supported" )
+    def get_const( self ):
+        NotImplementedError(" %s : is virtual and must be overridden." % sys._getframe().f_code.co_name )        
+
+    const = property( get_const )

@@ -2,18 +2,25 @@
 PyParticles 
 ===========
 
-PyParticles is a particle simulation toolbox entirely written in python
+PyParticles is a particle simulation toolbox entirely written in python.
+    | Visit: https://github.com/simon-r/PyParticles The github project page
+    | and: http://pyparticles.wordpress.com/ The main Blog
 
-**Index**
+Index
+-----
 
 .. toctree::
-   :maxdepth: 4
+   :maxdepth: 2
 
    Config File
    Programming Example
+   Packages Descriptions
+   pyparticles
+
 
 Features
 --------
+
 
 Simulate a particle by particle model with the most popular integrations methods, and it represents the results on a OpenGL or Matplotlib plot.
 

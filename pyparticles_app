@@ -17,10 +17,10 @@
 #along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import sys
-import pyparticles.main
+import pyparticles.main.main as main
 
-sys.path.append( "particles" )
+sys.path.append( "pyparticles" )
 
 
-pyparticles.main.main()
+main.main()
 

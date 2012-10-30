@@ -21,6 +21,17 @@ import scipy.spatial.distance as dist
 import pyparticles.forces.force as fr
 
 class LinearSpring( fr.Force ) :
+    """
+     Compute the forces according to the Hooke's law.
+     
+     Args of the contructor:
+        ===== ==============================
+        size  size of the particles system
+        dim   dimension of the system
+        m     an array containig the masses
+        const spring constant ( K )
+        ===== ==============================
+    """
     def __init__(self , size , dim=3 , m=None , Consts=1.0 ):
         
         self.__dim = dim
@@ -38,6 +49,9 @@ class LinearSpring( fr.Force ) :
         
     
     def set_masses( self , m ):
+        """
+        set the masses of the particles
+        """
         self.__M[:] = m
         
     
@@ -63,3 +77,9 @@ class LinearSpring( fr.Force ) :
         return self.__F
     
     F = property( getF )
+    
+    
+    def get_const( self ):
+        return self.__K       
+
+    const = property( get_const )

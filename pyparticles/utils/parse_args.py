@@ -22,7 +22,7 @@ def parse_args():
     desc = "PyParticles is a particle simulation tool box that support the most diffused numerical integration " 
     desc = desc + " and forces models "
 
-    parser = argparse.ArgumentParser( description=desc , version="%(prog)s " + py_particle_version()  )
+    parser = argparse.ArgumentParser( description=desc )
 
 
     parser.add_argument("-m", "--config_model",
@@ -30,15 +30,23 @@ def parse_args():
         dest="config_model",
         help="Write out the model of a config file and exit")
     
-    parser.add_argument( "--springs_demo",
-        action="store_true",
-        dest="springs_demo",
-        help="Execute the buildin springs demo")
+    parser.add_argument( "--demo",
+        action="store",
+        choices=[ "springs" , "solar_system" , "gas_lj" , "bubble" ] ,
+        dest="demo",
+        default=None ,
+        help="Execute the specified buildin demo")
 
     parser.add_argument(
         dest="path_name",
         nargs='?',
         default=None
+        )
+    
+    parser.add_argument("--version",
+        action="store_true",
+        dest="version",
+        help="print the current version and exit"
         )
     
     return parser.parse_args()

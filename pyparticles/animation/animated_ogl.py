@@ -45,12 +45,15 @@ except:
 
     
     
-def InitGL( Width , Height , ReSizeFun ):                # We call this right after our OpenGL window is created.
-    glClearColor(0.0, 0.0, 0.0, 0.0)    # This Will Clear The Background Color To Black
-    glClearDepth(1.0)                    # Enables Clearing Of The Depth Buffer
-    glDepthFunc(GL_LESS)                # The Type Of Depth Test To Do
-    glEnable(GL_DEPTH_TEST)                # Enables Depth Testing
-    glShadeModel(GL_SMOOTH)                # Enables Smooth Color Shading
+def InitGL( Width , Height , ReSizeFun ):
+    """
+    Inizialise OpenGl 
+    """
+    glClearColor(0.0, 0.0, 0.0, 0.0)    
+    glClearDepth(1.0)                   
+    glDepthFunc(GL_LESS)                
+    glEnable(GL_DEPTH_TEST)             
+    glShadeModel(GL_SMOOTH)        
     glEnable(GL_TEXTURE_2D)
     
     glEnable (GL_BLEND)
@@ -61,8 +64,53 @@ def InitGL( Width , Height , ReSizeFun ):                # We call this right af
     
     ReSizeFun(Width, Height)
     
+    InitLight()
+
+
+
+def InitLight() :
+    light_ambient = np.array( [  0.0 , 0.0 , 0.0 , 1.0  ] )
+    light_diffuse = np.array( [  1.0 , 1.0 , 1.0 , 1.0  ] )
+    light_specular = np.array( [  1.0 , 1.0 , 1.0 , 1.0  ] )
+    light_position = np.array( [  2.0 , 5.0 , 5.0 , 10.0  ] )
+     
+    mat_ambient = np.array( [  0.7 , 0.7 , 0.7 , 1.0  ] )
+    mat_diffuse = np.array( [  0.8 , 0.8 , 0.8 , 1.0  ] )
+    mat_specular = np.array( [  1.0 , 1.0 , 1.0 , 1.0  ] )
+    high_shininess = np.array( [  100.0  ] )
+    
+    #glEnable(GL_LIGHT0)
+    #glEnable(GL_NORMALIZE)
+    #glEnable(GL_COLOR_MATERIAL)
+    #glEnable(GL_LIGHTING)
+    
+    glLightfv(GL_LIGHT0, GL_AMBIENT,  light_ambient)
+    glLightfv(GL_LIGHT0, GL_DIFFUSE,  light_diffuse)
+    glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular)
+    glLightfv(GL_LIGHT0, GL_POSITION, light_position) 
+    
+    glMaterialfv(GL_FRONT, GL_AMBIENT,   mat_ambient)
+    glMaterialfv(GL_FRONT, GL_DIFFUSE,   mat_diffuse)
+    glMaterialfv(GL_FRONT, GL_SPECULAR,  mat_specular)
+    glMaterialfv(GL_FRONT, GL_SHININESS, high_shininess)    
+
+def enableLight():
+    glEnable(GL_LIGHT0)
+    glEnable(GL_NORMALIZE)
+    glEnable(GL_COLOR_MATERIAL)
+    glEnable(GL_LIGHTING)
+    
+def disableLight():
+    glDisable(GL_LIGHT0)
+    glDisable(GL_NORMALIZE)
+    glDisable(GL_COLOR_MATERIAL)
+    glDisable(GL_LIGHTING)    
+    
 
 def DrawGLScene():
+    """
+    Draw the current particle scene.
+    """
     
     j = DrawGLScene.stream()
     
@@ -80,6 +128,12 @@ def DrawGLScene():
     Set2DMode( animation )
         
     glut_print( 0.02 , 0.02 , GLUT_BITMAP_9_BY_15 , fm.to_str( sim_time ) , 1.0 , 1.0 , 1.0 , 1.0 )
+    
+    if DrawGLScene.animation.measures_cnt() > 0 :
+        print_measures()
+    
+    if DrawGLScene.animation.print_help :
+        print_help()
     
     SetPerspective( DrawGLScene.animation )
 
@@ -105,8 +159,8 @@ def DrawGLScene():
     glTranslatef( tr[0] , tr[1] , -15.0 )          
     glMultMatrixf( DrawGLScene.animation.rot_matrix )
 
-    
-    DrawGLScene.animation.axis.draw_axis()
+    if DrawGLScene.animation.view_axis :
+        DrawGLScene.animation.axis.draw_axis()
     
     DrawGLScene.animation.draw_particles.draw()
         
@@ -148,8 +202,32 @@ def ReSizeGLScene(Width, Height):
     SetPerspective( MousePressed.animation )
     
    
-def KeyPressed():
-    pass
+def KeyPressed( c , x , y ):    
+    if c == 'a' :
+        KeyPressed.animation.view_axis = not KeyPressed.animation.view_axis
+        
+    if c == 'h' :
+        KeyPressed.animation.print_help = not KeyPressed.animation.print_help
+        
+    if c == 't' :
+        KeyPressed.animation.trajectory = not KeyPressed.animation.trajectory
+        
+    if c == 'p' :
+        KeyPressed.animation.draw_particles.set_particle_model( model="point" )
+        
+    if c == 's' :
+        KeyPressed.animation.draw_particles.set_particle_model( model="sphere" )
+    
+    if c == 'o' :
+        KeyPressed.animation.draw_particles.set_particle_model( model="teapot" )
+        
+    if c == 'L' :
+        enableLight()
+        
+    if c == 'l' :
+        disableLight()
+        
+
 
 def MousePressed(  button , state , x , y ):
     #print ("--------------------")
@@ -204,6 +282,37 @@ def MouseMotion( x , y ) :
     #print( axis )
     #print( angle )
 
+def print_help():
+    
+    y = 0.9
+    glut_print( 0.1 , y , GLUT_BITMAP_9_BY_15 , "a: Axis ON/OFF" , 1 , 1 , 1 , 1 )
+    
+    y -= 0.05
+    glut_print( 0.1 , y , GLUT_BITMAP_9_BY_15 , "t: Trajectory ON/OFF" , 1 , 1 , 1 , 1 )
+    
+    y -= 0.05
+    glut_print( 0.1 , y , GLUT_BITMAP_9_BY_15 , "Point model - p: point | s: sphere | o: teapot " , 1 , 1 , 1 , 1 )
+    
+    y -= 0.05
+    glut_print( 0.1 , y , GLUT_BITMAP_9_BY_15 , "Lighting - L: On  l: OFF " , 1 , 1 , 1 , 1 )
+    
+    y -= 0.1    
+    glut_print( 0.1 , y , GLUT_BITMAP_9_BY_15 , "h: Toggle help message" , 1 , 1 , 1 , 1 )
+    
+    
+def print_measures():
+    
+    mnames = print_measures.animation.get_measures_names()
+    
+    y = 0.9
+    
+    for na in mnames:
+        m = print_measures.animation.get_measure_value_str( na )
+        glut_print( 0.7 , y , GLUT_BITMAP_9_BY_15 , " %s:  %s " % ( na , m ) , 1 , 1 , 1 , 1 )
+        y -= 0.05
+        
+    
+
 def glut_print( x,  y,  font,  text, r,  g , b , a):
     
     blending = False 
@@ -251,6 +360,9 @@ class AnimatedGl( pan.Animation ):
         
         self.state = "trackball_down"
         self.motion = False
+        
+        self.view_axis = True
+        self.print_help = False
         
         self.axis = axgl.AxisOgl()
         self.draw_particles = drp.DrawParticlesGL()
@@ -413,6 +525,8 @@ class AnimatedGl( pan.Animation ):
         ReSizeFun = ReSizeGLScene
         ReSizeFun.animation = self
         
+        KeyPressed.animation = self
+        
         glutReshapeFunc( ReSizeFun )
         glutKeyboardFunc( KeyPressed )
         
@@ -421,6 +535,8 @@ class AnimatedGl( pan.Animation ):
         
         m_move = MouseMotion
         m_move.animation = self
+        
+        print_measures.animation = self
         
         glutMouseFunc( pressed )
         glutMotionFunc( m_move )
@@ -433,6 +549,8 @@ class AnimatedGl( pan.Animation ):
         self.pset.log()
         
         self.ode_solver.step()
+        
+        self.perform_measurement()
         
         return self.ode_solver.steps_cnt
         

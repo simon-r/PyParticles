@@ -14,13 +14,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import matplotlib.animation as animation
-
-
-
-from mpl_toolkits.mplot3d import Axes3D
-import matplotlib.pyplot as plt
-import matplotlib
 import numpy as np
 
 import pyparticles.pset.particles_set as ps
@@ -33,13 +26,8 @@ import pyparticles.ode.runge_kutta_solver as rks
 import pyparticles.ode.stormer_verlet_solver as svs
 import pyparticles.ode.midpoint_solver as mds
 
-import numpy as np
-import pyparticles.pset.file_cluster as fc
-
-
-#import pyparticles.parse_args as arg 
-
-#import pyparticles.problem_config as pc 
+import pyparticles.measures.kinetic_energy as ke
+import pyparticles.measures.total_energy as te
 
 import sys
 
@@ -205,6 +193,13 @@ def solar_system():
     solver = rks.RungeKuttaSolver( grav , pset , dt )    
     #solver = mds.MidpointSolver( grav , pset , dt )    
         
+        
+    ken = ke.KineticEnergy( pset , grav )
+    ken.set_str_format( "%e" )
+    
+    #
+    ken.update_measure()
+    
     a = aogl.AnimatedGl()
    # a = anim.AnimatedScatter()
    
@@ -219,6 +214,9 @@ def solar_system():
     a.ode_solver = solver
     a.pset = pset
     a.steps = steps
+    
+    a.add_measure( ken )
+
     
     a.build_animation()
     

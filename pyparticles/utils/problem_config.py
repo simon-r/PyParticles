@@ -207,7 +207,7 @@ class ParticlesConfig(object):
             'ylim': '-5.0  5.0' ,
             'zlim': '-5.0  5.0' ,
             
-            # section rand_cluster_* TODO 
+            # section rand_cluster_* 
             'rc_part_nr': '100' ,
             'rc_centre': '0 0 0' ,
             'rc_radius': '1.0' ,
@@ -215,6 +215,7 @@ class ParticlesConfig(object):
             'rc_vel_rng': '0.5 1.0' ,
             'rc_vel_mdl': 'no' ,
             'rc_vel_dir': '0 1 0' ,
+            'rc_r_min': '0.0' ,
             }
     
     def write_example_config_file( self , file_name='example_pyparticles_config.cfg' ):
@@ -260,6 +261,7 @@ class ParticlesConfig(object):
         config.set('rand_cluster_any', 'rc_vel_rng', '0.5 1.0')
         config.set('rand_cluster_any', 'rc_vel_mdl', 'bomb')
         config.set('rand_cluster_any', 'rc_vel_dir', '0 1 0')
+        config.set('rand_cluster_any', 'rc_r_min', '0.0')
     
         # Writing our configuration file to 'example.cfg'
         with open( file_name , 'wb' ) as configfile:
@@ -349,6 +351,7 @@ class ParticlesConfig(object):
             ff.insert3( self.pset )
             ff.close()
             print( " setup - particles set - file name: %s " % self.pset_file_name )
+            
         elif self.media_origin == "rand" :
             self.pset.realloc( self.rand_part_nr , dim=3 )
             self.__get_rand_clusters()
@@ -550,8 +553,10 @@ class ParticlesConfig(object):
                 print(" setup - rand cluster - velocity direction : %s " % (rc_vel_dir,) )                
                 
                 rc_vel_mdl  = config.get     ( sect , 'rc_vel_mdl' )
-                print(" setup - rand cluster - volocity model : %s " % (rc_vel_mdl,) )
+                print(" setup - rand cluster - velocity model : %s " % (rc_vel_mdl,) )
                 
+                rc_r_min   = config.getfloat( sect , 'rc_r_min' )
+                print(" setup - rand cluster - minimal dist : %f " % rc_r_min )
                 
                 cs = clu.RandCluster()
                 
@@ -567,7 +572,9 @@ class ParticlesConfig(object):
                             centre=rc_centre ,
                             vel_rng=rc_vel_rng ,
                             vel_mdl=rc_vel_mdl ,
-                            vel_dir=rc_vel_dir )
+                            vel_dir=rc_vel_dir ,
+                            r_min=rc_r_min
+                            )
                 
                 indx += rc_part_nr
                 print("")

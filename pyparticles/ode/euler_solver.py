@@ -25,7 +25,6 @@ class EulerSolver( os.OdeSolver ) :
     
     def __step__( self , dt ):
 
-            
         self.force.update_force( self.pset )
         
         self.pset.V[:] = self.pset.V + self.force.A * dt

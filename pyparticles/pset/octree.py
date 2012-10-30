@@ -15,8 +15,15 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import pyparticles.pset.particles_set as ps
+from pyparticles.geometry.intersection import box_intersects_sphere
+from pyparticles.geometry.dist import distance
+
+import multiprocessing as mpr
 
 import numpy as np
+
+from collections import deque
+
 
 class TreeElement( object ):
     """
@@ -36,15 +43,33 @@ class TreeElement( object ):
         
         self.__tree = None
         
+        self.__left =  np.int8( np.array([ 1 , 0 , 0 , 1 , 1 , 0 , 0 , 1 ]) )
+        self.__right = np.int8( np.array([ 0 , 1 , 1 , 0 , 0 , 1 , 1 , 0 ]) )
         
-      
+        self.__near =  np.int8( np.array([ 1 , 1 , 0 , 0 , 1 , 1 , 0 , 0 ]) )
+        self.__far  =  np.int8( np.array([ 0 , 0 , 1 , 1 , 0 , 0 , 1 , 1 ]) )
+        
+        self.__up   =  np.int8( np.array([ 0 , 0 , 0 , 0 , 1 , 1 , 1 , 1 ]) )
+        self.__down =  np.int8( np.array([ 1 , 1 , 1 , 1 , 0 , 0 , 0 , 0 ]) )
+        
+        
 
     def get_particle( self ) :
         return self.__particle
     
-
-        
     particle = property( get_particle , doc="Get the particle index of the tree element" )
+    
+    
+    def get_min_vertex( self ):
+        return self.__ref_vertex
+    
+    min_vertex = property( get_min_vertex , doc="get the minimal vertex of the cube" )
+    
+    
+    def get_max_vertex( self ):
+        return self.__ref_vertex + np.array( [ self.__edge_len , self.__edge_len , self.__edge_len ] )
+
+    max_vertex = property( get_max_vertex , doc="get the maximal vertex of the cube" )
 
 
     def getM(self):
@@ -99,6 +124,11 @@ class TreeElement( object ):
 
         return np.all( np.logical_and( a , b ) )
     
+    
+    def insert_particle_mp( self , pset , i ):
+        pass
+        
+        
     def insert_particle( self , pset , i ) :
         if self.particle == None and self.__tree == None :
             self.__particle = i
@@ -122,19 +152,86 @@ class TreeElement( object ):
         # update centre of mass
         self.__centre_of_mass = ( self.__centre_of_mass * self.__part_cnt + pset.X[i,:] ) / ( self.__part_cnt + 1 )
         self.__part_cnt += 1
-        for st in self.__tree :
-            if st.is_in( pset.X[i,:] ) :
-                st.insert_particle( pset , i )
-                break
-        return
-                
 
+        # Old version, a bit slower.
+        #j = 0
+        #jj = 0
+        #for st in self.__tree :
+        #    if st.is_in( pset.X[i,:] ) :
+        #        jj = j
+        #        st.insert_particle( pset , i )
+        #        break
+        #    j += 1
+        
+        #return
+    
+        indx = np.int8( np.array( [0,1,2,3,4,5,6,7] ) )
+            
+        if pset.X[i,0] >= self.__ref_vertex[0] and pset.X[i,0] < self.__ref_vertex[0] + self.__edge_len/2.0  :
+            # Left
+            indx[:] = indx * self.__left
+        elif pset.X[i,0] >= self.__ref_vertex[0] + self.__edge_len/2.0 and pset.X[i,0] < self.__ref_vertex[0] + self.__edge_len :
+            # Right
+            indx[:] = indx * self.__right
+
+            
+        if pset.X[i,1] >= self.__ref_vertex[1] and  pset.X[i,1] < self.__ref_vertex[1] + self.__edge_len/2.0  :
+            # near
+            indx[:] = indx * self.__near
+        elif pset.X[i,1] >= self.__ref_vertex[1] + self.__edge_len/2.0 and pset.X[i,1] < self.__ref_vertex[1] + self.__edge_len :
+            # far
+            indx[:] = indx * self.__far
+
+         
+        if pset.X[i,2] >= self.__ref_vertex[2] and  pset.X[i,2] < self.__ref_vertex[2] + self.__edge_len/2.0  :
+            # down
+            indx[:] = indx * self.__down
+        elif pset.X[i,2] >= self.__ref_vertex[2] + self.__edge_len/2.0 and pset.X[i,2] < self.__ref_vertex[2] + self.__edge_len :
+            # up
+            indx[:] = indx * self.__up
+        
+        ix = np.sum( indx )
+        self.__tree[ix].insert_particle( pset , i )
+            
+        #print ( indx )
+        #print("")
+        #print ( "ix %d" % ix )
+        #print ( "jj %d" % jj )
+        #print ( "----------" )
+        
+        #if jj != ix :
+        #    print ("Fatal!!!!")
+        #    exit()
+        #
+        return
+
+
+    def search_neighbour( self , cand_queue , res_list , pset , X , r ):
+        """
+        Search the elements included in the volume centred in *X* with the radius *r* and append the results in the list *res_list*.
+            *res_list* contains the indicies of the particles included in the the sphere.
+        """
+        while len(cand_queue) :
+            tree = cand_queue.pop()
+            
+            if distance( pset.X[tree.particle,:] , X ) <= r :
+                res_list.append( tree.particle )
+            
+            if tree.__tree == None :
+                continue
+            
+            for t in tree.__tree:
+                if t.particle != None and box_intersects_sphere( t.min_vertex , t.max_vertex , X , r ) :
+                    cand_queue.append( t )
+                            
+                
     def print_tree( self , pset , d=1 ):
         """
         Print the structure of the tree and return the maximal depth
+        
         Args:
-            # pset: the particles set
-            # d = current depth (1 for the first node)
+            pset: the particles set
+            d:  current depth (1 for the first node)
         """
         if self.__particle == None  :
             return 
@@ -163,15 +260,21 @@ class TreeElement( object ):
         
 
     def depth( self , d = 1 ):
+        """
+        Compute and returns the maximal depth of the octree
+        """
         mx = d
         if self.__tree != None:
             for tr in self.__tree :
-                mx = max ( tr.print_tree( pset , d+1 ) , mx )
+                mx = max ( tr.depth( pset , d+1 ) , mx )
             
         return mx
     
 
     def get_up(self):
+        """
+        Z axis
+        """
         return ( 0.5 , 1.0 )
     
     def get_down(self):
@@ -200,7 +303,7 @@ class TreeElement( object ):
 
 class OcTree ( object ):
     """
-    OcTree particles container class
+    |OcTree particles container class
     """
     def __init__( self ):
         self.__tree = None
@@ -214,9 +317,12 @@ class OcTree ( object ):
         
         """
         Define the size of the octree cube
-        Arguments:
-            ref_vertex : the ( down , near , left ) vertex
-            edge_len   : leght of the edge 
+            ==========  =================================
+            Arguments
+            ==========  =================================
+            ref_vertex  the ( down , near , left ) vertex
+            edge_len    leght of the edge
+            ==========  =================================
         """
         
         self.__ref_vertex[:] = ref_vertex
@@ -228,11 +334,96 @@ class OcTree ( object ):
         
     centre_of_mass = property( get_centre_of_mass , doc="return the centre of mass of the particles set" )
     
+    
+    def search_neighbour( self , X , r ):
+        """
+        return an array of particles indicies included in the region centred on *X* with a radius *r*
+        """
+        
+        res_list = []
+        
+        if self.__tree == None :
+            return np.array(res_list)
+        
+        if not self.__tree.is_in( X ):
+            return np.array(res_list)
+        
+        cq = deque( [ self.__tree ] )
+        
+        self.__tree.search_neighbour( cq , res_list , self.__pset , X , r )
+        
+        return np.array(res_list)
+        
+    
+    def __build_tree_mp( self , pset ) :
+        """
+        Build the octree with the given particles set with a parrallel processig procedure
+        
+          Arguments:
+           ==== ============================================
+           pset a ParticlesSet object used to build the tree
+           ==== ============================================
+        """
+        
+        if self.__tree == None :
+            self.__tree = TreeElement()
+        else :
+            del self.__tree
+            self.__tree = TreeElement()
+        
+        self.__tree.set_local_boundary( self.__ref_vertex , self.__edge_len )
+        
+        self.__pset = pset
+        
+        cpu = mpr.cpu_count()             
+        jobs_queue = mpr.Queue()
+        
+        parent_conn =  list( None for i in range(cpu) )
+        child_conn = list( None for i in range(cpu) )
+        
+        procs = list( None for i in range(cpu) )
+
+        for i in range( cpu ) :
+            ( parent_conn[i] , child_conn[i] ) = mpr.Pipe()
+            procs[i] = mpr.Process(target=self.__build_tree_process , args=( jobs_queue , child_conn[i] ) )
+            parent_conn[i].send( [ pset , self.__tree ] )
+        
+        for i in range( pset.size ):
+            jobs_queue.put( i )
+        
+        for i in range( cpu ) :
+            procs[i].start()
+            
+        for p in procs :
+            p.join()
+      
+      
+    def __build_tree_process( self , queue , child_conn )  :
+        
+        t_args = child_conn.recv()
+        pset = t_args[0]
+        tree = t_args[1]
+        
+        # get the first job.
+        
+        flag = True
+        while flag :
+            if queue.empty() :
+                flag = False
+                continue
+            i = queue.get()
+            print( i )
+            
+    
     def build_tree( self , pset ) :
         """
         Build the octree with the given particles set
-            Arguments:
-            pset: a ParticlesSet object used to build the tree
+        
+            ========= ============================================
+            Arguments
+            ========= ============================================
+            pset      a ParticlesSet object used to build the tree
+            ========= ============================================
         """
         
         if self.__tree == None :

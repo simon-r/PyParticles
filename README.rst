@@ -3,6 +3,10 @@ PyParticles
 
 PyParticles is a particle simulation toolbox entirely written in python
 
+Visit: http://pyparticles.wordpress.com/
+Docs:  http://simon-r.github.com/PyParticles/index.html
+
+
 Features
 --------
 
@@ -25,6 +29,19 @@ Simulate a particle by particle model with the most popular integrations methods
 
 PyParticle offers an easy to use class structure with a fully * interchangeable* integrations method or force model, it also implements the possibility to add some boundary model.
 
+
+Requirements
+------------
+| PyParticles require the following packages:
+
+| **numpy** : http://scipy.org/Download
+| **scipy** : http://scipy.org/Download
+| **pyopengl** : http://pyopengl.sourceforge.net/
+| **matplotlib** : http://matplotlib.org/
+
+For more details about the installation visit the Blog: http://pyparticles.wordpress.com/installation/
+
+
 Command line tool usage:
 ------------------------
 
@@ -42,6 +59,11 @@ Start a simulation described in a config file ::
     pyparticle_app <file_name>
     
 
+Start the specified demo simulation ::
+
+    pypaticle_app --demo springs
+    pypaticle_app --demo solar_system
+
 Write out a model config file ::
     
     pyparticle_app -m
@@ -52,6 +74,9 @@ Print out the help and version ::
     pyparticles_app --help
     pyparticles_app --version
     
+
+During the simulation you can toggle the help message by pressing **h**
+
 
 Config file Example: ::
 

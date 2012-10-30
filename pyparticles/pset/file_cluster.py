@@ -20,6 +20,19 @@ import re
 
 
 class FileCluster(object):
+    """
+    Read the data from a csv formatted file:
+    
+    The first row of the csv contains the size and the dim of the particles set.
+    
+    The other rows are the data of the perticles in the order:
+    
+    ======== ======== ==== ================
+    Position Velocity Mass label (optional)
+    ======== ======== ==== ================
+        
+    """
+    
     def __init__(self):
         pass
 

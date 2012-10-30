@@ -18,20 +18,41 @@
 
 import pyparticles.pset.particles_set as ps
 import pyparticles.pset.rand_cluster as clu
-#import pyparticles.euler_solver as els
-#import pyparticles.leapfrog_solver as lps
-#import pyparticles.runge_kutta_solver as rks
 
-import matplotlib.animation as animation
-
-#from mpl_toolkits.mplot3d import Axes3D
-import matplotlib.pyplot as plt
 import numpy as np
-#import pyparticles.periodic_boundary as pb
-#import pyparticles.rebound_boundary as rb
 
 
 class Animation(object):
+    """
+    Base abstract class used for controling the simulation.
+        This class should be used as a base class for building and runnig a simulation problem.
+        The class animation contains all foudamental element for working with a PyParticles in an easy way.
+    The user must overide the methods:
+            build_animation: For setting up averithing
+            data_stream: for performing a simulation step or runnig the main loop
+            start: start the smulation
+    
+    In a few word you must follow this procedure:
+    ::
+    
+        # Construct a new object
+        a = MyAnimation()
+        
+        # setup the particles set
+        a.pset = pset
+        
+        # setup the numeric integration 
+        a.ode_solver = solver
+        
+        # max number of steps
+        a.steps = steps
+        
+        # set up everythings 
+        a.build_animation()
+        
+        # start!
+        a.start()
+    """
     def __init__(self):
         self.__ode_solver = None
         self.__pset = None
@@ -44,6 +65,9 @@ class Animation(object):
         self.__trajectory = False
         self.__trajectory_step = 1
         
+        self.__measures = dict()
+        self.__measures_names = []
+        
         
     def set_ode_solver( self , solver ):
         self.__ode_solver = solver
@@ -53,6 +77,51 @@ class Animation(object):
         
     ode_solver = property( get_ode_solver , set_ode_solver )
     
+    
+    def add_measure( self , measure ):
+        """
+        Add a class delegeted for performing a measure
+        """
+        self.__measures[measure.name()] = measure
+        self.__measures_names.append( measure.name() )
+        
+    def perform_measurement( self ):
+        """
+        Execute all listed measures
+        """
+        for m in self.__measures_names :
+            self.__measures[m].pset = self.pset
+            self.__measures[m].update_measure()
+            
+    def get_measure_value( self , name ):
+        """
+        get the value of the measure named 'name'
+        """
+        return self.__measures[name].value()
+    
+    
+    def get_measure_value_str( self , name ):
+        """
+        return a string containig the value of the measure
+        """
+        return self.__measures[name].value_str()
+    
+    
+    def get_measure( self , name ):
+        """
+        return the measure named 'name'
+        """
+        return self.__measures[name]
+    
+    def get_measures_names( self ):
+        """
+        Return a list containg the names of the executed measured.
+        """
+        return self.__measures_names
+    
+    def measures_cnt( self ):
+        return len( self.__measures )
+        
     
     def get_pset(self):
         return self.__pset
@@ -114,13 +183,13 @@ class Animation(object):
 
      
     def build_animation(self):
-        pass
+        NotImplementedError(" %s : is virtual and must be overridden." % sys._getframe().f_code.co_name )
     
     def data_stream(self):
-        pass
+        NotImplementedError(" %s : is virtual and must be overridden." % sys._getframe().f_code.co_name )
         
     def start(self):
-        pass
+        NotImplementedError(" %s : is virtual and must be overridden." % sys._getframe().f_code.co_name )
         
 
         

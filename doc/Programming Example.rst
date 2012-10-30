@@ -207,7 +207,7 @@ Enable the positions log, useful for drawing the trajectory or for analizing the
         
         pset.enable_log( True , log_max_size=1000 )
 
-Compute the forces for the initial condition, don't forget this step!
+Compute the forces for the initial condition, **don't forget this step!**
 ::
         
         grav.update_force( pset )
@@ -240,7 +240,7 @@ Setup the integration method (solver) and the particles set (pset) in the contro
         a.ode_solver = solver
         a.pset = pset
         
-Set the maximal number of steps, and call the buil procedure.
+Set the maximal number of steps, and call the build procedure.
 ::
         
         a.steps = steps
