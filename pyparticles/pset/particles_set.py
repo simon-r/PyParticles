@@ -23,17 +23,17 @@ class ParticlesSet(object):
     The main class for storing the particles data set.
     
         ============= =============== =======================================================
-        Arguments:
+        Arguments
         ============= =============== =======================================================
-        size:         (default 0)     Number of particles
-        dim :         (default 3)     dimensions of the system 2 or 3 ... 2D 3D
-        mass:         (dafault True)  if True the particles have a mass.
-        label:        (default False) if true it's possible to set a name for each particle
-        velocity:     (dafault True)  if true the particles has a velocity
-        charge:       (default False) if true if True the particles have a charge.
-        log_X:        (default False) if true it's possible to logging the position
-        log_V:        (default False) if true it's possible to logging the velocity
-        log_max_size: (default 0) set the maximal size of the log queue
+        size          (default 0)     Number of particles
+        dim           (default 3)     dimensions of the system 2 or 3 ... 2D 3D
+        mass          (dafault True)  if True the particles have a mass.
+        label         (default False) if true it's possible to set a name for each particle
+        velocity      (dafault True)  if true the particles has a velocity
+        charge        (default False) if true if True the particles have a charge.
+        log_X         (default False) if true it's possible to logging the position
+        log_V         (default False) if true it's possible to logging the velocity
+        log_max_size  (default 0) set the maximal size of the log queue
         ============= =============== =======================================================
         
        Note: The properties: position X and velocity V are mandatory.
@@ -192,7 +192,7 @@ class ParticlesSet(object):
         If the model of the property is 'list' the dim is forced to 1
         
             ===================  ==============================================================================
-            Arguments:
+            Arguments
             ===================  ==============================================================================
              property_name       the name of the new property
              dim                 the dimension of the new property ( 2 = "2D  , 3 = 3D ... )

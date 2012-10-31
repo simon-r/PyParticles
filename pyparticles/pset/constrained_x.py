@@ -52,6 +52,21 @@ class ConstrainedX ( ct.Constraint ):
 
         self.pset.X[indx,:] = constr
         
+    def get_pset(self):
+        """
+        Return the current constrained particles set
+        """
+        return super(ConstrainedX,self).get_pset()
+    
+    def set_pset( self , pset ):
+        """
+        set the particles set. And it sets the constrained values in the particles set pset
+        """
+        pset.X[self.__X_cr_i,:] = self.__X_cr
+        super(ConstrainedX,self).get_pset( pset )
+        
+    pset = property( get_pset , set_pset , doc="get and set the particles set (pset)")   
+        
         
     def remove_x_constraint( self , indxs ):
         """
@@ -70,10 +85,19 @@ class ConstrainedX ( ct.Constraint ):
 
     def get_cx_indicies(self):
         """
-        Return a copy of the constrained indicies of the position
+        Return a copy of the constrained indicies
         """
         return np.copy(self.__X_cr_i)
         
+    def get_cx_free_indicies(self):
+        """
+        Return an array containing the not constrained indicies
+        """
+        r = range( self.pset.size )
+        for i in self.__X_cr_i :
+            r.remove(i)
+            
+        return np.array( r , dtype=np.int )
 
     def clear_all_x_constraint(self):
         """

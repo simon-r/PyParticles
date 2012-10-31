@@ -26,3 +26,18 @@ class OdeSolverConstrained( os.OdeSolver ) :
         
         super(OdeSolverConstrained,self).__init__( force , p_set , dt )
         
+
+    def get_x_constraint(self):
+        """
+        returns a reference to the current positionals constraints
+        """
+        return self.x_constraint
+    
+    def set_x_constraint(self ,  xc ):
+        """
+        set the new positionals contraints
+        """
+        self.x_constraint = xc
+        self.x_constraint.pset = self.pset
+    
+    x_constraint = property( get_x_constraint , set_x_constraint , doc="get and set the current positionals constraints" )
