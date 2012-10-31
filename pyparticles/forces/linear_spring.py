@@ -45,7 +45,7 @@ class LinearSpring( fr.Force ) :
         
         self.__M = np.zeros( ( size , 1 ) )
         if m != None :
-            self.set_messes( m )
+            self.set_masses( m )
         
     
     def set_masses( self , m ):

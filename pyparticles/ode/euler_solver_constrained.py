@@ -18,7 +18,7 @@
 import numpy as np
 import pyparticles.ode.ode_solver_constrained as osc
 
-class EulerSolverConstrained( osc.OdeSolver ) :
+class EulerSolverConstrained( osc.OdeSolverConstrained ) :
     def __init__( self , force , p_set , dt , x_constraint=None , v_constraint=None ):
         super(EulerSolverConstrained,self).__init__( force , p_set , dt , x_constraint=None , v_constraint=None )
         
@@ -30,7 +30,7 @@ class EulerSolverConstrained( osc.OdeSolver ) :
         return super(EulerSolverConstrained,self).get_x_constraint()
     
     def set_x_constraint(self ,  xc ):
-        super(EulerSolverConstrained,self).get_x_constraint( xc )
+        super(EulerSolverConstrained,self).set_x_constraint( xc )
         self.__free_inx = self.x_constraint.get_cx_free_indicies()
         self.__csrt_inx = self.x_constraint.get_cx_indicies()
     

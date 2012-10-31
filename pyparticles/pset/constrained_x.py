@@ -63,7 +63,7 @@ class ConstrainedX ( ct.Constraint ):
         set the particles set. And it sets the constrained values in the particles set pset
         """
         pset.X[self.__X_cr_i,:] = self.__X_cr
-        super(ConstrainedX,self).get_pset( pset )
+        super(ConstrainedX,self).set_pset( pset )
         
     pset = property( get_pset , set_pset , doc="get and set the particles set (pset)")   
         

@@ -31,13 +31,13 @@ class OdeSolverConstrained( os.OdeSolver ) :
         """
         returns a reference to the current positionals constraints
         """
-        return self.x_constraint
+        return self.__x_constr
     
     def set_x_constraint(self ,  xc ):
         """
         set the new positionals contraints
         """
-        self.x_constraint = xc
-        self.x_constraint.pset = self.pset
+        self.__x_constr = xc
+        self.__x_constr.pset = self.pset
     
     x_constraint = property( get_x_constraint , set_x_constraint , doc="get and set the current positionals constraints" )

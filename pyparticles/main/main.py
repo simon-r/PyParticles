@@ -51,6 +51,7 @@ import pyparticles.demo.solar_system as sol
 import pyparticles.demo.springs as spr
 import pyparticles.demo.gas_lennard_jones as lj
 import pyparticles.demo.bubble as bu
+import pyparticles.demo.springs_constr as spc
 
 import pyparticles.utils.parse_args as arg 
 
@@ -178,6 +179,8 @@ class MyField( vf.VectorFieldForce ):
 def my_test() :
     
     
+    spc.spring_constr()
+    exit()
     
     
     n = 10

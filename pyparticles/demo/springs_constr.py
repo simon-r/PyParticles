@@ -16,7 +16,7 @@ import pyparticles.measures.kinetic_energy as ke
 import pyparticles.measures.momentum as mm
 import pyparticles.measures.total_energy as te
 
-
+import pyparticles.animation.animated_ogl as aogl
 
 import pyparticles.ode.euler_solver_constrained as asc
 
@@ -38,7 +38,7 @@ def spring_constr():
     
     pset.X[:] = np.array(  [
                             [  2.0 ,  4.0  , 1.0 ],    # 1
-                            [ -2.0 , -2.0  , 1.0 ],    # 2
+                            [ -2.0 , -2.0  , -3.0 ],    # 2
                             [  3.0 , -3.0 ,  2.0 ],    # 3
                             [  3.0 ,  3.0 , -2.0 ],    # 3
                             [  0.0 ,  0.0 ,  2.0 ]     # 3
@@ -60,7 +60,7 @@ def spring_constr():
                             [ 0. , 0  , 0.]
                             ] )
     
-    cx = csx.ConstrainedX( pset )
+    
     
     ci = np.array( [ 0 , 4 ] )
     
@@ -69,13 +69,16 @@ def spring_constr():
                     [ -4.0 , -4.0 , -4.0] 
                     ] )
     
-    cx.add_x_constraint( ci , cx )
+    costrs = csx.ConstrainedX( pset )
+    costrs.add_x_constraint( ci , cx )
     
     spring = ls.LinearSpring( pset.size , pset.dim , pset.M , Consts=K )
     
-    solver = asc.EulerSolverConstrained( spring , pset , dt , cx  )
+    solver = asc.EulerSolverConstrained( spring , pset , dt , costrs )
     
     a = aogl.AnimatedGl()
+    
+    pset.enable_log( True , log_max_size=1000 )
     
     a.trajectory = True
     a.trajectory_step = 1
