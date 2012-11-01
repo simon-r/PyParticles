@@ -23,10 +23,10 @@ class ForceConstrained( fr.Force ) :
         self.__f_iter = f_iter
         
            
-    def get_force_iteractions( self ):
+    def get_force_interactions( self ):
         return self.__f_iter
     
-    def set_force_iteractions( self , fi ):
+    def set_force_interactions( self , fi ):
         self.__f_iter = fi
         
-    force_iteractions = property( get_force_iteractions , set_force_iteractions )
+    force_interactions = property( get_force_interactions , set_force_interactions )

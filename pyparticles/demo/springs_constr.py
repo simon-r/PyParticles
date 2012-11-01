@@ -31,69 +31,45 @@ def spring_constr():
     Constrained springs demo
     """
     
-    dt = 0.03
+    dt = 0.01
     steps = 1000000
     
-    K = 0.5
+    K = 20
 
-    pset = ps.ParticlesSet( 9 , 3 )
+    x = list([])
+    m = list([])
+    v = list([])
     
+    d = 0.1
     
-    pset.X[:] = np.array(  [
-                            [  4.0 ,  4.0 ,  4.0 ],    # 1
-                            [  3.0 ,  3.0 ,  2.0 ],    # 2
-                            [  2.0 ,  2.0 ,  4.0 ],    # 2
-                            [  1.0 ,  1.0 ,  4.0 ],    # 2
-                            [  0.0 ,  0.0 ,  4.0 ],    # 3
-                            [ -1.0 , -1.0 ,  4.0 ],    # 2
-                            [ -2.0 , -2.0 ,  4.0 ],    # 3
-                            [ -3.0 , -3.0 ,  4.0 ],    # 3
-                            [ -4.0 , -4.0 ,  4.0 ]     # 3
-                            ] )
+    ar = np.arange( -4.0 , 4.0+d , d )
+    
+    for i in ar :
+        x.append( list( [i,i,4.0] ) )
+        m.append( list([ 1.0 / float( len(ar) ) ] ) )
+        v.append( list([0.0]) )
+    
+    pset = ps.ParticlesSet( len(ar) , 3 )
 
-    pset.M[:] = np.array(  [
-                            [  1.0 ] ,
-                            [  1.0 ] ,
-                            [  1.0 ] ,
-                            [  1.0 ] ,
-                            [  1.0 ] ,
-                            [  1.0 ] ,
-                            [  1.0 ] ,
-                            [  1.0 ] ,                            
-                            [  1.0 ]
-                            ] )
-
-    pset.V[:] = np.array( [
-                            [ 0. , 0. , 0.] ,
-                            [ 0. , 0. , 0.] ,
-                            [ 0. , 0. , 0.] ,
-                            [ 0. , 0. , 0.] ,
-                            [ 0. , 0. , 0.] ,
-                            [ 0. , 0. , 0.] ,
-                            [ 0. , 0. , 0.] ,
-                            [ 0. , 0. , 0.] ,                            
-                            [ 0. , 0. , 0.]
-                            ] )
-    
-    
-    
-    ci = np.array( [ 0 , 8 ] )
-    
+    pset.X[:] = np.array( x , np.float64 )
+    pset.M[:] = np.array( m , np.float64 )
+    pset.V[:] = np.array( v , np.float64 )
+        
+        
+    pset.X[10:12,2] = 6
+    #pset.X[10:15,1] = 6
+        
+    ci = np.array( [ 0 , len(ar)-1 ] )
     cx = np.array( [
-                    [  4.0 ,  4.0 ,  4.0] ,
-                    [ -4.0 , -4.0 ,  4.0] 
+                    [ -4.0 , -4.0 , 4.0] ,
+                    [ 4.0 , 4.0 ,  4.0] 
                     ] )
     
-    f_conn = np.array( [
-                        [ 0 , 1 ] ,
-                        [ 1 , 2 ] ,
-                        [ 2 , 3 ] ,
-                        [ 3 , 4 ] ,
-                        [ 4 , 5 ] ,
-                        [ 5 , 6 ] ,
-                        [ 6 , 7 ] ,
-                        [ 7 , 8 ] ,
-                     ] )
+    f_conn = list([])
+    for i in range( len(ar) - 1 ):
+        f_conn.append( list( [ i , i+1 ] ) )
+    
+    f_conn = np.array( f_conn , np.float64 )
     
     costrs = csx.ConstrainedX( pset )
     costrs.add_x_constraint( ci , cx )
@@ -103,13 +79,23 @@ def spring_constr():
     fi.add_connections( f_conn )
     
     spring = lsc.LinearSpringConstrained( pset.size , pset.dim , pset.M , Consts=K , f_iter=fi )
-    solver = asc.EulerSolverConstrained( spring , pset , dt , costrs )
+    constf = cf.ConstForce( pset.size , dim=pset.dim , u_force=[ 0 , 0 , -10 ] )
+    drag = dr.Drag( pset.size , pset.dim , Consts=0.002 )
+    
+    multif = mf.MultipleForce( pset.size , pset.dim )
+    multif.append_force( spring )
+    multif.append_force( constf )
+    multif.append_force( drag )
+    
+    multif.set_masses( pset.M )
+    
+    solver = asc.EulerSolverConstrained( multif , pset , dt , costrs )
     
     a = aogl.AnimatedGl()
     
     pset.enable_log( True , log_max_size=1000 )
     
-    a.trajectory = True
+    a.trajectory = False
     a.trajectory_step = 1
     
     a.ode_solver = solver

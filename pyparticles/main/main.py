@@ -100,7 +100,14 @@ def main():
         print("Start the simulation example:")
         print(" 3 body springs")
         spr.springs()
-        return     
+        return
+    
+    if options.demo == "cat_spri" :
+        print("")
+        print("Start the simulation example:")
+        print(" catenary springs (contraints demo)")
+        spc.spring_constr()
+        return
     
     if options.demo == "gas_lj" :
         print("")
@@ -179,8 +186,6 @@ class MyField( vf.VectorFieldForce ):
 def my_test() :
     
     
-    spc.spring_constr()
-    exit()
     
     
     n = 10

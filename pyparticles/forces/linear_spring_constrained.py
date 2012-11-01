@@ -45,7 +45,7 @@ class LinearSpringConstrained ( fcr.ForceConstrained ):
     
     def update_force( self , pset ):
         
-        dk = self.force_iteractions.sparse.keys()
+        dk = self.force_interactions.sparse.keys()
         
         for i in range( self.__dim ):
             self.__Fm = dok.dok_matrix( ( pset.size , pset.size ) )

@@ -30,9 +30,9 @@ def parse_args():
         dest="config_model",
         help="Write out the model of a config file and exit")
     
-    parser.add_argument( "--demo",
+    parser.add_argument( "-d" , "--demo",
         action="store",
-        choices=[ "springs" , "solar_system" , "gas_lj" , "bubble" ] ,
+        choices=[ "springs" , "solar_system" , "gas_lj" , "bubble" , "cat_spri" ] ,
         dest="demo",
         default=None ,
         help="Execute the specified buildin demo")
@@ -43,7 +43,7 @@ def parse_args():
         default=None
         )
     
-    parser.add_argument("--version",
+    parser.add_argument( "-v" , "--version",
         action="store_true",
         dest="version",
         help="print the current version and exit"
