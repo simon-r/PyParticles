@@ -20,8 +20,8 @@ import numpy as np
 import scipy.sparse.dok as dok
 
 class LinearSpringConstrained ( fcr.ForceConstrained ):
-    def __init__( self , size , dim , m=None , Consts=1.0 , f_inter=None ):
-        super( LinearSpringConstrained , self ).__init__( size , dim , m , Consts , f_inter=f_inter )
+    def __init__( self , size , dim , m=None , Consts=1.0 , f_iter=None ):
+        super( LinearSpringConstrained , self ).__init__( size , dim , m , Consts , f_iter=f_iter )
         
         self.__dim = dim
         self.__size = size
@@ -43,20 +43,23 @@ class LinearSpringConstrained ( fcr.ForceConstrained ):
         self.__M[:] = m
         
     
-    def update_force( self , p_set ):
+    def update_force( self , pset ):
         
-        dk = self.force_iteractions.keys()
+        dk = self.force_iteractions.sparse.keys()
         
         for i in range( self.__dim ):
-            self.__Fm.clear()
+            self.__Fm = dok.dok_matrix( ( pset.size , pset.size ) )
             
             for k in dk :
-                self.__Fm[k[0],k[1]] = p_set.X[k[1],i]
-                self.__Fm[k[1],k[0]] = p_set.X[k[1],i]
+                self.__Fm[k[0],k[1]] = pset.X[k[1],i]
+                self.__Fm[k[1],k[0]] = pset.X[k[0],i]
             
-            self.__Fm[:,:] = -self.__K * ( self.__Fm[:,:].T - self.__Fm[:,:] ).T 
+            #print( self.__Fm.todense() )
+            self.__Fm = -self.__K * ( self.__Fm.T - self.__Fm ).T 
         
             self.__F[:,i] = self.__Fm.sum( 0 )
+        
+        #print( self.__F[:] )
         
         self.__A[:,:] = self.__F[:,:] / self.__M[:]
         

@@ -21,7 +21,6 @@ from collections import deque
 import scipy.sparse.dok as dok
 
 import pyparticles.pset.particles_set as ps
-
 import pyparticles.pset.constraint as ct
 
 
@@ -57,7 +56,7 @@ class ConstrainedForceInteractions ( ct.Constraint ):
                 cfi.add_connections( a )
         """
         for c in fc :
-            print(c)
+            #print(c)
             self.__S[ c[0] , c[1] ] = True
         
     def remove_connections( self , fc ):

@@ -3,11 +3,14 @@ import numpy as np
 import pyparticles.pset.particles_set as ps
 
 import pyparticles.forces.linear_spring as ls
+import pyparticles.forces.linear_spring_constrained as lsc
+
 import pyparticles.forces.const_force as cf
 import pyparticles.forces.multiple_force as mf
 import pyparticles.forces.drag as dr
 
 import pyparticles.pset.constrained_x as csx
+import pyparticles.pset.constrained_force_interactions as cfi
 
 import pyparticles.pset.rebound_boundary as rb
 
@@ -28,28 +31,36 @@ def spring_constr():
     Constrained springs demo
     """
     
-    dt = 0.02
+    dt = 0.03
     steps = 1000000
     
     K = 0.5
 
-    pset = ps.ParticlesSet( 5 , 3 )
+    pset = ps.ParticlesSet( 9 , 3 )
     
     
     pset.X[:] = np.array(  [
-                            [  2.0 ,  4.0 ,  1.0 ],    # 1
-                            [ -2.0 , -2.0 , -3.0 ],    # 2
-                            [  3.0 , -5.0 ,  2.0 ],    # 3
-                            [  3.0 ,  5.0 , -2.0 ],    # 3
-                            [  0.0 ,  0.0 ,  2.0 ]     # 3
+                            [  4.0 ,  4.0 ,  4.0 ],    # 1
+                            [  3.0 ,  3.0 ,  2.0 ],    # 2
+                            [  2.0 ,  2.0 ,  4.0 ],    # 2
+                            [  1.0 ,  1.0 ,  4.0 ],    # 2
+                            [  0.0 ,  0.0 ,  4.0 ],    # 3
+                            [ -1.0 , -1.0 ,  4.0 ],    # 2
+                            [ -2.0 , -2.0 ,  4.0 ],    # 3
+                            [ -3.0 , -3.0 ,  4.0 ],    # 3
+                            [ -4.0 , -4.0 ,  4.0 ]     # 3
                             ] )
 
     pset.M[:] = np.array(  [
-                            [  1.1 ] ,
-                            [  1.9 ] ,
-                            [  1.5 ] ,
-                            [  1.4 ] ,
-                            [  1.8 ]
+                            [  1.0 ] ,
+                            [  1.0 ] ,
+                            [  1.0 ] ,
+                            [  1.0 ] ,
+                            [  1.0 ] ,
+                            [  1.0 ] ,
+                            [  1.0 ] ,
+                            [  1.0 ] ,                            
+                            [  1.0 ]
                             ] )
 
     pset.V[:] = np.array( [
@@ -57,23 +68,41 @@ def spring_constr():
                             [ 0. , 0. , 0.] ,
                             [ 0. , 0. , 0.] ,
                             [ 0. , 0. , 0.] ,
+                            [ 0. , 0. , 0.] ,
+                            [ 0. , 0. , 0.] ,
+                            [ 0. , 0. , 0.] ,
+                            [ 0. , 0. , 0.] ,                            
                             [ 0. , 0. , 0.]
                             ] )
     
     
     
-    ci = np.array( [ 0 , 4 ] )
+    ci = np.array( [ 0 , 8 ] )
     
     cx = np.array( [
                     [  4.0 ,  4.0 ,  4.0] ,
-                    [ -4.0 , -4.0 , -4.0] 
+                    [ -4.0 , -4.0 ,  4.0] 
                     ] )
+    
+    f_conn = np.array( [
+                        [ 0 , 1 ] ,
+                        [ 1 , 2 ] ,
+                        [ 2 , 3 ] ,
+                        [ 3 , 4 ] ,
+                        [ 4 , 5 ] ,
+                        [ 5 , 6 ] ,
+                        [ 6 , 7 ] ,
+                        [ 7 , 8 ] ,
+                     ] )
     
     costrs = csx.ConstrainedX( pset )
     costrs.add_x_constraint( ci , cx )
     
-    spring = ls.LinearSpring( pset.size , pset.dim , pset.M , Consts=K )
+    fi = cfi.ConstrainedForceInteractions( pset )
     
+    fi.add_connections( f_conn )
+    
+    spring = lsc.LinearSpringConstrained( pset.size , pset.dim , pset.M , Consts=K , f_iter=fi )
     solver = asc.EulerSolverConstrained( spring , pset , dt , costrs )
     
     a = aogl.AnimatedGl()

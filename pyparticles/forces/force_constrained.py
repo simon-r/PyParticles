@@ -19,10 +19,10 @@ import numpy as np
 import pyparticles.forces.force as fr
 
 class ForceConstrained( fr.Force ) :
-    def __init__( size , dim , m=None , Conts=1.0 , f_inter=None ):
-        self.__f_iter = f_inter
+    def __init__( self , size , dim , m=None , Conts=1.0 , f_iter=None ):
+        self.__f_iter = f_iter
         
-        
+           
     def get_force_iteractions( self ):
         return self.__f_iter
     
