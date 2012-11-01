@@ -14,14 +14,19 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-__all__ = [ "const_force" ,
-            "drag" ,
-            "electrostatic" ,
-            "force" ,
-            "gravity" ,
-            "lennard_jones" ,
-            "linear_spring" ,
-            "multiple_force" ,
-            "vector_field_force" ,
-            "pseudo_bubble" ,
-            "force_constrained" ]
+import numpy as np
+
+import pyparticles.forces.force as fr
+
+class ForceConstrained( fr.Force ) :
+    def __init__( size , dim , m=None , Conts=1.0 , f_inter=None ):
+        self.__f_iter = f_inter
+        
+        
+    def get_force_iteractions( self ):
+        return self.__f_iter
+    
+    def set_force_iteractions( self , fi ):
+        self.__f_iter = fi
+        
+    force_iteractions = property( get_force_iteractions , set_force_iteractions )

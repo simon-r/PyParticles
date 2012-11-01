@@ -53,7 +53,7 @@ class ConstrainedForceInteractions ( ct.Constraint ):
             for example::
             
                 cfi = ConstrainedForceInteractions( pset )
-                a = [[1,1],[3.5]]
+                a = [[1,1],[3,5]]
                 cfi.add_connections( a )
         """
         for c in fc :
@@ -67,7 +67,7 @@ class ConstrainedForceInteractions ( ct.Constraint ):
             for example::
             
                 cfi = ConstrainedForceInteractions( pset )
-                a = [[1,1],[3.5]]
+                a = [[1,1],[3,5]]
                 cfi.remove_connections( a )
         """       
         for c in fc :

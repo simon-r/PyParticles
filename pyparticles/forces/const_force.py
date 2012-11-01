@@ -27,6 +27,8 @@ class ConstForce( fr.Force ) :
         self.__M = np.zeros( ( size , 1 ) )
         if m != None :
             self.set_messes( m )
+            
+        self.__A[:] = self.__UF
         
     
     def set_masses( self , m ):
@@ -34,8 +36,6 @@ class ConstForce( fr.Force ) :
         
     
     def update_force( self , p_set ):
-        
-        self.__A[:] = self.__UF
         return self.__A
     
     def getA(self):
