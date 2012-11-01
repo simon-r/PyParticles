@@ -103,7 +103,7 @@ class TrackBall( object ):
     
     def on_joystick( self , jaxes ):
         """
-        Given the axes ( x and y ) of the joystick. it returns to the axis and angle of rotation.
+        Given the axes ( x and y ) of the joystick. it returns the axis and the angle of rotation.
         """
         ws = self.win_size
         

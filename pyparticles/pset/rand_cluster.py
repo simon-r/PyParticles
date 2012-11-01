@@ -72,10 +72,6 @@ class RandCluster( clu.Cluster ):
                 if len( indx ) == 0 :
                     flag = False
                 
-                
-                
-            
-        
         if M != None:
             M[si:ei,0] = mass_rng[0] + randg(n)*( mass_rng[1] - mass_rng[0] )
             

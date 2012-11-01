@@ -57,7 +57,6 @@ class Electrostatic( fr.Force ) :
         for j in range( self.__size ) :
             self.__Fm[j,j] = 0.0
         
-              
         for i in range( self.__dim ):
             self.__V[:,:] = p_set.X[:,i]
             self.__V[:,:] = ( self.__V[:,:].T - p_set.X[:,i] ).T 

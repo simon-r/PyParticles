@@ -108,13 +108,17 @@ class AxisOgl(object):
         glEnd()
         
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL)
-        glColor4f( color[0] , color[1] , color[2] , color[3]/2.0 )
+        
+        glColor4f( color[0] , color[1] , color[2] , color[3]/0.5 )
+        
         #glBegin( GL_TRIANGLES )
         #
+        #glNormal3f( 0.0 , 0.0 , 1.0 )
         #glVertex3f( 0.0  , 0.0  , 0.0 )
         #glVertex3f( leng , 0.0  , 0.0 )
         #glVertex3f( leng , leng , 0.0 )
         #
+        #glNormal3f( 0.0 , 0.0 , 1.0 )
         #glVertex3f( 0.0  , 0.0  , 0.0 )
         #glVertex3f( leng , leng , 0.0 )
         #glVertex3f( 0.0  , leng , 0.0 )

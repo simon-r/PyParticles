@@ -59,6 +59,9 @@ def InitGL( Width , Height , ReSizeFun ):
     glEnable (GL_BLEND)
     glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
     
+    glAlphaFunc(GL_GREATER,0.1)
+    glEnable(GL_ALPHA_TEST)
+    
     glEnable (GL_LINE_SMOOTH)
     glHint( GL_LINE_SMOOTH_HINT , GL_NICEST )
     
@@ -159,10 +162,10 @@ def DrawGLScene():
     glTranslatef( tr[0] , tr[1] , -15.0 )          
     glMultMatrixf( DrawGLScene.animation.rot_matrix )
 
-    if DrawGLScene.animation.view_axis :
-        DrawGLScene.animation.axis.draw_axis()
-    
     DrawGLScene.animation.draw_particles.draw()
+    
+    if DrawGLScene.animation.view_axis :
+        DrawGLScene.animation.axis.draw_axis()    
         
     glPopMatrix()
     glutSwapBuffers()
@@ -360,6 +363,7 @@ class AnimatedGl( pan.Animation ):
         self.__near = 1.0
         self.__far  = 300.0
     
+
         self.__xrot_ax = 1.0
         self.__yrot_ax = 0.0
         self.__zrot_ax = 0.0
@@ -417,6 +421,10 @@ class AnimatedGl( pan.Animation ):
     
     rotation_angle = property( get_rot_angle , set_rot_angle )
     
+
+    def init_rotation( self , angle , axis ):
+        self.__init_rot = list( [ angle , axis ] )
+        
 
     
     def get_trackball( self ):
@@ -564,7 +572,19 @@ class AnimatedGl( pan.Animation ):
         glutMouseFunc( pressed )
         glutMotionFunc( m_move )
         
-        InitGL( self.win_size[0] , self.win_size[1]  , ReSizeFun )   
+        InitGL( self.win_size[0] , self.win_size[1]  , ReSizeFun )
+        
+        try:
+            self.__init_rot
+        except:
+            pass
+        else:
+            glMatrixMode(GL_MODELVIEW)
+            glPushMatrix()
+            glLoadIdentity()
+            glRotatef( self.__init_rot[0] , self.__init_rot[1][0] , self.__init_rot[1][1] , self.__init_rot[1][2] )
+            self.rot_matrix = glGetFloatv( GL_MODELVIEW_MATRIX )
+            glPopMatrix()
         
         
     def data_stream(self):
