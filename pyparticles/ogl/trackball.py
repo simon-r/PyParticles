@@ -59,7 +59,7 @@ class TrackBall( object ):
         
     def track_ball_mapping( self , point ):
         """
-        Function to be called after a click on the mouse, it takes the current coordinates of the pointer.
+        Function to be called after a click on the mouse or at beginnig of the rotation, it takes the current coordinates of the pointer.
         """
         self.__v_old[:] = self.__v[:]
         
@@ -103,7 +103,7 @@ class TrackBall( object ):
     
     def on_joystick( self , jaxes ):
         """
-        Given the axes ( x and y ) of the joystick. it returns the axis and the angle of rotation.
+        Given the axes ( x and y ) of the joystick; it returns the axis and the angle of rotation.
         """
         ws = self.win_size
         
