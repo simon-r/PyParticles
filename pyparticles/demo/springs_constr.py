@@ -22,6 +22,7 @@ import pyparticles.measures.total_energy as te
 import pyparticles.animation.animated_ogl as aogl
 
 import pyparticles.ode.euler_solver_constrained as asc
+import pyparticles.ode.leapfrog_solver_constrained as lpc
 
 
 import sys
@@ -34,7 +35,7 @@ def spring_constr():
     dt = 0.01
     steps = 1000000
     
-    K = 30
+    K = 20
 
     x = list([])
     m = list([])
@@ -90,6 +91,7 @@ def spring_constr():
     multif.set_masses( pset.M )
     
     solver = asc.EulerSolverConstrained( multif , pset , dt , costrs )
+    solver = lpc.LeapfrogSolverConstrained( multif , pset , dt , costrs )
     
     a = aogl.AnimatedGl()
     

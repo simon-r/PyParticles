@@ -21,6 +21,7 @@ import pyparticles.ode.ode_solver_constrained as osc
 class LeapfrogSolverConstrained( osc.OdeSolverConstrained ) :
     def __init__( self , force , p_set , dt , x_constraint=None , v_constraint=None ):
         super(LeapfrogSolverConstrained,self).__init__( force , p_set , dt , x_constraint=None , v_constraint=None )
+        self.__Ai = np.zeros( self.force.A.shape )
         
         if x_constraint != None :
             self.x_constraint = x_constraint
@@ -46,5 +47,7 @@ class LeapfrogSolverConstrained( osc.OdeSolverConstrained ) :
         self.pset.V[self.__free_inx,:] = self.pset.V[self.__free_inx,:] + 0.5 * ( self.__Ai[self.__free_inx,:] + self.force.A[self.__free_inx,:] ) * dt
         
         self.pset.V[self.__csrt_inx,:] = 0.0
+        
+        #print( self.pset.V )
         
         self.pset.update_boundary() 

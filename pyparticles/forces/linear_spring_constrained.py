@@ -59,7 +59,7 @@ class LinearSpringConstrained ( fcr.ForceConstrained ):
         
             self.__F[:,i] = self.__Fm.sum( 0 )
         
-        #print( self.__F[:] )
+        #print( self.__Fm[:] )
         
         self.__A[:,:] = self.__F[:,:] / self.__M[:]
         
