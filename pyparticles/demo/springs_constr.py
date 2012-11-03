@@ -23,6 +23,7 @@ import pyparticles.animation.animated_ogl as aogl
 
 import pyparticles.ode.euler_solver_constrained as asc
 import pyparticles.ode.leapfrog_solver_constrained as lpc
+import pyparticles.ode.stormer_verlet_solver_constrained as svc
 
 
 import sys
@@ -35,7 +36,7 @@ def spring_constr():
     dt = 0.01
     steps = 1000000
     
-    K = 20
+    K = 30
 
     x = list([])
     m = list([])
@@ -92,6 +93,7 @@ def spring_constr():
     
     solver = asc.EulerSolverConstrained( multif , pset , dt , costrs )
     solver = lpc.LeapfrogSolverConstrained( multif , pset , dt , costrs )
+    #solver = svc.StormerVerletSolverConstrained( multif , pset , dt , costrs )
     
     a = aogl.AnimatedGl()
     

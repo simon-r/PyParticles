@@ -41,7 +41,7 @@ class StormerVerletSolver( os.OdeSolver ) :
         
             self.__pset_tmp.X[:] = self.pset.X
             
-            self.pset.X[:] = 2*self.pset.X[:] - self.__pset_m1.X[:] + self.force.A[:] * dt**2.0
+            self.pset.X[:] = 2.0*self.pset.X[:] - self.__pset_m1.X[:] + self.force.A[:] * dt**2.0
             self.pset.V[:] = ( self.__pset_tmp.X[:] - self.__pset_m1.X[:] ) / dt
             
             self.__pset_m1.X[:] = self.__pset_tmp.X[:]

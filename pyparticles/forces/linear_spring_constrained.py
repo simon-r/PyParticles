@@ -18,6 +18,7 @@ import pyparticles.forces.force_constrained as fcr
 import numpy as np
 
 import scipy.sparse.dok as dok
+import scipy.sparse.csr as csr
 
 class LinearSpringConstrained ( fcr.ForceConstrained ):
     def __init__( self , size , dim , m=None , Consts=1.0 , f_inter=None ):
@@ -30,7 +31,9 @@ class LinearSpringConstrained ( fcr.ForceConstrained ):
         
         self.__A = np.zeros( ( size , dim ) )
         self.__F = np.zeros( ( size , dim ) )
+        
         self.__Fm = dok.dok_matrix( ( size , size ) )
+        self.__Fm2 = csr.csr_matrix( ( size , size ) )
         
         self.__M = np.zeros( ( size , 1 ) )
         if m != None :
@@ -48,16 +51,16 @@ class LinearSpringConstrained ( fcr.ForceConstrained ):
         dk = self.force_interactions.sparse.keys()
         
         for i in range( self.__dim ):
-            self.__Fm = dok.dok_matrix( ( pset.size , pset.size ) )
+            #self.__Fm = dok.dok_matrix( ( pset.size , pset.size ) )
             
             for k in dk :
                 self.__Fm[k[0],k[1]] = pset.X[k[1],i]
                 self.__Fm[k[1],k[0]] = pset.X[k[0],i]
             
             #print( self.__Fm.todense() )
-            self.__Fm = -self.__K * ( self.__Fm.T - self.__Fm ).T 
+            self.__Fm2 = -self.__K * ( self.__Fm.T - self.__Fm ).T 
         
-            self.__F[:,i] = self.__Fm.sum( 0 )
+            self.__F[:,i] = self.__Fm2.sum( 0 )
         
         #print( self.__Fm[:] )
         
