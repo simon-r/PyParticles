@@ -15,4 +15,4 @@
 #along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-__all__ = ["solar_system"]
+__all__ = ["solar_system","bubble","springs","springs_constr","gas_lennard_jones"]

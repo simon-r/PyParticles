@@ -120,9 +120,9 @@ class AxisOgl(object):
             
         glEnd()
         
-        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL)
-        
-        glColor4f( color[0] , color[1] , color[2] , color[3]/0.5 )
+        #glPolygonMode(GL_FRONT_AND_BACK, GL_FILL)
+        #
+        #glColor4f( color[0] , color[1] , color[2] , color[3]/0.5 )
         
         #glBegin( GL_TRIANGLES )
         #
