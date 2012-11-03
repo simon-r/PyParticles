@@ -574,6 +574,8 @@ class AnimatedGl( pan.Animation ):
         
         InitGL( self.win_size[0] , self.win_size[1]  , ReSizeFun )
         
+        self.draw_particles.ogl_init()
+        
         try:
             self.__init_rot
         except:

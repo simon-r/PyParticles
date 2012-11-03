@@ -31,6 +31,16 @@ class AxisOgl(object):
     def __init__(self):
         self.__arrow_len = 5.0
         
+        self.__dl_axis = glGenLists(1)
+        
+    
+    def ogl_init( self ):
+        
+        glNewList( self.__dl_axis , GL_COMPILE );
+        self.draw_axis_procedure()
+        glEndList()
+        
+        
     def get_axis_len(self):
         return self.__arrow_len
     
@@ -38,6 +48,9 @@ class AxisOgl(object):
         self.__arrow_len = leng
         
     axis_len = property( get_axis_len , set_axis_len )
+    
+    def draw_axis__( self ):
+        glCallList( self.__dl_axis )
     
     def draw_axis(self):
         

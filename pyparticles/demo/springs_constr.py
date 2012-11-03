@@ -92,8 +92,8 @@ def spring_constr():
     
     multif.set_masses( pset.M )
     
-    solver = asc.EulerSolverConstrained( multif , pset , dt , costrs )
-    solver = lpc.LeapfrogSolverConstrained( multif , pset , dt , costrs )
+    #solver = asc.EulerSolverConstrained( multif , pset , dt , costrs )
+    #solver = lpc.LeapfrogSolverConstrained( multif , pset , dt , costrs )
     #solver = svc.StormerVerletSolverConstrained( multif , pset , dt , costrs )
     solver = rkc.RungeKuttaSolverConstrained( multif , pset , dt , costrs )
     

@@ -41,6 +41,18 @@ class DrawParticlesGL(object):
         self.__color_fun = lambda pset , i : ( 1.0 , 1.0 , 1.0 , 1.0 )
     
         self.__draw_particle = self.draw_particle
+        
+        self.__sph_dl = None
+        self.__tea_dl = None
+        self.__pt_dl = None
+    
+    def ogl_init(self):
+        """
+        Initialize opengl display lists (must be called after glutInit!)
+        """
+        self.init_sphere_dl()
+        self.init_teapot_dl()
+    
     
     #######################
     def get_pset(self):
@@ -80,6 +92,21 @@ class DrawParticlesGL(object):
         
     trajectory_step = property( get_trajectory_step , set_trajectory_step , doc="set or get the step for drawing the trajectory" )
 
+    
+    def init_sphere_dl(self):
+        self.__sph_dl = glGenLists(1)
+        glNewList( self.__sph_dl , GL_COMPILE );
+        glutSolidSphere( 1.0 , 10 , 10 )
+        glEndList()
+        
+        
+    def init_teapot_dl(self):
+        self.__tea_dl = glGenLists(1)
+        glNewList( self.__tea_dl , GL_COMPILE );
+        glutSolidTeapot( 1.0 )
+        glEndList()
+        
+    
     
     def set_particle_model( self , model="" , user_fun=None ):
         
@@ -130,21 +157,20 @@ class DrawParticlesGL(object):
     
     def draw_particle( self ,  pset , i ):
             glPointSize( 0.01 + self.pset.M[i] / self.pset.mass_unit )
+            glColor4f( *self.__color_fun( pset , i ) )
             
             glBegin(GL_POINTS)
             
-            glColor4f( *self.__color_fun( pset , i ) )    
-                    
             glVertex3f( self.pset.X[i,0] / self.pset.unit ,
                         self.pset.X[i,1] / self.pset.unit ,
                         self.pset.X[i,2] / self.pset.unit )
-    
+            
             glEnd()
  
     
     def draw_particle_sphere( self , pset , i ):
         
-        radius = 0.05 + 0.1 / ( 1.0 + np.exp( -self.pset.M[i] / self.pset.mass_unit ) ) 
+        radius = 0.5 * ( 0.05 + 0.1 / ( 1.0 + np.exp( -self.pset.M[i] / self.pset.mass_unit ) ) )
         
         glColor4f( *self.__color_fun( pset , i ) )
         glPushMatrix()
@@ -152,15 +178,15 @@ class DrawParticlesGL(object):
                       self.pset.X[i,1] / self.pset.unit ,
                       self.pset.X[i,2] / self.pset.unit )
             
-        glutSolidSphere( radius , 10 , 10 )
+        glScalef( radius , radius , radius )
+        glCallList( self.__sph_dl )
         
-        #glutSolidTeapot( radius )
         glPopMatrix()
     
     
     def draw_particle_teapot( self , pset , i ):
         
-        radius = 0.05 + 0.1 / ( 1.0 + np.exp( -self.pset.M[i] / self.pset.mass_unit ) ) 
+        radius = 0.5 * ( 0.05 + 0.1 / ( 1.0 + np.exp( -self.pset.M[i] / self.pset.mass_unit ) ) )
         
         glColor4f( *self.__color_fun( pset , i ) )
         glPushMatrix()
@@ -168,7 +194,9 @@ class DrawParticlesGL(object):
                       self.pset.X[i,1] / self.pset.unit ,
                       self.pset.X[i,2] / self.pset.unit )
             
-        glutSolidTeapot( radius )
+        glScalef( radius , radius , radius )
+        glCallList( self.__tea_dl )
+        
         glPopMatrix()
     
     
