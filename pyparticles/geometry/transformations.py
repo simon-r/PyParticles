@@ -19,17 +19,18 @@ from collections import deque
 
 class Transformations( object ):
     """
-    Class used for adiministrating 3D transformations matrix with an openGl like method with a push & pop model
+    Class used for administrate 3D transformations matrix using an OpenGl like method with a push_matrix & pop_matrix model. This method is very confortable if we want to create articulated geometric structures with a lot of subobjects and relative coordinates.
     
-    Example::
+    Example: ::
         
             t = tr.Transformations() # init transfomation
     
             t.set_points_tuple_size(2) # Pairwise points in the queue
             
             t.rotY( np.radians(90) )  # Apply some transoformations matricies
-            t.rotX( np.radians(90) )
+            t.rotX( np.radians(90) )  
             t.rotZ( np.radians(90) )
+            # Now the current matrix is: Ry(90) * Rx(90) * Rz(90)
             
             t.append_point( list( [1,0,0] ) )      # Append some poits. It accept every Indexable type 
             t.append_point( np.array( [1,1,0] ) )  # The preview transoformations are applied on these points
@@ -39,11 +40,13 @@ class Transformations( object ):
             t.push_matrix() # push the current matrix
             
             t.translation( 10 , 2 , 2 ) # Apply a translation
+            # Now the current matrix is: Ry(90) * Rx(90) * Rz(90) * Tr( [ 10 , 2 , 2 ]  )
             
             t.append_point( [1,1,1] )
             t.append_point( np.matrix( [0,1,1] ).T ) # Only vertical matrix
             
             t.pop_matrix() # Back to the old matrix
+            # Now the current matrix is newly: Ry(90) * Rx(90) * Rz(90)
             
             t.append_point( np.array( [1,0,0] ) )
             t.append_point( [1,1,0] )
@@ -51,8 +54,12 @@ class Transformations( object ):
             t.append_point( [0,1,1] )
             
             # Print the resulting points (in a paiwise tuple)
+            # Attention: the points are removed from the queue during the iteration.
             for p in t :
-                print( p )
+                # p is a tuple ( p1 , p2 ) see the function: t.set_points_tuple_size(2)
+                print( p[0] )
+                print( p[1] )
+                
     
     """
     def __init__(self):
@@ -99,7 +106,7 @@ class Transformations( object ):
       
     def clear(self):
         """
-        Clear the stack, the poits queue and set to the identity the current matrix
+        Clear the stack, the points in the queue and set to the identity the current matrix
         """
         del self.__stack
         self.__stack = list( [] )
@@ -111,7 +118,10 @@ class Transformations( object ):
     
     
     def set_points_tuple_size( self , nr ):
-        
+        """
+        The points are organized by tuples of size nr. That's useful if you want to draw triangles squares or lines,
+        where the size of the tupre are respectively 3, 4 and 2.
+        """
         if nr < 1 :
             raise ValueError
         
@@ -119,7 +129,7 @@ class Transformations( object ):
     
     def append_point( self , pt ):
         """
-        TRansforms and append a new point in the points queue
+        Transforms and append a new point in the points queue
         """
         nwp = np.matrix( np.zeros( ( 4 , 1 ) ) )
         
@@ -336,7 +346,7 @@ class Transformations( object ):
 
     def reflection( self , a , b , c  ) :
         """
-        Apply the reflection through a plane: ax + by + cz = 0
+        Apply the reflection through the plane: ax + by + cz = 0
         """
         m = np.matrix ( [
                         [  1.0 - 2.0*a**2 , -2.0*a*b       , -2.0*a*c         , 0.0 ] ,
