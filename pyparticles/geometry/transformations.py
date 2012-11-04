@@ -31,8 +31,8 @@ class Transformations( object ):
             t.rotX( np.radians(90) )
             t.rotZ( np.radians(90) )
             
-            t.append_point( list( [1,0,0] ) )  # Append some poits. It accept every Indexable type 
-            t.append_point( np.array( [1,1,0] ) )
+            t.append_point( list( [1,0,0] ) )      # Append some poits. It accept every Indexable type 
+            t.append_point( np.array( [1,1,0] ) )  # The preview transoformations are applied on these points
             t.append_point( np.array( [1,1,1] ) )
             t.append_point( np.array( [0,1,1] ) )    
             
@@ -187,19 +187,25 @@ class Transformations( object ):
         """
         Apply the rotation matrix around the axis [ x , y , z ] of the angle: *angle*
         """
-        n = np.matrix( [[x],[y],[z],[1.0]] )
+        n = np.array( [ x , y , z ] )
         
-        n[:] = n / np.linalg.norm( a )
+        n = n / np.linalg.norm( n )
+        
+        ux = n[0]
+        uy = n[1]
+        uz = n[2]
         
         sa = np.sin( angle )
         ca = np.cos( angle )
         
         m = np.matrix ( [
-                        [ ca + n[0]**2.*(1.-ca) , n[0]*n[1]*(1.-ca)-n[2]*sa , n[0]*n[2]*(1.-ca)+1.*sa , 0 ] ,
-                        [ 0 , 0 , 0 , 0 ] ,
-                        [ 0 , 0 , 0 , 0 ] ,
-                        [ 0 , 0 , 0 , 1.0 ] 
+                        [ ux**2 + ca*(1. - ux**2)   , ux*uy*(1.-ca)-uz*sa     , uz*ux*(1.-ca) + uy*sa  , 0.0 ] ,
+                        [ ux*uy * (1. - ca) + uz*sa , uy**2 + ca*(1.-uy**2)   , uy*uz*(1.-ca) - ux*sa  , 0.0 ] ,
+                        [ uz*ux*(1.-ca)-uy*sa       , uy*uz*(1.-ca)+ux*sa     , uz**2+ca*(1.-uz**2)    , 0.0 ] ,
+                        [ 0.0                       , 0.0                     , 0.0                    , 1.0 ] 
                         ] )
+    
+        self.__cmatrix[:] = self.__cmatrix[:] * m[:]
     
       
     def rotX( self , angle ):

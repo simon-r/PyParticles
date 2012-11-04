@@ -187,11 +187,10 @@ def my_test() :
     
     t = tr.Transformations()
     
-    t.set_points_tuple_size(2)
-    
-    t.rotY( np.radians(90) )
-    t.rotX( np.radians(90) )
-    t.rotZ( np.radians(90) )
+    t.set_points_tuple_size(1)
+        
+    t.rotate( np.radians(90) , 1 , 0 , 0 )
+    #t.rotX( np.radians(90) )
     
     t.append_point( list( [1,0,0] ) )
     t.append_point( np.array( [1,1,0] ) )
@@ -201,6 +200,7 @@ def my_test() :
     t.push_matrix()
     t.identity()
     t.translation( 10 , 2 , 2 )
+    #t.rotate( np.radians(20) , 1 , 1 , 1 )
     
     t.append_point( [1,1,1] )
     t.append_point( np.matrix( [0,1,1] ).T ) 
@@ -216,7 +216,7 @@ def my_test() :
     
     print("")
     
-    for p in t :
+    for (p) in t :
         print( p )
     
     exit()
