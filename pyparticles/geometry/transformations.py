@@ -279,5 +279,78 @@ class Transformations( object ):
         m[1,1] = y
         m[2,2] = z
         
-        self.__cmatrix[:] = self.__cmatrix[:] * m[:]        
+        self.__cmatrix[:] = self.__cmatrix[:] * m[:]
+        
+    def shearX( self , a , b ):
+        """
+        Apply the shearing along X axis using the values a b
+        
+        | SH_X(a,b) = [ 1 0 0 0 
+        |               a 1 0 0 
+        |               b 0 1 0 
+        |               0 0 0 1 ]
+        
+        """        
+        m = np.matrix( np.eye( 4 ) )
+        
+        m[1,0] = a
+        m[2,0] = b
+        
+        self.__cmatrix[:] = self.__cmatrix[:] * m[:]
+        
+    
+    def shearY( self , a , b ):
+        """
+        Apply the shearing along Y axis using the values a b
+        
+        | SH_Y(a,b) = [ 1 a 0 0 
+        |               0 1 0 0 
+        |               0 b 1 0 
+        |               0 0 0 1 ]
+        
+        """        
+        m = np.matrix( np.eye( 4 ) )
+        
+        m[0,1] = a
+        m[2,1] = b
+        
+        self.__cmatrix[:] = self.__cmatrix[:] * m[:]
+        
+    def shearZ( self , a , b ):
+        """
+        Apply the shearing along Z axis using the values a b
+        
+        | SH_Z(a,b) = [ 1 0 a 0 
+        |               0 1 b 0 
+        |               0 0 1 0 
+        |               0 0 0 1 ]        
+        
+        """        
+        m = np.matrix( np.eye( 4 ) )
+        
+        m[0,2] = a
+        m[1,2] = b
+        
+        self.__cmatrix[:] = self.__cmatrix[:] * m[:]
+        
 
+    def reflection( self , a , b , c  ) :
+        """
+        Apply the replection through a plane: ax + by + cz = 0
+        """
+        m = np.matrix ( [
+                        [  1.0 - 2.0*a**2 , -2.0*a*b       , -2.0*a*c         , 0.0 ] ,
+                        [ -2.0*a*b        , 1.0 - 2.0*b**2 , -2.0*b*c         , 0.0 ] ,
+                        [ -2.0*a*b        , -2.0*b*c       , 1.0 - 2.0*c**2   , 0.0 ] ,
+                        [ 0.0             , 0.0            , 0.0              , 1.0 ] 
+                        ] )
+        
+        self.__cmatrix[:] = self.__cmatrix[:] * m[:]
+        
+        
+        
+        
+        
+        
+    
+    
