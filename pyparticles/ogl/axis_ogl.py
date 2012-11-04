@@ -78,6 +78,7 @@ class AxisOgl(object):
             
         
         t = tr.Transformations()
+        t.set_points_tuple_size(2)
         
         if plane == "xy" :
             t.rotX( np.radians(0) )
@@ -112,49 +113,48 @@ class AxisOgl(object):
         elif plane == "-xy" :
             t.rotY( np.radians(180) )
         
-        glColor4f( color[0] , color[1] , color[2] , color[3] )
-        
-        glBegin(GL_LINES)
         for i in range( 1 , int(leng) ):
+            t.append_point( [ float(i) ,  0.0 , 0.0 ] )
+            t.append_point( [ float(i) , leng , 0.0 ] )
             
-            pt1 = np.matrix( [ float(i) ,  0.0 , 0.0 ] ).T
-            pt2 = np.matrix( [ float(i) , leng , 0.0 ] ).T
+            t.append_point( [ 0.0  , float(i) , 0.0 ] )
+            t.append_point( [ leng , float(i) , 0.0 ] )
+        
+        glColor4f( color[0] , color[1] , color[2] , color[3] )
             
-            pt1[:] = t.transformv( pt1 )
-            pt2[:] = t.transformv( pt2 )
-            
-            glVertex3fv( pt1 )
-            glVertex3fv( pt2 )
-            
-            
-            pt1 = np.matrix( [ 0.0  , float(i) , 0.0 ] ).T
-            pt2 = np.matrix( [ leng , float(i) , 0.0 ] ).T            
-            
-            pt1[:] = t.transformv( pt1 )
-            pt2[:] = t.transformv( pt2 )            
-            
-            glVertex3fv( pt1 )
-            glVertex3fv( pt2 )
+        glBegin(GL_LINES)
+        
+        for pts in t :
+            glVertex3fv( pts[0] )
+            glVertex3fv( pts[1] )
             
         glEnd()
         
+        
+        #t.set_points_tuple_size(4)
+        #
+        #t.append_point( [ 0.0 , 0.0 , 1.0 ] )
+        #t.append_point( [ 0.0 , 0.0 , 0.0 ] )
+        #t.append_point( [ leng , 0.0  , 0.0 ] )
+        #t.append_point( [ leng , leng  , 0.0 ] )
+        #        
+        #t.append_point( [ 0.0 , 0.0 , 1.0 ] )
+        #t.append_point( [ 0.0 , 0.0 , 0.0 ] )
+        #t.append_point( [ leng , leng  , 0.0 ] )
+        #t.append_point( [ 0.0 , leng  , 0.0 ] )
+        #
         #glPolygonMode(GL_FRONT_AND_BACK, GL_FILL)
         #
-        #glColor4f( color[0] , color[1] , color[2] , color[3]/0.5 )
-        
+        #glColor4f( color[0] , color[1] , color[2] , 1.0 )
+        #
         #glBegin( GL_TRIANGLES )
-        #
-        #glNormal3f( 0.0 , 0.0 , 1.0 )
-        #glVertex3f( 0.0  , 0.0  , 0.0 )
-        #glVertex3f( leng , 0.0  , 0.0 )
-        #glVertex3f( leng , leng , 0.0 )
-        #
-        #glNormal3f( 0.0 , 0.0 , 1.0 )
-        #glVertex3f( 0.0  , 0.0  , 0.0 )
-        #glVertex3f( leng , leng , 0.0 )
-        #glVertex3f( 0.0  , leng , 0.0 )
-        #
+        #for pts in t :
+        #    glNormal3fv( pts[0] )
+        #    glVertex3fv( pts[1] )
+        #    glVertex3fv( pts[2] )
+        #    glVertex3fv( pts[3] )
         #glEnd()
+        
         
                 
         

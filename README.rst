@@ -31,9 +31,9 @@ Simulate a particle by particle model with the most popular integrations methods
 #. User defined field
 #. Lennard Jones
 
-Modeling of the forces with user-defined constraints. See demo cat_spri.
+We have also the possibility of modeling the forces with user-defined constraints (See demo *cat_spri*).
 
-PyParticle offers an easy to use class structure with a fully * interchangeable* integrations method or force model, it also implements the possibility to add some boundary model.
+PyParticle offers an easy to use class structure with a fully *interchangeable* integrations method or force model, it also implements the possibility to add some boundary model.
 
 
 Requirements
@@ -76,10 +76,10 @@ The following are the main command of the PyParticles application.
 Demos
 ============= ========================================================
 springs       3 body springs
-solar_system  simulation of the solar system with realistic magnitudes
+solar_system  Simulation of the solar system with realistic magnitudes
 bubble        Bubbles. With a non realistic force
-cat_spri      vibrating string with gravity and air drag
-gas_lj        Lennard jones gas model (shold be improved)
+cat_spri      Vibrating string with gravity and air drag
+gas_lj        Lennard jones gas model (should be improved)
 ============= ========================================================
 ::
 
