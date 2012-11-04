@@ -48,15 +48,16 @@ Requirements
 For more details about the installation visit the Blog: http://pyparticles.wordpress.com/installation/
 
 
-* Command line tool usage:
+Command line tool usage:
+------------------------
 
 
 In PyParticles a simulation model is entirely described in a config file that should be edited by the user.
 
 The following are the main command of the PyParticles application.
 
-Start the demo simulation:
---------------------------
+* **Start the demo simulation:**
+
 ::
 
     pypaticle_app
