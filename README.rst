@@ -60,7 +60,7 @@ The following are the main command of the PyParticles application.
 
 ::
 
-    pypaticle_app
+    pyparticles_app
     
 
 * **Start a simulation described in a config file**
@@ -83,11 +83,11 @@ gas_lj        Lennard jones gas model (shold be improved)
 ============= ========================================================
 ::
 
-    pypaticle_app --demo springs
-    pypaticle_app --demo solar_system
-    pypaticle_app --demo bubble
-    pypaticle_app --demo cat_spri
-    pypaticle_app --demo gas_lj
+    pyparticles_app --demo springs
+    pyparticles_app --demo solar_system
+    pyparticles_app --demo bubble
+    pyparticles_app --demo cat_spri
+    pyparticles_app --demo gas_lj
 
 * **Write out a model config file**
 ::
