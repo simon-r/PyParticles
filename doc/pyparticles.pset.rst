@@ -1,6 +1,14 @@
 pset Package
 ============
 
+:mod:`pset` Package
+-------------------
+
+.. automodule:: pyparticles.pset
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 :mod:`boundary` Module
 ----------------------
 
@@ -17,10 +25,26 @@ pset Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`constrained_particles_set` Module
----------------------------------------
+:mod:`constrained_force_interactions` Module
+--------------------------------------------
 
-.. automodule:: pyparticles.pset.constrained_particles_set
+.. automodule:: pyparticles.pset.constrained_force_interactions
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+:mod:`constrained_x` Module
+---------------------------
+
+.. automodule:: pyparticles.pset.constrained_x
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+:mod:`constraint` Module
+------------------------
+
+.. automodule:: pyparticles.pset.constraint
     :members:
     :undoc-members:
     :show-inheritance:

@@ -1,6 +1,14 @@
 ode Package
 ===========
 
+:mod:`ode` Package
+------------------
+
+.. automodule:: pyparticles.ode
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 :mod:`euler_solver` Module
 --------------------------
 
@@ -9,10 +17,26 @@ ode Package
     :undoc-members:
     :show-inheritance:
 
+:mod:`euler_solver_constrained` Module
+--------------------------------------
+
+.. automodule:: pyparticles.ode.euler_solver_constrained
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 :mod:`leapfrog_solver` Module
 -----------------------------
 
 .. automodule:: pyparticles.ode.leapfrog_solver
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+:mod:`leapfrog_solver_constrained` Module
+-----------------------------------------
+
+.. automodule:: pyparticles.ode.leapfrog_solver_constrained
     :members:
     :undoc-members:
     :show-inheritance:
@@ -33,6 +57,14 @@ ode Package
     :undoc-members:
     :show-inheritance:
 
+:mod:`ode_solver_constrained` Module
+------------------------------------
+
+.. automodule:: pyparticles.ode.ode_solver_constrained
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 :mod:`runge_kutta_solver` Module
 --------------------------------
 
@@ -41,10 +73,26 @@ ode Package
     :undoc-members:
     :show-inheritance:
 
+:mod:`runge_kutta_solver_constrained` Module
+--------------------------------------------
+
+.. automodule:: pyparticles.ode.runge_kutta_solver_constrained
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 :mod:`stormer_verlet_solver` Module
 -----------------------------------
 
 .. automodule:: pyparticles.ode.stormer_verlet_solver
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+:mod:`stormer_verlet_solver_constrained` Module
+-----------------------------------------------
+
+.. automodule:: pyparticles.ode.stormer_verlet_solver_constrained
     :members:
     :undoc-members:
     :show-inheritance:

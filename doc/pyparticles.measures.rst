@@ -1,6 +1,14 @@
 measures Package
 ================
 
+:mod:`measures` Package
+-----------------------
+
+.. automodule:: pyparticles.measures
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 :mod:`elastic_potential_energy` Module
 --------------------------------------
 

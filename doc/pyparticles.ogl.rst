@@ -1,6 +1,14 @@
 ogl Package
 ===========
 
+:mod:`ogl` Package
+------------------
+
+.. automodule:: pyparticles.ogl
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 :mod:`axis_ogl` Module
 ----------------------
 
