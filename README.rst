@@ -67,15 +67,15 @@ Start a simulation described in a config file ::
 
 Start the specified demo simulation
 
-    ============= ========================================================
-    Demos
-    ============= ========================================================
-    springs       3 body springs 
-    solar_system  simulation of the solar system with realistic magnitudes
-    bubble        Bubbles. With a non realistic force 
-    cat_spri      vibrating string with gravity and air drag
-    gas_lj        Lennard jones gas model (shold be improved)
-    ============= ========================================================
+============= ========================================================
+Demos
+============= ========================================================
+springs       3 body springs
+solar_system  simulation of the solar system with realistic magnitudes
+bubble        Bubbles. With a non realistic force
+cat_spri      vibrating string with gravity and air drag
+gas_lj        Lennard jones gas model (shold be improved)
+============= ========================================================
 ::
 
     pypaticle_app --demo springs
