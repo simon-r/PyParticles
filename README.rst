@@ -55,12 +55,16 @@ In PyParticles a simulation model is entirely described in a config file that sh
 
 The following are the main command of the PyParticles application.
 
-Start the demo simulation: ::
+Start the demo simulation:
+--------------------------
+::
 
     pypaticle_app
     
 
-Start a simulation described in a config file ::
+Start a simulation described in a config file
+---------------------------------------------
+::
 
     pyparticle_app <file_name>
     
