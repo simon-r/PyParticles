@@ -187,34 +187,30 @@ def my_test() :
     
     t = tr.Transformations()
     
-    pt = np.matrix( [1,0,0] ).T
-    
-
-    
-    t.set_points_tuple_size(1)
+    t.set_points_tuple_size(2)
     
     t.rotY( np.radians(90) )
     t.rotX( np.radians(90) )
     t.rotZ( np.radians(90) )
     
-    t.append_point( np.array( [1,0,0] ) )
+    t.append_point( list( [1,0,0] ) )
     t.append_point( np.array( [1,1,0] ) )
     t.append_point( np.array( [1,1,1] ) )
     t.append_point( np.array( [0,1,1] ) )    
     
-    t.push()
+    t.push_matrix()
     t.identity()
     t.translation( 10 , 2 , 2 )
     
-    t.append_point( np.array( [1,1,1] ) )
-    t.append_point( np.array( [0,1,1] ) ) 
+    t.append_point( [1,1,1] )
+    t.append_point( np.matrix( [0,1,1] ).T ) 
     
-    t.pop()
+    t.pop_matrix()
     
     t.append_point( np.array( [1,0,0] ) )
-    t.append_point( np.array( [1,1,0] ) )
+    t.append_point( [1,1,0] )
     t.append_point( np.array( [1,1,1] ) )
-    t.append_point( np.array( [0,1,1] ) )  
+    t.append_point( [0,1,1] )   
     
     #print( t.transform(pt[0] , pt[1] , pt[2] ) )
     

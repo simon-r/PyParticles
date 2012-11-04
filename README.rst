@@ -1,7 +1,9 @@
 PyParticles 
 ===========
 
-PyParticles is a particle simulation toolbox entirely written in python
+PyParticles is a particle simulation toolbox entirely written in python. 
+
+The objective of PyParticles is to provide a system API simple and fast to use. In addition is to have a basic application for the realization of simple models.
 
 Visit: http://pyparticles.wordpress.com/
 Docs:  http://simon-r.github.com/PyParticles/index.html
@@ -26,6 +28,9 @@ Simulate a particle by particle model with the most popular integrations methods
 #. Particle by Particle spring
 #. Constant
 #. User defined field
+#. Lennard Jones
+
+Modeling of the forces with user-defined constraints. See demo cat_spri.
 
 PyParticle offers an easy to use class structure with a fully * interchangeable* integrations method or force model, it also implements the possibility to add some boundary model.
 
@@ -59,10 +64,20 @@ Start a simulation described in a config file ::
     pyparticle_app <file_name>
     
 
-Start the specified demo simulation ::
+Start the specified demo simulation
+
+    #. springs: 3 body springs 
+    #. solar_system: simulation of the solar system with realistic magnitudes
+    #. bubble: Bubbles. With a non realistic force 
+    #. cat_spri: vibrating string with gravity and air drag
+    #. gas_lj: Lennard jones gas model (shold be improved)
+::
 
     pypaticle_app --demo springs
     pypaticle_app --demo solar_system
+    pypaticle_app --demo bubble
+    pypaticle_app --demo cat_spri
+    pypaticle_app --demo gas_lj
 
 Write out a model config file ::
     

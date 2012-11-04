@@ -23,6 +23,36 @@ class Transformations( object ):
     
     Example::
         
+            t = tr.Transformations() # init transfomation
+    
+            t.set_points_tuple_size(2) # Pairwise points in the queue
+            
+            t.rotY( np.radians(90) )  # Apply some transoformations matricies
+            t.rotX( np.radians(90) )
+            t.rotZ( np.radians(90) )
+            
+            t.append_point( list( [1,0,0] ) )  # Append some poits. It accept every Indexable type 
+            t.append_point( np.array( [1,1,0] ) )
+            t.append_point( np.array( [1,1,1] ) )
+            t.append_point( np.array( [0,1,1] ) )    
+            
+            t.push_matrix() # push the current matrix
+            
+            t.translation( 10 , 2 , 2 ) # Apply a translation
+            
+            t.append_point( [1,1,1] )
+            t.append_point( np.matrix( [0,1,1] ).T ) # Only vertical matrix
+            
+            t.pop_matrix() # Back to the old matrix
+            
+            t.append_point( np.array( [1,0,0] ) )
+            t.append_point( [1,1,0] )
+            t.append_point( np.array( [1,1,1] ) )
+            t.append_point( [0,1,1] )
+            
+            # Print the resulting points (in a paiwise tuple)
+            for p in t :
+                print( p )
     
     """
     def __init__(self):
@@ -54,13 +84,13 @@ class Transformations( object ):
         """
         self.__cmatrix = np.matrix( np.eye( 4 ) )
     
-    def push(self):
+    def push_matrix(self):
         """
         Push in the stack a copy of the current matrix
         """
         self.__stack.append( np.copy( self.__cmatrix ) )
     
-    def pop(self):
+    def pop_matrix(self):
         """
         Pop and copy in the current matrix the last matrix in the stack 
         """
