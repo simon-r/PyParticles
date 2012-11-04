@@ -63,14 +63,14 @@ The following are the main command of the PyParticles application.
     pypaticle_app
     
 
-* Start a simulation described in a config file
+* **Start a simulation described in a config file**
 
 ::
 
     pyparticle_app <file_name>
     
 
-* Start the specified demo simulation
+* **Start the specified demo simulation**
 
 ============= ========================================================
 Demos
@@ -89,12 +89,14 @@ gas_lj        Lennard jones gas model (shold be improved)
     pypaticle_app --demo cat_spri
     pypaticle_app --demo gas_lj
 
-* Write out a model config file ::
+* **Write out a model config file**
+::
     
     pyparticle_app -m
     
 
-* Print out the help and version ::
+* **Print out the help and version**
+::
 
     pyparticles_app --help
     pyparticles_app --version
