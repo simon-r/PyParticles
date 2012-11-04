@@ -63,9 +63,9 @@ from pyparticles.geometry.dist import distance
 import pyparticles.pset.constrained_x as ct
 import pyparticles.pset.constrained_force_interactions as cfi
 
+import pyparticles.geometry.transformations as tr
+
 import time 
-
-
 
 import sys
 
@@ -185,8 +185,45 @@ class MyField( vf.VectorFieldForce ):
 
 def my_test() :
     
+    t = tr.Transformations()
     
+    pt = np.matrix( [1,0,0] ).T
     
+
+    
+    t.set_points_tuple_size(1)
+    
+    t.rotY( np.radians(90) )
+    t.rotX( np.radians(90) )
+    t.rotZ( np.radians(90) )
+    
+    t.append_point( np.array( [1,0,0] ) )
+    t.append_point( np.array( [1,1,0] ) )
+    t.append_point( np.array( [1,1,1] ) )
+    t.append_point( np.array( [0,1,1] ) )    
+    
+    t.push()
+    t.identity()
+    t.translation( 10 , 2 , 2 )
+    
+    t.append_point( np.array( [1,1,1] ) )
+    t.append_point( np.array( [0,1,1] ) ) 
+    
+    t.pop()
+    
+    t.append_point( np.array( [1,0,0] ) )
+    t.append_point( np.array( [1,1,0] ) )
+    t.append_point( np.array( [1,1,1] ) )
+    t.append_point( np.array( [0,1,1] ) )  
+    
+    #print( t.transform(pt[0] , pt[1] , pt[2] ) )
+    
+    print("")
+    
+    for p in t :
+        print( p )
+    
+    exit()
     
     n = 10
     dt = 0.005

@@ -15,22 +15,44 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import numpy as np
+from collections import deque
 
 class Transformations( object ):
     """
     Class used for adiministrating 3D transformations matrix with an openGl like method with a push & pop model
+    
+    Example::
+        
+    
     """
     def __init__(self):
         self.__cmatrix = np.matrix( np.eye( 4 ) )
         self.__stack = list( [] )
-
+        self.__points = deque( [] )
+        
         self.__p = np.matrix( np.zeros( ( 4,1 ) ) )
+        self.__nr = 1
+
+    def __iter__(self):
+        return self
+    
+    def next(self):
+        """
+        iterate over the points in the queue, it pop and returns the transformed points.
+        The popped points in the queue are cancelled during the itarations.
+        """
+        if len( self.__points ) == 0 :
+            raise StopIteration
+        else :
+            p = self.pop_points()
+            
+        return p 
 
     def identity(self):
         """
         Set the current matrix to the identity 
         """
-        self.__cmatrix = np.matrix( np.eye((4,4)) )
+        self.__cmatrix = np.matrix( np.eye( 4 ) )
     
     def push(self):
         """
@@ -43,9 +65,56 @@ class Transformations( object ):
         Pop and copy in the current matrix the last matrix in the stack 
         """
         m = self.__stack.pop()
-        self.__cmatrix[:] = m
+        self.__cmatrix[:] = m[:]
       
+    def clear(self):
+        """
+        Clear the stack, the poits queue and set to the identity the current matrix
+        """
+        del self.__stack
+        self.__stack = list( [] )
+        
+        del self.__points
+        self.__points = deque( [] )
+        
+        self.__cmatrix[:] = np.matrix( np.eye( 4 ) )
     
+    
+    def set_points_tuple_size( self , nr ):
+        
+        if nr < 1 :
+            raise ValueError
+        
+        self.__nr = int( nr )
+    
+    def append_point( self , pt ):
+        """
+        TRansforms and append a new point in the points queue
+        """
+        nwp = np.matrix( np.zeros( ( 4 , 1 ) ) )
+        
+        nwp[0] = pt[0]
+        nwp[1] = pt[1]
+        nwp[2] = pt[2]
+        nwp[3] = 1.0
+        
+        self.__points.append( self.transformv( nwp ) )
+    
+    def pop_points( self ):
+        """
+        Returns the firsts #nr of points in the point queue, the returned points are organized in a tuple
+        """
+        if len( self.__points ) == 0 :
+            return None
+        
+        l = list()
+        
+        for i in range(self.__nr) :
+            p = self.__points.popleft()
+            l.append( p )
+        
+        return tuple(l)
+        
     def get_matrix( self ):
         """
         Returns a copy of the current matrix
@@ -63,14 +132,26 @@ class Transformations( object ):
       
     def transform( self , x , y , z ):
         """
-        Transform the point ( x , y , z ) according to the current matrix and returns a 4 by 1 matrix containig the resulting point
+        Transform the point ( x , y , z ) according to the current matrix and returns a 3 by 1 matrix containig the resulting point
         """
         self.__p[0] = x
         self.__p[1] = y
         self.__p[2] = z
         self.__p[3] = 1.0
       
-        return self.__cmatrix[:] * p
+        return (self.__cmatrix[:] * self.__p)[:3]
+    
+    def transformv( self , pt ):
+        """
+        Transform the point pt: [ x , y , z ] according to the current matrix and returns a 3 by 1 matrix containig the resulting point
+        """
+        self.__p[0] = pt[0]
+        self.__p[1] = pt[1]
+        self.__p[2] = pt[2]
+        self.__p[3] = 1.0
+      
+        return (self.__cmatrix[:] * self.__p)[:3] 
+    
     
     def rotate( self , angle , x , y , z ):
         """
@@ -84,7 +165,7 @@ class Transformations( object ):
         ca = np.cos( angle )
         
         m = np.matrix ( [
-                        [ ca + n[0]**2.*(1.-ca) , 0 , 0 , 0 ] ,
+                        [ ca + n[0]**2.*(1.-ca) , n[0]*n[1]*(1.-ca)-n[2]*sa , n[0]*n[2]*(1.-ca)+1.*sa , 0 ] ,
                         [ 0 , 0 , 0 , 0 ] ,
                         [ 0 , 0 , 0 , 0 ] ,
                         [ 0 , 0 , 0 , 1.0 ] 
@@ -97,8 +178,8 @@ class Transformations( object ):
         """
         m = np.matrix( np.eye( 4 ) )
         
-        m[0,0] =  np.cos( angle )
-        m[1,1] = -np.cos( angle )
+        m[1,1] =  np.cos( angle )
+        m[2,2] = -np.cos( angle )
         
         m[1,2] = -np.sin( angle )
         m[2,1] =  np.sin( angle )
@@ -112,11 +193,11 @@ class Transformations( object ):
         """
         m = np.matrix( np.eye( 4 ) )
         
-        m[1,1] =  np.cos( angle )
-        m[2,2] = -np.cos( angle )
+        m[0,0] =  np.cos( angle )
+        m[2,2] =  np.cos( angle )
         
-        m[0,2] =  np.sin( angle )
-        m[2,0] = -np.sin( angle )
+        m[0,2] = -np.sin( angle )
+        m[2,0] =  np.sin( angle )
         
         self.__cmatrix[:] = self.__cmatrix[:] * m[:]
     
@@ -129,7 +210,7 @@ class Transformations( object ):
         m = np.matrix( np.eye( 4 ) )
         
         m[0,0] =  np.cos( angle )
-        m[1,1] = -np.cos( angle )
+        m[1,1] =  np.cos( angle )
         
         m[0,1] = -np.sin( angle )
         m[1,0] =  np.sin( angle )
