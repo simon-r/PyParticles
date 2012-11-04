@@ -336,7 +336,7 @@ class Transformations( object ):
 
     def reflection( self , a , b , c  ) :
         """
-        Apply the replection through a plane: ax + by + cz = 0
+        Apply the reflection through a plane: ax + by + cz = 0
         """
         m = np.matrix ( [
                         [  1.0 - 2.0*a**2 , -2.0*a*b       , -2.0*a*c         , 0.0 ] ,

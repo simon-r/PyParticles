@@ -15,4 +15,8 @@
 #along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-__all__ = ["solar_system","bubble","springs","springs_constr","gas_lennard_jones"]
+import os
+import glob
+
+__all__ = [ os.path.splitext( os.path.basename(f) )[0] for f in glob.glob(os.path.dirname(os.path.abspath(__file__))+"/*.py")]
+

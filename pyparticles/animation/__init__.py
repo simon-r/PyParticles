@@ -15,4 +15,7 @@
 #along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-__all__ = ["animation","animated_scatter","animated_ogl","test_animation"]
+import os
+import glob
+
+__all__ = [ os.path.splitext( os.path.basename(f) )[0] for f in glob.glob(os.path.dirname(os.path.abspath(__file__))+"/*.py")]

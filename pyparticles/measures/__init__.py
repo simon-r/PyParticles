@@ -15,4 +15,7 @@
 #along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-__all__ = ["mass","measure","momentum","total_energy","kinetic_energy","elestic_potential_energy","gravitational_potential_energy"]
+import os
+import glob
+
+__all__ = [ os.path.splitext( os.path.basename(f) )[0] for f in glob.glob(os.path.dirname(os.path.abspath(__file__))+"/*.py")]

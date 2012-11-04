@@ -105,7 +105,7 @@ def main():
     if options.demo == "cat_spri" :
         print("")
         print("Start the simulation example:")
-        print(" catenary springs (contraints demo)")
+        print(" catenary springs (constraints demo)")
         spc.spring_constr()
         return
     
