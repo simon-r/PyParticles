@@ -58,6 +58,9 @@
             
   <div class="section" id="pset-package">
 <h1>pset Package<a class="headerlink" href="#pset-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2><tt class="xref py py-mod docutils literal"><span class="pre">pset</span></tt> Package<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-pyparticles.pset"></span></div>
 <div class="section" id="module-pyparticles.pset.boundary">
 <span id="boundary-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">boundary</span></tt> Module<a class="headerlink" href="#module-pyparticles.pset.boundary" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
@@ -116,16 +119,110 @@
 </dd></dl>
 
 </div>
-<div class="section" id="module-pyparticles.pset.constrained_particles_set">
-<span id="constrained-particles-set-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">constrained_particles_set</span></tt> Module<a class="headerlink" href="#module-pyparticles.pset.constrained_particles_set" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-pyparticles.pset.constrained_force_interactions">
+<span id="constrained-force-interactions-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">constrained_force_interactions</span></tt> Module<a class="headerlink" href="#module-pyparticles.pset.constrained_force_interactions" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
-<dt id="pyparticles.pset.constrained_particles_set.ConstrainedParticlesSet">
-<em class="property">class </em><tt class="descclassname">pyparticles.pset.constrained_particles_set.</tt><tt class="descname">ConstrainedParticlesSet</tt><big>(</big><em>size=1</em>, <em>dim=3</em>, <em>boundary=None</em>, <em>label=False</em>, <em>mass=True</em>, <em>velocity=True</em>, <em>charge=False</em>, <em>log_X=False</em>, <em>log_V=False</em>, <em>log_max_size=0</em><big>)</big><a class="headerlink" href="#pyparticles.pset.constrained_particles_set.ConstrainedParticlesSet" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#pyparticles.pset.particles_set.ParticlesSet" title="pyparticles.pset.particles_set.ParticlesSet"><tt class="xref py py-class docutils literal"><span class="pre">pyparticles.pset.particles_set.ParticlesSet</span></tt></a></p>
+<dt id="pyparticles.pset.constrained_force_interactions.ConstrainedForceInteractions">
+<em class="property">class </em><tt class="descclassname">pyparticles.pset.constrained_force_interactions.</tt><tt class="descname">ConstrainedForceInteractions</tt><big>(</big><em>pset=None</em><big>)</big><a class="headerlink" href="#pyparticles.pset.constrained_force_interactions.ConstrainedForceInteractions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pyparticles.pset.constraint.Constraint" title="pyparticles.pset.constraint.Constraint"><tt class="xref py py-class docutils literal"><span class="pre">pyparticles.pset.constraint.Constraint</span></tt></a></p>
 <dl class="method">
-<dt id="pyparticles.pset.constrained_particles_set.ConstrainedParticlesSet.add_x_constraint">
-<tt class="descname">add_x_constraint</tt><big>(</big><em>indx</em>, <em>constr</em><big>)</big><a class="headerlink" href="#pyparticles.pset.constrained_particles_set.ConstrainedParticlesSet.add_x_constraint" title="Permalink to this definition">¶</a></dt>
-<dd><p>Add new postional contraint
+<dt id="pyparticles.pset.constrained_force_interactions.ConstrainedForceInteractions.add_connections">
+<tt class="descname">add_connections</tt><big>(</big><em>fc</em><big>)</big><a class="headerlink" href="#pyparticles.pset.constrained_force_interactions.ConstrainedForceInteractions.add_connections" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds the connections listed in <em>fc</em> .
+fc must be a list of list or a 2d array of pairs
+for example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">cfi</span> <span class="o">=</span> <span class="n">ConstrainedForceInteractions</span><span class="p">(</span> <span class="n">pset</span> <span class="p">)</span>
+<span class="n">a</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">]]</span>
+<span class="n">cfi</span><span class="o">.</span><span class="n">add_connections</span><span class="p">(</span> <span class="n">a</span> <span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyparticles.pset.constrained_force_interactions.ConstrainedForceInteractions.dense">
+<tt class="descname">dense</tt><a class="headerlink" href="#pyparticles.pset.constrained_force_interactions.ConstrainedForceInteractions.dense" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Return the dense reppresentations of the connections matrix.</dt>
+<dd>Don&#8217;t use this function in a loop, don&#8217;t use this function in a loop, but execute the conversion to a dense matix before the loop.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.pset.constrained_force_interactions.ConstrainedForceInteractions.get_dense">
+<tt class="descname">get_dense</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.pset.constrained_force_interactions.ConstrainedForceInteractions.get_dense" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the dense reppresentations of the connections matrix.
+Don&#8217;t use this function in a loop, don&#8217;t use this function in a loop, but execute the conversion to a dense matix before the loop.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.pset.constrained_force_interactions.ConstrainedForceInteractions.get_items">
+<tt class="descname">get_items</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.pset.constrained_force_interactions.ConstrainedForceInteractions.get_items" title="Permalink to this definition">¶</a></dt>
+<dd><p>list of the commection ((i,j), value) pairs, ...)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.pset.constrained_force_interactions.ConstrainedForceInteractions.get_pset">
+<tt class="descname">get_pset</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.pset.constrained_force_interactions.ConstrainedForceInteractions.get_pset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.pset.constrained_force_interactions.ConstrainedForceInteractions.get_sparse">
+<tt class="descname">get_sparse</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.pset.constrained_force_interactions.ConstrainedForceInteractions.get_sparse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the reference to the dok_matrix sparse matrix of the connections.
+For the operations with a dense matricies, don&#8217;t use this function in a loop, but execute the conversion to a dense matix before the loop.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyparticles.pset.constrained_force_interactions.ConstrainedForceInteractions.items">
+<tt class="descname">items</tt><a class="headerlink" href="#pyparticles.pset.constrained_force_interactions.ConstrainedForceInteractions.items" title="Permalink to this definition">¶</a></dt>
+<dd><p>list of the commection ((i,j), value) pairs, ...)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyparticles.pset.constrained_force_interactions.ConstrainedForceInteractions.pset">
+<tt class="descname">pset</tt><a class="headerlink" href="#pyparticles.pset.constrained_force_interactions.ConstrainedForceInteractions.pset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.pset.constrained_force_interactions.ConstrainedForceInteractions.remove_connections">
+<tt class="descname">remove_connections</tt><big>(</big><em>fc</em><big>)</big><a class="headerlink" href="#pyparticles.pset.constrained_force_interactions.ConstrainedForceInteractions.remove_connections" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes the connections listed in <em>fc</em> .
+fc must be a list of list or a 2d array of pairs
+for example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">cfi</span> <span class="o">=</span> <span class="n">ConstrainedForceInteractions</span><span class="p">(</span> <span class="n">pset</span> <span class="p">)</span>
+<span class="n">a</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">]]</span>
+<span class="n">cfi</span><span class="o">.</span><span class="n">remove_connections</span><span class="p">(</span> <span class="n">a</span> <span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.pset.constrained_force_interactions.ConstrainedForceInteractions.set_pset">
+<tt class="descname">set_pset</tt><big>(</big><em>pset</em><big>)</big><a class="headerlink" href="#pyparticles.pset.constrained_force_interactions.ConstrainedForceInteractions.set_pset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyparticles.pset.constrained_force_interactions.ConstrainedForceInteractions.sparse">
+<tt class="descname">sparse</tt><a class="headerlink" href="#pyparticles.pset.constrained_force_interactions.ConstrainedForceInteractions.sparse" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Return the reference to the dok_matrix sparse matrix of the connections.</dt>
+<dd>For the operations with a dense matricies, don&#8217;t use this function in a loop, but execute the conversion to a dense matix before the loop.</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyparticles.pset.constrained_x">
+<span id="constrained-x-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">constrained_x</span></tt> Module<a class="headerlink" href="#module-pyparticles.pset.constrained_x" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyparticles.pset.constrained_x.ConstrainedX">
+<em class="property">class </em><tt class="descclassname">pyparticles.pset.constrained_x.</tt><tt class="descname">ConstrainedX</tt><big>(</big><em>pset=None</em><big>)</big><a class="headerlink" href="#pyparticles.pset.constrained_x.ConstrainedX" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pyparticles.pset.constraint.Constraint" title="pyparticles.pset.constraint.Constraint"><tt class="xref py py-class docutils literal"><span class="pre">pyparticles.pset.constraint.Constraint</span></tt></a></p>
+<dl class="method">
+<dt id="pyparticles.pset.constrained_x.ConstrainedX.add_x_constraint">
+<tt class="descname">add_x_constraint</tt><big>(</big><em>indx</em>, <em>constr</em><big>)</big><a class="headerlink" href="#pyparticles.pset.constrained_x.ConstrainedX.add_x_constraint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add new postional contraint and update the referenced particles set.
 contraints are concatenad to the stored contraints, we don&#8217;t tests the uniqness of the indicies.
 be careful with the double indicies</p>
 <blockquote>
@@ -135,15 +232,15 @@ be careful with the double indicies</p>
 <col width="76%" />
 </colgroup>
 <thead valign="bottom">
-<tr class="row-odd"><th class="head">Arguments:</th>
+<tr class="row-odd"><th class="head">Arguments</th>
 <th class="head">&nbsp;</th>
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td>indx:</td>
+<tr class="row-even"><td>indx</td>
 <td>indicies of the new contraints</td>
 </tr>
-<tr class="row-odd"><td>constr:</td>
+<tr class="row-odd"><td>constr</td>
 <td>the new contraints</td>
 </tr>
 </tbody>
@@ -152,31 +249,49 @@ be careful with the double indicies</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyparticles.pset.constrained_particles_set.ConstrainedParticlesSet.cX">
-<tt class="descname">cX</tt><a class="headerlink" href="#pyparticles.pset.constrained_particles_set.ConstrainedParticlesSet.cX" title="Permalink to this definition">¶</a></dt>
+<dt id="pyparticles.pset.constrained_x.ConstrainedX.cX">
+<tt class="descname">cX</tt><a class="headerlink" href="#pyparticles.pset.constrained_x.ConstrainedX.cX" title="Permalink to this definition">¶</a></dt>
 <dd><p>return the constrained X alements</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="pyparticles.pset.constrained_particles_set.ConstrainedParticlesSet.clear_all_x_constraint">
-<tt class="descname">clear_all_x_constraint</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.pset.constrained_particles_set.ConstrainedParticlesSet.clear_all_x_constraint" title="Permalink to this definition">¶</a></dt>
+<dt id="pyparticles.pset.constrained_x.ConstrainedX.clear_all_x_constraint">
+<tt class="descname">clear_all_x_constraint</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.pset.constrained_x.ConstrainedX.clear_all_x_constraint" title="Permalink to this definition">¶</a></dt>
 <dd><p>clear all positional contraints</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="pyparticles.pset.constrained_particles_set.ConstrainedParticlesSet.get_cX">
-<tt class="descname">get_cX</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.pset.constrained_particles_set.ConstrainedParticlesSet.get_cX" title="Permalink to this definition">¶</a></dt>
+<dt id="pyparticles.pset.constrained_x.ConstrainedX.get_cX">
+<tt class="descname">get_cX</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.pset.constrained_x.ConstrainedX.get_cX" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="pyparticles.pset.constrained_particles_set.ConstrainedParticlesSet.get_cx_indicies">
-<tt class="descname">get_cx_indicies</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.pset.constrained_particles_set.ConstrainedParticlesSet.get_cx_indicies" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return a copy of the constrained indicies of the position</p>
+<dt id="pyparticles.pset.constrained_x.ConstrainedX.get_cx_free_indicies">
+<tt class="descname">get_cx_free_indicies</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.pset.constrained_x.ConstrainedX.get_cx_free_indicies" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an array containing the not constrained indicies</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="pyparticles.pset.constrained_particles_set.ConstrainedParticlesSet.remove_x_constraint">
-<tt class="descname">remove_x_constraint</tt><big>(</big><em>indxs</em><big>)</big><a class="headerlink" href="#pyparticles.pset.constrained_particles_set.ConstrainedParticlesSet.remove_x_constraint" title="Permalink to this definition">¶</a></dt>
+<dt id="pyparticles.pset.constrained_x.ConstrainedX.get_cx_indicies">
+<tt class="descname">get_cx_indicies</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.pset.constrained_x.ConstrainedX.get_cx_indicies" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a copy of the constrained indicies</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.pset.constrained_x.ConstrainedX.get_pset">
+<tt class="descname">get_pset</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.pset.constrained_x.ConstrainedX.get_pset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the current constrained particles set</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyparticles.pset.constrained_x.ConstrainedX.pset">
+<tt class="descname">pset</tt><a class="headerlink" href="#pyparticles.pset.constrained_x.ConstrainedX.pset" title="Permalink to this definition">¶</a></dt>
+<dd><p>get and set the particles set (pset)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.pset.constrained_x.ConstrainedX.remove_x_constraint">
+<tt class="descname">remove_x_constraint</tt><big>(</big><em>indxs</em><big>)</big><a class="headerlink" href="#pyparticles.pset.constrained_x.ConstrainedX.remove_x_constraint" title="Permalink to this definition">¶</a></dt>
 <dd><p>Remove the element indixed in indxs from the contraits 
 Arguments:</p>
 <blockquote>
@@ -185,6 +300,36 @@ Arguments:</p>
 </ol>
 </div></blockquote>
 </dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.pset.constrained_x.ConstrainedX.set_pset">
+<tt class="descname">set_pset</tt><big>(</big><em>pset</em><big>)</big><a class="headerlink" href="#pyparticles.pset.constrained_x.ConstrainedX.set_pset" title="Permalink to this definition">¶</a></dt>
+<dd><p>set the particles set. And it sets the constrained values in the particles set pset</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyparticles.pset.constraint">
+<span id="constraint-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">constraint</span></tt> Module<a class="headerlink" href="#module-pyparticles.pset.constraint" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyparticles.pset.constraint.Constraint">
+<em class="property">class </em><tt class="descclassname">pyparticles.pset.constraint.</tt><tt class="descname">Constraint</tt><big>(</big><em>pset=None</em><big>)</big><a class="headerlink" href="#pyparticles.pset.constraint.Constraint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="pyparticles.pset.constraint.Constraint.get_pset">
+<tt class="descname">get_pset</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.pset.constraint.Constraint.get_pset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyparticles.pset.constraint.Constraint.pset">
+<tt class="descname">pset</tt><a class="headerlink" href="#pyparticles.pset.constraint.Constraint.pset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.pset.constraint.Constraint.set_pset">
+<tt class="descname">set_pset</tt><big>(</big><em>pset</em><big>)</big><a class="headerlink" href="#pyparticles.pset.constraint.Constraint.set_pset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 
@@ -269,20 +414,18 @@ Arguments:</p>
 <dt id="pyparticles.pset.octree.OcTree">
 <em class="property">class </em><tt class="descclassname">pyparticles.pset.octree.</tt><tt class="descname">OcTree</tt><a class="headerlink" href="#pyparticles.pset.octree.OcTree" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
-<p><a href="#id1"><span class="problematic" id="id2">|</span></a>OcTree particles container class</p>
+<p><a href="#id2"><span class="problematic" id="id3">|</span></a>OcTree particles container class</p>
 <dl class="method">
 <dt id="pyparticles.pset.octree.OcTree.build_tree">
 <tt class="descname">build_tree</tt><big>(</big><em>pset</em><big>)</big><a class="headerlink" href="#pyparticles.pset.octree.OcTree.build_tree" title="Permalink to this definition">¶</a></dt>
 <dd><p>Build the octree with the given particles set</p>
-<p>Arguments:</p>
-<blockquote>
-<div><table border="1" class="docutils">
+<table border="1" class="docutils">
 <colgroup>
-<col width="8%" />
-<col width="92%" />
+<col width="17%" />
+<col width="83%" />
 </colgroup>
 <thead valign="bottom">
-<tr class="row-odd"><th class="head">&nbsp;</th>
+<tr class="row-odd"><th class="head">Arguments</th>
 <th class="head">&nbsp;</th>
 </tr>
 </thead>
@@ -292,7 +435,6 @@ Arguments:</p>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
 </dd></dl>
 
 <dl class="attribute">
@@ -312,27 +454,21 @@ Arguments:</p>
 <dd></dd></dl>
 
 <dl class="method">
+<dt id="pyparticles.pset.octree.OcTree.search_neighbour">
+<tt class="descname">search_neighbour</tt><big>(</big><em>X</em>, <em>r</em><big>)</big><a class="headerlink" href="#pyparticles.pset.octree.OcTree.search_neighbour" title="Permalink to this definition">¶</a></dt>
+<dd><p>return an array of particles indicies included in the region centred on <em>X</em> with a radius <em>r</em></p>
+</dd></dl>
+
+<dl class="method">
 <dt id="pyparticles.pset.octree.OcTree.set_global_boundary">
 <tt class="descname">set_global_boundary</tt><big>(</big><em>ref_vertex=array([ 0.</em>, <em>0.</em>, <em>0.])</em>, <em>edge_len=1.0</em><big>)</big><a class="headerlink" href="#pyparticles.pset.octree.OcTree.set_global_boundary" title="Permalink to this definition">¶</a></dt>
-<dd><p>Define the size of the octree cube</p>
-<dl class="docutils">
-<dt>Arguments:</dt>
-<dd><table border="1" class="first last docutils">
-<colgroup>
-<col width="23%" />
-<col width="77%" />
-</colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td>ref_vertex</td>
-<td>the ( down , near , left ) vertex</td>
-</tr>
-<tr class="row-even"><td>edge_len</td>
-<td>leght of the edge</td>
-</tr>
-</tbody>
-</table>
-</dd>
-</dl>
+<dd><p>Define the size of the octree cube
+==========  =================================
+Arguments
+==========  =================================
+ref_vertex  the ( down , near , left ) vertex
+edge_len    leght of the edge
+==========  =================================</p>
 </dd></dl>
 
 </dd></dl>
@@ -362,7 +498,8 @@ Arguments:</p>
 <dl class="method">
 <dt id="pyparticles.pset.octree.TreeElement.depth">
 <tt class="descname">depth</tt><big>(</big><em>d=1</em><big>)</big><a class="headerlink" href="#pyparticles.pset.octree.TreeElement.depth" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Compute and returns the maximal depth of the octree</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="pyparticles.pset.octree.TreeElement.down">
@@ -399,6 +536,16 @@ Arguments:</p>
 <dl class="method">
 <dt id="pyparticles.pset.octree.TreeElement.get_left">
 <tt class="descname">get_left</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.pset.octree.TreeElement.get_left" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.pset.octree.TreeElement.get_max_vertex">
+<tt class="descname">get_max_vertex</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.pset.octree.TreeElement.get_max_vertex" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.pset.octree.TreeElement.get_min_vertex">
+<tt class="descname">get_min_vertex</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.pset.octree.TreeElement.get_min_vertex" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -444,6 +591,18 @@ Arguments:</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="pyparticles.pset.octree.TreeElement.max_vertex">
+<tt class="descname">max_vertex</tt><a class="headerlink" href="#pyparticles.pset.octree.TreeElement.max_vertex" title="Permalink to this definition">¶</a></dt>
+<dd><p>get the maximal vertex of the cube</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyparticles.pset.octree.TreeElement.min_vertex">
+<tt class="descname">min_vertex</tt><a class="headerlink" href="#pyparticles.pset.octree.TreeElement.min_vertex" title="Permalink to this definition">¶</a></dt>
+<dd><p>get the minimal vertex of the cube</p>
+</dd></dl>
+
+<dl class="attribute">
 <dt id="pyparticles.pset.octree.TreeElement.near">
 <tt class="descname">near</tt><a class="headerlink" href="#pyparticles.pset.octree.TreeElement.near" title="Permalink to this definition">¶</a></dt>
 <dd><p>relative domanin for the near &#8216;sub-space&#8217;</p>
@@ -470,6 +629,13 @@ d:  current depth (1 for the first node)</dd>
 <dt id="pyparticles.pset.octree.TreeElement.right">
 <tt class="descname">right</tt><a class="headerlink" href="#pyparticles.pset.octree.TreeElement.right" title="Permalink to this definition">¶</a></dt>
 <dd><p>relative domanin for the right &#8216;sub-space&#8217;</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.pset.octree.TreeElement.search_neighbour">
+<tt class="descname">search_neighbour</tt><big>(</big><em>cand_queue</em>, <em>res_list</em>, <em>pset</em>, <em>X</em>, <em>r</em><big>)</big><a class="headerlink" href="#pyparticles.pset.octree.TreeElement.search_neighbour" title="Permalink to this definition">¶</a></dt>
+<dd><p>Search the elements included in the volume centred in <em>X</em> with the radius <em>r</em> and append the results in the list <em>res_list</em>.
+<em>res_list</em> contains the indicies of the particles included in the the sphere.</p>
 </dd></dl>
 
 <dl class="method">
@@ -502,45 +668,45 @@ d:  current depth (1 for the first node)</dd>
 <col width="66%" />
 </colgroup>
 <thead valign="bottom">
-<tr class="row-odd"><th class="head">Arguments:</th>
+<tr class="row-odd"><th class="head">Arguments</th>
 <th class="head">&nbsp;</th>
 <th class="head">&nbsp;</th>
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td>size:</td>
+<tr class="row-even"><td>size</td>
 <td>(default 0)</td>
 <td>Number of particles</td>
 </tr>
-<tr class="row-odd"><td>dim :</td>
+<tr class="row-odd"><td>dim</td>
 <td>(default 3)</td>
 <td>dimensions of the system 2 or 3 ... 2D 3D</td>
 </tr>
-<tr class="row-even"><td>mass:</td>
+<tr class="row-even"><td>mass</td>
 <td>(dafault True)</td>
 <td>if True the particles have a mass.</td>
 </tr>
-<tr class="row-odd"><td>label:</td>
+<tr class="row-odd"><td>label</td>
 <td>(default False)</td>
 <td>if true it&#8217;s possible to set a name for each particle</td>
 </tr>
-<tr class="row-even"><td>velocity:</td>
+<tr class="row-even"><td>velocity</td>
 <td>(dafault True)</td>
 <td>if true the particles has a velocity</td>
 </tr>
-<tr class="row-odd"><td>charge:</td>
+<tr class="row-odd"><td>charge</td>
 <td>(default False)</td>
 <td>if true if True the particles have a charge.</td>
 </tr>
-<tr class="row-even"><td>log_X:</td>
+<tr class="row-even"><td>log_X</td>
 <td>(default False)</td>
 <td>if true it&#8217;s possible to logging the position</td>
 </tr>
-<tr class="row-odd"><td>log_V:</td>
+<tr class="row-odd"><td>log_V</td>
 <td>(default False)</td>
 <td>if true it&#8217;s possible to logging the velocity</td>
 </tr>
-<tr class="row-even"><td>log_max_size:</td>
+<tr class="row-even"><td>log_max_size</td>
 <td>(default 0) set</td>
 <td>the maximal size of the log queue</td>
 </tr>
@@ -590,7 +756,7 @@ d:  current depth (1 for the first node)</dd>
 <col width="80%" />
 </colgroup>
 <thead valign="bottom">
-<tr class="row-odd"><th class="head">Arguments:</th>
+<tr class="row-odd"><th class="head">Arguments</th>
 <th class="head">&nbsp;</th>
 </tr>
 </thead>
@@ -650,8 +816,8 @@ d:  current depth (1 for the first node)</dd>
 <dl class="method">
 <dt id="pyparticles.pset.particles_set.ParticlesSet.enable_log">
 <tt class="descname">enable_log</tt><big>(</big><em>log_X=True</em>, <em>log_V=False</em>, <em>log_max_size=0</em><big>)</big><a class="headerlink" href="#pyparticles.pset.particles_set.ParticlesSet.enable_log" title="Permalink to this definition">¶</a></dt>
-<dd><p><a href="#id3"><span class="problematic" id="id4">|</span></a>Eanble the X and V logging:
-<a href="#id5"><span class="problematic" id="id6">|</span></a>args:</p>
+<dd><p><a href="#id4"><span class="problematic" id="id5">|</span></a>Eanble the X and V logging:
+<a href="#id6"><span class="problematic" id="id7">|</span></a>args:</p>
 <blockquote>
 <div><ol class="arabic simple">
 <li>log_X=True : log the positions</li>
@@ -920,17 +1086,17 @@ if it is smaller it cancels the data.</p>
 <dd><p>Bases: <a class="reference internal" href="#pyparticles.pset.cluster.Cluster" title="pyparticles.pset.cluster.Cluster"><tt class="xref py py-class docutils literal"><span class="pre">pyparticles.pset.cluster.Cluster</span></tt></a></p>
 <dl class="method">
 <dt id="pyparticles.pset.rand_cluster.RandCluster.bomb_vel">
-<tt class="descname">bomb_vel</tt><big>(</big><em>X</em>, <em>V</em>, <em>start_indx=0</em>, <em>n=100</em>, <em>centre=(0.0</em>, <em>0.0</em>, <em>0.0)</em>, <em>vel_rng=(0.5</em>, <em>1.0)</em>, <em>randg=&lt;built-in method rand of mtrand.RandomState object at 0x1f5db88&gt;</em><big>)</big><a class="headerlink" href="#pyparticles.pset.rand_cluster.RandCluster.bomb_vel" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">bomb_vel</tt><big>(</big><em>X</em>, <em>V</em>, <em>start_indx=0</em>, <em>n=100</em>, <em>centre=(0.0</em>, <em>0.0</em>, <em>0.0)</em>, <em>vel_rng=(0.5</em>, <em>1.0)</em>, <em>randg=&lt;built-in method rand of mtrand.RandomState object at 0x1b98a38&gt;</em><big>)</big><a class="headerlink" href="#pyparticles.pset.rand_cluster.RandCluster.bomb_vel" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="pyparticles.pset.rand_cluster.RandCluster.const_vel">
-<tt class="descname">const_vel</tt><big>(</big><em>X, V, start_indx=0, n=100, vel_rng=(0.5, 1.0), vel_dir=[1, 0, 0], randg=&lt;built-in method rand of mtrand.RandomState object at 0x1f5db88&gt;</em><big>)</big><a class="headerlink" href="#pyparticles.pset.rand_cluster.RandCluster.const_vel" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">const_vel</tt><big>(</big><em>X, V, start_indx=0, n=100, vel_rng=(0.5, 1.0), vel_dir=[1, 0, 0], randg=&lt;built-in method rand of mtrand.RandomState object at 0x1b98a38&gt;</em><big>)</big><a class="headerlink" href="#pyparticles.pset.rand_cluster.RandCluster.const_vel" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="pyparticles.pset.rand_cluster.RandCluster.insert3">
-<tt class="descname">insert3</tt><big>(</big><em>X</em>, <em>M=None</em>, <em>V=None</em>, <em>start_indx=0</em>, <em>n=100</em>, <em>centre=(0.0</em>, <em>0.0</em>, <em>0.0)</em>, <em>radius=1.0</em>, <em>mass_rng=(0.5</em>, <em>1)</em>, <em>vel_rng=(0.5</em>, <em>1.0)</em>, <em>vel_mdl=None</em>, <em>vel_dir=None</em>, <em>randg=&lt;built-in method rand of mtrand.RandomState object at 0x1f5db88&gt;</em>, <em>r_min=0.0</em><big>)</big><a class="headerlink" href="#pyparticles.pset.rand_cluster.RandCluster.insert3" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">insert3</tt><big>(</big><em>X</em>, <em>M=None</em>, <em>V=None</em>, <em>start_indx=0</em>, <em>n=100</em>, <em>centre=(0.0</em>, <em>0.0</em>, <em>0.0)</em>, <em>radius=1.0</em>, <em>mass_rng=(0.5</em>, <em>1)</em>, <em>vel_rng=(0.5</em>, <em>1.0)</em>, <em>vel_mdl=None</em>, <em>vel_dir=None</em>, <em>randg=&lt;built-in method rand of mtrand.RandomState object at 0x1b98a38&gt;</em>, <em>r_min=0.0</em><big>)</big><a class="headerlink" href="#pyparticles.pset.rand_cluster.RandCluster.insert3" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -966,9 +1132,12 @@ if it is smaller it cancels the data.</p>
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">pset Package</a><ul>
+<li><a class="reference internal" href="#id1"><tt class="docutils literal"><span class="pre">pset</span></tt> Package</a></li>
 <li><a class="reference internal" href="#module-pyparticles.pset.boundary"><tt class="docutils literal"><span class="pre">boundary</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pyparticles.pset.cluster"><tt class="docutils literal"><span class="pre">cluster</span></tt> Module</a></li>
-<li><a class="reference internal" href="#module-pyparticles.pset.constrained_particles_set"><tt class="docutils literal"><span class="pre">constrained_particles_set</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pyparticles.pset.constrained_force_interactions"><tt class="docutils literal"><span class="pre">constrained_force_interactions</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pyparticles.pset.constrained_x"><tt class="docutils literal"><span class="pre">constrained_x</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pyparticles.pset.constraint"><tt class="docutils literal"><span class="pre">constraint</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pyparticles.pset.electrically_charged_particle_set"><tt class="docutils literal"><span class="pre">electrically_charged_particle_set</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pyparticles.pset.file_cluster"><tt class="docutils literal"><span class="pre">file_cluster</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pyparticles.pset.octree"><tt class="docutils literal"><span class="pre">octree</span></tt> Module</a></li>

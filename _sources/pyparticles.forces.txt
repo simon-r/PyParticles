@@ -41,6 +41,14 @@ forces Package
     :undoc-members:
     :show-inheritance:
 
+:mod:`force_constrained` Module
+-------------------------------
+
+.. automodule:: pyparticles.forces.force_constrained
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 :mod:`gravity` Module
 ---------------------
 
@@ -65,10 +73,26 @@ forces Package
     :undoc-members:
     :show-inheritance:
 
+:mod:`linear_spring_constrained` Module
+---------------------------------------
+
+.. automodule:: pyparticles.forces.linear_spring_constrained
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 :mod:`multiple_force` Module
 ----------------------------
 
 .. automodule:: pyparticles.forces.multiple_force
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+:mod:`pseudo_bubble` Module
+---------------------------
+
+.. automodule:: pyparticles.forces.pseudo_bubble
     :members:
     :undoc-members:
     :show-inheritance:

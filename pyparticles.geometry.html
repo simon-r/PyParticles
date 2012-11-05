@@ -58,11 +58,237 @@
             
   <div class="section" id="geometry-package">
 <h1>geometry Package<a class="headerlink" href="#geometry-package" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="dist-module">
-<h2><tt class="xref py py-mod docutils literal"><span class="pre">dist</span></tt> Module<a class="headerlink" href="#dist-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id1">
+<h2><tt class="xref py py-mod docutils literal"><span class="pre">geometry</span></tt> Package<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-pyparticles.geometry"></span></div>
+<div class="section" id="module-pyparticles.geometry.dist">
+<span id="dist-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">dist</span></tt> Module<a class="headerlink" href="#module-pyparticles.geometry.dist" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="pyparticles.geometry.dist.distance">
+<tt class="descclassname">pyparticles.geometry.dist.</tt><tt class="descname">distance</tt><big>(</big><em>x</em>, <em>y</em><big>)</big><a class="headerlink" href="#pyparticles.geometry.dist.distance" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the euclideian distance between <em>x</em> and <em>y</em></p>
+</dd></dl>
+
 </div>
-<div class="section" id="intersection-module">
-<h2><tt class="xref py py-mod docutils literal"><span class="pre">intersection</span></tt> Module<a class="headerlink" href="#intersection-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-pyparticles.geometry.intersection">
+<span id="intersection-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">intersection</span></tt> Module<a class="headerlink" href="#module-pyparticles.geometry.intersection" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="pyparticles.geometry.intersection.box_intersects_sphere">
+<tt class="descclassname">pyparticles.geometry.intersection.</tt><tt class="descname">box_intersects_sphere</tt><big>(</big><em>b_min</em>, <em>b_max</em>, <em>c</em>, <em>r</em><big>)</big><a class="headerlink" href="#pyparticles.geometry.intersection.box_intersects_sphere" title="Permalink to this definition">¶</a></dt>
+<dd><p>return True if the box defined by the opposite vertices <em>n_max</em>, <em>b max</em> intersect the sphere centred in <em>c</em> with a radius <em>r</em></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyparticles.geometry.intersection.sphere_intersect_sphere">
+<tt class="descclassname">pyparticles.geometry.intersection.</tt><tt class="descname">sphere_intersect_sphere</tt><big>(</big><em>c1</em>, <em>r1</em>, <em>c2</em>, <em>r2</em><big>)</big><a class="headerlink" href="#pyparticles.geometry.intersection.sphere_intersect_sphere" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns the average intersection point if the two spheres centred in <em>c1</em> and <em>c2</em> and radius <em>r1</em>, <em>r2</em> are intersecting, else it returns <em>None</em></p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyparticles.geometry.transformations">
+<span id="transformations-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">transformations</span></tt> Module<a class="headerlink" href="#module-pyparticles.geometry.transformations" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyparticles.geometry.transformations.Transformations">
+<em class="property">class </em><tt class="descclassname">pyparticles.geometry.transformations.</tt><tt class="descname">Transformations</tt><a class="headerlink" href="#pyparticles.geometry.transformations.Transformations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Class used for adiministrating 3D transformations matrix with an openGl like method with a push &amp; pop model</p>
+<p>Example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">t</span> <span class="o">=</span> <span class="n">tr</span><span class="o">.</span><span class="n">Transformations</span><span class="p">()</span> <span class="c"># init transfomation</span>
+
+<span class="n">t</span><span class="o">.</span><span class="n">set_points_tuple_size</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="c"># Pairwise points in the queue</span>
+
+<span class="n">t</span><span class="o">.</span><span class="n">rotY</span><span class="p">(</span> <span class="n">np</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="mi">90</span><span class="p">)</span> <span class="p">)</span>  <span class="c"># Apply some transoformations matricies</span>
+<span class="n">t</span><span class="o">.</span><span class="n">rotX</span><span class="p">(</span> <span class="n">np</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="mi">90</span><span class="p">)</span> <span class="p">)</span>
+<span class="n">t</span><span class="o">.</span><span class="n">rotZ</span><span class="p">(</span> <span class="n">np</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="mi">90</span><span class="p">)</span> <span class="p">)</span>
+
+<span class="n">t</span><span class="o">.</span><span class="n">append_point</span><span class="p">(</span> <span class="nb">list</span><span class="p">(</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="p">)</span> <span class="p">)</span>      <span class="c"># Append some poits. It accept every Indexable type </span>
+<span class="n">t</span><span class="o">.</span><span class="n">append_point</span><span class="p">(</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="p">)</span> <span class="p">)</span>  <span class="c"># The preview transoformations are applied on these points</span>
+<span class="n">t</span><span class="o">.</span><span class="n">append_point</span><span class="p">(</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="p">)</span> <span class="p">)</span>
+<span class="n">t</span><span class="o">.</span><span class="n">append_point</span><span class="p">(</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="p">)</span> <span class="p">)</span>    
+
+<span class="n">t</span><span class="o">.</span><span class="n">push_matrix</span><span class="p">()</span> <span class="c"># push the current matrix</span>
+
+<span class="n">t</span><span class="o">.</span><span class="n">translation</span><span class="p">(</span> <span class="mi">10</span> <span class="p">,</span> <span class="mi">2</span> <span class="p">,</span> <span class="mi">2</span> <span class="p">)</span> <span class="c"># Apply a translation</span>
+
+<span class="n">t</span><span class="o">.</span><span class="n">append_point</span><span class="p">(</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="p">)</span>
+<span class="n">t</span><span class="o">.</span><span class="n">append_point</span><span class="p">(</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="p">)</span><span class="o">.</span><span class="n">T</span> <span class="p">)</span> <span class="c"># Only vertical matrix</span>
+
+<span class="n">t</span><span class="o">.</span><span class="n">pop_matrix</span><span class="p">()</span> <span class="c"># Back to the old matrix</span>
+
+<span class="n">t</span><span class="o">.</span><span class="n">append_point</span><span class="p">(</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="p">)</span> <span class="p">)</span>
+<span class="n">t</span><span class="o">.</span><span class="n">append_point</span><span class="p">(</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="p">)</span>
+<span class="n">t</span><span class="o">.</span><span class="n">append_point</span><span class="p">(</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="p">)</span> <span class="p">)</span>
+<span class="n">t</span><span class="o">.</span><span class="n">append_point</span><span class="p">(</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="p">)</span>
+
+<span class="c"># Print the resulting points (in a paiwise tuple)</span>
+<span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">t</span> <span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span> <span class="n">p</span> <span class="p">)</span>
+</pre></div>
+</div>
+<dl class="method">
+<dt id="pyparticles.geometry.transformations.Transformations.append_point">
+<tt class="descname">append_point</tt><big>(</big><em>pt</em><big>)</big><a class="headerlink" href="#pyparticles.geometry.transformations.Transformations.append_point" title="Permalink to this definition">¶</a></dt>
+<dd><p>TRansforms and append a new point in the points queue</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.geometry.transformations.Transformations.clear">
+<tt class="descname">clear</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.geometry.transformations.Transformations.clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clear the stack, the poits queue and set to the identity the current matrix</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.geometry.transformations.Transformations.get_matrix">
+<tt class="descname">get_matrix</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.geometry.transformations.Transformations.get_matrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a copy of the current matrix</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.geometry.transformations.Transformations.identity">
+<tt class="descname">identity</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.geometry.transformations.Transformations.identity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the current matrix to the identity</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyparticles.geometry.transformations.Transformations.matrix">
+<tt class="descname">matrix</tt><a class="headerlink" href="#pyparticles.geometry.transformations.Transformations.matrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a copy of the current matrix</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.geometry.transformations.Transformations.next">
+<tt class="descname">next</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.geometry.transformations.Transformations.next" title="Permalink to this definition">¶</a></dt>
+<dd><p>iterate over the points in the queue, it pop and returns the transformed points.
+The popped points in the queue are cancelled during the itarations.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.geometry.transformations.Transformations.pop_matrix">
+<tt class="descname">pop_matrix</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.geometry.transformations.Transformations.pop_matrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pop and copy in the current matrix the last matrix in the stack</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.geometry.transformations.Transformations.pop_points">
+<tt class="descname">pop_points</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.geometry.transformations.Transformations.pop_points" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the firsts #nr of points in the point queue, the returned points are organized in a tuple</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.geometry.transformations.Transformations.push_matrix">
+<tt class="descname">push_matrix</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.geometry.transformations.Transformations.push_matrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Push in the stack a copy of the current matrix</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.geometry.transformations.Transformations.reflection">
+<tt class="descname">reflection</tt><big>(</big><em>a</em>, <em>b</em>, <em>c</em><big>)</big><a class="headerlink" href="#pyparticles.geometry.transformations.Transformations.reflection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply the reflection through a plane: ax + by + cz = 0</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.geometry.transformations.Transformations.rotX">
+<tt class="descname">rotX</tt><big>(</big><em>angle</em><big>)</big><a class="headerlink" href="#pyparticles.geometry.transformations.Transformations.rotX" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply the rotation around the x axis</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.geometry.transformations.Transformations.rotY">
+<tt class="descname">rotY</tt><big>(</big><em>angle</em><big>)</big><a class="headerlink" href="#pyparticles.geometry.transformations.Transformations.rotY" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply the rotation around the y axis</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.geometry.transformations.Transformations.rotZ">
+<tt class="descname">rotZ</tt><big>(</big><em>angle</em><big>)</big><a class="headerlink" href="#pyparticles.geometry.transformations.Transformations.rotZ" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply the rotation around the z axis</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.geometry.transformations.Transformations.rotate">
+<tt class="descname">rotate</tt><big>(</big><em>angle</em>, <em>x</em>, <em>y</em>, <em>z</em><big>)</big><a class="headerlink" href="#pyparticles.geometry.transformations.Transformations.rotate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply the rotation matrix around the axis [ x , y , z ] of the angle: <em>angle</em></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.geometry.transformations.Transformations.scale">
+<tt class="descname">scale</tt><big>(</big><em>x</em>, <em>y</em>, <em>z</em><big>)</big><a class="headerlink" href="#pyparticles.geometry.transformations.Transformations.scale" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply the scale with values x y z</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.geometry.transformations.Transformations.set_matrix">
+<tt class="descname">set_matrix</tt><big>(</big><em>m</em><big>)</big><a class="headerlink" href="#pyparticles.geometry.transformations.Transformations.set_matrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>set the current matrix to m</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.geometry.transformations.Transformations.set_points_tuple_size">
+<tt class="descname">set_points_tuple_size</tt><big>(</big><em>nr</em><big>)</big><a class="headerlink" href="#pyparticles.geometry.transformations.Transformations.set_points_tuple_size" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.geometry.transformations.Transformations.shearX">
+<tt class="descname">shearX</tt><big>(</big><em>a</em>, <em>b</em><big>)</big><a class="headerlink" href="#pyparticles.geometry.transformations.Transformations.shearX" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply the shearing along X axis using the values a b</p>
+<div class="line-block">
+<div class="line">SH_X(a,b) = [ 1 0 0 0 </div>
+<div class="line-block">
+<div class="line">a 1 0 0 </div>
+<div class="line">b 0 1 0 </div>
+<div class="line">0 0 0 1 ]</div>
+</div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.geometry.transformations.Transformations.shearY">
+<tt class="descname">shearY</tt><big>(</big><em>a</em>, <em>b</em><big>)</big><a class="headerlink" href="#pyparticles.geometry.transformations.Transformations.shearY" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply the shearing along Y axis using the values a b</p>
+<div class="line-block">
+<div class="line">SH_Y(a,b) = [ 1 a 0 0 </div>
+<div class="line-block">
+<div class="line">0 1 0 0 </div>
+<div class="line">0 b 1 0 </div>
+<div class="line">0 0 0 1 ]</div>
+</div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.geometry.transformations.Transformations.shearZ">
+<tt class="descname">shearZ</tt><big>(</big><em>a</em>, <em>b</em><big>)</big><a class="headerlink" href="#pyparticles.geometry.transformations.Transformations.shearZ" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply the shearing along Z axis using the values a b</p>
+<div class="line-block">
+<div class="line">SH_Z(a,b) = [ 1 0 a 0 </div>
+<div class="line-block">
+<div class="line">0 1 b 0 </div>
+<div class="line">0 0 1 0 </div>
+<div class="line">0 0 0 1 ]        </div>
+</div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.geometry.transformations.Transformations.transform">
+<tt class="descname">transform</tt><big>(</big><em>x</em>, <em>y</em>, <em>z</em><big>)</big><a class="headerlink" href="#pyparticles.geometry.transformations.Transformations.transform" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transform the point ( x , y , z ) according to the current matrix and returns a 3 by 1 matrix containig the resulting point</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.geometry.transformations.Transformations.transformv">
+<tt class="descname">transformv</tt><big>(</big><em>pt</em><big>)</big><a class="headerlink" href="#pyparticles.geometry.transformations.Transformations.transformv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transform the point pt: [ x , y , z ] according to the current matrix and returns a 3 by 1 matrix containig the resulting point</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.geometry.transformations.Transformations.translation">
+<tt class="descname">translation</tt><big>(</big><em>x</em>, <em>y</em>, <em>z</em><big>)</big><a class="headerlink" href="#pyparticles.geometry.transformations.Transformations.translation" title="Permalink to this definition">¶</a></dt>
+<dd><p>apply the translation with the vector [x y z]</p>
+</dd></dl>
+
+</dd></dl>
+
 </div>
 </div>
 
@@ -75,8 +301,10 @@
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">geometry Package</a><ul>
-<li><a class="reference internal" href="#dist-module"><tt class="docutils literal"><span class="pre">dist</span></tt> Module</a></li>
-<li><a class="reference internal" href="#intersection-module"><tt class="docutils literal"><span class="pre">intersection</span></tt> Module</a></li>
+<li><a class="reference internal" href="#id1"><tt class="docutils literal"><span class="pre">geometry</span></tt> Package</a></li>
+<li><a class="reference internal" href="#module-pyparticles.geometry.dist"><tt class="docutils literal"><span class="pre">dist</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pyparticles.geometry.intersection"><tt class="docutils literal"><span class="pre">intersection</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pyparticles.geometry.transformations"><tt class="docutils literal"><span class="pre">transformations</span></tt> Module</a></li>
 </ul>
 </li>
 </ul>

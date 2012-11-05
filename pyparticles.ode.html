@@ -58,6 +58,9 @@
             
   <div class="section" id="ode-package">
 <h1>ode Package<a class="headerlink" href="#ode-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2><tt class="xref py py-mod docutils literal"><span class="pre">ode</span></tt> Package<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-pyparticles.ode"></span></div>
 <div class="section" id="module-pyparticles.ode.euler_solver">
 <span id="euler-solver-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">euler_solver</span></tt> Module<a class="headerlink" href="#module-pyparticles.ode.euler_solver" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
@@ -67,12 +70,62 @@
 </dd></dl>
 
 </div>
+<div class="section" id="module-pyparticles.ode.euler_solver_constrained">
+<span id="euler-solver-constrained-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">euler_solver_constrained</span></tt> Module<a class="headerlink" href="#module-pyparticles.ode.euler_solver_constrained" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyparticles.ode.euler_solver_constrained.EulerSolverConstrained">
+<em class="property">class </em><tt class="descclassname">pyparticles.ode.euler_solver_constrained.</tt><tt class="descname">EulerSolverConstrained</tt><big>(</big><em>force</em>, <em>p_set</em>, <em>dt</em>, <em>x_constraint=None</em>, <em>v_constraint=None</em><big>)</big><a class="headerlink" href="#pyparticles.ode.euler_solver_constrained.EulerSolverConstrained" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pyparticles.ode.ode_solver_constrained.OdeSolverConstrained" title="pyparticles.ode.ode_solver_constrained.OdeSolverConstrained"><tt class="xref py py-class docutils literal"><span class="pre">pyparticles.ode.ode_solver_constrained.OdeSolverConstrained</span></tt></a></p>
+<dl class="method">
+<dt id="pyparticles.ode.euler_solver_constrained.EulerSolverConstrained.get_x_constraint">
+<tt class="descname">get_x_constraint</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.ode.euler_solver_constrained.EulerSolverConstrained.get_x_constraint" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.ode.euler_solver_constrained.EulerSolverConstrained.set_x_constraint">
+<tt class="descname">set_x_constraint</tt><big>(</big><em>xc</em><big>)</big><a class="headerlink" href="#pyparticles.ode.euler_solver_constrained.EulerSolverConstrained.set_x_constraint" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyparticles.ode.euler_solver_constrained.EulerSolverConstrained.x_constraint">
+<tt class="descname">x_constraint</tt><a class="headerlink" href="#pyparticles.ode.euler_solver_constrained.EulerSolverConstrained.x_constraint" title="Permalink to this definition">¶</a></dt>
+<dd><p>get and set the current positionals constraints</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="module-pyparticles.ode.leapfrog_solver">
 <span id="leapfrog-solver-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">leapfrog_solver</span></tt> Module<a class="headerlink" href="#module-pyparticles.ode.leapfrog_solver" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pyparticles.ode.leapfrog_solver.LeapfrogSolver">
 <em class="property">class </em><tt class="descclassname">pyparticles.ode.leapfrog_solver.</tt><tt class="descname">LeapfrogSolver</tt><big>(</big><em>force</em>, <em>p_set</em>, <em>dt</em><big>)</big><a class="headerlink" href="#pyparticles.ode.leapfrog_solver.LeapfrogSolver" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#pyparticles.ode.ode_solver.OdeSolver" title="pyparticles.ode.ode_solver.OdeSolver"><tt class="xref py py-class docutils literal"><span class="pre">pyparticles.ode.ode_solver.OdeSolver</span></tt></a></p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyparticles.ode.leapfrog_solver_constrained">
+<span id="leapfrog-solver-constrained-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">leapfrog_solver_constrained</span></tt> Module<a class="headerlink" href="#module-pyparticles.ode.leapfrog_solver_constrained" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyparticles.ode.leapfrog_solver_constrained.LeapfrogSolverConstrained">
+<em class="property">class </em><tt class="descclassname">pyparticles.ode.leapfrog_solver_constrained.</tt><tt class="descname">LeapfrogSolverConstrained</tt><big>(</big><em>force</em>, <em>p_set</em>, <em>dt</em>, <em>x_constraint=None</em>, <em>v_constraint=None</em><big>)</big><a class="headerlink" href="#pyparticles.ode.leapfrog_solver_constrained.LeapfrogSolverConstrained" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pyparticles.ode.ode_solver_constrained.OdeSolverConstrained" title="pyparticles.ode.ode_solver_constrained.OdeSolverConstrained"><tt class="xref py py-class docutils literal"><span class="pre">pyparticles.ode.ode_solver_constrained.OdeSolverConstrained</span></tt></a></p>
+<dl class="method">
+<dt id="pyparticles.ode.leapfrog_solver_constrained.LeapfrogSolverConstrained.get_x_constraint">
+<tt class="descname">get_x_constraint</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.ode.leapfrog_solver_constrained.LeapfrogSolverConstrained.get_x_constraint" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.ode.leapfrog_solver_constrained.LeapfrogSolverConstrained.set_x_constraint">
+<tt class="descname">set_x_constraint</tt><big>(</big><em>xc</em><big>)</big><a class="headerlink" href="#pyparticles.ode.leapfrog_solver_constrained.LeapfrogSolverConstrained.set_x_constraint" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyparticles.ode.leapfrog_solver_constrained.LeapfrogSolverConstrained.x_constraint">
+<tt class="descname">x_constraint</tt><a class="headerlink" href="#pyparticles.ode.leapfrog_solver_constrained.LeapfrogSolverConstrained.x_constraint" title="Permalink to this definition">¶</a></dt>
+<dd><p>get and set the current positionals constraints</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -213,6 +266,33 @@ You must alway use this method for executing a step.</p>
 </dd></dl>
 
 </div>
+<div class="section" id="module-pyparticles.ode.ode_solver_constrained">
+<span id="ode-solver-constrained-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">ode_solver_constrained</span></tt> Module<a class="headerlink" href="#module-pyparticles.ode.ode_solver_constrained" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyparticles.ode.ode_solver_constrained.OdeSolverConstrained">
+<em class="property">class </em><tt class="descclassname">pyparticles.ode.ode_solver_constrained.</tt><tt class="descname">OdeSolverConstrained</tt><big>(</big><em>force</em>, <em>p_set</em>, <em>dt</em>, <em>x_constraint=None</em>, <em>v_constraint=None</em><big>)</big><a class="headerlink" href="#pyparticles.ode.ode_solver_constrained.OdeSolverConstrained" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pyparticles.ode.ode_solver.OdeSolver" title="pyparticles.ode.ode_solver.OdeSolver"><tt class="xref py py-class docutils literal"><span class="pre">pyparticles.ode.ode_solver.OdeSolver</span></tt></a></p>
+<dl class="method">
+<dt id="pyparticles.ode.ode_solver_constrained.OdeSolverConstrained.get_x_constraint">
+<tt class="descname">get_x_constraint</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.ode.ode_solver_constrained.OdeSolverConstrained.get_x_constraint" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns a reference to the current positionals constraints</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.ode.ode_solver_constrained.OdeSolverConstrained.set_x_constraint">
+<tt class="descname">set_x_constraint</tt><big>(</big><em>xc</em><big>)</big><a class="headerlink" href="#pyparticles.ode.ode_solver_constrained.OdeSolverConstrained.set_x_constraint" title="Permalink to this definition">¶</a></dt>
+<dd><p>set the new positionals contraints</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyparticles.ode.ode_solver_constrained.OdeSolverConstrained.x_constraint">
+<tt class="descname">x_constraint</tt><a class="headerlink" href="#pyparticles.ode.ode_solver_constrained.OdeSolverConstrained.x_constraint" title="Permalink to this definition">¶</a></dt>
+<dd><p>get and set the current positionals constraints</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="module-pyparticles.ode.runge_kutta_solver">
 <span id="runge-kutta-solver-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">runge_kutta_solver</span></tt> Module<a class="headerlink" href="#module-pyparticles.ode.runge_kutta_solver" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
@@ -222,12 +302,62 @@ You must alway use this method for executing a step.</p>
 </dd></dl>
 
 </div>
+<div class="section" id="module-pyparticles.ode.runge_kutta_solver_constrained">
+<span id="runge-kutta-solver-constrained-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">runge_kutta_solver_constrained</span></tt> Module<a class="headerlink" href="#module-pyparticles.ode.runge_kutta_solver_constrained" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyparticles.ode.runge_kutta_solver_constrained.RungeKuttaSolverConstrained">
+<em class="property">class </em><tt class="descclassname">pyparticles.ode.runge_kutta_solver_constrained.</tt><tt class="descname">RungeKuttaSolverConstrained</tt><big>(</big><em>force</em>, <em>p_set</em>, <em>dt</em>, <em>x_constraint=None</em>, <em>v_constraint=None</em><big>)</big><a class="headerlink" href="#pyparticles.ode.runge_kutta_solver_constrained.RungeKuttaSolverConstrained" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pyparticles.ode.ode_solver_constrained.OdeSolverConstrained" title="pyparticles.ode.ode_solver_constrained.OdeSolverConstrained"><tt class="xref py py-class docutils literal"><span class="pre">pyparticles.ode.ode_solver_constrained.OdeSolverConstrained</span></tt></a></p>
+<dl class="method">
+<dt id="pyparticles.ode.runge_kutta_solver_constrained.RungeKuttaSolverConstrained.get_x_constraint">
+<tt class="descname">get_x_constraint</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.ode.runge_kutta_solver_constrained.RungeKuttaSolverConstrained.get_x_constraint" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.ode.runge_kutta_solver_constrained.RungeKuttaSolverConstrained.set_x_constraint">
+<tt class="descname">set_x_constraint</tt><big>(</big><em>xc</em><big>)</big><a class="headerlink" href="#pyparticles.ode.runge_kutta_solver_constrained.RungeKuttaSolverConstrained.set_x_constraint" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyparticles.ode.runge_kutta_solver_constrained.RungeKuttaSolverConstrained.x_constraint">
+<tt class="descname">x_constraint</tt><a class="headerlink" href="#pyparticles.ode.runge_kutta_solver_constrained.RungeKuttaSolverConstrained.x_constraint" title="Permalink to this definition">¶</a></dt>
+<dd><p>get and set the current positionals constraints</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="module-pyparticles.ode.stormer_verlet_solver">
 <span id="stormer-verlet-solver-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">stormer_verlet_solver</span></tt> Module<a class="headerlink" href="#module-pyparticles.ode.stormer_verlet_solver" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pyparticles.ode.stormer_verlet_solver.StormerVerletSolver">
 <em class="property">class </em><tt class="descclassname">pyparticles.ode.stormer_verlet_solver.</tt><tt class="descname">StormerVerletSolver</tt><big>(</big><em>force</em>, <em>p_set</em>, <em>dt</em><big>)</big><a class="headerlink" href="#pyparticles.ode.stormer_verlet_solver.StormerVerletSolver" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#pyparticles.ode.ode_solver.OdeSolver" title="pyparticles.ode.ode_solver.OdeSolver"><tt class="xref py py-class docutils literal"><span class="pre">pyparticles.ode.ode_solver.OdeSolver</span></tt></a></p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyparticles.ode.stormer_verlet_solver_constrained">
+<span id="stormer-verlet-solver-constrained-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">stormer_verlet_solver_constrained</span></tt> Module<a class="headerlink" href="#module-pyparticles.ode.stormer_verlet_solver_constrained" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyparticles.ode.stormer_verlet_solver_constrained.StormerVerletSolverConstrained">
+<em class="property">class </em><tt class="descclassname">pyparticles.ode.stormer_verlet_solver_constrained.</tt><tt class="descname">StormerVerletSolverConstrained</tt><big>(</big><em>force</em>, <em>p_set</em>, <em>dt</em>, <em>x_constraint=None</em>, <em>v_constraint=None</em><big>)</big><a class="headerlink" href="#pyparticles.ode.stormer_verlet_solver_constrained.StormerVerletSolverConstrained" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pyparticles.ode.ode_solver_constrained.OdeSolverConstrained" title="pyparticles.ode.ode_solver_constrained.OdeSolverConstrained"><tt class="xref py py-class docutils literal"><span class="pre">pyparticles.ode.ode_solver_constrained.OdeSolverConstrained</span></tt></a></p>
+<dl class="method">
+<dt id="pyparticles.ode.stormer_verlet_solver_constrained.StormerVerletSolverConstrained.get_x_constraint">
+<tt class="descname">get_x_constraint</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.ode.stormer_verlet_solver_constrained.StormerVerletSolverConstrained.get_x_constraint" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.ode.stormer_verlet_solver_constrained.StormerVerletSolverConstrained.set_x_constraint">
+<tt class="descname">set_x_constraint</tt><big>(</big><em>xc</em><big>)</big><a class="headerlink" href="#pyparticles.ode.stormer_verlet_solver_constrained.StormerVerletSolverConstrained.set_x_constraint" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyparticles.ode.stormer_verlet_solver_constrained.StormerVerletSolverConstrained.x_constraint">
+<tt class="descname">x_constraint</tt><a class="headerlink" href="#pyparticles.ode.stormer_verlet_solver_constrained.StormerVerletSolverConstrained.x_constraint" title="Permalink to this definition">¶</a></dt>
+<dd><p>get and set the current positionals constraints</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -242,12 +372,18 @@ You must alway use this method for executing a step.</p>
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">ode Package</a><ul>
+<li><a class="reference internal" href="#id1"><tt class="docutils literal"><span class="pre">ode</span></tt> Package</a></li>
 <li><a class="reference internal" href="#module-pyparticles.ode.euler_solver"><tt class="docutils literal"><span class="pre">euler_solver</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pyparticles.ode.euler_solver_constrained"><tt class="docutils literal"><span class="pre">euler_solver_constrained</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pyparticles.ode.leapfrog_solver"><tt class="docutils literal"><span class="pre">leapfrog_solver</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pyparticles.ode.leapfrog_solver_constrained"><tt class="docutils literal"><span class="pre">leapfrog_solver_constrained</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pyparticles.ode.midpoint_solver"><tt class="docutils literal"><span class="pre">midpoint_solver</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pyparticles.ode.ode_solver"><tt class="docutils literal"><span class="pre">ode_solver</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pyparticles.ode.ode_solver_constrained"><tt class="docutils literal"><span class="pre">ode_solver_constrained</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pyparticles.ode.runge_kutta_solver"><tt class="docutils literal"><span class="pre">runge_kutta_solver</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pyparticles.ode.runge_kutta_solver_constrained"><tt class="docutils literal"><span class="pre">runge_kutta_solver_constrained</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pyparticles.ode.stormer_verlet_solver"><tt class="docutils literal"><span class="pre">stormer_verlet_solver</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pyparticles.ode.stormer_verlet_solver_constrained"><tt class="docutils literal"><span class="pre">stormer_verlet_solver_constrained</span></tt> Module</a></li>
 </ul>
 </li>
 </ul>

@@ -1,6 +1,14 @@
 utils Package
 =============
 
+:mod:`utils` Package
+--------------------
+
+.. automodule:: pyparticles.utils
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 :mod:`parse_args` Module
 ------------------------
 

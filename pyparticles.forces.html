@@ -236,6 +236,30 @@
 </dd></dl>
 
 </div>
+<div class="section" id="module-pyparticles.forces.force_constrained">
+<span id="force-constrained-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">force_constrained</span></tt> Module<a class="headerlink" href="#module-pyparticles.forces.force_constrained" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyparticles.forces.force_constrained.ForceConstrained">
+<em class="property">class </em><tt class="descclassname">pyparticles.forces.force_constrained.</tt><tt class="descname">ForceConstrained</tt><big>(</big><em>size</em>, <em>dim</em>, <em>m=None</em>, <em>Conts=1.0</em>, <em>f_inter=None</em><big>)</big><a class="headerlink" href="#pyparticles.forces.force_constrained.ForceConstrained" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pyparticles.forces.force.Force" title="pyparticles.forces.force.Force"><tt class="xref py py-class docutils literal"><span class="pre">pyparticles.forces.force.Force</span></tt></a></p>
+<dl class="attribute">
+<dt id="pyparticles.forces.force_constrained.ForceConstrained.force_interactions">
+<tt class="descname">force_interactions</tt><a class="headerlink" href="#pyparticles.forces.force_constrained.ForceConstrained.force_interactions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.forces.force_constrained.ForceConstrained.get_force_interactions">
+<tt class="descname">get_force_interactions</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.forces.force_constrained.ForceConstrained.get_force_interactions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.forces.force_constrained.ForceConstrained.set_force_interactions">
+<tt class="descname">set_force_interactions</tt><big>(</big><em>fi</em><big>)</big><a class="headerlink" href="#pyparticles.forces.force_constrained.ForceConstrained.set_force_interactions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="module-pyparticles.forces.gravity">
 <span id="gravity-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">gravity</span></tt> Module<a class="headerlink" href="#module-pyparticles.forces.gravity" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
@@ -432,6 +456,56 @@
 </dd></dl>
 
 </div>
+<div class="section" id="module-pyparticles.forces.linear_spring_constrained">
+<span id="linear-spring-constrained-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">linear_spring_constrained</span></tt> Module<a class="headerlink" href="#module-pyparticles.forces.linear_spring_constrained" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyparticles.forces.linear_spring_constrained.LinearSpringConstrained">
+<em class="property">class </em><tt class="descclassname">pyparticles.forces.linear_spring_constrained.</tt><tt class="descname">LinearSpringConstrained</tt><big>(</big><em>size</em>, <em>dim</em>, <em>m=None</em>, <em>Consts=1.0</em>, <em>f_inter=None</em><big>)</big><a class="headerlink" href="#pyparticles.forces.linear_spring_constrained.LinearSpringConstrained" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pyparticles.forces.force_constrained.ForceConstrained" title="pyparticles.forces.force_constrained.ForceConstrained"><tt class="xref py py-class docutils literal"><span class="pre">pyparticles.forces.force_constrained.ForceConstrained</span></tt></a></p>
+<dl class="attribute">
+<dt id="pyparticles.forces.linear_spring_constrained.LinearSpringConstrained.A">
+<tt class="descname">A</tt><a class="headerlink" href="#pyparticles.forces.linear_spring_constrained.LinearSpringConstrained.A" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyparticles.forces.linear_spring_constrained.LinearSpringConstrained.F">
+<tt class="descname">F</tt><a class="headerlink" href="#pyparticles.forces.linear_spring_constrained.LinearSpringConstrained.F" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyparticles.forces.linear_spring_constrained.LinearSpringConstrained.const">
+<tt class="descname">const</tt><a class="headerlink" href="#pyparticles.forces.linear_spring_constrained.LinearSpringConstrained.const" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.forces.linear_spring_constrained.LinearSpringConstrained.getA">
+<tt class="descname">getA</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.forces.linear_spring_constrained.LinearSpringConstrained.getA" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.forces.linear_spring_constrained.LinearSpringConstrained.getF">
+<tt class="descname">getF</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.forces.linear_spring_constrained.LinearSpringConstrained.getF" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.forces.linear_spring_constrained.LinearSpringConstrained.get_const">
+<tt class="descname">get_const</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.forces.linear_spring_constrained.LinearSpringConstrained.get_const" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.forces.linear_spring_constrained.LinearSpringConstrained.set_masses">
+<tt class="descname">set_masses</tt><big>(</big><em>m</em><big>)</big><a class="headerlink" href="#pyparticles.forces.linear_spring_constrained.LinearSpringConstrained.set_masses" title="Permalink to this definition">¶</a></dt>
+<dd><p>set the masses of the particles</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.forces.linear_spring_constrained.LinearSpringConstrained.update_force">
+<tt class="descname">update_force</tt><big>(</big><em>pset</em><big>)</big><a class="headerlink" href="#pyparticles.forces.linear_spring_constrained.LinearSpringConstrained.update_force" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="module-pyparticles.forces.multiple_force">
 <span id="multiple-force-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">multiple_force</span></tt> Module<a class="headerlink" href="#module-pyparticles.forces.multiple_force" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
@@ -475,6 +549,45 @@ It behaves like any other force, and can be used with all methods of numerical i
 <dl class="method">
 <dt id="pyparticles.forces.multiple_force.MultipleForce.update_force">
 <tt class="descname">update_force</tt><big>(</big><em>p_set</em><big>)</big><a class="headerlink" href="#pyparticles.forces.multiple_force.MultipleForce.update_force" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyparticles.forces.pseudo_bubble">
+<span id="pseudo-bubble-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">pseudo_bubble</span></tt> Module<a class="headerlink" href="#module-pyparticles.forces.pseudo_bubble" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyparticles.forces.pseudo_bubble.PseudoBubble">
+<em class="property">class </em><tt class="descclassname">pyparticles.forces.pseudo_bubble.</tt><tt class="descname">PseudoBubble</tt><big>(</big><em>size</em>, <em>dim=3</em>, <em>m=None</em>, <em>Consts=(0.3</em>, <em>2.0)</em><big>)</big><a class="headerlink" href="#pyparticles.forces.pseudo_bubble.PseudoBubble" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pyparticles.forces.force.Force" title="pyparticles.forces.force.Force"><tt class="xref py py-class docutils literal"><span class="pre">pyparticles.forces.force.Force</span></tt></a></p>
+<dl class="attribute">
+<dt id="pyparticles.forces.pseudo_bubble.PseudoBubble.A">
+<tt class="descname">A</tt><a class="headerlink" href="#pyparticles.forces.pseudo_bubble.PseudoBubble.A" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyparticles.forces.pseudo_bubble.PseudoBubble.F">
+<tt class="descname">F</tt><a class="headerlink" href="#pyparticles.forces.pseudo_bubble.PseudoBubble.F" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.forces.pseudo_bubble.PseudoBubble.getA">
+<tt class="descname">getA</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.forces.pseudo_bubble.PseudoBubble.getA" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.forces.pseudo_bubble.PseudoBubble.getF">
+<tt class="descname">getF</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.forces.pseudo_bubble.PseudoBubble.getF" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.forces.pseudo_bubble.PseudoBubble.set_masses">
+<tt class="descname">set_masses</tt><big>(</big><em>m</em><big>)</big><a class="headerlink" href="#pyparticles.forces.pseudo_bubble.PseudoBubble.set_masses" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.forces.pseudo_bubble.PseudoBubble.update_force">
+<tt class="descname">update_force</tt><big>(</big><em>pset</em><big>)</big><a class="headerlink" href="#pyparticles.forces.pseudo_bubble.PseudoBubble.update_force" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -579,10 +692,13 @@ It behaves like any other force, and can be used with all methods of numerical i
 <li><a class="reference internal" href="#module-pyparticles.forces.drag"><tt class="docutils literal"><span class="pre">drag</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pyparticles.forces.electrostatic"><tt class="docutils literal"><span class="pre">electrostatic</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pyparticles.forces.force"><tt class="docutils literal"><span class="pre">force</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pyparticles.forces.force_constrained"><tt class="docutils literal"><span class="pre">force_constrained</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pyparticles.forces.gravity"><tt class="docutils literal"><span class="pre">gravity</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pyparticles.forces.lennard_jones"><tt class="docutils literal"><span class="pre">lennard_jones</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pyparticles.forces.linear_spring"><tt class="docutils literal"><span class="pre">linear_spring</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pyparticles.forces.linear_spring_constrained"><tt class="docutils literal"><span class="pre">linear_spring_constrained</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pyparticles.forces.multiple_force"><tt class="docutils literal"><span class="pre">multiple_force</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pyparticles.forces.pseudo_bubble"><tt class="docutils literal"><span class="pre">pseudo_bubble</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pyparticles.forces.van_der_waals_force"><tt class="docutils literal"><span class="pre">van_der_waals_force</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pyparticles.forces.vector_field_force"><tt class="docutils literal"><span class="pre">vector_field_force</span></tt> Module</a></li>
 </ul>
