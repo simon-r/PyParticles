@@ -8,15 +8,15 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pset Package &mdash; PyParticles 0.1.0 documentation</title>
+    <title>pset Package &mdash; PyParticles 0.3.0 documentation</title>
     
-    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.1.0',
+        VERSION:     '0.3.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="PyParticles 0.1.0 documentation" href="index.html" />
+    <link rel="top" title="PyParticles 0.3.0 documentation" href="index.html" />
     <link rel="up" title="pyparticles Package" href="pyparticles.html" />
     <link rel="next" title="utils Package" href="pyparticles.utils.html" />
     <link rel="prev" title="ogl Package" href="pyparticles.ogl.html" /> 
@@ -46,10 +46,58 @@
         <li class="right" >
           <a href="pyparticles.ogl.html" title="ogl Package"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">PyParticles 0.1.0 documentation</a> &raquo;</li>
+        <li><a href="index.html">PyParticles 0.3.0 documentation</a> &raquo;</li>
           <li><a href="pyparticles.html" accesskey="U">pyparticles Package</a> &raquo;</li> 
       </ul>
-    </div>  
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">pset Package</a><ul>
+<li><a class="reference internal" href="#id1"><tt class="docutils literal"><span class="pre">pset</span></tt> Package</a></li>
+<li><a class="reference internal" href="#module-pyparticles.pset.boundary"><tt class="docutils literal"><span class="pre">boundary</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pyparticles.pset.cluster"><tt class="docutils literal"><span class="pre">cluster</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pyparticles.pset.constrained_force_interactions"><tt class="docutils literal"><span class="pre">constrained_force_interactions</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pyparticles.pset.constrained_x"><tt class="docutils literal"><span class="pre">constrained_x</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pyparticles.pset.constraint"><tt class="docutils literal"><span class="pre">constraint</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pyparticles.pset.electrically_charged_particle_set"><tt class="docutils literal"><span class="pre">electrically_charged_particle_set</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pyparticles.pset.file_cluster"><tt class="docutils literal"><span class="pre">file_cluster</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pyparticles.pset.octree"><tt class="docutils literal"><span class="pre">octree</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pyparticles.pset.particles_set"><tt class="docutils literal"><span class="pre">particles_set</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pyparticles.pset.periodic_boundary"><tt class="docutils literal"><span class="pre">periodic_boundary</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pyparticles.pset.rand_cluster"><tt class="docutils literal"><span class="pre">rand_cluster</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pyparticles.pset.rebound_boundary"><tt class="docutils literal"><span class="pre">rebound_boundary</span></tt> Module</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="pyparticles.ogl.html"
+                        title="previous chapter">ogl Package</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="pyparticles.utils.html"
+                        title="next chapter">utils Package</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/pyparticles.pset.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
 
     <div class="document">
       <div class="documentwrapper">
@@ -1086,17 +1134,17 @@ if it is smaller it cancels the data.</p>
 <dd><p>Bases: <a class="reference internal" href="#pyparticles.pset.cluster.Cluster" title="pyparticles.pset.cluster.Cluster"><tt class="xref py py-class docutils literal"><span class="pre">pyparticles.pset.cluster.Cluster</span></tt></a></p>
 <dl class="method">
 <dt id="pyparticles.pset.rand_cluster.RandCluster.bomb_vel">
-<tt class="descname">bomb_vel</tt><big>(</big><em>X</em>, <em>V</em>, <em>start_indx=0</em>, <em>n=100</em>, <em>centre=(0.0</em>, <em>0.0</em>, <em>0.0)</em>, <em>vel_rng=(0.5</em>, <em>1.0)</em>, <em>randg=&lt;built-in method rand of mtrand.RandomState object at 0x1b98a38&gt;</em><big>)</big><a class="headerlink" href="#pyparticles.pset.rand_cluster.RandCluster.bomb_vel" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">bomb_vel</tt><big>(</big><em>X</em>, <em>V</em>, <em>start_indx=0</em>, <em>n=100</em>, <em>centre=(0.0</em>, <em>0.0</em>, <em>0.0)</em>, <em>vel_rng=(0.5</em>, <em>1.0)</em>, <em>randg=&lt;built-in method rand of mtrand.RandomState object at 0x22a5b40&gt;</em><big>)</big><a class="headerlink" href="#pyparticles.pset.rand_cluster.RandCluster.bomb_vel" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="pyparticles.pset.rand_cluster.RandCluster.const_vel">
-<tt class="descname">const_vel</tt><big>(</big><em>X, V, start_indx=0, n=100, vel_rng=(0.5, 1.0), vel_dir=[1, 0, 0], randg=&lt;built-in method rand of mtrand.RandomState object at 0x1b98a38&gt;</em><big>)</big><a class="headerlink" href="#pyparticles.pset.rand_cluster.RandCluster.const_vel" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">const_vel</tt><big>(</big><em>X, V, start_indx=0, n=100, vel_rng=(0.5, 1.0), vel_dir=[1, 0, 0], randg=&lt;built-in method rand of mtrand.RandomState object at 0x22a5b40&gt;</em><big>)</big><a class="headerlink" href="#pyparticles.pset.rand_cluster.RandCluster.const_vel" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="pyparticles.pset.rand_cluster.RandCluster.insert3">
-<tt class="descname">insert3</tt><big>(</big><em>X</em>, <em>M=None</em>, <em>V=None</em>, <em>start_indx=0</em>, <em>n=100</em>, <em>centre=(0.0</em>, <em>0.0</em>, <em>0.0)</em>, <em>radius=1.0</em>, <em>mass_rng=(0.5</em>, <em>1)</em>, <em>vel_rng=(0.5</em>, <em>1.0)</em>, <em>vel_mdl=None</em>, <em>vel_dir=None</em>, <em>randg=&lt;built-in method rand of mtrand.RandomState object at 0x1b98a38&gt;</em>, <em>r_min=0.0</em><big>)</big><a class="headerlink" href="#pyparticles.pset.rand_cluster.RandCluster.insert3" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">insert3</tt><big>(</big><em>X</em>, <em>M=None</em>, <em>V=None</em>, <em>start_indx=0</em>, <em>n=100</em>, <em>centre=(0.0</em>, <em>0.0</em>, <em>0.0)</em>, <em>radius=1.0</em>, <em>mass_rng=(0.5</em>, <em>1)</em>, <em>vel_rng=(0.5</em>, <em>1.0)</em>, <em>vel_mdl=None</em>, <em>vel_dir=None</em>, <em>randg=&lt;built-in method rand of mtrand.RandomState object at 0x22a5b40&gt;</em>, <em>r_min=0.0</em><big>)</big><a class="headerlink" href="#pyparticles.pset.rand_cluster.RandCluster.insert3" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -1127,54 +1175,6 @@ if it is smaller it cancels the data.</p>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
-        <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">pset Package</a><ul>
-<li><a class="reference internal" href="#id1"><tt class="docutils literal"><span class="pre">pset</span></tt> Package</a></li>
-<li><a class="reference internal" href="#module-pyparticles.pset.boundary"><tt class="docutils literal"><span class="pre">boundary</span></tt> Module</a></li>
-<li><a class="reference internal" href="#module-pyparticles.pset.cluster"><tt class="docutils literal"><span class="pre">cluster</span></tt> Module</a></li>
-<li><a class="reference internal" href="#module-pyparticles.pset.constrained_force_interactions"><tt class="docutils literal"><span class="pre">constrained_force_interactions</span></tt> Module</a></li>
-<li><a class="reference internal" href="#module-pyparticles.pset.constrained_x"><tt class="docutils literal"><span class="pre">constrained_x</span></tt> Module</a></li>
-<li><a class="reference internal" href="#module-pyparticles.pset.constraint"><tt class="docutils literal"><span class="pre">constraint</span></tt> Module</a></li>
-<li><a class="reference internal" href="#module-pyparticles.pset.electrically_charged_particle_set"><tt class="docutils literal"><span class="pre">electrically_charged_particle_set</span></tt> Module</a></li>
-<li><a class="reference internal" href="#module-pyparticles.pset.file_cluster"><tt class="docutils literal"><span class="pre">file_cluster</span></tt> Module</a></li>
-<li><a class="reference internal" href="#module-pyparticles.pset.octree"><tt class="docutils literal"><span class="pre">octree</span></tt> Module</a></li>
-<li><a class="reference internal" href="#module-pyparticles.pset.particles_set"><tt class="docutils literal"><span class="pre">particles_set</span></tt> Module</a></li>
-<li><a class="reference internal" href="#module-pyparticles.pset.periodic_boundary"><tt class="docutils literal"><span class="pre">periodic_boundary</span></tt> Module</a></li>
-<li><a class="reference internal" href="#module-pyparticles.pset.rand_cluster"><tt class="docutils literal"><span class="pre">rand_cluster</span></tt> Module</a></li>
-<li><a class="reference internal" href="#module-pyparticles.pset.rebound_boundary"><tt class="docutils literal"><span class="pre">rebound_boundary</span></tt> Module</a></li>
-</ul>
-</li>
-</ul>
-
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="pyparticles.ogl.html"
-                        title="previous chapter">ogl Package</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="pyparticles.utils.html"
-                        title="next chapter">utils Package</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/pyparticles.pset.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
-  <h3>Quick search</h3>
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
-        </div>
-      </div>
       <div class="clearer"></div>
     </div>
     <div class="related">
@@ -1192,7 +1192,7 @@ if it is smaller it cancels the data.</p>
         <li class="right" >
           <a href="pyparticles.ogl.html" title="ogl Package"
              >previous</a> |</li>
-        <li><a href="index.html">PyParticles 0.1.0 documentation</a> &raquo;</li>
+        <li><a href="index.html">PyParticles 0.3.0 documentation</a> &raquo;</li>
           <li><a href="pyparticles.html" >pyparticles Package</a> &raquo;</li> 
       </ul>
     </div>

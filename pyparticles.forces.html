@@ -8,15 +8,15 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>forces Package &mdash; PyParticles 0.1.0 documentation</title>
+    <title>forces Package &mdash; PyParticles 0.3.0 documentation</title>
     
-    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.1.0',
+        VERSION:     '0.3.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="PyParticles 0.1.0 documentation" href="index.html" />
+    <link rel="top" title="PyParticles 0.3.0 documentation" href="index.html" />
     <link rel="up" title="pyparticles Package" href="pyparticles.html" />
     <link rel="next" title="geometry Package" href="pyparticles.geometry.html" />
     <link rel="prev" title="demo Package" href="pyparticles.demo.html" /> 
@@ -46,10 +46,59 @@
         <li class="right" >
           <a href="pyparticles.demo.html" title="demo Package"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">PyParticles 0.1.0 documentation</a> &raquo;</li>
+        <li><a href="index.html">PyParticles 0.3.0 documentation</a> &raquo;</li>
           <li><a href="pyparticles.html" accesskey="U">pyparticles Package</a> &raquo;</li> 
       </ul>
-    </div>  
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">forces Package</a><ul>
+<li><a class="reference internal" href="#id1"><tt class="docutils literal"><span class="pre">forces</span></tt> Package</a></li>
+<li><a class="reference internal" href="#module-pyparticles.forces.const_force"><tt class="docutils literal"><span class="pre">const_force</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pyparticles.forces.drag"><tt class="docutils literal"><span class="pre">drag</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pyparticles.forces.electrostatic"><tt class="docutils literal"><span class="pre">electrostatic</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pyparticles.forces.force"><tt class="docutils literal"><span class="pre">force</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pyparticles.forces.force_constrained"><tt class="docutils literal"><span class="pre">force_constrained</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pyparticles.forces.gravity"><tt class="docutils literal"><span class="pre">gravity</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pyparticles.forces.lennard_jones"><tt class="docutils literal"><span class="pre">lennard_jones</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pyparticles.forces.linear_spring"><tt class="docutils literal"><span class="pre">linear_spring</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pyparticles.forces.linear_spring_constrained"><tt class="docutils literal"><span class="pre">linear_spring_constrained</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pyparticles.forces.multiple_force"><tt class="docutils literal"><span class="pre">multiple_force</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pyparticles.forces.pseudo_bubble"><tt class="docutils literal"><span class="pre">pseudo_bubble</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pyparticles.forces.van_der_waals_force"><tt class="docutils literal"><span class="pre">van_der_waals_force</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pyparticles.forces.vector_field_force"><tt class="docutils literal"><span class="pre">vector_field_force</span></tt> Module</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="pyparticles.demo.html"
+                        title="previous chapter">demo Package</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="pyparticles.geometry.html"
+                        title="next chapter">geometry Package</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/pyparticles.forces.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
 
     <div class="document">
       <div class="documentwrapper">
@@ -682,55 +731,6 @@ It behaves like any other force, and can be used with all methods of numerical i
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
-        <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">forces Package</a><ul>
-<li><a class="reference internal" href="#id1"><tt class="docutils literal"><span class="pre">forces</span></tt> Package</a></li>
-<li><a class="reference internal" href="#module-pyparticles.forces.const_force"><tt class="docutils literal"><span class="pre">const_force</span></tt> Module</a></li>
-<li><a class="reference internal" href="#module-pyparticles.forces.drag"><tt class="docutils literal"><span class="pre">drag</span></tt> Module</a></li>
-<li><a class="reference internal" href="#module-pyparticles.forces.electrostatic"><tt class="docutils literal"><span class="pre">electrostatic</span></tt> Module</a></li>
-<li><a class="reference internal" href="#module-pyparticles.forces.force"><tt class="docutils literal"><span class="pre">force</span></tt> Module</a></li>
-<li><a class="reference internal" href="#module-pyparticles.forces.force_constrained"><tt class="docutils literal"><span class="pre">force_constrained</span></tt> Module</a></li>
-<li><a class="reference internal" href="#module-pyparticles.forces.gravity"><tt class="docutils literal"><span class="pre">gravity</span></tt> Module</a></li>
-<li><a class="reference internal" href="#module-pyparticles.forces.lennard_jones"><tt class="docutils literal"><span class="pre">lennard_jones</span></tt> Module</a></li>
-<li><a class="reference internal" href="#module-pyparticles.forces.linear_spring"><tt class="docutils literal"><span class="pre">linear_spring</span></tt> Module</a></li>
-<li><a class="reference internal" href="#module-pyparticles.forces.linear_spring_constrained"><tt class="docutils literal"><span class="pre">linear_spring_constrained</span></tt> Module</a></li>
-<li><a class="reference internal" href="#module-pyparticles.forces.multiple_force"><tt class="docutils literal"><span class="pre">multiple_force</span></tt> Module</a></li>
-<li><a class="reference internal" href="#module-pyparticles.forces.pseudo_bubble"><tt class="docutils literal"><span class="pre">pseudo_bubble</span></tt> Module</a></li>
-<li><a class="reference internal" href="#module-pyparticles.forces.van_der_waals_force"><tt class="docutils literal"><span class="pre">van_der_waals_force</span></tt> Module</a></li>
-<li><a class="reference internal" href="#module-pyparticles.forces.vector_field_force"><tt class="docutils literal"><span class="pre">vector_field_force</span></tt> Module</a></li>
-</ul>
-</li>
-</ul>
-
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="pyparticles.demo.html"
-                        title="previous chapter">demo Package</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="pyparticles.geometry.html"
-                        title="next chapter">geometry Package</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/pyparticles.forces.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
-  <h3>Quick search</h3>
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
-        </div>
-      </div>
       <div class="clearer"></div>
     </div>
     <div class="related">
@@ -748,7 +748,7 @@ It behaves like any other force, and can be used with all methods of numerical i
         <li class="right" >
           <a href="pyparticles.demo.html" title="demo Package"
              >previous</a> |</li>
-        <li><a href="index.html">PyParticles 0.1.0 documentation</a> &raquo;</li>
+        <li><a href="index.html">PyParticles 0.3.0 documentation</a> &raquo;</li>
           <li><a href="pyparticles.html" >pyparticles Package</a> &raquo;</li> 
       </ul>
     </div>

@@ -8,15 +8,15 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>ogl Package &mdash; PyParticles 0.1.0 documentation</title>
+    <title>ogl Package &mdash; PyParticles 0.3.0 documentation</title>
     
-    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.1.0',
+        VERSION:     '0.3.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="PyParticles 0.1.0 documentation" href="index.html" />
+    <link rel="top" title="PyParticles 0.3.0 documentation" href="index.html" />
     <link rel="up" title="pyparticles Package" href="pyparticles.html" />
     <link rel="next" title="pset Package" href="pyparticles.pset.html" />
     <link rel="prev" title="ode Package" href="pyparticles.ode.html" /> 
@@ -46,10 +46,50 @@
         <li class="right" >
           <a href="pyparticles.ode.html" title="ode Package"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">PyParticles 0.1.0 documentation</a> &raquo;</li>
+        <li><a href="index.html">PyParticles 0.3.0 documentation</a> &raquo;</li>
           <li><a href="pyparticles.html" accesskey="U">pyparticles Package</a> &raquo;</li> 
       </ul>
-    </div>  
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">ogl Package</a><ul>
+<li><a class="reference internal" href="#id1"><tt class="docutils literal"><span class="pre">ogl</span></tt> Package</a></li>
+<li><a class="reference internal" href="#module-pyparticles.ogl.axis_ogl"><tt class="docutils literal"><span class="pre">axis_ogl</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pyparticles.ogl.draw_particles_ogl"><tt class="docutils literal"><span class="pre">draw_particles_ogl</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pyparticles.ogl.trackball"><tt class="docutils literal"><span class="pre">trackball</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pyparticles.ogl.translate_scene"><tt class="docutils literal"><span class="pre">translate_scene</span></tt> Module</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="pyparticles.ode.html"
+                        title="previous chapter">ode Package</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="pyparticles.pset.html"
+                        title="next chapter">pset Package</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/pyparticles.ogl.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
 
     <div class="document">
       <div class="documentwrapper">
@@ -88,6 +128,11 @@
 <dd></dd></dl>
 
 <dl class="method">
+<dt id="pyparticles.ogl.axis_ogl.AxisOgl.draw_axis_procedure">
+<tt class="descname">draw_axis_procedure</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.ogl.axis_ogl.AxisOgl.draw_axis_procedure" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="pyparticles.ogl.axis_ogl.AxisOgl.draw_plane">
 <tt class="descname">draw_plane</tt><big>(</big><em>plane='xy'</em>, <em>color=(0.7</em>, <em>0.7</em>, <em>0.7</em>, <em>0.3)</em>, <em>leng=None</em><big>)</big><a class="headerlink" href="#pyparticles.ogl.axis_ogl.AxisOgl.draw_plane" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -95,6 +140,11 @@
 <dl class="method">
 <dt id="pyparticles.ogl.axis_ogl.AxisOgl.get_axis_len">
 <tt class="descname">get_axis_len</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.ogl.axis_ogl.AxisOgl.get_axis_len" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.ogl.axis_ogl.AxisOgl.ogl_init">
+<tt class="descname">ogl_init</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.ogl.axis_ogl.AxisOgl.ogl_init" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -169,6 +219,22 @@ definition of the function color, it take as args a particle_set obj. and the pa
 <tt class="descname">get_trajectory_step</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.ogl.draw_particles_ogl.DrawParticlesGL.get_trajectory_step" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="method">
+<dt id="pyparticles.ogl.draw_particles_ogl.DrawParticlesGL.init_sphere_dl">
+<tt class="descname">init_sphere_dl</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.ogl.draw_particles_ogl.DrawParticlesGL.init_sphere_dl" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.ogl.draw_particles_ogl.DrawParticlesGL.init_teapot_dl">
+<tt class="descname">init_teapot_dl</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.ogl.draw_particles_ogl.DrawParticlesGL.init_teapot_dl" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.ogl.draw_particles_ogl.DrawParticlesGL.ogl_init">
+<tt class="descname">ogl_init</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.ogl.draw_particles_ogl.DrawParticlesGL.ogl_init" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize opengl display lists (must be called after glutInit!)</p>
+</dd></dl>
+
 <dl class="attribute">
 <dt id="pyparticles.ogl.draw_particles_ogl.DrawParticlesGL.pset">
 <tt class="descname">pset</tt><a class="headerlink" href="#pyparticles.ogl.draw_particles_ogl.DrawParticlesGL.pset" title="Permalink to this definition">¶</a></dt>
@@ -220,6 +286,12 @@ definition of the function color, it take as args a particle_set obj. and the pa
 <dt id="pyparticles.ogl.trackball.TrackBall">
 <em class="property">class </em><tt class="descclassname">pyparticles.ogl.trackball.</tt><tt class="descname">TrackBall</tt><big>(</big><em>w_size</em><big>)</big><a class="headerlink" href="#pyparticles.ogl.trackball.TrackBall" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Class used for controloing the rotation of the scene via mouse or joystick, by generating the virtual trackball effect
+====================== =========================
+Contructor Arguments
+====================== =========================
+w_size                 size of the windows
+====================== =========================</p>
 <dl class="attribute">
 <dt id="pyparticles.ogl.trackball.TrackBall.V">
 <tt class="descname">V</tt><a class="headerlink" href="#pyparticles.ogl.trackball.TrackBall.V" title="Permalink to this definition">¶</a></dt>
@@ -236,9 +308,16 @@ definition of the function color, it take as args a particle_set obj. and the pa
 <dd></dd></dl>
 
 <dl class="method">
+<dt id="pyparticles.ogl.trackball.TrackBall.on_joystick">
+<tt class="descname">on_joystick</tt><big>(</big><em>jaxes</em><big>)</big><a class="headerlink" href="#pyparticles.ogl.trackball.TrackBall.on_joystick" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given the axes ( x and y ) of the joystick; it returns the axis and the angle of rotation.</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="pyparticles.ogl.trackball.TrackBall.on_move">
 <tt class="descname">on_move</tt><big>(</big><em>point</em><big>)</big><a class="headerlink" href="#pyparticles.ogl.trackball.TrackBall.on_move" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>function to be called when the mouse is moved. argument requires the coordinates of the mouse pointer and it returns the axis of rotation and angle.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="pyparticles.ogl.trackball.TrackBall.set_V">
@@ -253,7 +332,8 @@ definition of the function color, it take as args a particle_set obj. and the pa
 <dl class="method">
 <dt id="pyparticles.ogl.trackball.TrackBall.track_ball_mapping">
 <tt class="descname">track_ball_mapping</tt><big>(</big><em>point</em><big>)</big><a class="headerlink" href="#pyparticles.ogl.trackball.TrackBall.track_ball_mapping" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Function to be called after a click on the mouse or at beginnig of the rotation, it takes the current coordinates of the pointer.</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="pyparticles.ogl.trackball.TrackBall.win_size">
@@ -333,46 +413,6 @@ definition of the function color, it take as args a particle_set obj. and the pa
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
-        <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">ogl Package</a><ul>
-<li><a class="reference internal" href="#id1"><tt class="docutils literal"><span class="pre">ogl</span></tt> Package</a></li>
-<li><a class="reference internal" href="#module-pyparticles.ogl.axis_ogl"><tt class="docutils literal"><span class="pre">axis_ogl</span></tt> Module</a></li>
-<li><a class="reference internal" href="#module-pyparticles.ogl.draw_particles_ogl"><tt class="docutils literal"><span class="pre">draw_particles_ogl</span></tt> Module</a></li>
-<li><a class="reference internal" href="#module-pyparticles.ogl.trackball"><tt class="docutils literal"><span class="pre">trackball</span></tt> Module</a></li>
-<li><a class="reference internal" href="#module-pyparticles.ogl.translate_scene"><tt class="docutils literal"><span class="pre">translate_scene</span></tt> Module</a></li>
-</ul>
-</li>
-</ul>
-
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="pyparticles.ode.html"
-                        title="previous chapter">ode Package</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="pyparticles.pset.html"
-                        title="next chapter">pset Package</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/pyparticles.ogl.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
-  <h3>Quick search</h3>
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
-        </div>
-      </div>
       <div class="clearer"></div>
     </div>
     <div class="related">
@@ -390,7 +430,7 @@ definition of the function color, it take as args a particle_set obj. and the pa
         <li class="right" >
           <a href="pyparticles.ode.html" title="ode Package"
              >previous</a> |</li>
-        <li><a href="index.html">PyParticles 0.1.0 documentation</a> &raquo;</li>
+        <li><a href="index.html">PyParticles 0.3.0 documentation</a> &raquo;</li>
           <li><a href="pyparticles.html" >pyparticles Package</a> &raquo;</li> 
       </ul>
     </div>
