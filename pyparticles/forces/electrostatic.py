@@ -23,7 +23,9 @@ import pyparticles.forces.force as fr
 class Electrostatic( fr.Force ) :
     """
     Compute the electrostatic force.
-        Note: The real force of an eletrodynamic system is given by the **Maxwell equations**! and not from the Culomb law.
+        Note: The real force of an electrodynamic system is given by the **Maxwell equations**! and not from the Culomb law.
+        
+        The Culomb law is adapt only for computing a static system of particles, and not for moving particles.
     """
     def __init__(self , size , dim=3 , m=None , Consts=1.0 ):
         
