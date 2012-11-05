@@ -225,10 +225,10 @@ class Transformations( object ):
         m = np.matrix( np.eye( 4 ) )
         
         m[1,1] =  np.cos( angle )
-        m[2,2] = -np.cos( angle )
+        m[2,2] =  np.cos( angle )
         
-        m[1,2] = -np.sin( angle )
-        m[2,1] =  np.sin( angle )
+        m[1,2] =  np.sin( angle )
+        m[2,1] = -np.sin( angle )
         
         self.__cmatrix[:] = self.__cmatrix[:] * m[:]
 

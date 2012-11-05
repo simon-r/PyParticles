@@ -337,7 +337,7 @@ class OcTree ( object ):
     
     def search_neighbour( self , X , r ):
         """
-        return an array of particles indicies included in the region centred on *X* with a radius *r*
+        return an array containing the indecies of the the particles  included in the sheric region centred in *X* with a radius *r*
         """
         
         res_list = []
