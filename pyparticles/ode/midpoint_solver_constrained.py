@@ -16,7 +16,7 @@
 
 
 import numpy as np
-import pyparticles.ode.ode_solver as os
+import pyparticles.ode.ode_solver_constrained as osc
 import pyparticles.pset.particles_set as ps
 
 class MidpointSolverConstrained( osc.OdeSolverConstrained ) :
@@ -26,6 +26,8 @@ class MidpointSolverConstrained( osc.OdeSolverConstrained ) :
         
         self.__mid_pset = ps.ParticlesSet( p_set.size , p_set.dim )
  
+        if x_constraint != None :
+            self.x_constraint = x_constraint
     
     
     def get_x_constraint(self):
@@ -43,14 +45,15 @@ class MidpointSolverConstrained( osc.OdeSolverConstrained ) :
     def __step__( self , dt ):
     
         
-        self.__mid_pset.X[:] = self.pset.X[:] + dt/2.0 * self.pset.V
+        self.__mid_pset.X[self.__free_inx,:] = self.pset.X[self.__free_inx,:] + dt/2.0 * self.pset.V[self.__free_inx,:]
+        self.__mid_pset.X[self.__csrt_inx,:] = self.pset.X[self.__csrt_inx,:]
         
         self.force.update_force( self.__mid_pset )
         
-        self.__mid_pset.V[:] = self.pset.V[:] + dt/2.0 * self.force.A
+        self.__mid_pset.V[self.__free_inx,:] = self.pset.V[self.__free_inx,:] + dt/2.0 * self.force.A[self.__free_inx,:]
         
-        self.pset.V[:] = self.pset.V[:] + dt * self.force.A
-        self.pset.X[:] = self.pset.X[:] + dt * self.__mid_pset.V[:]
+        self.pset.V[self.__free_inx,:] = self.pset.V[self.__free_inx,:] + dt * self.force.A[self.__free_inx,:]
+        self.pset.X[self.__free_inx,:] = self.pset.X[self.__free_inx,:] + dt * self.__mid_pset.V[self.__free_inx,:]
         
         self.pset.update_boundary() 
         self.force.update_force( self.pset )

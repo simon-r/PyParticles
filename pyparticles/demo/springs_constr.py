@@ -25,6 +25,7 @@ import pyparticles.ode.euler_solver_constrained as asc
 import pyparticles.ode.leapfrog_solver_constrained as lpc
 import pyparticles.ode.stormer_verlet_solver_constrained as svc
 import pyparticles.ode.runge_kutta_solver_constrained as rkc
+import pyparticles.ode.midpoint_solver_constrained as mdc
 
 
 import sys
@@ -83,7 +84,7 @@ def spring_constr():
     
     spring = lsc.LinearSpringConstrained( pset.size , pset.dim , pset.M , Consts=K , f_inter=fi )
     constf = cf.ConstForce( pset.size , dim=pset.dim , u_force=[ 0 , 0 , -10 ] )
-    drag = dr.Drag( pset.size , pset.dim , Consts=0.001 )
+    drag = dr.Drag( pset.size , pset.dim , Consts=0.003 )
     
     multif = mf.MultipleForce( pset.size , pset.dim )
     multif.append_force( spring )
@@ -96,6 +97,7 @@ def spring_constr():
     #solver = lpc.LeapfrogSolverConstrained( multif , pset , dt , costrs )
     #solver = svc.StormerVerletSolverConstrained( multif , pset , dt , costrs )
     solver = rkc.RungeKuttaSolverConstrained( multif , pset , dt , costrs )
+    #solver = mdc.MidpointSolverConstrained( multif , pset , dt , costrs )
     
     a = aogl.AnimatedGl()
     
