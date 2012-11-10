@@ -40,8 +40,7 @@ import pyparticles.ode.midpoint_solver as mds
 
 import sys
 
-if sys.version_info[0] == 2:
-    import pyparticles.animation.animated_ogl as aogl
+import pyparticles.animation.animated_ogl as aogl
 
 
 def springs() :

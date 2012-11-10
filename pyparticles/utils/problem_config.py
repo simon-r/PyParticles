@@ -48,11 +48,15 @@ import pyparticles.forces.linear_spring as ls
 import pyparticles.pset.file_cluster as fc
 
 import re
-import ConfigParser
 import sys
 
 if sys.version_info[0] == 2:
-    import pyparticles.animation.animated_ogl as aogl
+    import ConfigParser
+else:
+    import configparser as ConfigParser
+    
+
+import pyparticles.animation.animated_ogl as aogl
 
 
 """

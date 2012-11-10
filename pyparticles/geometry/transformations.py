@@ -17,6 +17,8 @@
 import numpy as np
 from collections import deque
 
+import sys
+
 class Transformations( object ):
     """
     Class used for administrate 3D transformations matrix using an OpenGl like method with a push_matrix & pop_matrix model. This method is very confortable if we want to create articulated geometric structures with a lot of subobjects and relative coordinates.
@@ -72,18 +74,31 @@ class Transformations( object ):
 
     def __iter__(self):
         return self
-    
-    def next(self):
-        """
-        iterate over the points in the queue, it pop and returns the transformed points.
-        The popped points in the queue are cancelled during the itarations.
-        """
-        if len( self.__points ) == 0 :
-            raise StopIteration
-        else :
-            p = self.pop_points()
-            
-        return p 
+
+    if sys.version_info[0] == 3:    
+        def __next__(self):
+            """
+            iterate over the points in the queue, it pop and returns the transformed points.
+            The popped points in the queue are cancelled during the itarations.
+            """
+            if len( self.__points ) == 0 :
+                raise StopIteration
+            else :
+                p = self.pop_points()
+                
+            return p
+    else:
+        def next(self):
+            """
+            iterate over the points in the queue, it pop and returns the transformed points.
+            The popped points in the queue are cancelled during the itarations.
+            """
+            if len( self.__points ) == 0 :
+                raise StopIteration
+            else :
+                p = self.pop_points()
+                
+            return p
 
     def identity(self):
         """
@@ -227,8 +242,9 @@ class Transformations( object ):
         m[1,1] =  np.cos( angle )
         m[2,2] =  np.cos( angle )
         
-        m[1,2] =  np.sin( angle )
-        m[2,1] = -np.sin( angle )
+        m[2,1] =  np.sin( angle )
+        m[1,2] = -np.sin( angle )
+        
         
         self.__cmatrix[:] = self.__cmatrix[:] * m[:]
 
@@ -242,8 +258,8 @@ class Transformations( object ):
         m[0,0] =  np.cos( angle )
         m[2,2] =  np.cos( angle )
         
-        m[0,2] = -np.sin( angle )
-        m[2,0] =  np.sin( angle )
+        m[0,2] =  np.sin( angle )
+        m[2,0] = -np.sin( angle )
         
         self.__cmatrix[:] = self.__cmatrix[:] * m[:]
     
@@ -258,8 +274,8 @@ class Transformations( object ):
         m[0,0] =  np.cos( angle )
         m[1,1] =  np.cos( angle )
         
-        m[0,1] = -np.sin( angle )
-        m[1,0] =  np.sin( angle )
+        m[0,1] =  np.sin( angle )
+        m[1,0] = -np.sin( angle )
         
         self.__cmatrix[:] = self.__cmatrix[:] * m[:]
         

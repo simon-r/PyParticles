@@ -69,8 +69,7 @@ import time
 
 import sys
 
-if sys.version_info[0] == 2:
-    import pyparticles.animation.animated_ogl as aogl
+import pyparticles.animation.animated_ogl as aogl
 
 
 def main():
