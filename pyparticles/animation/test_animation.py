@@ -24,6 +24,8 @@ import pyparticles.ode.euler_solver as els
 import pyparticles.ode.leapfrog_solver as lps
 import pyparticles.ode.runge_kutta_solver as rks
 import pyparticles.ode.midpoint_solver as mps
+import pyparticles.ode.stormer_verlet_solver as svs
+
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -71,32 +73,66 @@ class TestAnimation( pan.Animation ):
         
         dt = 0.001
         
-        self.ode_solver = els.EulerSolver( multi , self.pset , dt )
-        self.ode_solver = rks.RungeKuttaSolver( multi , self.pset , dt )
-        #self.ode_solver = lps.LeapfrogSolver( multi , self.pset , dt )
-        #self.ode_solver = mps.MidpointSolver( multi , self.pset , dt )
         
-    def data_stream( self , i ):
+        self.odes = dict()
         
-        self.t[i] = self.ode_solver.time
-        self.x[i,2] = free_fall( self.t[i] , g=10.0)
+        self.odes["Euler"] = els.EulerSolver( multi , self.pset , dt ) 
+        self.odes["Runge Kutta"] = rks.RungeKuttaSolver( multi , self.pset , dt ) 
+        self.odes["Leap Frog"] = lps.LeapfrogSolver( multi , self.pset , dt ) 
+        self.odes["MidPoint"] = mps.MidpointSolver( multi , self.pset , dt ) 
+        self.odes["Verlet"] = svs.StormerVerletSolver( multi , self.pset , dt ) 
         
-        self.xn[i,2] = self.pset.X[0,2]
+    def data_stream( self ):
         
-        print( " t: %f , x: %f , xn: %f " % ( self.t[i] , self.x[i,2] , self.xn[i,2] ) )
+        for i in range( self.steps ) :
+            
+            self.t[i] = self.ode_solver.time
+            
+            #print( self.t[i] )
+            
+            self.x[i,2] = free_fall( self.t[i] , g=10.0)
         
-        self.ode_solver.step()
+            self.xn[i,2] = self.pset.X[0,2]
+            
+            #print( " t: %f , x: %f , xn: %f " % ( self.t[i] , self.x[i,2] , self.xn[i,2] ) )
+            self.ode_solver.step()
+            
             
 
     def start(self):
-        for i in range( self.steps ):
-            self.data_stream( i )
         
-        #print( self.xn[:,2] )
+        print( "Start testing" )
         
-        plt.plot( self.t[:] , self.x[:,2] )
-        plt.plot( self.t[:] , self.xn[:,2] )
+        j = 0
         
-        plt.grid(1)
+        print("")
+        print("Errors:")
+        
+        for ky in self.odes.keys():
+            
+            self.pset.X[:] = 0.0
+            self.pset.V[:] = 0.0
+            
+            self.ode_solver = self.odes[ky]
+            self.data_stream()
+        
+            
+            err = np.abs( self.x[:,2] - self.xn[:,2] )
+        
+            merr = np.mean( err )
+        
+            
+            print( " %s mean err: \t %f " % ( ky , merr ) )
+        
+            ax = plt.subplot( 230+j+1 )
+        
+            plt.plot( self.t[:] , err )
+        
+            plt.title( "absolute error: %s " % ky )
+            plt.xlabel( "time" )
+            plt.ylabel( "error" )
+        
+            plt.grid(1)
+            j += 1
         
         plt.show()
