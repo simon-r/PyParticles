@@ -17,8 +17,12 @@
 
 import pyparticles.animation.test_animation as tt
 
-def test():
+def test( ty ):
     
-    tst = tt.TestAnimation()
+    if ty == "fall":
+        tst = tt.TestAnimation()
+    elif ty == "armonic" :
+        tst = tt.TestAnimationArmonic()
+        
     tst.build_animation()
     tst.start()

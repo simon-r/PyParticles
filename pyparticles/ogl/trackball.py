@@ -23,7 +23,7 @@ class TrackBall( object ):
     ====================== =========================
     Contructor Arguments
     ====================== =========================
-    w_size                 size of the windows
+    w_size                 size of the window
     ====================== =========================
     """
     def __init__( self , w_size ):

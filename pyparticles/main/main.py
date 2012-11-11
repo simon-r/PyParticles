@@ -55,6 +55,7 @@ import pyparticles.demo.springs as spr
 import pyparticles.demo.gas_lennard_jones as lj
 import pyparticles.demo.bubble as bu
 import pyparticles.demo.springs_constr as spc
+import pyparticles.demo.test as tst
 
 import pyparticles.utils.parse_args as arg 
 
@@ -87,6 +88,13 @@ def main():
     
     if options.version :
         print( py_particle_version() )
+        return
+    
+    if options.test :
+        print("")
+        print("Start a test simulation:")
+        print(" It compars the simulated solution with the analitical solution")
+        tst.test( options.test )
         return
     
     if options.config_model :
@@ -186,21 +194,7 @@ class MyField( vf.VectorFieldForce ):
 
 
 def my_test() :
-    
-    
-    tst = test.TestAnimation()
-    
-    #tst.ode_solver = rks.RungeKuttaSolver()
-    
-    tst.build_animation()
-    
-    #tst.steps = 3000
-    
-    tst.start()
-    
-    exit()
-    
-    
+        
     t = tr.Transformations()
     
     t.set_points_tuple_size(1)

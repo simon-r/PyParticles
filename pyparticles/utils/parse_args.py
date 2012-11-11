@@ -37,6 +37,13 @@ def parse_args():
         default=None ,
         help="Execute the specified buildin demo")
 
+    parser.add_argument( "-t" , "--test",
+        action="store",
+        choices=[ "fall" , "armonic" ] ,
+        dest="test",
+        default=None ,
+        help="Execute the specified buildin test")
+
     parser.add_argument(
         dest="path_name",
         nargs='?',
