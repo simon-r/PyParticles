@@ -39,6 +39,7 @@ class RungeKuttaSolver( os.OdeSolver ) :
     
     def __step__( self , dt ):
     
+        self.__tmp_pset.V[:] = self.pset.V[:]
           
         # K1
         self.__Kv1[:] = self.force.A
@@ -69,6 +70,8 @@ class RungeKuttaSolver( os.OdeSolver ) :
         
         self.pset.V[:] = self.pset.V[:] + dt/6.0 * ( self.__Kv1 + 2.0*self.__Kv2 + 2.0*self.__Kv3 + self.__Kv4 )
         self.pset.X[:] = self.pset.X[:] + dt/6.0 * ( self.__Kx1 + 2.0*self.__Kx2 + 2.0*self.__Kx3 + self.__Kx4 )
+        
+        #self.pset.X[:] = self.pset.X[:] + dt*self.pset.V[:]
         
         self.pset.update_boundary() 
         self.force.update_force( self.pset )

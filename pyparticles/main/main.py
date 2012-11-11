@@ -29,6 +29,8 @@ import pyparticles.animation.animated_scatter as anim
 
 import pyparticles.animation as pan
 
+import pyparticles.animation.test_animation as test
+
 import pyparticles.pset.rand_cluster as clu
 import pyparticles.forces.gravity as gr
 import pyparticles.ode.euler_solver as els
@@ -37,6 +39,7 @@ import pyparticles.ode.runge_kutta_solver as rks
 import pyparticles.ode.stormer_verlet_solver as svs
 
 import matplotlib.animation as animation
+
 
 
 
@@ -183,6 +186,20 @@ class MyField( vf.VectorFieldForce ):
 
 
 def my_test() :
+    
+    
+    tst = test.TestAnimation()
+    
+    #tst.ode_solver = rks.RungeKuttaSolver()
+    
+    tst.build_animation()
+    
+    #tst.steps = 3000
+    
+    tst.start()
+    
+    exit()
+    
     
     t = tr.Transformations()
     

@@ -189,8 +189,8 @@ def solar_system():
     #solver = els.EulerSolver( grav , pset , dt )
     #solver = lps.LeapfrogSolver( grav , pset , dt )
     #solver = svs.StormerVerletSolver( grav , pset , dt )
-    solver = rks.RungeKuttaSolver( grav , pset , dt )    
-    #solver = mds.MidpointSolver( grav , pset , dt )    
+    #solver = rks.RungeKuttaSolver( grav , pset , dt )    
+    solver = mds.MidpointSolver( grav , pset , dt )    
         
         
     ken = ke.KineticEnergy( pset , grav )

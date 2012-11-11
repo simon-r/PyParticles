@@ -46,9 +46,12 @@ class Drag( fr.Force ) :
     
     def update_force( self , pset ):
         
-        self.__V.T[:] = np.sqrt( np.sum( pset.V[:]**2.0 , 1 )  )
+        self.__V.T[:] = np.sqrt( np.sum( pset.V[:]**2 , 1 )  )
         
-        self.__F[:] = -self.__V[:] * pset.V[:] * self.__G[:]
+        #print( self.__V[:] )
+        #print( pset.V[:] )
+        
+        self.__F[:] =  -1./2. * self.__V[:] * pset.V[:] * self.__G[:]
         
         self.__A = self.__F[:] / self.__M
         
