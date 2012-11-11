@@ -198,7 +198,7 @@ class TestAnimationArmonic( TestAnimation ):
         
     def build_animation(self):
         
-        self.steps = 3000
+        self.steps = 6000
         dt = 0.004
         
         self.ip = 1
