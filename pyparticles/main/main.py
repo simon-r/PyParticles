@@ -93,7 +93,7 @@ def main():
     if options.test :
         print("")
         print("Start a test simulation:")
-        print(" It compars the simulated solution with the analitical solution")
+        print(" It compares the simulated solution with the analytical solution in a specific problem")
         tst.test( options.test )
         return
     

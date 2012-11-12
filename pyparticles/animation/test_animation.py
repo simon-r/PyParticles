@@ -44,6 +44,9 @@ import pyparticles.forces.linear_spring as ls
 import pyparticles.pset.constrained_x as csx
 import pyparticles.pset.constrained_force_interactions as cfi
 
+from matplotlib.ticker import FuncFormatter
+
+
 
 def free_fall( t , m=1. , g=10. , k=1. ):
     z = (np.sqrt(2.*g*k)*t*m**2.-2.*m**(5./2.)*np.log((1./2.)*np.exp(np.sqrt(2.)*np.sqrt(g*k)*t/np.sqrt(m))+1./2.))/(m**(3./2.)*k)
@@ -162,15 +165,23 @@ class TestAnimation( pan.Animation ):
         
             merr = np.mean( err )
         
-            print( " %s \t mean err: \t %f " % ( ky , merr ) )
+            mt = np.array( [ self.t[0] , self.t[self.steps-1] ] )
+            me = np.array( [ merr , merr ] )
+            
+            print( " %s - mean err: %f " % ( ky , merr ) )
         
             ax = plt.subplot( 230+j+1 )
+                    
+            ax.yaxis.set_major_formatter(FuncFormatter(lambda x, pos: ('%.1f')%(x*1e3)))
         
-            plt.plot( self.t[:] , err )
+            p1, = plt.plot( self.t[:] , err , linewidth=2 )
+            p2, = plt.plot( mt , me , linewidth=1 , color="g" )
+            
+            plt.title( "Absolute error: %s " % ky )
+            plt.xlabel( "Time" )
+            plt.ylabel( "Abs error [1e-3]" )
         
-            plt.title( "absolute error: %s " % ky )
-            plt.xlabel( "time" )
-            plt.ylabel( "error" )
+            plt.legend([p1, p2], ["Abs Error", "Mean"] , loc=4 )
         
             plt.grid(1)
             

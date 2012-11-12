@@ -39,7 +39,7 @@ def parse_args():
 
     parser.add_argument( "-t" , "--test",
         action="store",
-        choices=[ "fall" , "armonic" ] ,
+        choices=[ "fall" , "harmonic" ] ,
         dest="test",
         default=None ,
         help="Execute the specified buildin test")
