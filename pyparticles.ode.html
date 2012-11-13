@@ -61,6 +61,7 @@
 <li><a class="reference internal" href="#module-pyparticles.ode.leapfrog_solver"><tt class="docutils literal"><span class="pre">leapfrog_solver</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pyparticles.ode.leapfrog_solver_constrained"><tt class="docutils literal"><span class="pre">leapfrog_solver_constrained</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pyparticles.ode.midpoint_solver"><tt class="docutils literal"><span class="pre">midpoint_solver</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pyparticles.ode.midpoint_solver_constrained"><tt class="docutils literal"><span class="pre">midpoint_solver_constrained</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pyparticles.ode.ode_solver"><tt class="docutils literal"><span class="pre">ode_solver</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pyparticles.ode.ode_solver_constrained"><tt class="docutils literal"><span class="pre">ode_solver_constrained</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pyparticles.ode.runge_kutta_solver"><tt class="docutils literal"><span class="pre">runge_kutta_solver</span></tt> Module</a></li>
@@ -185,6 +186,31 @@
 </dd></dl>
 
 </div>
+<div class="section" id="module-pyparticles.ode.midpoint_solver_constrained">
+<span id="midpoint-solver-constrained-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">midpoint_solver_constrained</span></tt> Module<a class="headerlink" href="#module-pyparticles.ode.midpoint_solver_constrained" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyparticles.ode.midpoint_solver_constrained.MidpointSolverConstrained">
+<em class="property">class </em><tt class="descclassname">pyparticles.ode.midpoint_solver_constrained.</tt><tt class="descname">MidpointSolverConstrained</tt><big>(</big><em>force</em>, <em>p_set</em>, <em>dt</em>, <em>x_constraint=None</em>, <em>v_constraint=None</em><big>)</big><a class="headerlink" href="#pyparticles.ode.midpoint_solver_constrained.MidpointSolverConstrained" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pyparticles.ode.ode_solver_constrained.OdeSolverConstrained" title="pyparticles.ode.ode_solver_constrained.OdeSolverConstrained"><tt class="xref py py-class docutils literal"><span class="pre">pyparticles.ode.ode_solver_constrained.OdeSolverConstrained</span></tt></a></p>
+<dl class="method">
+<dt id="pyparticles.ode.midpoint_solver_constrained.MidpointSolverConstrained.get_x_constraint">
+<tt class="descname">get_x_constraint</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.ode.midpoint_solver_constrained.MidpointSolverConstrained.get_x_constraint" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.ode.midpoint_solver_constrained.MidpointSolverConstrained.set_x_constraint">
+<tt class="descname">set_x_constraint</tt><big>(</big><em>xc</em><big>)</big><a class="headerlink" href="#pyparticles.ode.midpoint_solver_constrained.MidpointSolverConstrained.set_x_constraint" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyparticles.ode.midpoint_solver_constrained.MidpointSolverConstrained.x_constraint">
+<tt class="descname">x_constraint</tt><a class="headerlink" href="#pyparticles.ode.midpoint_solver_constrained.MidpointSolverConstrained.x_constraint" title="Permalink to this definition">¶</a></dt>
+<dd><p>get and set the current positionals constraints</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="module-pyparticles.ode.ode_solver">
 <span id="ode-solver-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">ode_solver</span></tt> Module<a class="headerlink" href="#module-pyparticles.ode.ode_solver" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
@@ -211,14 +237,31 @@ the user must overide the method <strong>__step__</strong></p>
    <span class="bp">self</span><span class="o">.</span><span class="n">pset</span><span class="o">.</span><span class="n">update_boundary</span><span class="p">()</span> 
 </pre></div>
 </div>
-<p>Constructor:
-=========  ================
-Arguments
-=========  ================
-force      the force model
-p_set      the particle set
-dt         delta time
-=========  ================</p>
+<p>Constructor:</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="36%" />
+<col width="64%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Arguments</th>
+<th class="head">&nbsp;</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>force</td>
+<td>the force model</td>
+</tr>
+<tr class="row-odd"><td>p_set</td>
+<td>the particle set</td>
+</tr>
+<tr class="row-even"><td>dt</td>
+<td>delta time</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
 <dl class="method">
 <dt id="pyparticles.ode.ode_solver.OdeSolver.del_steps">
 <tt class="descname">del_steps</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.ode.ode_solver.OdeSolver.del_steps" title="Permalink to this definition">¶</a></dt>

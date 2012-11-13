@@ -49,6 +49,14 @@ ode Package
     :undoc-members:
     :show-inheritance:
 
+:mod:`midpoint_solver_constrained` Module
+-----------------------------------------
+
+.. automodule:: pyparticles.ode.midpoint_solver_constrained
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 :mod:`ode_solver` Module
 ------------------------
 

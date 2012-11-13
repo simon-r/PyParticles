@@ -56,10 +56,10 @@
   <ul>
 <li><a class="reference internal" href="#">animation Package</a><ul>
 <li><a class="reference internal" href="#id1"><tt class="docutils literal"><span class="pre">animation</span></tt> Package</a></li>
+<li><a class="reference internal" href="#module-pyparticles.animation.animation"><tt class="docutils literal"><span class="pre">animation</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pyparticles.animation.animated_ogl"><tt class="docutils literal"><span class="pre">animated_ogl</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pyparticles.animation.animated_scatter"><tt class="docutils literal"><span class="pre">animated_scatter</span></tt> Module</a></li>
-<li><a class="reference internal" href="#module-pyparticles.animation.animation"><tt class="docutils literal"><span class="pre">animation</span></tt> Module</a></li>
-<li><a class="reference internal" href="#test-animation-module"><tt class="docutils literal"><span class="pre">test_animation</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pyparticles.animation.test_animation"><tt class="docutils literal"><span class="pre">test_animation</span></tt> Module</a></li>
 </ul>
 </li>
 </ul>
@@ -101,6 +101,222 @@
 <div class="section" id="id1">
 <h2><tt class="xref py py-mod docutils literal"><span class="pre">animation</span></tt> Package<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <span class="target" id="module-pyparticles.animation"></span></div>
+<div class="section" id="module-pyparticles.animation.animation">
+<span id="animation-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">animation</span></tt> Module<a class="headerlink" href="#module-pyparticles.animation.animation" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyparticles.animation.animation.Animation">
+<em class="property">class </em><tt class="descclassname">pyparticles.animation.animation.</tt><tt class="descname">Animation</tt><a class="headerlink" href="#pyparticles.animation.animation.Animation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="docutils">
+<dt>Base abstract class used for controling the simulation.</dt>
+<dd>This class should be used as a base class for building and runnig a simulation problem.
+The class animation contains all foudamental element for working with a PyParticles in an easy way.</dd>
+<dt>The user must overide the methods:</dt>
+<dd>build_animation: For setting up averithing
+data_stream: for performing a simulation step or runnig the main loop
+start: start the smulation</dd>
+</dl>
+<p>In a few word you must follow this procedure:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Construct a new object</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">MyAnimation</span><span class="p">()</span>
+
+<span class="c"># setup the particles set</span>
+<span class="n">a</span><span class="o">.</span><span class="n">pset</span> <span class="o">=</span> <span class="n">pset</span>
+
+<span class="c"># setup the numeric integration </span>
+<span class="n">a</span><span class="o">.</span><span class="n">ode_solver</span> <span class="o">=</span> <span class="n">solver</span>
+
+<span class="c"># max number of steps</span>
+<span class="n">a</span><span class="o">.</span><span class="n">steps</span> <span class="o">=</span> <span class="n">steps</span>
+
+<span class="c"># set up everythings </span>
+<span class="n">a</span><span class="o">.</span><span class="n">build_animation</span><span class="p">()</span>
+
+<span class="c"># start!</span>
+<span class="n">a</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+</pre></div>
+</div>
+<dl class="method">
+<dt id="pyparticles.animation.animation.Animation.add_measure">
+<tt class="descname">add_measure</tt><big>(</big><em>measure</em><big>)</big><a class="headerlink" href="#pyparticles.animation.animation.Animation.add_measure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a class delegeted for performing a measure</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.animation.animation.Animation.build_animation">
+<tt class="descname">build_animation</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.animation.animation.Animation.build_animation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.animation.animation.Animation.data_stream">
+<tt class="descname">data_stream</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.animation.animation.Animation.data_stream" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.animation.animation.Animation.get_measure">
+<tt class="descname">get_measure</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#pyparticles.animation.animation.Animation.get_measure" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the measure named &#8216;name&#8217;</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.animation.animation.Animation.get_measure_value">
+<tt class="descname">get_measure_value</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#pyparticles.animation.animation.Animation.get_measure_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>get the value of the measure named &#8216;name&#8217;</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.animation.animation.Animation.get_measure_value_str">
+<tt class="descname">get_measure_value_str</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#pyparticles.animation.animation.Animation.get_measure_value_str" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a string containig the value of the measure</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.animation.animation.Animation.get_measures_names">
+<tt class="descname">get_measures_names</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.animation.animation.Animation.get_measures_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list containg the names of the executed measured.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.animation.animation.Animation.get_ode_solver">
+<tt class="descname">get_ode_solver</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.animation.animation.Animation.get_ode_solver" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.animation.animation.Animation.get_pset">
+<tt class="descname">get_pset</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.animation.animation.Animation.get_pset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.animation.animation.Animation.get_steps">
+<tt class="descname">get_steps</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.animation.animation.Animation.get_steps" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.animation.animation.Animation.get_trajectory">
+<tt class="descname">get_trajectory</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.animation.animation.Animation.get_trajectory" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.animation.animation.Animation.get_trajectory_step">
+<tt class="descname">get_trajectory_step</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.animation.animation.Animation.get_trajectory_step" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.animation.animation.Animation.get_xlim">
+<tt class="descname">get_xlim</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.animation.animation.Animation.get_xlim" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.animation.animation.Animation.get_ylim">
+<tt class="descname">get_ylim</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.animation.animation.Animation.get_ylim" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.animation.animation.Animation.get_zlim">
+<tt class="descname">get_zlim</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.animation.animation.Animation.get_zlim" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.animation.animation.Animation.measures_cnt">
+<tt class="descname">measures_cnt</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.animation.animation.Animation.measures_cnt" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyparticles.animation.animation.Animation.ode_solver">
+<tt class="descname">ode_solver</tt><a class="headerlink" href="#pyparticles.animation.animation.Animation.ode_solver" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.animation.animation.Animation.perform_measurement">
+<tt class="descname">perform_measurement</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.animation.animation.Animation.perform_measurement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Execute all listed measures</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyparticles.animation.animation.Animation.pset">
+<tt class="descname">pset</tt><a class="headerlink" href="#pyparticles.animation.animation.Animation.pset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.animation.animation.Animation.set_ode_solver">
+<tt class="descname">set_ode_solver</tt><big>(</big><em>solver</em><big>)</big><a class="headerlink" href="#pyparticles.animation.animation.Animation.set_ode_solver" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.animation.animation.Animation.set_pset">
+<tt class="descname">set_pset</tt><big>(</big><em>pset</em><big>)</big><a class="headerlink" href="#pyparticles.animation.animation.Animation.set_pset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.animation.animation.Animation.set_steps">
+<tt class="descname">set_steps</tt><big>(</big><em>steps</em><big>)</big><a class="headerlink" href="#pyparticles.animation.animation.Animation.set_steps" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.animation.animation.Animation.set_trajectory">
+<tt class="descname">set_trajectory</tt><big>(</big><em>tr</em><big>)</big><a class="headerlink" href="#pyparticles.animation.animation.Animation.set_trajectory" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.animation.animation.Animation.set_trajectory_step">
+<tt class="descname">set_trajectory_step</tt><big>(</big><em>trs</em><big>)</big><a class="headerlink" href="#pyparticles.animation.animation.Animation.set_trajectory_step" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.animation.animation.Animation.set_xlim">
+<tt class="descname">set_xlim</tt><big>(</big><em>xl</em><big>)</big><a class="headerlink" href="#pyparticles.animation.animation.Animation.set_xlim" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.animation.animation.Animation.set_ylim">
+<tt class="descname">set_ylim</tt><big>(</big><em>yl</em><big>)</big><a class="headerlink" href="#pyparticles.animation.animation.Animation.set_ylim" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.animation.animation.Animation.set_zlim">
+<tt class="descname">set_zlim</tt><big>(</big><em>zl</em><big>)</big><a class="headerlink" href="#pyparticles.animation.animation.Animation.set_zlim" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.animation.animation.Animation.start">
+<tt class="descname">start</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.animation.animation.Animation.start" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyparticles.animation.animation.Animation.steps">
+<tt class="descname">steps</tt><a class="headerlink" href="#pyparticles.animation.animation.Animation.steps" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyparticles.animation.animation.Animation.trajectory">
+<tt class="descname">trajectory</tt><a class="headerlink" href="#pyparticles.animation.animation.Animation.trajectory" title="Permalink to this definition">¶</a></dt>
+<dd><p>enable or disable the trajectory</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyparticles.animation.animation.Animation.trajectory_step">
+<tt class="descname">trajectory_step</tt><a class="headerlink" href="#pyparticles.animation.animation.Animation.trajectory_step" title="Permalink to this definition">¶</a></dt>
+<dd><p>set or get the step for drawing the trajectory</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyparticles.animation.animation.Animation.xlim">
+<tt class="descname">xlim</tt><a class="headerlink" href="#pyparticles.animation.animation.Animation.xlim" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyparticles.animation.animation.Animation.ylim">
+<tt class="descname">ylim</tt><a class="headerlink" href="#pyparticles.animation.animation.Animation.ylim" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyparticles.animation.animation.Animation.zlim">
+<tt class="descname">zlim</tt><a class="headerlink" href="#pyparticles.animation.animation.Animation.zlim" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="module-pyparticles.animation.animated_ogl">
 <span id="animated-ogl-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">animated_ogl</span></tt> Module<a class="headerlink" href="#module-pyparticles.animation.animated_ogl" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
@@ -404,224 +620,92 @@
 </dd></dl>
 
 </div>
-<div class="section" id="module-pyparticles.animation.animation">
-<span id="animation-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">animation</span></tt> Module<a class="headerlink" href="#module-pyparticles.animation.animation" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-pyparticles.animation.test_animation">
+<span id="test-animation-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">test_animation</span></tt> Module<a class="headerlink" href="#module-pyparticles.animation.test_animation" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
-<dt id="pyparticles.animation.animation.Animation">
-<em class="property">class </em><tt class="descclassname">pyparticles.animation.animation.</tt><tt class="descname">Animation</tt><a class="headerlink" href="#pyparticles.animation.animation.Animation" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
-<dl class="docutils">
-<dt>Base abstract class used for controling the simulation.</dt>
-<dd>This class should be used as a base class for building and runnig a simulation problem.
-The class animation contains all foudamental element for working with a PyParticles in an easy way.</dd>
-<dt>The user must overide the methods:</dt>
-<dd>build_animation: For setting up averithing
-data_stream: for performing a simulation step or runnig the main loop
-start: start the smulation</dd>
-</dl>
-<p>In a few word you must follow this procedure:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># Construct a new object</span>
-<span class="n">a</span> <span class="o">=</span> <span class="n">MyAnimation</span><span class="p">()</span>
-
-<span class="c"># setup the particles set</span>
-<span class="n">a</span><span class="o">.</span><span class="n">pset</span> <span class="o">=</span> <span class="n">pset</span>
-
-<span class="c"># setup the numeric integration </span>
-<span class="n">a</span><span class="o">.</span><span class="n">ode_solver</span> <span class="o">=</span> <span class="n">solver</span>
-
-<span class="c"># max number of steps</span>
-<span class="n">a</span><span class="o">.</span><span class="n">steps</span> <span class="o">=</span> <span class="n">steps</span>
-
-<span class="c"># set up everythings </span>
-<span class="n">a</span><span class="o">.</span><span class="n">build_animation</span><span class="p">()</span>
-
-<span class="c"># start!</span>
-<span class="n">a</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
-</pre></div>
-</div>
-<dl class="method">
-<dt id="pyparticles.animation.animation.Animation.add_measure">
-<tt class="descname">add_measure</tt><big>(</big><em>measure</em><big>)</big><a class="headerlink" href="#pyparticles.animation.animation.Animation.add_measure" title="Permalink to this definition">¶</a></dt>
-<dd><p>Add a class delegeted for performing a measure</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="pyparticles.animation.animation.Animation.build_animation">
-<tt class="descname">build_animation</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.animation.animation.Animation.build_animation" title="Permalink to this definition">¶</a></dt>
+<dt id="pyparticles.animation.test_animation.TestAnimation">
+<em class="property">class </em><tt class="descclassname">pyparticles.animation.test_animation.</tt><tt class="descname">TestAnimation</tt><a class="headerlink" href="#pyparticles.animation.test_animation.TestAnimation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pyparticles.animation.animation.Animation" title="pyparticles.animation.animation.Animation"><tt class="xref py py-class docutils literal"><span class="pre">pyparticles.animation.animation.Animation</span></tt></a></p>
+<p>Test the free fall with the fluid drag</p>
+<dl class="attribute">
+<dt id="pyparticles.animation.test_animation.TestAnimation.analytical_sol">
+<tt class="descname">analytical_sol</tt><a class="headerlink" href="#pyparticles.animation.test_animation.TestAnimation.analytical_sol" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="pyparticles.animation.animation.Animation.data_stream">
-<tt class="descname">data_stream</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.animation.animation.Animation.data_stream" title="Permalink to this definition">¶</a></dt>
+<dt id="pyparticles.animation.test_animation.TestAnimation.build_animation">
+<tt class="descname">build_animation</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.animation.test_animation.TestAnimation.build_animation" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="pyparticles.animation.animation.Animation.get_measure">
-<tt class="descname">get_measure</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#pyparticles.animation.animation.Animation.get_measure" title="Permalink to this definition">¶</a></dt>
-<dd><p>return the measure named &#8216;name&#8217;</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="pyparticles.animation.animation.Animation.get_measure_value">
-<tt class="descname">get_measure_value</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#pyparticles.animation.animation.Animation.get_measure_value" title="Permalink to this definition">¶</a></dt>
-<dd><p>get the value of the measure named &#8216;name&#8217;</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="pyparticles.animation.animation.Animation.get_measure_value_str">
-<tt class="descname">get_measure_value_str</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#pyparticles.animation.animation.Animation.get_measure_value_str" title="Permalink to this definition">¶</a></dt>
-<dd><p>return a string containig the value of the measure</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="pyparticles.animation.animation.Animation.get_measures_names">
-<tt class="descname">get_measures_names</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.animation.animation.Animation.get_measures_names" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return a list containg the names of the executed measured.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="pyparticles.animation.animation.Animation.get_ode_solver">
-<tt class="descname">get_ode_solver</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.animation.animation.Animation.get_ode_solver" title="Permalink to this definition">¶</a></dt>
+<dt id="pyparticles.animation.test_animation.TestAnimation.data_stream">
+<tt class="descname">data_stream</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.animation.test_animation.TestAnimation.data_stream" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="pyparticles.animation.animation.Animation.get_pset">
-<tt class="descname">get_pset</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.animation.animation.Animation.get_pset" title="Permalink to this definition">¶</a></dt>
+<dt id="pyparticles.animation.test_animation.TestAnimation.get_analytical_sol">
+<tt class="descname">get_analytical_sol</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.animation.test_animation.TestAnimation.get_analytical_sol" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="pyparticles.animation.animation.Animation.get_steps">
-<tt class="descname">get_steps</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.animation.animation.Animation.get_steps" title="Permalink to this definition">¶</a></dt>
+<dt id="pyparticles.animation.test_animation.TestAnimation.get_ip">
+<tt class="descname">get_ip</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.animation.test_animation.TestAnimation.get_ip" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="pyparticles.animation.animation.Animation.get_trajectory">
-<tt class="descname">get_trajectory</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.animation.animation.Animation.get_trajectory" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pyparticles.animation.animation.Animation.get_trajectory_step">
-<tt class="descname">get_trajectory_step</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.animation.animation.Animation.get_trajectory_step" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pyparticles.animation.animation.Animation.get_xlim">
-<tt class="descname">get_xlim</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.animation.animation.Animation.get_xlim" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pyparticles.animation.animation.Animation.get_ylim">
-<tt class="descname">get_ylim</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.animation.animation.Animation.get_ylim" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pyparticles.animation.animation.Animation.get_zlim">
-<tt class="descname">get_zlim</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.animation.animation.Animation.get_zlim" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pyparticles.animation.animation.Animation.measures_cnt">
-<tt class="descname">measures_cnt</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.animation.animation.Animation.measures_cnt" title="Permalink to this definition">¶</a></dt>
+<dt id="pyparticles.animation.test_animation.TestAnimation.init_pset">
+<tt class="descname">init_pset</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.animation.test_animation.TestAnimation.init_pset" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="pyparticles.animation.animation.Animation.ode_solver">
-<tt class="descname">ode_solver</tt><a class="headerlink" href="#pyparticles.animation.animation.Animation.ode_solver" title="Permalink to this definition">¶</a></dt>
+<dt id="pyparticles.animation.test_animation.TestAnimation.ip">
+<tt class="descname">ip</tt><a class="headerlink" href="#pyparticles.animation.test_animation.TestAnimation.ip" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="pyparticles.animation.animation.Animation.perform_measurement">
-<tt class="descname">perform_measurement</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.animation.animation.Animation.perform_measurement" title="Permalink to this definition">¶</a></dt>
-<dd><p>Execute all listed measures</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="pyparticles.animation.animation.Animation.pset">
-<tt class="descname">pset</tt><a class="headerlink" href="#pyparticles.animation.animation.Animation.pset" title="Permalink to this definition">¶</a></dt>
+<dt id="pyparticles.animation.test_animation.TestAnimation.set_analytical_sol">
+<tt class="descname">set_analytical_sol</tt><big>(</big><em>f</em><big>)</big><a class="headerlink" href="#pyparticles.animation.test_animation.TestAnimation.set_analytical_sol" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="pyparticles.animation.animation.Animation.set_ode_solver">
-<tt class="descname">set_ode_solver</tt><big>(</big><em>solver</em><big>)</big><a class="headerlink" href="#pyparticles.animation.animation.Animation.set_ode_solver" title="Permalink to this definition">¶</a></dt>
+<dt id="pyparticles.animation.test_animation.TestAnimation.set_ip">
+<tt class="descname">set_ip</tt><big>(</big><em>i</em><big>)</big><a class="headerlink" href="#pyparticles.animation.test_animation.TestAnimation.set_ip" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="pyparticles.animation.animation.Animation.set_pset">
-<tt class="descname">set_pset</tt><big>(</big><em>pset</em><big>)</big><a class="headerlink" href="#pyparticles.animation.animation.Animation.set_pset" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pyparticles.animation.animation.Animation.set_steps">
-<tt class="descname">set_steps</tt><big>(</big><em>steps</em><big>)</big><a class="headerlink" href="#pyparticles.animation.animation.Animation.set_steps" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pyparticles.animation.animation.Animation.set_trajectory">
-<tt class="descname">set_trajectory</tt><big>(</big><em>tr</em><big>)</big><a class="headerlink" href="#pyparticles.animation.animation.Animation.set_trajectory" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pyparticles.animation.animation.Animation.set_trajectory_step">
-<tt class="descname">set_trajectory_step</tt><big>(</big><em>trs</em><big>)</big><a class="headerlink" href="#pyparticles.animation.animation.Animation.set_trajectory_step" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pyparticles.animation.animation.Animation.set_xlim">
-<tt class="descname">set_xlim</tt><big>(</big><em>xl</em><big>)</big><a class="headerlink" href="#pyparticles.animation.animation.Animation.set_xlim" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pyparticles.animation.animation.Animation.set_ylim">
-<tt class="descname">set_ylim</tt><big>(</big><em>yl</em><big>)</big><a class="headerlink" href="#pyparticles.animation.animation.Animation.set_ylim" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pyparticles.animation.animation.Animation.set_zlim">
-<tt class="descname">set_zlim</tt><big>(</big><em>zl</em><big>)</big><a class="headerlink" href="#pyparticles.animation.animation.Animation.set_zlim" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pyparticles.animation.animation.Animation.start">
-<tt class="descname">start</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.animation.animation.Animation.start" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="pyparticles.animation.animation.Animation.steps">
-<tt class="descname">steps</tt><a class="headerlink" href="#pyparticles.animation.animation.Animation.steps" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="pyparticles.animation.animation.Animation.trajectory">
-<tt class="descname">trajectory</tt><a class="headerlink" href="#pyparticles.animation.animation.Animation.trajectory" title="Permalink to this definition">¶</a></dt>
-<dd><p>enable or disable the trajectory</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="pyparticles.animation.animation.Animation.trajectory_step">
-<tt class="descname">trajectory_step</tt><a class="headerlink" href="#pyparticles.animation.animation.Animation.trajectory_step" title="Permalink to this definition">¶</a></dt>
-<dd><p>set or get the step for drawing the trajectory</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="pyparticles.animation.animation.Animation.xlim">
-<tt class="descname">xlim</tt><a class="headerlink" href="#pyparticles.animation.animation.Animation.xlim" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="pyparticles.animation.animation.Animation.ylim">
-<tt class="descname">ylim</tt><a class="headerlink" href="#pyparticles.animation.animation.Animation.ylim" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="pyparticles.animation.animation.Animation.zlim">
-<tt class="descname">zlim</tt><a class="headerlink" href="#pyparticles.animation.animation.Animation.zlim" title="Permalink to this definition">¶</a></dt>
+<dt id="pyparticles.animation.test_animation.TestAnimation.start">
+<tt class="descname">start</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.animation.test_animation.TestAnimation.start" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
-</div>
-<div class="section" id="test-animation-module">
-<h2><tt class="xref py py-mod docutils literal"><span class="pre">test_animation</span></tt> Module<a class="headerlink" href="#test-animation-module" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyparticles.animation.test_animation.TestAnimationArmonic">
+<em class="property">class </em><tt class="descclassname">pyparticles.animation.test_animation.</tt><tt class="descname">TestAnimationArmonic</tt><a class="headerlink" href="#pyparticles.animation.test_animation.TestAnimationArmonic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pyparticles.animation.test_animation.TestAnimation" title="pyparticles.animation.test_animation.TestAnimation"><tt class="xref py py-class docutils literal"><span class="pre">pyparticles.animation.test_animation.TestAnimation</span></tt></a></p>
+<p>Test the armonic motion with two particles.</p>
+<dl class="method">
+<dt id="pyparticles.animation.test_animation.TestAnimationArmonic.build_animation">
+<tt class="descname">build_animation</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.animation.test_animation.TestAnimationArmonic.build_animation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.animation.test_animation.TestAnimationArmonic.init_pset">
+<tt class="descname">init_pset</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.animation.test_animation.TestAnimationArmonic.init_pset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="pyparticles.animation.test_animation.armonic">
+<tt class="descclassname">pyparticles.animation.test_animation.</tt><tt class="descname">armonic</tt><big>(</big><em>t</em><big>)</big><a class="headerlink" href="#pyparticles.animation.test_animation.armonic" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="pyparticles.animation.test_animation.free_fall">
+<tt class="descclassname">pyparticles.animation.test_animation.</tt><tt class="descname">free_fall</tt><big>(</big><em>t</em>, <em>m=1.0</em>, <em>g=10.0</em>, <em>k=1.0</em><big>)</big><a class="headerlink" href="#pyparticles.animation.test_animation.free_fall" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </div>
 </div>
 

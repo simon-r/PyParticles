@@ -130,15 +130,16 @@
 <dt id="pyparticles.geometry.transformations.Transformations">
 <em class="property">class </em><tt class="descclassname">pyparticles.geometry.transformations.</tt><tt class="descname">Transformations</tt><a class="headerlink" href="#pyparticles.geometry.transformations.Transformations" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
-<p>Class used for adiministrating 3D transformations matrix with an openGl like method with a push &amp; pop model</p>
+<p>Class used for administrate 3D transformations matrix using an OpenGl like method with a push_matrix &amp; pop_matrix model. This method is very confortable if we want to create articulated geometric structures with a lot of subobjects and relative coordinates.</p>
 <p>Example:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">t</span> <span class="o">=</span> <span class="n">tr</span><span class="o">.</span><span class="n">Transformations</span><span class="p">()</span> <span class="c"># init transfomation</span>
 
 <span class="n">t</span><span class="o">.</span><span class="n">set_points_tuple_size</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="c"># Pairwise points in the queue</span>
 
 <span class="n">t</span><span class="o">.</span><span class="n">rotY</span><span class="p">(</span> <span class="n">np</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="mi">90</span><span class="p">)</span> <span class="p">)</span>  <span class="c"># Apply some transoformations matricies</span>
-<span class="n">t</span><span class="o">.</span><span class="n">rotX</span><span class="p">(</span> <span class="n">np</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="mi">90</span><span class="p">)</span> <span class="p">)</span>
+<span class="n">t</span><span class="o">.</span><span class="n">rotX</span><span class="p">(</span> <span class="n">np</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="mi">90</span><span class="p">)</span> <span class="p">)</span>  
 <span class="n">t</span><span class="o">.</span><span class="n">rotZ</span><span class="p">(</span> <span class="n">np</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="mi">90</span><span class="p">)</span> <span class="p">)</span>
+<span class="c"># Now the current matrix is: Ry(90) * Rx(90) * Rz(90)</span>
 
 <span class="n">t</span><span class="o">.</span><span class="n">append_point</span><span class="p">(</span> <span class="nb">list</span><span class="p">(</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="p">)</span> <span class="p">)</span>      <span class="c"># Append some poits. It accept every Indexable type </span>
 <span class="n">t</span><span class="o">.</span><span class="n">append_point</span><span class="p">(</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="p">)</span> <span class="p">)</span>  <span class="c"># The preview transoformations are applied on these points</span>
@@ -148,11 +149,13 @@
 <span class="n">t</span><span class="o">.</span><span class="n">push_matrix</span><span class="p">()</span> <span class="c"># push the current matrix</span>
 
 <span class="n">t</span><span class="o">.</span><span class="n">translation</span><span class="p">(</span> <span class="mi">10</span> <span class="p">,</span> <span class="mi">2</span> <span class="p">,</span> <span class="mi">2</span> <span class="p">)</span> <span class="c"># Apply a translation</span>
+<span class="c"># Now the current matrix is: Ry(90) * Rx(90) * Rz(90) * Tr( [ 10 , 2 , 2 ]  )</span>
 
 <span class="n">t</span><span class="o">.</span><span class="n">append_point</span><span class="p">(</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="p">)</span>
 <span class="n">t</span><span class="o">.</span><span class="n">append_point</span><span class="p">(</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="p">)</span><span class="o">.</span><span class="n">T</span> <span class="p">)</span> <span class="c"># Only vertical matrix</span>
 
 <span class="n">t</span><span class="o">.</span><span class="n">pop_matrix</span><span class="p">()</span> <span class="c"># Back to the old matrix</span>
+<span class="c"># Now the current matrix is newly: Ry(90) * Rx(90) * Rz(90)</span>
 
 <span class="n">t</span><span class="o">.</span><span class="n">append_point</span><span class="p">(</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="p">)</span> <span class="p">)</span>
 <span class="n">t</span><span class="o">.</span><span class="n">append_point</span><span class="p">(</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="p">)</span>
@@ -160,20 +163,23 @@
 <span class="n">t</span><span class="o">.</span><span class="n">append_point</span><span class="p">(</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="p">)</span>
 
 <span class="c"># Print the resulting points (in a paiwise tuple)</span>
+<span class="c"># Attention: the points are removed from the queue during the iteration.</span>
 <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">t</span> <span class="p">:</span>
-    <span class="k">print</span><span class="p">(</span> <span class="n">p</span> <span class="p">)</span>
+    <span class="c"># p is a tuple ( p1 , p2 ) see the function: t.set_points_tuple_size(2)</span>
+    <span class="k">print</span><span class="p">(</span> <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="p">)</span>
 </pre></div>
 </div>
 <dl class="method">
 <dt id="pyparticles.geometry.transformations.Transformations.append_point">
 <tt class="descname">append_point</tt><big>(</big><em>pt</em><big>)</big><a class="headerlink" href="#pyparticles.geometry.transformations.Transformations.append_point" title="Permalink to this definition">¶</a></dt>
-<dd><p>TRansforms and append a new point in the points queue</p>
+<dd><p>Transforms and append a new point in the points queue</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="pyparticles.geometry.transformations.Transformations.clear">
 <tt class="descname">clear</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.geometry.transformations.Transformations.clear" title="Permalink to this definition">¶</a></dt>
-<dd><p>Clear the stack, the poits queue and set to the identity the current matrix</p>
+<dd><p>Clear the stack, the points in the queue and set to the identity the current matrix</p>
 </dd></dl>
 
 <dl class="method">
@@ -222,7 +228,7 @@ The popped points in the queue are cancelled during the itarations.</p>
 <dl class="method">
 <dt id="pyparticles.geometry.transformations.Transformations.reflection">
 <tt class="descname">reflection</tt><big>(</big><em>a</em>, <em>b</em>, <em>c</em><big>)</big><a class="headerlink" href="#pyparticles.geometry.transformations.Transformations.reflection" title="Permalink to this definition">¶</a></dt>
-<dd><p>Apply the reflection through a plane: ax + by + cz = 0</p>
+<dd><p>Apply the reflection through the plane: ax + by + cz = 0</p>
 </dd></dl>
 
 <dl class="method">
@@ -264,19 +270,18 @@ The popped points in the queue are cancelled during the itarations.</p>
 <dl class="method">
 <dt id="pyparticles.geometry.transformations.Transformations.set_points_tuple_size">
 <tt class="descname">set_points_tuple_size</tt><big>(</big><em>nr</em><big>)</big><a class="headerlink" href="#pyparticles.geometry.transformations.Transformations.set_points_tuple_size" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>The points are organized by tuples of size nr. That&#8217;s useful if you want to draw triangles squares or lines,
+where the size of the tupre are respectively 3, 4 and 2.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="pyparticles.geometry.transformations.Transformations.shearX">
 <tt class="descname">shearX</tt><big>(</big><em>a</em>, <em>b</em><big>)</big><a class="headerlink" href="#pyparticles.geometry.transformations.Transformations.shearX" title="Permalink to this definition">¶</a></dt>
 <dd><p>Apply the shearing along X axis using the values a b</p>
-<div class="line-block">
-<div class="line">SH_X(a,b) = [ 1 0 0 0 </div>
-<div class="line-block">
-<div class="line">a 1 0 0 </div>
-<div class="line">b 0 1 0 </div>
-<div class="line">0 0 0 1 ]</div>
-</div>
+<div class="highlight-python"><pre>SH_X(a,b) = [ 1 0 0 0 
+              a 1 0 0 
+              b 0 1 0 
+              0 0 0 1 ]</pre>
 </div>
 </dd></dl>
 
@@ -284,13 +289,10 @@ The popped points in the queue are cancelled during the itarations.</p>
 <dt id="pyparticles.geometry.transformations.Transformations.shearY">
 <tt class="descname">shearY</tt><big>(</big><em>a</em>, <em>b</em><big>)</big><a class="headerlink" href="#pyparticles.geometry.transformations.Transformations.shearY" title="Permalink to this definition">¶</a></dt>
 <dd><p>Apply the shearing along Y axis using the values a b</p>
-<div class="line-block">
-<div class="line">SH_Y(a,b) = [ 1 a 0 0 </div>
-<div class="line-block">
-<div class="line">0 1 0 0 </div>
-<div class="line">0 b 1 0 </div>
-<div class="line">0 0 0 1 ]</div>
-</div>
+<div class="highlight-python"><pre>SH_Y(a,b) = [ 1 a 0 0 
+              0 1 0 0 
+              0 b 1 0 
+              0 0 0 1 ]</pre>
 </div>
 </dd></dl>
 
@@ -298,13 +300,10 @@ The popped points in the queue are cancelled during the itarations.</p>
 <dt id="pyparticles.geometry.transformations.Transformations.shearZ">
 <tt class="descname">shearZ</tt><big>(</big><em>a</em>, <em>b</em><big>)</big><a class="headerlink" href="#pyparticles.geometry.transformations.Transformations.shearZ" title="Permalink to this definition">¶</a></dt>
 <dd><p>Apply the shearing along Z axis using the values a b</p>
-<div class="line-block">
-<div class="line">SH_Z(a,b) = [ 1 0 a 0 </div>
-<div class="line-block">
-<div class="line">0 1 b 0 </div>
-<div class="line">0 0 1 0 </div>
-<div class="line">0 0 0 1 ]        </div>
-</div>
+<div class="highlight-python"><pre>SH_Z(a,b) = [ 1 0 a 0 
+              0 1 b 0 
+              0 0 1 0 
+              0 0 0 1 ]        </pre>
 </div>
 </dd></dl>
 

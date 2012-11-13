@@ -9,6 +9,14 @@ pset Package
     :undoc-members:
     :show-inheritance:
 
+:mod:`particles_set` Module
+---------------------------
+
+.. automodule:: pyparticles.pset.particles_set
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 :mod:`boundary` Module
 ----------------------
 
@@ -73,13 +81,7 @@ pset Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`particles_set` Module
----------------------------
 
-.. automodule:: pyparticles.pset.particles_set
-    :members:
-    :undoc-members:
-    :show-inheritance:
 
 :mod:`periodic_boundary` Module
 -------------------------------

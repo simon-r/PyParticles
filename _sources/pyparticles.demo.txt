@@ -49,3 +49,11 @@ demo Package
     :undoc-members:
     :show-inheritance:
 
+:mod:`test` Module
+------------------
+
+.. automodule:: pyparticles.demo.test
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
