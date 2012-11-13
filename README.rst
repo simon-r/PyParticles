@@ -64,7 +64,6 @@ The following are the main command of the PyParticles application.
     
 
 * **Start a simulation described in a config file**
-
 ::
 
     pyparticle_app <file_name>
@@ -88,6 +87,14 @@ gas_lj        Lennard jones gas model (should be improved)
     pyparticles_app --demo bubble
     pyparticles_app --demo cat_spri
     pyparticles_app --demo gas_lj
+
+* **Start a testing procedure**
+Execute the specified test: ::
+
+    pyparticle_app --test harmonic
+    pyparticle_app --test fall
+    
+
 
 * **Write out a model config file**
 ::
