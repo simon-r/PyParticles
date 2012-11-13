@@ -310,11 +310,11 @@ class Transformations( object ):
     def shearX( self , a , b ):
         """
         Apply the shearing along X axis using the values a b
-        
-        | SH_X(a,b) = [ 1 0 0 0 
-        |               a 1 0 0 
-        |               b 0 1 0 
-        |               0 0 0 1 ]
+        ::
+          SH_X(a,b) = [ 1 0 0 0 
+                        a 1 0 0 
+                        b 0 1 0 
+                        0 0 0 1 ]
         
         """        
         m = np.matrix( np.eye( 4 ) )
@@ -328,11 +328,12 @@ class Transformations( object ):
     def shearY( self , a , b ):
         """
         Apply the shearing along Y axis using the values a b
+        ::
         
-        | SH_Y(a,b) = [ 1 a 0 0 
-        |               0 1 0 0 
-        |               0 b 1 0 
-        |               0 0 0 1 ]
+          SH_Y(a,b) = [ 1 a 0 0 
+                        0 1 0 0 
+                        0 b 1 0 
+                        0 0 0 1 ]
         
         """        
         m = np.matrix( np.eye( 4 ) )
@@ -345,11 +346,12 @@ class Transformations( object ):
     def shearZ( self , a , b ):
         """
         Apply the shearing along Z axis using the values a b
+        ::
         
-        | SH_Z(a,b) = [ 1 0 a 0 
-        |               0 1 b 0 
-        |               0 0 1 0 
-        |               0 0 0 1 ]        
+         SH_Z(a,b) = [ 1 0 a 0 
+                       0 1 b 0 
+                       0 0 1 0 
+                       0 0 0 1 ]        
         
         """        
         m = np.matrix( np.eye( 4 ) )

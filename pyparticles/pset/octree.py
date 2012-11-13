@@ -317,6 +317,7 @@ class OcTree ( object ):
         
         """
         Define the size of the octree cube
+        
             ==========  =================================
             Arguments
             ==========  =================================
