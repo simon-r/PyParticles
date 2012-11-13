@@ -30,6 +30,8 @@ Simulate a particle by particle model with the most popular integrations methods
 #. Constant
 #. User defined field
 #. Lennard Jones
+#. Drag
+#. Damping
 
 We have also the possibility of modeling the forces with user-defined constraints (See demo *cat_spri*).
 
