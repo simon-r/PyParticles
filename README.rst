@@ -91,8 +91,8 @@ gas_lj        Lennard jones gas model (should be improved)
 * **Start a testing procedure**
 Execute the specified test: ::
 
-    pyparticle_app --test harmonic
-    pyparticle_app --test fall
+    pyparticles_app --test harmonic
+    pyparticles_app --test fall
     
 
 
