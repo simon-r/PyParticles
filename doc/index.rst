@@ -14,6 +14,7 @@ Index
 
    Config File
    Programming Example
+   Testing
    Packages Descriptions
    pyparticles
 

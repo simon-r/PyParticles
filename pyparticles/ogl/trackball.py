@@ -21,7 +21,8 @@ class TrackBall( object ):
     """
     Class used for controloing the rotation of the scene via mouse or joystick, by generating the virtual trackball effect
     
-        Constructor
+    Constructor
+        
         ========== =========================
         Arguments
         ========== =========================
@@ -38,6 +39,7 @@ class TrackBall( object ):
                 
                 ( x , y ) = get_current_coords_on_window()
                 ( rot_axis , rot_angle ) = trk.on_move( [ x , y ] )
+                glRotatef( rot_angle , rot_axis[0] , rot_axis[1] , rot_axis[2] )
     """
     def __init__( self , w_size ):
         

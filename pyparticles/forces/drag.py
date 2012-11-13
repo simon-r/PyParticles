@@ -25,7 +25,8 @@ class Drag( fr.Force ) :
     Calculate the forces of resistance, resistance is a force that reacts to the movement with respect to a square law speed.
     
     The force is given the equation:
-    ... math::
+    
+    .. math::
     
         F_i = - \frac{1}{2} * K * \dot{X}^2
         
