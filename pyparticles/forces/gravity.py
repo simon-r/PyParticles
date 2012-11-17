@@ -24,16 +24,22 @@ class Gravity( fr.Force ) :
     """
     Compute the gravitational force between the particles
     
-         Constructor
+    The gravity between two particles is defined as follow:
+    
+    .. math::
+    
+        \mathbf{F}_{12} = - G {m_1 m_2 \over {\vert \mathbf{r}_{12} \vert}^2}\, \mathbf{\hat{r}}_{12}
+    
+    Constructor
          
-            ==========  ======================================
-            Arguments
-            ==========  ======================================
-            size        the number of particles in the system
-            dim         the dimension of the system
-            m           a vector containig the masses
-            Const       the gravitational constant
-            ==========  ====================================== 
+        ==========  ======================================
+        Arguments
+        ==========  ======================================
+        size        the number of particles in the system
+        dim         the dimension of the system
+        m           a vector containig the masses
+        Const       the gravitational constant
+        ==========  ====================================== 
     
     """
     def __init__(self , size , dim=3 , m=None , Consts=1.0 ):

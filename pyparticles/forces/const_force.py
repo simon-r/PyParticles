@@ -18,7 +18,22 @@ import numpy as np
 import pyparticles.forces.force as fr
 
 class ConstForce( fr.Force ) :
-    def __init__(self , size , u_force=[0,0,0] , dim=3 , m=None , Consts=1.0 ):
+    """
+    Constant force field.
+    
+    Constructor
+         
+        ==========  ==========================================
+        Arguments
+        ==========  ==========================================
+        size        the number of particles in the system
+        dim         the dimension of the system
+        m           a vector containig the masses
+        u_force     The force vector (Force per unit of mass)
+        ==========  ==========================================
+    """
+    
+    def __init__(self , size , dim=3 , m=None , u_force=[0,0,0] , Consts=1.0 ):
         self.__dim = dim
         self.__size = size
         self.__G = Consts
@@ -32,6 +47,7 @@ class ConstForce( fr.Force ) :
         
     
     def set_masses( self , m ):
+        
         self.__M[:] = m
         
     

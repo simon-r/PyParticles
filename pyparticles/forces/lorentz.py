@@ -22,7 +22,7 @@ import pyparticles.forces.force as fr
 
 class Lorentz( fr.Force ) :
     """
-    Lorentz Force
+    Lorentz Force TODO !!!!
     """
     def __init__(self , size , dim=3 , m=None , Consts=1.0 ):
         

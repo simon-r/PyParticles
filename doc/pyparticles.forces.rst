@@ -9,6 +9,22 @@ forces Package
     :undoc-members:
     :show-inheritance:
 
+:mod:`force` Module
+-------------------
+
+.. automodule:: pyparticles.forces.force
+    :members:
+    :undoc-members:
+    :show-inheritance:
+    
+:mod:`gravity` Module
+---------------------
+
+.. automodule:: pyparticles.forces.gravity
+    :members:
+    :undoc-members:
+    :show-inheritance:    
+
 :mod:`const_force` Module
 -------------------------
 
@@ -25,6 +41,16 @@ forces Package
     :undoc-members:
     :show-inheritance:
 
+
+:mod:`damping` Module
+------------------
+
+.. automodule:: pyparticles.forces.damping
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
 :mod:`electrostatic` Module
 ---------------------------
 
@@ -33,13 +59,6 @@ forces Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`force` Module
--------------------
-
-.. automodule:: pyparticles.forces.force
-    :members:
-    :undoc-members:
-    :show-inheritance:
 
 :mod:`force_constrained` Module
 -------------------------------
@@ -49,13 +68,7 @@ forces Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`gravity` Module
----------------------
 
-.. automodule:: pyparticles.forces.gravity
-    :members:
-    :undoc-members:
-    :show-inheritance:
 
 :mod:`lennard_jones` Module
 ---------------------------

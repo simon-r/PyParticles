@@ -22,6 +22,30 @@ import pyparticles.forces.force as fr
 
 
 class LenardJones( fr.Force ) :
+    """
+    Compute the lenard jones force between the particles
+    
+    The L. J. force between two particles is defined as follow:
+    
+    .. math::
+    
+        \mathbf{F}(r) = 4 \varepsilon \left( 12\,{\frac {{\sigma}^{12}}{{r}^{13}}}-6\,{\frac{{\sigma}^{6}}{{r}^{7}}} \right) \hat{\mathbf{r}}.
+    
+    Constructor
+         
+        ==========  =============================================
+        Arguments
+        ==========  =============================================
+        size        the number of particles in the system
+        dim         the dimension of the system
+        m           a vector containig the masses
+        Const       An indexable object[*] with the two contants
+        ==========  =============================================
+        
+        | [*] Const[0] = :math: \epsilon
+        |     Const[1] = :math: \sigma
+    
+    """
     def __init__( self , size , dim=3 , m=None , Consts=( 1.0 , 1.0 ) ):
         self.__dim = dim
         self.__size = size
@@ -50,6 +74,12 @@ class LenardJones( fr.Force ) :
     def update_force( self , p_set ):
         """
         Compute the force of the current status of the system and return the accelerations of every particle in a *size by dim* array
+        
+            ========= ==================
+            Arguments
+            ========= ==================
+            p_set     Particles set obj.
+            ========= ==================
         """
         
         r =  dist.pdist( p_set.X , 'euclidean' )
