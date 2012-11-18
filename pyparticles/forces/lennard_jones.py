@@ -29,7 +29,7 @@ class LenardJones( fr.Force ) :
     
     .. math::
     
-        \mathbf{F}(r) = 4 \varepsilon \left(12\,{\frac{{\sigma}^{12}}{{r}^{13}}}-6\,{\frac{{\sigma}^{6}}{{r}^{7}}}\right)\hat{\mathbf{r}}
+        \mathbf{F}(r) = 4 \epsilon \left(12\,{\frac{{\sigma}^{12}}{{r}^{13}}}-6\,{\frac{{\sigma}^{6}}{{r}^{7}}}\right)\hat{\mathbf{r}}
     
     
     Constructor
