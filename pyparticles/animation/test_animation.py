@@ -188,7 +188,7 @@ class TestAnimation( pan.Animation ):
             plt.xlabel( "Time" )
             plt.ylabel( "Abs error [1e-3]" )
         
-            plt.legend([p1, p2], ["Abs Error", "Mean"] , loc=1 )
+            plt.legend([p1, p2], ["Abs Error", "Mean"] , loc=4 )
         
             plt.grid(1)
             
