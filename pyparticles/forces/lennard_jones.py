@@ -24,17 +24,16 @@ import pyparticles.forces.force as fr
 class LenardJones( fr.Force ) :
     r"""
     Compute the lenard jones force between the particles
-    
+
     The L. J. force between two particles is defined as follow:
-    
+
     .. math::
-        :nowrap:
-        
-         \mathbf{F}(r) = 4 \epsilon \left(12\,{\frac{{\sigma}^{12}}{{r}^{13}}}-6\,{\frac{{\sigma}^{6}}{{r}^{7}}}\right)\hat{\mathbf{r}}
-    
-    
+
+        \mathbf{F}(r) = 4 \epsilon \left(12\,{\frac{{\sigma}^{12}}{{r}^{13}}}-6\,{\frac{{\sigma}^{6}}{{r}^{7}}}\right)\hat{\mathbf{r}}
+
+
     Constructor
-         
+
         ==========  =============================================
         Arguments
         ==========  =============================================
@@ -43,11 +42,13 @@ class LenardJones( fr.Force ) :
         m           a vector containig the masses
         Const       An indexable object[*] with the two contants
         ==========  =============================================
-        
-        | [*] Const[0] = :math: `\epsilon`
-        |     Const[1] = :math: `\sigma`
-    
+
+         [*] Const[0] = :math:`\epsilon`
+             Const[1] = :math:`\sigma`
+
     """
+
+
     def __init__( self , size , dim=3 , m=None , Consts=( 1.0 , 1.0 ) ):
         self.__dim = dim
         self.__size = size

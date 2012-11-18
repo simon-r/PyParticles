@@ -23,16 +23,15 @@ import pyparticles.forces.force as fr
 class Drag( fr.Force ) :
     r"""
     Calculate the forces of resistance, resistance is a force that reacts to the movement with respect to a square law speed.
-    
+
     The force is given the equation:
-    
+
     .. math::
-        :nowrap:
-    
-        F_i= - \frac{1}{2} K \dot{X}^2
-        
+
+        F_i=-\frac{1}{2}K\dot{X}^2
+
     Constructor
-         
+
         ==========  ======================================
         Arguments
         ==========  ======================================
@@ -42,6 +41,7 @@ class Drag( fr.Force ) :
         Const       the gravitational constant
         ==========  ======================================
     """
+
     def __init__(self , size , dim=3 , m=None , Consts=1.0 ):
         
         self.__dim = dim
