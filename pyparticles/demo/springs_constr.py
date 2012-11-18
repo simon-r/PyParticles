@@ -26,6 +26,7 @@ import pyparticles.forces.linear_spring_constrained as lsc
 import pyparticles.forces.const_force as cf
 import pyparticles.forces.multiple_force as mf
 import pyparticles.forces.drag as dr
+import pyparticles.forces.damping as da
 
 import pyparticles.pset.constrained_x as csx
 import pyparticles.pset.constrained_force_interactions as cfi
@@ -103,6 +104,7 @@ def spring_constr():
     spring = lsc.LinearSpringConstrained( pset.size , pset.dim , pset.M , Consts=K , f_inter=fi )
     constf = cf.ConstForce( pset.size , dim=pset.dim , u_force=[ 0 , 0 , -10 ] )
     drag = dr.Drag( pset.size , pset.dim , Consts=0.003 )
+    #damp = da.Damping( pset.size , pset.dim , Consts=0.003 )
     
     multif = mf.MultipleForce( pset.size , pset.dim )
     multif.append_force( spring )
@@ -114,8 +116,8 @@ def spring_constr():
     #solver = asc.EulerSolverConstrained( multif , pset , dt , costrs )
     #solver = lpc.LeapfrogSolverConstrained( multif , pset , dt , costrs )
     #solver = svc.StormerVerletSolverConstrained( multif , pset , dt , costrs )
-    solver = rkc.RungeKuttaSolverConstrained( multif , pset , dt , costrs )
-    #solver = mdc.MidpointSolverConstrained( multif , pset , dt , costrs )
+    #solver = rkc.RungeKuttaSolverConstrained( multif , pset , dt , costrs )
+    solver = mdc.MidpointSolverConstrained( multif , pset , dt , costrs )
     
     a = aogl.AnimatedGl()
     

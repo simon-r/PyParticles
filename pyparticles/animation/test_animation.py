@@ -40,6 +40,7 @@ import pyparticles.forces.const_force as cf
 import pyparticles.forces.drag as dr
 import pyparticles.forces.multiple_force as mf
 import pyparticles.forces.linear_spring as ls
+import pyparticles.forces.damping as da
 
 import pyparticles.pset.constrained_x as csx
 import pyparticles.pset.constrained_force_interactions as cfi
@@ -52,8 +53,14 @@ def free_fall( t , m=1. , g=10. , k=1. ):
     z = (np.sqrt(2.*g*k)*t*m**2.-2.*m**(5./2.)*np.log((1./2.)*np.exp(np.sqrt(2.)*np.sqrt(g*k)*t/np.sqrt(m))+1./2.))/(m**(3./2.)*k)
     return np.array( [ 0.0 , 0.0 , z ] )
 
-def armonic( t ):
+def harmonic( t ):
     a = np.cos( t ) / np.sqrt(3.0)
+    return np.array( [ a , a , a ] )
+
+def damp_harmonic( t ):
+    a = (1./15.)*np.sqrt(15.)*np.exp(-(1./4.)*t)*np.sin((1./4.)*np.sqrt(15.)*t)+np.exp(-(1./4.)*t)*np.cos((1./4.)*np.sqrt(15.)*t)
+    a = a / np.sqrt(3.0)
+
     return np.array( [ a , a , a ] )
 
 
@@ -181,7 +188,7 @@ class TestAnimation( pan.Animation ):
             plt.xlabel( "Time" )
             plt.ylabel( "Abs error [1e-3]" )
         
-            plt.legend([p1, p2], ["Abs Error", "Mean"] , loc=4 )
+            plt.legend([p1, p2], ["Abs Error", "Mean"] , loc=1 )
         
             plt.grid(1)
             
@@ -193,13 +200,13 @@ class TestAnimation( pan.Animation ):
         
 
         
-class TestAnimationArmonic( TestAnimation ):
+class TestAnimationHarmonic( TestAnimation ):
     """
-    Test the armonic motion with two particles.
+    Test the harmonic motion with two particles.
     """
     
     def __init__(self):
-        self.analytical_sol = armonic
+        self.analytical_sol = harmonic
 
     def init_pset(self):
         self.pset.X[0,:] = 0.0
@@ -244,3 +251,60 @@ class TestAnimationArmonic( TestAnimation ):
         self.odes["MidPoint   "] = mdc.MidpointSolverConstrained( spring , self.pset , dt , costrs )
         self.odes["Verlet     "] = svc.StormerVerletSolverConstrained( spring , self.pset , dt , costrs )
 
+
+class TestAnimationDampedHarmonic( TestAnimation ):
+    """
+    Test the damped harmonic motion with two particles.
+    """
+    
+    def __init__(self):
+        self.analytical_sol = damp_harmonic
+
+    def init_pset(self):
+        self.pset.X[0,:] = 0.0
+        self.pset.X[1,:] = 1.0 / np.sqrt(3)
+        self.pset.M[:] = 1.0
+        self.pset.V[:] = 0.0
+        
+    def build_animation(self):
+        
+        self.steps = 6000
+        dt = 0.004
+        
+        self.ip = 1
+        
+        self.pset = ps.ParticlesSet( 2 , 3 )
+        self.pset.M[:] = 1.0
+        self.pset.V[:] = 0.0
+        
+        self.pset.X[0,:] = 0.0
+        self.pset.X[1,:] = 1.0 / np.sqrt(3)
+        
+        ci = np.array( [ 0 ] )
+        cx = np.array( [ 0.0 , 0.0 , 0.0 ] )
+        
+        costrs = csx.ConstrainedX( self.pset )
+        costrs.add_x_constraint( ci , cx )
+        
+        self.t = np.zeros(( self.steps ))
+        self.x = np.zeros(( self.steps , self.pset.dim ))
+        
+        self.xn = np.zeros(( self.steps , self.pset.dim ))
+                
+        spring = ls.LinearSpring( self.pset.size , self.pset.dim , Consts=1.0 )
+        damp = da.Damping( self.pset.size , self.pset.dim , Consts=0.5 )
+        
+        multi = mf.MultipleForce( self.pset.size )
+        
+        multi.append_force( spring )
+        multi.append_force( damp )
+        
+        multi.set_masses( self.pset.M )
+               
+        self.odes = dict()
+        
+        self.odes["Euler      "] = asc.EulerSolverConstrained( multi , self.pset , dt , costrs )
+        self.odes["Runge Kutta"] = rkc.RungeKuttaSolverConstrained( multi , self.pset , dt , costrs )
+        self.odes["Leap Frog  "] = lpc.LeapfrogSolverConstrained( multi , self.pset , dt , costrs )
+        self.odes["MidPoint   "] = mdc.MidpointSolverConstrained( multi , self.pset , dt , costrs )
+        self.odes["Verlet     "] = svc.StormerVerletSolverConstrained( multi , self.pset , dt , costrs )

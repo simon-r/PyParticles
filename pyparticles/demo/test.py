@@ -22,7 +22,9 @@ def test( ty ):
     if ty == "fall":
         tst = tt.TestAnimation()
     elif ty == "harmonic" :
-        tst = tt.TestAnimationArmonic()
+        tst = tt.TestAnimationHarmonic()
+    elif ty == "dharmonic" :
+        tst = tt.TestAnimationDampedHarmonic()
         
     tst.build_animation()
     tst.start()
