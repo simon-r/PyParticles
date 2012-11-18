@@ -1,0 +1,326 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Testing Procedures &mdash; PyParticles 0.3.2 documentation</title>
+    
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.3.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="PyParticles 0.3.2 documentation" href="index.html" />
+    <link rel="next" title="&lt;no title&gt;" href="Packages Descriptions.html" />
+    <link rel="prev" title="Programming examples" href="Programming Example.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="Packages Descriptions.html" title="&lt;no title&gt;"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="Programming Example.html" title="Programming examples"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">PyParticles 0.3.2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/logo_pyp.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Testing Procedures</a></li>
+<li><a class="reference internal" href="#test-problems-definitions">Test problems definitions</a><ul>
+<li><a class="reference internal" href="#free-fall-in-a-drag-fluid">Free fall in a drag fluid</a></li>
+<li><a class="reference internal" href="#harmonic-motion">Harmonic motion:</a></li>
+<li><a class="reference internal" href="#damped-harmonic-motion">Damped Harmonic motion:</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#tests-results">Tests results:</a><ul>
+<li><a class="reference internal" href="#id1">Free fall in a drag fluid</a></li>
+<li><a class="reference internal" href="#id2">Harmonic motion</a></li>
+<li><a class="reference internal" href="#id3">Damped Harmonic motion</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#analytical-solutions-plot">Analytical solutions plot:</a><ul>
+<li><a class="reference internal" href="#id4">Free fall in a drag fluid</a></li>
+<li><a class="reference internal" href="#id5">Harmonic motion</a></li>
+<li><a class="reference internal" href="#id6">Damped Harmonic motion</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="Programming Example.html"
+                        title="previous chapter">Programming examples</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="Packages Descriptions.html"
+                        title="next chapter">&lt;no title&gt;</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/Testing.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="testing-procedures">
+<h1>Testing Procedures<a class="headerlink" href="#testing-procedures" title="Permalink to this headline">¶</a></h1>
+<p>The procedure used in the tests is based on a comparison between a numerical solution and an analytical solution.</p>
+<p>Considering that the three bodies problem does not have a known analytical solution, the problems used in the tests generally will be based on systems of two particles, except in special cases.</p>
+<p>Tests currently implemented:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>Free fall in a drag fluid.</li>
+<li>Harmonic motion</li>
+<li>Damped harmonic motion</li>
+</ol>
+</div></blockquote>
+<p>For executiong the tests via pyparticles_add we must use the option -d</p>
+<div class="highlight-python"><pre>pyparticles_add -d &lt;test_name&gt;</pre>
+</div>
+<p>Commands for executing available tests:</p>
+<div class="highlight-python"><pre>pyparticles_app -t fall
+pyparticles_app -t harmonic
+pyparticles_app -t dharmonic</pre>
+</div>
+</div>
+<div class="section" id="test-problems-definitions">
+<h1>Test problems definitions<a class="headerlink" href="#test-problems-definitions" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="free-fall-in-a-drag-fluid">
+<h2>Free fall in a drag fluid<a class="headerlink" href="#free-fall-in-a-drag-fluid" title="Permalink to this headline">¶</a></h2>
+<p>The free fall test is based on a single particle that falls in a constant force field with a drag fluid (or air).</p>
+<p>The equation of motion is defined as follow:</p>
+<div class="math">
+<p><img src="_images/math/b3b27b45cb7c7f8a55414f2f5614334e923e300d.png" alt="m{\frac {d^{2}}{d{t}^{2}}}X \left( t \right) =mg+1/2\,k \left( {\frac {d}{dt}}X \left( t \right)  \right) ^{2}"/></p>
+</div><p>Where:</p>
+<blockquote>
+<div><div class="line-block">
+<div class="line"><img class="math" src="_images/math/a4b5800f5ad040d308609190ef18a9e0ca08a9b0.png" alt="m=1"/></div>
+<div class="line"><img class="math" src="_images/math/7e35e373a4f6b7e154b76ec2aea78d00bb5e880c.png" alt="g = -10"/></div>
+<div class="line"><img class="math" src="_images/math/00fab47c0b9d0ce398d03e57d6720129d53434f2.png" alt="k = 1"/></div>
+</div>
+</div></blockquote>
+<p>And as initial condition I&#8217;ve used:</p>
+<blockquote>
+<div><div class="line-block">
+<div class="line"><img class="math" src="_images/math/2805038ae722dac0fd15ee9ff720c028f8dd4db7.png" alt="X(0) = 0"/></div>
+<div class="line"><img class="math" src="_images/math/f09d8adbb9d5d55b9462c065d5877092147428ef.png" alt="\dot{X}(0) = 0"/></div>
+</div>
+</div></blockquote>
+<p>The analytical solution is given by the following expression:</p>
+<div class="math">
+<p><img src="_images/math/67e14af8846c11f75fada5ff3f532d601b8e823d.png" alt="x(t) = 2\,\sqrt {5}t-2\,\ln  \left( 1/2\,{{\rm e}^{2\,\sqrt {5}t}}+1/2 \right)"/></p>
+</div><p>In pyparticles the problem is desribed as follow:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">constf</span> <span class="o">=</span> <span class="n">cf</span><span class="o">.</span><span class="n">ConstForce</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">pset</span><span class="o">.</span><span class="n">size</span> <span class="p">,</span> <span class="n">u_force</span><span class="o">=</span><span class="p">[</span> <span class="mi">0</span> <span class="p">,</span> <span class="mi">0</span> <span class="p">,</span> <span class="o">-</span><span class="mf">10.0</span> <span class="p">]</span> <span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">pset</span><span class="o">.</span><span class="n">dim</span> <span class="p">)</span>
+<span class="n">drag</span> <span class="o">=</span> <span class="n">dr</span><span class="o">.</span><span class="n">Drag</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">pset</span><span class="o">.</span><span class="n">size</span> <span class="p">,</span> <span class="n">Consts</span><span class="o">=</span><span class="mf">1.0</span> <span class="p">)</span>
+
+<span class="n">multi</span> <span class="o">=</span> <span class="n">mf</span><span class="o">.</span><span class="n">MultipleForce</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">pset</span><span class="o">.</span><span class="n">size</span> <span class="p">)</span>
+
+<span class="n">multi</span><span class="o">.</span><span class="n">append_force</span><span class="p">(</span> <span class="n">constf</span> <span class="p">)</span>
+<span class="n">multi</span><span class="o">.</span><span class="n">append_force</span><span class="p">(</span> <span class="n">drag</span> <span class="p">)</span>
+
+<span class="n">multi</span><span class="o">.</span><span class="n">set_masses</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">pset</span><span class="o">.</span><span class="n">M</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="harmonic-motion">
+<h2>Harmonic motion:<a class="headerlink" href="#harmonic-motion" title="Permalink to this headline">¶</a></h2>
+<p>The first particle is fixed to a point while the second free to move.</p>
+<p>The equation of motion is defined as follow:</p>
+<div class="math">
+<p><img src="_images/math/3cc62ab6a0df5521687e69f9ae91dfdb82c7ba9c.png" alt="m{\frac {d^{2}}{d{t}^{2}}}X \left( t \right) =-kX \left( t \right)"/></p>
+</div><p>Where:</p>
+<blockquote>
+<div><div class="line-block">
+<div class="line"><img class="math" src="_images/math/73baad1d05e4bc4d4067fd6dfcc164e339bf981a.png" alt="m = 1"/></div>
+<div class="line"><img class="math" src="_images/math/00fab47c0b9d0ce398d03e57d6720129d53434f2.png" alt="k = 1"/></div>
+</div>
+</div></blockquote>
+<p>And as initial condition I&#8217;ve used:</p>
+<blockquote>
+<div><div class="line-block">
+<div class="line"><img class="math" src="_images/math/526876ef3dd3f7968de05f24903255c8e93b1874.png" alt="\mathbf{X}(0) = \begin{bmatrix} \frac{1}{\sqrt{3}} \\ \frac{1}{\sqrt{3}} \\ \frac{1}{\sqrt{3}} \end{bmatrix}"/></div>
+<div class="line"><img class="math" src="_images/math/648f40609e4caa577a39c21e13d317f312645fcb.png" alt="\dot{\mathbf{X}}(0) = \begin{bmatrix} 0 \\ 0 \\ 0 \end{bmatrix}"/></div>
+</div>
+</div></blockquote>
+<p>The analytical solution is given by the following expression:</p>
+<div class="math">
+<p><img src="_images/math/446b8cd7509da5a070d1583e34e2fb2ea8911570.png" alt="\mathbf{X}\left ( t \right ) = \begin{bmatrix}\frac{\cos{t}}{\sqrt{3}}\\ \frac{\cos{t}}{\sqrt{3}}\\ \frac{\cos{t}}{\sqrt{3}}\end{bmatrix}"/></p>
+</div><p>In pyparticles the problem is desribed as follow:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="bp">self</span><span class="o">.</span><span class="n">pset</span><span class="o">.</span><span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">,:]</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">pset</span><span class="o">.</span><span class="n">X</span><span class="p">[</span><span class="mi">1</span><span class="p">,:]</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+
+<span class="n">ci</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span> <span class="p">[</span> <span class="mi">0</span> <span class="p">]</span> <span class="p">)</span>
+<span class="n">cx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span> <span class="p">[</span> <span class="mf">0.0</span> <span class="p">,</span> <span class="mf">0.0</span> <span class="p">,</span> <span class="mf">0.0</span> <span class="p">]</span> <span class="p">)</span>
+
+<span class="n">costrs</span> <span class="o">=</span> <span class="n">csx</span><span class="o">.</span><span class="n">ConstrainedX</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">pset</span> <span class="p">)</span>
+<span class="n">costrs</span><span class="o">.</span><span class="n">add_x_constraint</span><span class="p">(</span> <span class="n">ci</span> <span class="p">,</span> <span class="n">cx</span> <span class="p">)</span>
+
+<span class="bp">self</span><span class="o">.</span><span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span> <span class="bp">self</span><span class="o">.</span><span class="n">steps</span> <span class="p">))</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span> <span class="bp">self</span><span class="o">.</span><span class="n">steps</span> <span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pset</span><span class="o">.</span><span class="n">dim</span> <span class="p">))</span>
+
+<span class="bp">self</span><span class="o">.</span><span class="n">xn</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span> <span class="bp">self</span><span class="o">.</span><span class="n">steps</span> <span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pset</span><span class="o">.</span><span class="n">dim</span> <span class="p">))</span>
+
+<span class="n">spring</span> <span class="o">=</span> <span class="n">ls</span><span class="o">.</span><span class="n">LinearSpring</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">pset</span><span class="o">.</span><span class="n">size</span> <span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pset</span><span class="o">.</span><span class="n">dim</span> <span class="p">,</span> <span class="n">Consts</span><span class="o">=</span><span class="mf">1.0</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="damped-harmonic-motion">
+<h2>Damped Harmonic motion:<a class="headerlink" href="#damped-harmonic-motion" title="Permalink to this headline">¶</a></h2>
+<p>The first particle is fixed to a point while the second free to move. The damping force has a magnitude proportional to the velocity.</p>
+<p>The equation of motion is defined as follow:</p>
+<div class="math">
+<p><img src="_images/math/f8d8a5d2f767efbc9e6524a2b312f1491f4a7e56.png" alt="m{\frac {d^{2}}{d{t}^{2}}}X \left( t \right) =-c{\frac {d}{dt}}X \left( t \right) -k X \left( t \right)"/></p>
+</div><p>Where:</p>
+<blockquote>
+<div><div class="line-block">
+<div class="line"><img class="math" src="_images/math/73baad1d05e4bc4d4067fd6dfcc164e339bf981a.png" alt="m = 1"/></div>
+<div class="line"><img class="math" src="_images/math/ec0310b7bab640cb755b0429a671bb1b4fa4860c.png" alt="c = 1/2"/></div>
+<div class="line"><img class="math" src="_images/math/00fab47c0b9d0ce398d03e57d6720129d53434f2.png" alt="k = 1"/></div>
+</div>
+</div></blockquote>
+<p>And as initial condition I&#8217;ve used:</p>
+<blockquote>
+<div><div class="line-block">
+<div class="line"><img class="math" src="_images/math/526876ef3dd3f7968de05f24903255c8e93b1874.png" alt="\mathbf{X}(0) = \begin{bmatrix} \frac{1}{\sqrt{3}} \\ \frac{1}{\sqrt{3}} \\ \frac{1}{\sqrt{3}} \end{bmatrix}"/></div>
+<div class="line"><img class="math" src="_images/math/648f40609e4caa577a39c21e13d317f312645fcb.png" alt="\dot{\mathbf{X}}(0) = \begin{bmatrix} 0 \\ 0 \\ 0 \end{bmatrix}"/></div>
+</div>
+</div></blockquote>
+<p>The analytical solution is given by the following expressions:</p>
+<p>The magnitude of <img class="math" src="_images/math/7a2a5c95a9c91beb2e79b6f8403a43cf5f14e254.png" alt="X(t)"/> is:</p>
+<div class="math">
+<p><img src="_images/math/a165ff28108312ea5519dfeb10d934d205999ea4.png" alt="X \left( t \right) =1/15\,\sqrt {15}{{\rm e}^{-1/4\,t}}\sin \left( 1/4\,\sqrt {15}t \right) +{{\rm e}^{-1/4\,t}}\cos \left( 1/4\,\sqrt {15}t\right)"/></p>
+</div><p>The vectorized and effective solution of the initial value problem, is:</p>
+<div class="math">
+<p><img src="_images/math/aa104de9e6f1252dce58f1e9040942caa75a696b.png" alt="\mathbf{X}\left ( t \right ) = \begin{bmatrix} \frac{X(t)}{\sqrt{3}} \\ \frac{X(t)}{\sqrt{3}} \\  \frac{X(t)}{\sqrt{3}}\end{bmatrix}"/></p>
+</div><p>In pyparticles the problem is desribed as follow:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="bp">self</span><span class="o">.</span><span class="n">pset</span><span class="o">.</span><span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">,:]</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">pset</span><span class="o">.</span><span class="n">X</span><span class="p">[</span><span class="mi">1</span><span class="p">,:]</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+
+<span class="n">ci</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span> <span class="p">[</span> <span class="mi">0</span> <span class="p">]</span> <span class="p">)</span>
+<span class="n">cx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span> <span class="p">[</span> <span class="mf">0.0</span> <span class="p">,</span> <span class="mf">0.0</span> <span class="p">,</span> <span class="mf">0.0</span> <span class="p">]</span> <span class="p">)</span>
+
+<span class="n">costrs</span> <span class="o">=</span> <span class="n">csx</span><span class="o">.</span><span class="n">ConstrainedX</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">pset</span> <span class="p">)</span>
+<span class="n">costrs</span><span class="o">.</span><span class="n">add_x_constraint</span><span class="p">(</span> <span class="n">ci</span> <span class="p">,</span> <span class="n">cx</span> <span class="p">)</span>
+
+<span class="n">spring</span> <span class="o">=</span> <span class="n">ls</span><span class="o">.</span><span class="n">LinearSpring</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">pset</span><span class="o">.</span><span class="n">size</span> <span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pset</span><span class="o">.</span><span class="n">dim</span> <span class="p">,</span> <span class="n">Consts</span><span class="o">=</span><span class="mf">1.0</span> <span class="p">)</span>
+<span class="n">damp</span> <span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">Damping</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">pset</span><span class="o">.</span><span class="n">size</span> <span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pset</span><span class="o">.</span><span class="n">dim</span> <span class="p">,</span> <span class="n">Consts</span><span class="o">=</span><span class="mf">0.5</span> <span class="p">)</span>
+
+<span class="n">multi</span> <span class="o">=</span> <span class="n">mf</span><span class="o">.</span><span class="n">MultipleForce</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">pset</span><span class="o">.</span><span class="n">size</span> <span class="p">)</span>
+
+<span class="n">multi</span><span class="o">.</span><span class="n">append_force</span><span class="p">(</span> <span class="n">spring</span> <span class="p">)</span>
+<span class="n">multi</span><span class="o">.</span><span class="n">append_force</span><span class="p">(</span> <span class="n">damp</span> <span class="p">)</span>
+
+<span class="n">multi</span><span class="o">.</span><span class="n">set_masses</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">pset</span><span class="o">.</span><span class="n">M</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="tests-results">
+<h1>Tests results:<a class="headerlink" href="#tests-results" title="Permalink to this headline">¶</a></h1>
+<p>Below are shown evolution of the absolute error in the problems described above, we can see that the error is always low and reasonably acceptable.</p>
+<p>(To see the image at full size, it must be opened in another tab)</p>
+<div class="section" id="id1">
+<h2>Free fall in a drag fluid<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<img alt="_images/fall.png" src="_images/fall.png" style="width: 100%;" />
+</div>
+<div class="section" id="id2">
+<h2>Harmonic motion<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<img alt="_images/har.png" src="_images/har.png" style="width: 100%;" />
+</div>
+<div class="section" id="id3">
+<h2>Damped Harmonic motion<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<img alt="_images/dhar.png" src="_images/dhar.png" style="width: 100%;" />
+</div>
+</div>
+<div class="section" id="analytical-solutions-plot">
+<h1>Analytical solutions plot:<a class="headerlink" href="#analytical-solutions-plot" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id4">
+<h2>Free fall in a drag fluid<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<img alt="_images/fall_an.jpg" src="_images/fall_an.jpg" style="width: 50%;" />
+</div>
+<div class="section" id="id5">
+<h2>Harmonic motion<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<img alt="_images/har_an.jpg" src="_images/har_an.jpg" style="width: 50%;" />
+</div>
+<div class="section" id="id6">
+<h2>Damped Harmonic motion<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<img alt="_images/dam_an.jpg" src="_images/dam_an.jpg" style="width: 50%;" />
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="Packages Descriptions.html" title="&lt;no title&gt;"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="Programming Example.html" title="Programming examples"
+             >previous</a> |</li>
+        <li><a href="index.html">PyParticles 0.3.2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012, Simone Riva.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>
