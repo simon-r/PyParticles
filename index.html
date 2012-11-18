@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>PyParticles &mdash; PyParticles 0.3.0 documentation</title>
+    <title>PyParticles &mdash; PyParticles 0.3.2 documentation</title>
     
     <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.3.0',
+        VERSION:     '0.3.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="PyParticles 0.3.0 documentation" href="#" />
+    <link rel="top" title="PyParticles 0.3.2 documentation" href="#" />
     <link rel="next" title="Problem Config file" href="Config File.html" /> 
   </head>
   <body>
@@ -41,11 +41,14 @@
         <li class="right" >
           <a href="Config File.html" title="Problem Config file"
              accesskey="N">next</a> |</li>
-        <li><a href="#">PyParticles 0.3.0 documentation</a> &raquo;</li> 
+        <li><a href="#">PyParticles 0.3.2 documentation</a> &raquo;</li> 
       </ul>
     </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="#">
+              <img class="logo" src="_static/logo_pyp.png" alt="Logo"/>
+            </a></p>
   <h3><a href="#">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">PyParticles</a><ul>
@@ -53,10 +56,10 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#features">Features</a></li>
+<li><a class="reference internal" href="#requirements">Requirements</a></li>
 <li><a class="reference internal" href="#command-line-tool-usage">Command line tool usage:</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
 </ul>
 
   <h4>Next topic</h4>
@@ -90,14 +93,13 @@
             
   <div class="section" id="pyparticles">
 <h1>PyParticles<a class="headerlink" href="#pyparticles" title="Permalink to this headline">¶</a></h1>
-<dl class="docutils">
-<dt>PyParticles is a particle simulation toolbox entirely written in python.</dt>
-<dd><div class="first last line-block">
-<div class="line">Visit: <a class="reference external" href="https://github.com/simon-r/PyParticles">https://github.com/simon-r/PyParticles</a> The github project page</div>
-<div class="line">and: <a class="reference external" href="http://pyparticles.wordpress.com/">http://pyparticles.wordpress.com/</a> The main Blog</div>
+<p>PyParticles is a particle simulation toolbox entirely written in python.</p>
+<p>The main objective of PyParticles is to provide a system API simple and fast to use.
+Furthermore is to provide a basic application for the implementation of simple models.</p>
+<div class="line-block">
+<div class="line">Visit: <a class="reference external" href="http://pyparticles.wordpress.com/">http://pyparticles.wordpress.com/</a></div>
+<div class="line">Docs:  <a class="reference external" href="http://simon-r.github.com/PyParticles/index.html">http://simon-r.github.com/PyParticles/index.html</a></div>
 </div>
-</dd>
-</dl>
 <div class="section" id="index">
 <h2>Index<a class="headerlink" href="#index" title="Permalink to this headline">¶</a></h2>
 <div class="toctree-wrapper compound">
@@ -113,6 +115,25 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Programming Example.html">Programming examples</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="Programming Example.html#the-solar-system">The Solar System</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Testing.html">Testing Procedures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Testing.html#test-problems-definitions">Test problems definitions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Testing.html#free-fall-in-a-drag-fluid">Free fall in a drag fluid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Testing.html#harmonic-motion">Harmonic motion:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Testing.html#damped-harmonic-motion">Damped Harmonic motion:</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Testing.html#tests-results">Tests results:</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Testing.html#id1">Free fall in a drag fluid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Testing.html#id2">Harmonic motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Testing.html#id3">Damped Harmonic motion</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Testing.html#analytical-solutions-plot">Analytical solutions plot:</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Testing.html#id4">Free fall in a drag fluid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Testing.html#id5">Harmonic motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Testing.html#id6">Damped Harmonic motion</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="pyparticles.html">pyparticles Package</a><ul>
@@ -140,29 +161,87 @@
 <li>Particle by Particle spring</li>
 <li>Constant</li>
 <li>User defined field</li>
+<li>Lennard Jones</li>
+<li>Drag</li>
+<li>Damping</li>
 </ol>
-<p>PyParticle offers an easy to use class structure with a fully <em>interchangable</em> integrations method or force model, it also implements the possibility to add some boudary model.</p>
+<p>We have also the possibility of modeling the forces with user-defined constraints (See demo <em>cat_spri</em>).</p>
+<p>PyParticle offers an easy to use class structure with a fully <em>interchangeable</em> integrations method or force model, it also implements the possibility to add some boundary model.</p>
+</div>
+<div class="section" id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line">PyParticles require the following packages:</div>
+</div>
+<div class="line-block">
+<div class="line"><strong>numpy</strong> : <a class="reference external" href="http://scipy.org/Download">http://scipy.org/Download</a></div>
+<div class="line"><strong>scipy</strong> : <a class="reference external" href="http://scipy.org/Download">http://scipy.org/Download</a></div>
+<div class="line"><strong>pyopengl</strong> : <a class="reference external" href="http://pyopengl.sourceforge.net/">http://pyopengl.sourceforge.net/</a></div>
+<div class="line"><strong>matplotlib</strong> : <a class="reference external" href="http://matplotlib.org/">http://matplotlib.org/</a></div>
+</div>
+<p>For more details about the installation visit the Blog: <a class="reference external" href="http://pyparticles.wordpress.com/installation/">http://pyparticles.wordpress.com/installation/</a></p>
 </div>
 <div class="section" id="command-line-tool-usage">
 <h2>Command line tool usage:<a class="headerlink" href="#command-line-tool-usage" title="Permalink to this headline">¶</a></h2>
-<p>In PyParticles a simulation model is entierly described in a config file that scholuld be edited by the user.</p>
+<p>In PyParticles a simulation model is entirely described in a config file that should be edited by the user.</p>
 <p>The following are the main command of the PyParticles application.</p>
-<p>Start the demo simulation:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">pypaticle</span>
+<p><strong>Start the demo simulation:</strong></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">pyparticles_app</span>
 </pre></div>
 </div>
-<p>Start a simulation described in a config file</p>
-<div class="highlight-python"><pre>pyparticle &lt;file_name&gt;</pre>
+<p><strong>Start a simulation described in a config file</strong></p>
+<div class="highlight-python"><pre>pyparticle_app &lt;file_name&gt;</pre>
 </div>
-<p>Write out a model config file</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">pyparticle</span> <span class="o">-</span><span class="n">m</span>
+<p><strong>Start the specified demo simulation</strong></p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="19%" />
+<col width="81%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Demos</th>
+<th class="head">&nbsp;</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>springs</td>
+<td>3 body springs</td>
+</tr>
+<tr class="row-odd"><td>solar_system</td>
+<td>Simulation of the solar system with realistic magnitudes</td>
+</tr>
+<tr class="row-even"><td>bubble</td>
+<td>Bubbles. With a non realistic force</td>
+</tr>
+<tr class="row-odd"><td>cat_spri</td>
+<td>Vibrating string with gravity and air drag</td>
+</tr>
+<tr class="row-even"><td>gas_lj</td>
+<td>Lennard jones gas model (should be improved)</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-python"><pre>pyparticles_app --demo springs
+pyparticles_app --demo solar_system
+pyparticles_app --demo bubble
+pyparticles_app --demo cat_spri
+pyparticles_app --demo gas_lj</pre>
+</div>
+<p><strong>Start a testing procedure</strong>
+Execute the specified test:</p>
+<div class="highlight-python"><pre>pyparticles_app --test harmonic
+pyparticles_app --test fall</pre>
+</div>
+<p><strong>Write out a model config file</strong></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">pyparticle_app</span> <span class="o">-</span><span class="n">m</span>
 </pre></div>
 </div>
-<p>Print out the help and version</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">pyparticles</span> <span class="o">--</span><span class="n">help</span>
-<span class="n">pyparticles</span> <span class="o">--</span><span class="n">version</span>
+<p><strong>Print out the help and version</strong></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">pyparticles_app</span> <span class="o">--</span><span class="n">help</span>
+<span class="n">pyparticles_app</span> <span class="o">--</span><span class="n">version</span>
 </pre></div>
 </div>
+<p>During the simulation you can toggle the help message by pressing <strong>h</strong></p>
 <p>Config file Example:</p>
 <div class="highlight-python"><pre>[pset_origin]
 media_origin = from_file
@@ -189,14 +268,6 @@ zlim = -5.0  5.0</pre>
 </div>
 </div>
 </div>
-<div class="section" id="indices-and-tables">
-<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
-<ul class="simple">
-<li><a class="reference internal" href="genindex.html"><em>Index</em></a></li>
-<li><a class="reference internal" href="py-modindex.html"><em>Module Index</em></a></li>
-<li><a class="reference internal" href="search.html"><em>Search Page</em></a></li>
-</ul>
-</div>
 
 
           </div>
@@ -216,7 +287,7 @@ zlim = -5.0  5.0</pre>
         <li class="right" >
           <a href="Config File.html" title="Problem Config file"
              >next</a> |</li>
-        <li><a href="#">PyParticles 0.3.0 documentation</a> &raquo;</li> 
+        <li><a href="#">PyParticles 0.3.2 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

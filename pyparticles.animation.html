@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>animation Package &mdash; PyParticles 0.3.0 documentation</title>
+    <title>animation Package &mdash; PyParticles 0.3.2 documentation</title>
     
     <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.3.0',
+        VERSION:     '0.3.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="PyParticles 0.3.0 documentation" href="index.html" />
+    <link rel="top" title="PyParticles 0.3.2 documentation" href="index.html" />
     <link rel="up" title="pyparticles Package" href="pyparticles.html" />
     <link rel="next" title="demo Package" href="pyparticles.demo.html" />
     <link rel="prev" title="pyparticles Package" href="pyparticles.html" /> 
@@ -46,12 +46,15 @@
         <li class="right" >
           <a href="pyparticles.html" title="pyparticles Package"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">PyParticles 0.3.0 documentation</a> &raquo;</li>
+        <li><a href="index.html">PyParticles 0.3.2 documentation</a> &raquo;</li>
           <li><a href="pyparticles.html" accesskey="U">pyparticles Package</a> &raquo;</li> 
       </ul>
     </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/logo_pyp.png" alt="Logo"/>
+            </a></p>
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">animation Package</a><ul>
@@ -680,30 +683,52 @@ start: start the smulation</dd>
 </dd></dl>
 
 <dl class="class">
-<dt id="pyparticles.animation.test_animation.TestAnimationArmonic">
-<em class="property">class </em><tt class="descclassname">pyparticles.animation.test_animation.</tt><tt class="descname">TestAnimationArmonic</tt><a class="headerlink" href="#pyparticles.animation.test_animation.TestAnimationArmonic" title="Permalink to this definition">¶</a></dt>
+<dt id="pyparticles.animation.test_animation.TestAnimationDampedHarmonic">
+<em class="property">class </em><tt class="descclassname">pyparticles.animation.test_animation.</tt><tt class="descname">TestAnimationDampedHarmonic</tt><a class="headerlink" href="#pyparticles.animation.test_animation.TestAnimationDampedHarmonic" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#pyparticles.animation.test_animation.TestAnimation" title="pyparticles.animation.test_animation.TestAnimation"><tt class="xref py py-class docutils literal"><span class="pre">pyparticles.animation.test_animation.TestAnimation</span></tt></a></p>
-<p>Test the armonic motion with two particles.</p>
+<p>Test the damped harmonic motion with two particles.</p>
 <dl class="method">
-<dt id="pyparticles.animation.test_animation.TestAnimationArmonic.build_animation">
-<tt class="descname">build_animation</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.animation.test_animation.TestAnimationArmonic.build_animation" title="Permalink to this definition">¶</a></dt>
+<dt id="pyparticles.animation.test_animation.TestAnimationDampedHarmonic.build_animation">
+<tt class="descname">build_animation</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.animation.test_animation.TestAnimationDampedHarmonic.build_animation" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="pyparticles.animation.test_animation.TestAnimationArmonic.init_pset">
-<tt class="descname">init_pset</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.animation.test_animation.TestAnimationArmonic.init_pset" title="Permalink to this definition">¶</a></dt>
+<dt id="pyparticles.animation.test_animation.TestAnimationDampedHarmonic.init_pset">
+<tt class="descname">init_pset</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.animation.test_animation.TestAnimationDampedHarmonic.init_pset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyparticles.animation.test_animation.TestAnimationHarmonic">
+<em class="property">class </em><tt class="descclassname">pyparticles.animation.test_animation.</tt><tt class="descname">TestAnimationHarmonic</tt><a class="headerlink" href="#pyparticles.animation.test_animation.TestAnimationHarmonic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pyparticles.animation.test_animation.TestAnimation" title="pyparticles.animation.test_animation.TestAnimation"><tt class="xref py py-class docutils literal"><span class="pre">pyparticles.animation.test_animation.TestAnimation</span></tt></a></p>
+<p>Test the harmonic motion with two particles.</p>
+<dl class="method">
+<dt id="pyparticles.animation.test_animation.TestAnimationHarmonic.build_animation">
+<tt class="descname">build_animation</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.animation.test_animation.TestAnimationHarmonic.build_animation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.animation.test_animation.TestAnimationHarmonic.init_pset">
+<tt class="descname">init_pset</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.animation.test_animation.TestAnimationHarmonic.init_pset" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="function">
-<dt id="pyparticles.animation.test_animation.armonic">
-<tt class="descclassname">pyparticles.animation.test_animation.</tt><tt class="descname">armonic</tt><big>(</big><em>t</em><big>)</big><a class="headerlink" href="#pyparticles.animation.test_animation.armonic" title="Permalink to this definition">¶</a></dt>
+<dt id="pyparticles.animation.test_animation.damp_harmonic">
+<tt class="descclassname">pyparticles.animation.test_animation.</tt><tt class="descname">damp_harmonic</tt><big>(</big><em>t</em><big>)</big><a class="headerlink" href="#pyparticles.animation.test_animation.damp_harmonic" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="pyparticles.animation.test_animation.free_fall">
 <tt class="descclassname">pyparticles.animation.test_animation.</tt><tt class="descname">free_fall</tt><big>(</big><em>t</em>, <em>m=1.0</em>, <em>g=10.0</em>, <em>k=1.0</em><big>)</big><a class="headerlink" href="#pyparticles.animation.test_animation.free_fall" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="pyparticles.animation.test_animation.harmonic">
+<tt class="descclassname">pyparticles.animation.test_animation.</tt><tt class="descname">harmonic</tt><big>(</big><em>t</em><big>)</big><a class="headerlink" href="#pyparticles.animation.test_animation.harmonic" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
@@ -730,7 +755,7 @@ start: start the smulation</dd>
         <li class="right" >
           <a href="pyparticles.html" title="pyparticles Package"
              >previous</a> |</li>
-        <li><a href="index.html">PyParticles 0.3.0 documentation</a> &raquo;</li>
+        <li><a href="index.html">PyParticles 0.3.2 documentation</a> &raquo;</li>
           <li><a href="pyparticles.html" >pyparticles Package</a> &raquo;</li> 
       </ul>
     </div>

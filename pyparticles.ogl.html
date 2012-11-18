@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>ogl Package &mdash; PyParticles 0.3.0 documentation</title>
+    <title>ogl Package &mdash; PyParticles 0.3.2 documentation</title>
     
     <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.3.0',
+        VERSION:     '0.3.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="PyParticles 0.3.0 documentation" href="index.html" />
+    <link rel="top" title="PyParticles 0.3.2 documentation" href="index.html" />
     <link rel="up" title="pyparticles Package" href="pyparticles.html" />
     <link rel="next" title="pset Package" href="pyparticles.pset.html" />
     <link rel="prev" title="ode Package" href="pyparticles.ode.html" /> 
@@ -46,12 +46,15 @@
         <li class="right" >
           <a href="pyparticles.ode.html" title="ode Package"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">PyParticles 0.3.0 documentation</a> &raquo;</li>
+        <li><a href="index.html">PyParticles 0.3.2 documentation</a> &raquo;</li>
           <li><a href="pyparticles.html" accesskey="U">pyparticles Package</a> &raquo;</li> 
       </ul>
     </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/logo_pyp.png" alt="Logo"/>
+            </a></p>
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">ogl Package</a><ul>
@@ -287,9 +290,9 @@ definition of the function color, it take as args a particle_set obj. and the pa
 <em class="property">class </em><tt class="descclassname">pyparticles.ogl.trackball.</tt><tt class="descname">TrackBall</tt><big>(</big><em>w_size</em><big>)</big><a class="headerlink" href="#pyparticles.ogl.trackball.TrackBall" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
 <p>Class used for controloing the rotation of the scene via mouse or joystick, by generating the virtual trackball effect</p>
+<p>Constructor</p>
 <blockquote>
-<div><p>Constructor</p>
-<table border="1" class="docutils">
+<div><table border="1" class="docutils">
 <colgroup>
 <col width="29%" />
 <col width="71%" />
@@ -315,6 +318,7 @@ definition of the function color, it take as args a particle_set obj. and the pa
 <p>Event On Move:</p>
 <div class="last highlight-python"><div class="highlight"><pre><span class="p">(</span> <span class="n">x</span> <span class="p">,</span> <span class="n">y</span> <span class="p">)</span> <span class="o">=</span> <span class="n">get_current_coords_on_window</span><span class="p">()</span>
 <span class="p">(</span> <span class="n">rot_axis</span> <span class="p">,</span> <span class="n">rot_angle</span> <span class="p">)</span> <span class="o">=</span> <span class="n">trk</span><span class="o">.</span><span class="n">on_move</span><span class="p">(</span> <span class="p">[</span> <span class="n">x</span> <span class="p">,</span> <span class="n">y</span> <span class="p">]</span> <span class="p">)</span>
+<span class="n">glRotatef</span><span class="p">(</span> <span class="n">rot_angle</span> <span class="p">,</span> <span class="n">rot_axis</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">,</span> <span class="n">rot_axis</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="p">,</span> <span class="n">rot_axis</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="p">)</span>
 </pre></div>
 </div>
 </dd>
@@ -462,7 +466,7 @@ Example:</p>
         <li class="right" >
           <a href="pyparticles.ode.html" title="ode Package"
              >previous</a> |</li>
-        <li><a href="index.html">PyParticles 0.3.0 documentation</a> &raquo;</li>
+        <li><a href="index.html">PyParticles 0.3.2 documentation</a> &raquo;</li>
           <li><a href="pyparticles.html" >pyparticles Package</a> &raquo;</li> 
       </ul>
     </div>

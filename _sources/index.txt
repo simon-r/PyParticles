@@ -1,10 +1,13 @@
-
 PyParticles 
 ===========
 
-PyParticles is a particle simulation toolbox entirely written in python.
-    | Visit: https://github.com/simon-r/PyParticles The github project page
-    | and: http://pyparticles.wordpress.com/ The main Blog
+PyParticles is a particle simulation toolbox entirely written in python. 
+
+The main objective of PyParticles is to provide a system API simple and fast to use.
+Furthermore is to provide a basic application for the implementation of simple models.
+
+| Visit: http://pyparticles.wordpress.com/
+| Docs:  http://simon-r.github.com/PyParticles/index.html
 
 Index
 -----
@@ -14,13 +17,13 @@ Index
 
    Config File
    Programming Example
+   Testing
    Packages Descriptions
    pyparticles
 
 
 Features
 --------
-
 
 Simulate a particle by particle model with the most popular integrations methods, and it represents the results on a OpenGL or Matplotlib plot.
 
@@ -38,33 +41,90 @@ Simulate a particle by particle model with the most popular integrations methods
 #. Particle by Particle spring
 #. Constant
 #. User defined field
+#. Lennard Jones
+#. Drag
+#. Damping
 
-PyParticle offers an easy to use class structure with a fully *interchangable* integrations method or force model, it also implements the possibility to add some boudary model.
+We have also the possibility of modeling the forces with user-defined constraints (See demo *cat_spri*).
+
+PyParticle offers an easy to use class structure with a fully *interchangeable* integrations method or force model, it also implements the possibility to add some boundary model.
+
+
+Requirements
+------------
+| PyParticles require the following packages:
+
+| **numpy** : http://scipy.org/Download
+| **scipy** : http://scipy.org/Download
+| **pyopengl** : http://pyopengl.sourceforge.net/
+| **matplotlib** : http://matplotlib.org/
+
+For more details about the installation visit the Blog: http://pyparticles.wordpress.com/installation/
+
 
 Command line tool usage:
 ------------------------
 
-In PyParticles a simulation model is entierly described in a config file that scholuld be edited by the user.
+
+In PyParticles a simulation model is entirely described in a config file that should be edited by the user.
 
 The following are the main command of the PyParticles application.
 
-Start the demo simulation: ::
+**Start the demo simulation:**
 
-    pypaticle
-    
-Start a simulation described in a config file ::
+::
 
-    pyparticle <file_name>
+    pyparticles_app
     
-Write out a model config file ::
-    
-    pyparticle -m
-    
-Print out the help and version ::
 
-    pyparticles --help
-    pyparticles --version
+**Start a simulation described in a config file**
+::
+
+    pyparticle_app <file_name>
     
+
+**Start the specified demo simulation**
+
+============= ========================================================
+Demos
+============= ========================================================
+springs       3 body springs
+solar_system  Simulation of the solar system with realistic magnitudes
+bubble        Bubbles. With a non realistic force
+cat_spri      Vibrating string with gravity and air drag
+gas_lj        Lennard jones gas model (should be improved)
+============= ========================================================
+::
+
+    pyparticles_app --demo springs
+    pyparticles_app --demo solar_system
+    pyparticles_app --demo bubble
+    pyparticles_app --demo cat_spri
+    pyparticles_app --demo gas_lj
+
+**Start a testing procedure**
+Execute the specified test: ::
+
+    pyparticles_app --test harmonic
+    pyparticles_app --test fall
+    
+
+
+**Write out a model config file**
+::
+    
+    pyparticle_app -m
+    
+
+**Print out the help and version**
+::
+
+    pyparticles_app --help
+    pyparticles_app --version
+    
+
+During the simulation you can toggle the help message by pressing **h**
+
 
 Config file Example: ::
 
@@ -90,14 +150,3 @@ Config file Example: ::
     xlim = -5.0  5.0
     ylim = -5.0  5.0
     zlim = -5.0  5.0
-
-
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
-

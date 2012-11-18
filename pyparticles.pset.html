@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pset Package &mdash; PyParticles 0.3.0 documentation</title>
+    <title>pset Package &mdash; PyParticles 0.3.2 documentation</title>
     
     <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.3.0',
+        VERSION:     '0.3.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="PyParticles 0.3.0 documentation" href="index.html" />
+    <link rel="top" title="PyParticles 0.3.2 documentation" href="index.html" />
     <link rel="up" title="pyparticles Package" href="pyparticles.html" />
     <link rel="next" title="utils Package" href="pyparticles.utils.html" />
     <link rel="prev" title="ogl Package" href="pyparticles.ogl.html" /> 
@@ -46,12 +46,15 @@
         <li class="right" >
           <a href="pyparticles.ogl.html" title="ogl Package"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">PyParticles 0.3.0 documentation</a> &raquo;</li>
+        <li><a href="index.html">PyParticles 0.3.2 documentation</a> &raquo;</li>
           <li><a href="pyparticles.html" accesskey="U">pyparticles Package</a> &raquo;</li> 
       </ul>
     </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/logo_pyp.png" alt="Logo"/>
+            </a></p>
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">pset Package</a><ul>
@@ -62,7 +65,7 @@
 <li><a class="reference internal" href="#module-pyparticles.pset.constrained_force_interactions"><tt class="docutils literal"><span class="pre">constrained_force_interactions</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pyparticles.pset.constrained_x"><tt class="docutils literal"><span class="pre">constrained_x</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pyparticles.pset.constraint"><tt class="docutils literal"><span class="pre">constraint</span></tt> Module</a></li>
-<li><a class="reference internal" href="#module-pyparticles.pset.electrically_charged_particle_set"><tt class="docutils literal"><span class="pre">electrically_charged_particle_set</span></tt> Module</a></li>
+<li><a class="reference internal" href="#electrically-charged-particle-set-module"><tt class="docutils literal"><span class="pre">electrically_charged_particle_set</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pyparticles.pset.file_cluster"><tt class="docutils literal"><span class="pre">file_cluster</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pyparticles.pset.octree"><tt class="docutils literal"><span class="pre">octree</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pyparticles.pset.periodic_boundary"><tt class="docutils literal"><span class="pre">periodic_boundary</span></tt> Module</a></li>
@@ -794,32 +797,8 @@ Arguments:</p>
 </dd></dl>
 
 </div>
-<div class="section" id="module-pyparticles.pset.electrically_charged_particle_set">
-<span id="electrically-charged-particle-set-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">electrically_charged_particle_set</span></tt> Module<a class="headerlink" href="#module-pyparticles.pset.electrically_charged_particle_set" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="pyparticles.pset.electrically_charged_particle_set.ElectricallyChargeedParticlesSet">
-<em class="property">class </em><tt class="descclassname">pyparticles.pset.electrically_charged_particle_set.</tt><tt class="descname">ElectricallyChargeedParticlesSet</tt><big>(</big><em>size=1</em>, <em>dim=3</em>, <em>boundary=None</em>, <em>label=False</em>, <em>mass=True</em>, <em>charge=True</em>, <em>velocity=True</em>, <em>log_X=False</em>, <em>log_V=False</em>, <em>log_max_size=0</em><big>)</big><a class="headerlink" href="#pyparticles.pset.electrically_charged_particle_set.ElectricallyChargeedParticlesSet" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#pyparticles.pset.particles_set.ParticlesSet" title="pyparticles.pset.particles_set.ParticlesSet"><tt class="xref py py-class docutils literal"><span class="pre">pyparticles.pset.particles_set.ParticlesSet</span></tt></a></p>
-<p>Deprecated !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</p>
-<dl class="attribute">
-<dt id="pyparticles.pset.electrically_charged_particle_set.ElectricallyChargeedParticlesSet.Q">
-<tt class="descname">Q</tt><a class="headerlink" href="#pyparticles.pset.electrically_charged_particle_set.ElectricallyChargeedParticlesSet.Q" title="Permalink to this definition">¶</a></dt>
-<dd><p>return the reference to the array of the charges</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="pyparticles.pset.electrically_charged_particle_set.ElectricallyChargeedParticlesSet.getQ">
-<tt class="descname">getQ</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.pset.electrically_charged_particle_set.ElectricallyChargeedParticlesSet.getQ" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pyparticles.pset.electrically_charged_particle_set.ElectricallyChargeedParticlesSet.realloc">
-<tt class="descname">realloc</tt><big>(</big><em>size</em>, <em>dim</em>, <em>boundary=None</em>, <em>label=False</em>, <em>mass=True</em>, <em>charge=True</em>, <em>velocity=True</em>, <em>log_X=False</em>, <em>log_V=False</em>, <em>log_max_size=0</em><big>)</big><a class="headerlink" href="#pyparticles.pset.electrically_charged_particle_set.ElectricallyChargeedParticlesSet.realloc" title="Permalink to this definition">¶</a></dt>
-<dd><p>Realloc the particle set, it uses the same args of the constructor</p>
-</dd></dl>
-
-</dd></dl>
-
+<div class="section" id="electrically-charged-particle-set-module">
+<h2><tt class="xref py py-mod docutils literal"><span class="pre">electrically_charged_particle_set</span></tt> Module<a class="headerlink" href="#electrically-charged-particle-set-module" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="module-pyparticles.pset.file_cluster">
 <span id="file-cluster-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">file_cluster</span></tt> Module<a class="headerlink" href="#module-pyparticles.pset.file_cluster" title="Permalink to this headline">¶</a></h2>
@@ -1147,17 +1126,17 @@ d:  current depth (1 for the first node)</dd>
 <dd><p>Bases: <a class="reference internal" href="#pyparticles.pset.cluster.Cluster" title="pyparticles.pset.cluster.Cluster"><tt class="xref py py-class docutils literal"><span class="pre">pyparticles.pset.cluster.Cluster</span></tt></a></p>
 <dl class="method">
 <dt id="pyparticles.pset.rand_cluster.RandCluster.bomb_vel">
-<tt class="descname">bomb_vel</tt><big>(</big><em>X</em>, <em>V</em>, <em>start_indx=0</em>, <em>n=100</em>, <em>centre=(0.0</em>, <em>0.0</em>, <em>0.0)</em>, <em>vel_rng=(0.5</em>, <em>1.0)</em>, <em>randg=&lt;built-in method rand of mtrand.RandomState object at 0x34f2b88&gt;</em><big>)</big><a class="headerlink" href="#pyparticles.pset.rand_cluster.RandCluster.bomb_vel" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">bomb_vel</tt><big>(</big><em>X</em>, <em>V</em>, <em>start_indx=0</em>, <em>n=100</em>, <em>centre=(0.0</em>, <em>0.0</em>, <em>0.0)</em>, <em>vel_rng=(0.5</em>, <em>1.0)</em>, <em>randg=&lt;built-in method rand of mtrand.RandomState object at 0x30b4b40&gt;</em><big>)</big><a class="headerlink" href="#pyparticles.pset.rand_cluster.RandCluster.bomb_vel" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="pyparticles.pset.rand_cluster.RandCluster.const_vel">
-<tt class="descname">const_vel</tt><big>(</big><em>X, V, start_indx=0, n=100, vel_rng=(0.5, 1.0), vel_dir=[1, 0, 0], randg=&lt;built-in method rand of mtrand.RandomState object at 0x34f2b88&gt;</em><big>)</big><a class="headerlink" href="#pyparticles.pset.rand_cluster.RandCluster.const_vel" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">const_vel</tt><big>(</big><em>X, V, start_indx=0, n=100, vel_rng=(0.5, 1.0), vel_dir=[1, 0, 0], randg=&lt;built-in method rand of mtrand.RandomState object at 0x30b4b40&gt;</em><big>)</big><a class="headerlink" href="#pyparticles.pset.rand_cluster.RandCluster.const_vel" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="pyparticles.pset.rand_cluster.RandCluster.insert3">
-<tt class="descname">insert3</tt><big>(</big><em>X</em>, <em>M=None</em>, <em>V=None</em>, <em>start_indx=0</em>, <em>n=100</em>, <em>centre=(0.0</em>, <em>0.0</em>, <em>0.0)</em>, <em>radius=1.0</em>, <em>mass_rng=(0.5</em>, <em>1)</em>, <em>vel_rng=(0.5</em>, <em>1.0)</em>, <em>vel_mdl=None</em>, <em>vel_dir=None</em>, <em>randg=&lt;built-in method rand of mtrand.RandomState object at 0x34f2b88&gt;</em>, <em>r_min=0.0</em><big>)</big><a class="headerlink" href="#pyparticles.pset.rand_cluster.RandCluster.insert3" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">insert3</tt><big>(</big><em>X</em>, <em>M=None</em>, <em>V=None</em>, <em>start_indx=0</em>, <em>n=100</em>, <em>centre=(0.0</em>, <em>0.0</em>, <em>0.0)</em>, <em>radius=1.0</em>, <em>mass_rng=(0.5</em>, <em>1)</em>, <em>vel_rng=(0.5</em>, <em>1.0)</em>, <em>vel_mdl=None</em>, <em>vel_dir=None</em>, <em>randg=&lt;built-in method rand of mtrand.RandomState object at 0x30b4b40&gt;</em>, <em>r_min=0.0</em><big>)</big><a class="headerlink" href="#pyparticles.pset.rand_cluster.RandCluster.insert3" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -1205,7 +1184,7 @@ d:  current depth (1 for the first node)</dd>
         <li class="right" >
           <a href="pyparticles.ogl.html" title="ogl Package"
              >previous</a> |</li>
-        <li><a href="index.html">PyParticles 0.3.0 documentation</a> &raquo;</li>
+        <li><a href="index.html">PyParticles 0.3.2 documentation</a> &raquo;</li>
           <li><a href="pyparticles.html" >pyparticles Package</a> &raquo;</li> 
       </ul>
     </div>

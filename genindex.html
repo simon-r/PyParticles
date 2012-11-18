@@ -10,7 +10,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Index &mdash; PyParticles 0.3.0 documentation</title>
+    <title>Index &mdash; PyParticles 0.3.2 documentation</title>
     
     <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -18,7 +18,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.3.0',
+        VERSION:     '0.3.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -27,7 +27,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="PyParticles 0.3.0 documentation" href="index.html" /> 
+    <link rel="top" title="PyParticles 0.3.2 documentation" href="index.html" /> 
   </head>
   <body>
     <div class="related">
@@ -39,11 +39,14 @@
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="index.html">PyParticles 0.3.0 documentation</a> &raquo;</li> 
+        <li><a href="index.html">PyParticles 0.3.2 documentation</a> &raquo;</li> 
       </ul>
     </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/logo_pyp.png" alt="Logo"/>
+            </a></p>
 
    
 
@@ -79,6 +82,7 @@
  | <a href="#E"><strong>E</strong></a>
  | <a href="#F"><strong>F</strong></a>
  | <a href="#G"><strong>G</strong></a>
+ | <a href="#H"><strong>H</strong></a>
  | <a href="#I"><strong>I</strong></a>
  | <a href="#J"><strong>J</strong></a>
  | <a href="#K"><strong>K</strong></a>
@@ -107,6 +111,10 @@
   </dt>
 
       <dd><dl>
+        
+  <dt><a href="pyparticles.forces.html#pyparticles.forces.damping.Damping.A">(pyparticles.forces.damping.Damping attribute)</a>
+  </dt>
+
         
   <dt><a href="pyparticles.forces.html#pyparticles.forces.drag.Drag.A">(pyparticles.forces.drag.Drag attribute)</a>
   </dt>
@@ -188,12 +196,12 @@
   <dt><a href="pyparticles.animation.html#pyparticles.animation.test_animation.TestAnimation.analytical_sol">analytical_sol (pyparticles.animation.test_animation.TestAnimation attribute)</a>
   </dt>
 
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="pyparticles.animation.html#pyparticles.animation.animated_ogl.AnimatedGl">AnimatedGl (class in pyparticles.animation.animated_ogl)</a>
   </dt>
 
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="pyparticles.animation.html#pyparticles.animation.animated_scatter.AnimatedScatter">AnimatedScatter (class in pyparticles.animation.animated_scatter)</a>
   </dt>
@@ -212,10 +220,6 @@
 
       
   <dt><a href="pyparticles.geometry.html#pyparticles.geometry.transformations.Transformations.append_point">append_point() (pyparticles.geometry.transformations.Transformations method)</a>
-  </dt>
-
-      
-  <dt><a href="pyparticles.animation.html#pyparticles.animation.test_animation.armonic">armonic() (in module pyparticles.animation.test_animation)</a>
   </dt>
 
       
@@ -294,7 +298,11 @@
   </dt>
 
         
-  <dt><a href="pyparticles.animation.html#pyparticles.animation.test_animation.TestAnimationArmonic.build_animation">(pyparticles.animation.test_animation.TestAnimationArmonic method)</a>
+  <dt><a href="pyparticles.animation.html#pyparticles.animation.test_animation.TestAnimationDampedHarmonic.build_animation">(pyparticles.animation.test_animation.TestAnimationDampedHarmonic method)</a>
+  </dt>
+
+        
+  <dt><a href="pyparticles.animation.html#pyparticles.animation.test_animation.TestAnimationHarmonic.build_animation">(pyparticles.animation.test_animation.TestAnimationHarmonic method)</a>
   </dt>
 
       </dl></dd>
@@ -393,6 +401,14 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%" valign="top"><dl>
       
+  <dt><a href="pyparticles.animation.html#pyparticles.animation.test_animation.damp_harmonic">damp_harmonic() (in module pyparticles.animation.test_animation)</a>
+  </dt>
+
+      
+  <dt><a href="pyparticles.forces.html#pyparticles.forces.damping.Damping">Damping (class in pyparticles.forces.damping)</a>
+  </dt>
+
+      
   <dt><a href="pyparticles.animation.html#pyparticles.animation.animated_ogl.AnimatedGl.data_stream">data_stream() (pyparticles.animation.animated_ogl.AnimatedGl method)</a>
   </dt>
 
@@ -482,12 +498,12 @@
   <dt><a href="pyparticles.forces.html#pyparticles.forces.drag.Drag">Drag (class in pyparticles.forces.drag)</a>
   </dt>
 
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="pyparticles.ogl.html#pyparticles.ogl.draw_particles_ogl.DrawParticlesGL.draw">draw() (pyparticles.ogl.draw_particles_ogl.DrawParticlesGL method)</a>
   </dt>
 
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="pyparticles.ogl.html#pyparticles.ogl.axis_ogl.AxisOgl.draw_arrow">draw_arrow() (pyparticles.ogl.axis_ogl.AxisOgl method)</a>
   </dt>
@@ -543,10 +559,6 @@
   </dt>
 
       
-  <dt><a href="pyparticles.pset.html#pyparticles.pset.electrically_charged_particle_set.ElectricallyChargeedParticlesSet">ElectricallyChargeedParticlesSet (class in pyparticles.pset.electrically_charged_particle_set)</a>
-  </dt>
-
-      
   <dt><a href="pyparticles.forces.html#pyparticles.forces.electrostatic.Electrostatic">Electrostatic (class in pyparticles.forces.electrostatic)</a>
   </dt>
 
@@ -579,6 +591,10 @@
   </dt>
 
       <dd><dl>
+        
+  <dt><a href="pyparticles.forces.html#pyparticles.forces.damping.Damping.F">(pyparticles.forces.damping.Damping attribute)</a>
+  </dt>
+
         
   <dt><a href="pyparticles.forces.html#pyparticles.forces.drag.Drag.F">(pyparticles.forces.drag.Drag attribute)</a>
   </dt>
@@ -1110,6 +1126,10 @@
 
       <dd><dl>
         
+  <dt><a href="pyparticles.forces.html#pyparticles.forces.damping.Damping.getA">(pyparticles.forces.damping.Damping method)</a>
+  </dt>
+
+        
   <dt><a href="pyparticles.forces.html#pyparticles.forces.drag.Drag.getA">(pyparticles.forces.drag.Drag method)</a>
   </dt>
 
@@ -1163,6 +1183,10 @@
   </dt>
 
       <dd><dl>
+        
+  <dt><a href="pyparticles.forces.html#pyparticles.forces.damping.Damping.getF">(pyparticles.forces.damping.Damping method)</a>
+  </dt>
+
         
   <dt><a href="pyparticles.forces.html#pyparticles.forces.drag.Drag.getF">(pyparticles.forces.drag.Drag method)</a>
   </dt>
@@ -1223,15 +1247,9 @@
 
       </dl></dd>
       
-  <dt><a href="pyparticles.pset.html#pyparticles.pset.electrically_charged_particle_set.ElectricallyChargeedParticlesSet.getQ">getQ() (pyparticles.pset.electrically_charged_particle_set.ElectricallyChargeedParticlesSet method)</a>
+  <dt><a href="pyparticles.pset.html#pyparticles.pset.particles_set.ParticlesSet.getQ">getQ() (pyparticles.pset.particles_set.ParticlesSet method)</a>
   </dt>
 
-      <dd><dl>
-        
-  <dt><a href="pyparticles.pset.html#pyparticles.pset.particles_set.ParticlesSet.getQ">(pyparticles.pset.particles_set.ParticlesSet method)</a>
-  </dt>
-
-      </dl></dd>
       
   <dt><a href="pyparticles.pset.html#pyparticles.pset.particles_set.ParticlesSet.getV">getV() (pyparticles.pset.particles_set.ParticlesSet method)</a>
   </dt>
@@ -1255,6 +1273,16 @@
   </dl></td>
 </tr></table>
 
+<h2 id="H">H</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="pyparticles.animation.html#pyparticles.animation.test_animation.harmonic">harmonic() (in module pyparticles.animation.test_animation)</a>
+  </dt>
+
+  </dl></td>
+</tr></table>
+
 <h2 id="I">I</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%" valign="top"><dl>
@@ -1268,7 +1296,11 @@
 
       <dd><dl>
         
-  <dt><a href="pyparticles.animation.html#pyparticles.animation.test_animation.TestAnimationArmonic.init_pset">(pyparticles.animation.test_animation.TestAnimationArmonic method)</a>
+  <dt><a href="pyparticles.animation.html#pyparticles.animation.test_animation.TestAnimationDampedHarmonic.init_pset">(pyparticles.animation.test_animation.TestAnimationDampedHarmonic method)</a>
+  </dt>
+
+        
+  <dt><a href="pyparticles.animation.html#pyparticles.animation.test_animation.TestAnimationHarmonic.init_pset">(pyparticles.animation.test_animation.TestAnimationHarmonic method)</a>
   </dt>
 
       </dl></dd>
@@ -1801,6 +1833,10 @@
   </dt>
 
       
+  <dt><a href="pyparticles.forces.html#module-pyparticles.forces.damping">pyparticles.forces.damping (module)</a>
+  </dt>
+
+      
   <dt><a href="pyparticles.forces.html#module-pyparticles.forces.drag">pyparticles.forces.drag (module)</a>
   </dt>
 
@@ -1860,12 +1896,12 @@
   <dt><a href="pyparticles.geometry.html#module-pyparticles.geometry.dist">pyparticles.geometry.dist (module)</a>
   </dt>
 
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="pyparticles.geometry.html#module-pyparticles.geometry.intersection">pyparticles.geometry.intersection (module)</a>
   </dt>
 
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="pyparticles.geometry.html#module-pyparticles.geometry.transformations">pyparticles.geometry.transformations (module)</a>
   </dt>
@@ -2007,10 +2043,6 @@
   </dt>
 
       
-  <dt><a href="pyparticles.pset.html#module-pyparticles.pset.electrically_charged_particle_set">pyparticles.pset.electrically_charged_particle_set (module)</a>
-  </dt>
-
-      
   <dt><a href="pyparticles.pset.html#module-pyparticles.pset.file_cluster">pyparticles.pset.file_cluster (module)</a>
   </dt>
 
@@ -2061,15 +2093,9 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%" valign="top"><dl>
       
-  <dt><a href="pyparticles.pset.html#pyparticles.pset.electrically_charged_particle_set.ElectricallyChargeedParticlesSet.Q">Q (pyparticles.pset.electrically_charged_particle_set.ElectricallyChargeedParticlesSet attribute)</a>
+  <dt><a href="pyparticles.pset.html#pyparticles.pset.particles_set.ParticlesSet.Q">Q (pyparticles.pset.particles_set.ParticlesSet attribute)</a>
   </dt>
 
-      <dd><dl>
-        
-  <dt><a href="pyparticles.pset.html#pyparticles.pset.particles_set.ParticlesSet.Q">(pyparticles.pset.particles_set.ParticlesSet attribute)</a>
-  </dt>
-
-      </dl></dd>
   </dl></td>
 </tr></table>
 
@@ -2089,15 +2115,9 @@
   </dt>
 
       
-  <dt><a href="pyparticles.pset.html#pyparticles.pset.electrically_charged_particle_set.ElectricallyChargeedParticlesSet.realloc">realloc() (pyparticles.pset.electrically_charged_particle_set.ElectricallyChargeedParticlesSet method)</a>
+  <dt><a href="pyparticles.pset.html#pyparticles.pset.particles_set.ParticlesSet.realloc">realloc() (pyparticles.pset.particles_set.ParticlesSet method)</a>
   </dt>
 
-      <dd><dl>
-        
-  <dt><a href="pyparticles.pset.html#pyparticles.pset.particles_set.ParticlesSet.realloc">(pyparticles.pset.particles_set.ParticlesSet method)</a>
-  </dt>
-
-      </dl></dd>
       
   <dt><a href="pyparticles.pset.html#pyparticles.pset.rebound_boundary.ReboundBoundary">ReboundBoundary (class in pyparticles.pset.rebound_boundary)</a>
   </dt>
@@ -2267,6 +2287,10 @@
   </dt>
 
       <dd><dl>
+        
+  <dt><a href="pyparticles.forces.html#pyparticles.forces.damping.Damping.set_masses">(pyparticles.forces.damping.Damping method)</a>
+  </dt>
+
         
   <dt><a href="pyparticles.forces.html#pyparticles.forces.drag.Drag.set_masses">(pyparticles.forces.drag.Drag method)</a>
   </dt>
@@ -2645,7 +2669,11 @@
   </dt>
 
       
-  <dt><a href="pyparticles.animation.html#pyparticles.animation.test_animation.TestAnimationArmonic">TestAnimationArmonic (class in pyparticles.animation.test_animation)</a>
+  <dt><a href="pyparticles.animation.html#pyparticles.animation.test_animation.TestAnimationDampedHarmonic">TestAnimationDampedHarmonic (class in pyparticles.animation.test_animation)</a>
+  </dt>
+
+      
+  <dt><a href="pyparticles.animation.html#pyparticles.animation.test_animation.TestAnimationHarmonic">TestAnimationHarmonic (class in pyparticles.animation.test_animation)</a>
   </dt>
 
       
@@ -2771,6 +2799,10 @@
   </dt>
 
       <dd><dl>
+        
+  <dt><a href="pyparticles.forces.html#pyparticles.forces.damping.Damping.update_force">(pyparticles.forces.damping.Damping method)</a>
+  </dt>
+
         
   <dt><a href="pyparticles.forces.html#pyparticles.forces.drag.Drag.update_force">(pyparticles.forces.drag.Drag method)</a>
   </dt>
@@ -3059,7 +3091,7 @@
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="index.html">PyParticles 0.3.0 documentation</a> &raquo;</li> 
+        <li><a href="index.html">PyParticles 0.3.2 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
