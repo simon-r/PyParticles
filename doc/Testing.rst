@@ -192,17 +192,37 @@ Free fall in a drag fluid
    :width: 100%
    
    
-Harmonic motion:
-----------------
+Harmonic motion
+---------------
    
 .. image:: img/har.png
    :width: 100%
 
    
-Damped Harmonic motion:
------------------------
+Damped Harmonic motion
+----------------------
    
 .. image:: img/dhar.png
    :width: 100%
    
+
+Analytical solutions plot:
+==========================
+
+Free fall in a drag fluid
+-------------------------
+
+.. image:: img/fall_an.jpg
+   :width: 50%
    
+Harmonic motion
+---------------
+
+.. image:: img/har_an.jpg
+   :width: 50%
+   
+Damped Harmonic motion
+----------------------
+
+.. image:: img/dam_an.jpg
+   :width: 50%
