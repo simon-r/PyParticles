@@ -38,7 +38,7 @@ class Damping( fr.Force ) :
         size        the number of particles in the system
         dim         the dimension of the system
         m           a vector containig the masses
-        Const       the gravitational constant
+        Const       the damping factor
         ==========  ====================================== 
     """
     def __init__(self , size , dim=3 , m=None , Consts=1.0 ):
