@@ -28,8 +28,9 @@ class LenardJones( fr.Force ) :
     The L. J. force between two particles is defined as follow:
     
     .. math::
-    
-        \mathbf{F}(r) = 4 \epsilon \left(12\,{\over{{\sigma}^{12}}{{r}^{13}}}-6\,{\over{{\sigma}^{6}}{{r}^{7}}}\right)\hat{\mathbf{r}}
+        :nowrap:
+        
+         \mathbf{F}(r) = 4 \epsilon \left(12\,{\frac{{\sigma}^{12}}{{r}^{13}}}-6\,{\frac{{\sigma}^{6}}{{r}^{7}}}\right)\hat{\mathbf{r}}
     
     
     Constructor
@@ -43,8 +44,8 @@ class LenardJones( fr.Force ) :
         Const       An indexable object[*] with the two contants
         ==========  =============================================
         
-        | [*] Const[0] = :math: \epsilon
-        |     Const[1] = :math: \sigma
+        | [*] Const[0] = :math: `\epsilon`
+        |     Const[1] = :math: `\sigma`
     
     """
     def __init__( self , size , dim=3 , m=None , Consts=( 1.0 , 1.0 ) ):

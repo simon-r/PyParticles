@@ -27,8 +27,9 @@ class Drag( fr.Force ) :
     The force is given the equation:
     
     .. math::
+        :nowrap:
     
-        F_i=-\over{1}{2}K\dot{X}^2
+        F_i= - \frac{1}{2} K \dot{X}^2
         
     Constructor
          
