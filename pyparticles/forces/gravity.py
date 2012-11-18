@@ -28,7 +28,7 @@ class Gravity( fr.Force ) :
     
     .. math::
     
-        \mathbf{F}_{12}=-G{m_1 m_2\over{\mathbf{r}_{12}}^2}\,\mathbf{\hat{r}}_{12}
+        \mathbf{F}_{12}=-G{m_1 m_2\frac{\mathbf{r}_{12}}^2}\,\mathbf{\hat{r}}_{12}
     
     Constructor
          

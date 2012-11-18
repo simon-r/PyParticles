@@ -22,7 +22,7 @@ import pyparticles.forces.force as fr
 
 
 class LenardJones( fr.Force ) :
-    """
+    r"""
     Compute the lenard jones force between the particles
     
     The L. J. force between two particles is defined as follow:
