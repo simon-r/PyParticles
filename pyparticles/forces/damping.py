@@ -25,9 +25,10 @@ class Damping( fr.Force ) :
     Compute the damping forces, the damping is a force that react proportionally to the velocity
     
     The force is given the equation:
-    ... math::
     
-        F_i = -C * \dot{X}
+    .. math::
+    
+        F_i = -C\dot{X}
         
     Constructor
          

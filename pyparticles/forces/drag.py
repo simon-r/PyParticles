@@ -28,7 +28,7 @@ class Drag( fr.Force ) :
     
     .. math::
     
-        F_i = - \frac{1}{2} * K * \dot{X}^2
+        F_i=-\frac{1}{2}K\dot{X}^2
         
     Constructor
          
