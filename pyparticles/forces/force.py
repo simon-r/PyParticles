@@ -20,7 +20,7 @@ import sys
 
 class Force(object):
     """
-    The main abstract class used ad interface for the forces classes
+    The main abstract class used as interface for the forces classes
     
     Constructor
          
