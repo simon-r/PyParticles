@@ -18,7 +18,11 @@
 import pyparticles.animation.test_animation as tt
 
 def test( ty ):
+    """
+    testing procedures
     
+    ty: test name
+    """
     if ty == "fall":
         tst = tt.TestAnimation()
     elif ty == "harmonic" :
