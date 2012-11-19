@@ -47,10 +47,19 @@ def electro():
     r_min=1.5
     
     Ke = 8.9875517873681764e9
+    qe = 1.60217646e-19
+    
+    me = 9.10938188e-31
+    mp = 1.67262158e-18
     
     rand_c = rc.RandCluster()
     
-    pset = ps.ParticlesSet( 1000 )
+    pset = ps.ParticlesSet( 10 )
+    
+    pset.Q[:5] = qe
+    pset.Q[5:10] = -qe
+    
+    pset.M[:] = 30.0 * mp
     
     rand_c.insert3( X=pset.X ,
                     M=pset.M ,
@@ -67,8 +76,8 @@ def electro():
     
     #solver = els.EulerSolver( multif , pset , dt )
     #solver = lps.LeapfrogSolver( lennard_jones , pset , dt )
-    solver = svs.StormerVerletSolver( multif , pset , dt )
-    #solver = rks.RungeKuttaSolver( lennard_jones , pset , dt )    
+    #solver = svs.StormerVerletSolver( multif , pset , dt )
+    solver = rks.RungeKuttaSolver( lennard_jones , pset , dt )    
     #solver = mds.MidpointSolver( lennard_jones , pset , dt ) 
     
     bound = rb.ReboundBoundary( bound=(-5.0,5.0) )

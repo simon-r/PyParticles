@@ -6,8 +6,8 @@ PyParticles is a particle simulation toolbox entirely written in python.
 The main objective of PyParticles is to provide a system API simple and fast to use.
 Furthermore is to provide a basic application for the implementation of simple models.
 
-| Visit: http://pyparticles.wordpress.com/
-| Docs:  http://simon-r.github.com/PyParticles/index.html
+| Blog: http://pyparticles.wordpress.com/
+| GitHub:  https://github.com/simon-r/PyParticles
 
 Index
 -----

@@ -29,6 +29,11 @@ except:
     _____foo = None
 
 
+def charged_particles_color( pset , i ):
+    if pset.Q[i] < 0.0 :
+        return ( 0.0 , 0.0 , 1.0 , 1.0 )
+    else :
+        return ( 1.0 , 0.0 , 0.0 , 1.0 )
 
 
 class DrawParticlesGL(object):
