@@ -24,19 +24,27 @@ class Electromagnetic( fr.Force ) :
     r"""
     Compute the electromagnetic force of the selfiteracting particles system according to the Lorenz formulation.
     """
-    def __init__(self , size , dim=3 , m=None , Consts=1.0 ):
+    def __init__( self , size , dim=3 , m=None , Consts=1.0 ):
         
         self.__dim = dim
         self.__size = size
-        self.__K = Consts # Culomb constant!
-        self.__Fel = np.zeros( ( size , dim ) )
-        self.__Fma = np.zeros( ( size , dim ) )
+        
+        self.__Ke = Consts[0]
+        self.__Km = Consts[1]
+
         self.__Am = np.zeros( ( size , dim ) )
+        self.__Ae = np.zeros( ( size , dim ) )
+        
+        self.__Fe = np.zeros( ( size , size ) )
         self.__Fm = np.zeros( ( size , size ) )
+        
         self.__V = np.zeros( ( size , size ) )
         self.__D = np.zeros( ( size , size ) )
         self.__Q = np.zeros( ( size , size ) )
         self.__M = np.zeros( ( size , 1 ) )
+        
+        self.__Cr = np.zeros( ( size , dim ) )
+        
         if m != None :
             self.set_masses( m )
         
@@ -52,19 +60,24 @@ class Electromagnetic( fr.Force ) :
     def update_force( self , p_set ):        
         self.__D[:] = dist.squareform( dist.pdist( p_set.X , 'euclidean' ) )
         
-        self.__Fm[:] = self.__K * self.__Q[:] / ( ( self.__D[:] ) ** 3.0 )
+        self.__Fe[:] = self.__Ke * self.__Q[:] / ( ( self.__D[:] ) ** 3.0 )
+        self.__Fm[:] = self.__Km * self.__Q[:] / ( ( self.__D[:] ) ** 2.0 )
 
         for j in range( self.__size ) :
+            self.__Fe[j,j] = 0.0
             self.__Fm[j,j] = 0.0
+        
         
         for i in range( self.__dim ):
             self.__V[:,:] = p_set.X[:,i]
             self.__V[:,:] = ( self.__V[:,:].T - p_set.X[:,i] ).T 
                         
-            self.__Fel[:,i] = np.sum( self.__Fm * self.__V[:,:] , 0 ) 
+            self.__Ae[:,i] = np.sum( self.__Fe * self.__V[:,:] , 0 ) 
         
         
         #print( self.__X )
+        
+        self.__A[:] = self.__Ae + self.__Am
         
         return self.__A
     
