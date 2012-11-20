@@ -31,8 +31,7 @@ import pyparticles.measures.total_energy as te
 
 import sys
 
-if sys.version_info[0] == 2:
-    import pyparticles.animation.animated_ogl as aogl
+import pyparticles.animation.animated_ogl as aogl
 
 
 def solar_system():
@@ -190,8 +189,8 @@ def solar_system():
     #solver = els.EulerSolver( grav , pset , dt )
     #solver = lps.LeapfrogSolver( grav , pset , dt )
     #solver = svs.StormerVerletSolver( grav , pset , dt )
-    solver = rks.RungeKuttaSolver( grav , pset , dt )    
-    #solver = mds.MidpointSolver( grav , pset , dt )    
+    #solver = rks.RungeKuttaSolver( grav , pset , dt )    
+    solver = mds.MidpointSolver( grav , pset , dt )    
         
         
     ken = ke.KineticEnergy( pset , grav )

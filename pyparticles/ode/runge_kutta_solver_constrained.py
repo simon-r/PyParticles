@@ -54,7 +54,8 @@ class RungeKuttaSolverConstrained( osc.OdeSolverConstrained ) :
         
     def __step__( self , dt ):
     
-          
+        self.__tmp_pset.V[:] = self.pset.V[:]  
+        
         # K1
         self.__Kv1[self.__fi,:] = self.force.A[self.__fi,:]
         self.__Kx1[self.__fi,:] = self.pset.V[self.__fi,:]

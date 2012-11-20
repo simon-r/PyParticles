@@ -1,6 +1,23 @@
 animation Package
 =================
 
+:mod:`animation` Package
+------------------------
+
+.. automodule:: pyparticles.animation
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+:mod:`animation` Module
+-----------------------
+
+.. automodule:: pyparticles.animation.animation
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
 :mod:`animated_ogl` Module
 --------------------------
 
@@ -17,13 +34,7 @@ animation Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`animation` Module
------------------------
 
-.. automodule:: pyparticles.animation.animation
-    :members:
-    :undoc-members:
-    :show-inheritance:
 
 :mod:`test_animation` Module
 ----------------------------

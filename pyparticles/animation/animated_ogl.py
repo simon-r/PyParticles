@@ -337,6 +337,8 @@ def print_measures():
 
 def glut_print( x,  y,  font,  text, r,  g , b , a):
     
+    pass
+    
     blending = False 
     if glIsEnabled(GL_BLEND) :
         blending = True
@@ -344,10 +346,14 @@ def glut_print( x,  y,  font,  text, r,  g , b , a):
     glPushMatrix()
     glColor3f(1,1,1)
     glRasterPos2f(x,y)
-    glutBitmapString( font , ctypes.c_char_p( text ) )
-    glPopMatrix()
-
+    #
+        
+    text = bytes( text.encode("ascii") ) 
     
+    glutBitmapString( font , text ) 
+    glPopMatrix()
+    #
+    #
     if not blending :
         glDisable(GL_BLEND) 
 
@@ -536,7 +542,7 @@ class AnimatedGl( pan.Animation ):
         glutInitWindowSize( self.win_size[0] , self.win_size[1] )
         glutInitWindowPosition(20, 20)
         
-        self.__window = glutCreateWindow("Particles")
+        self.__window = glutCreateWindow( ctypes.c_char_p( b"Particles" ) )
         
         DGLS = DrawGLScene
         

@@ -9,6 +9,22 @@ forces Package
     :undoc-members:
     :show-inheritance:
 
+:mod:`force` Module
+-------------------
+
+.. automodule:: pyparticles.forces.force
+    :members:
+    :undoc-members:
+    :show-inheritance:
+    
+:mod:`gravity` Module
+---------------------
+
+.. automodule:: pyparticles.forces.gravity
+    :members:
+    :undoc-members:
+    :show-inheritance:    
+
 :mod:`const_force` Module
 -------------------------
 
@@ -25,6 +41,16 @@ forces Package
     :undoc-members:
     :show-inheritance:
 
+
+:mod:`damping` Module
+------------------
+
+.. automodule:: pyparticles.forces.damping
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
 :mod:`electrostatic` Module
 ---------------------------
 
@@ -33,21 +59,16 @@ forces Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`force` Module
--------------------
 
-.. automodule:: pyparticles.forces.force
+:mod:`force_constrained` Module
+-------------------------------
+
+.. automodule:: pyparticles.forces.force_constrained
     :members:
     :undoc-members:
     :show-inheritance:
 
-:mod:`gravity` Module
----------------------
 
-.. automodule:: pyparticles.forces.gravity
-    :members:
-    :undoc-members:
-    :show-inheritance:
 
 :mod:`lennard_jones` Module
 ---------------------------
@@ -65,10 +86,34 @@ forces Package
     :undoc-members:
     :show-inheritance:
 
+:mod:`linear_spring_constrained` Module
+---------------------------------------
+
+.. automodule:: pyparticles.forces.linear_spring_constrained
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+:mod:`lorentz` Module
+---------------------
+
+.. automodule:: pyparticles.forces.lorentz
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 :mod:`multiple_force` Module
 ----------------------------
 
 .. automodule:: pyparticles.forces.multiple_force
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+:mod:`pseudo_bubble` Module
+---------------------------
+
+.. automodule:: pyparticles.forces.pseudo_bubble
     :members:
     :undoc-members:
     :show-inheritance:

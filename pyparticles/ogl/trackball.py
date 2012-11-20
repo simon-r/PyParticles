@@ -20,11 +20,26 @@ import numpy as np
 class TrackBall( object ):
     """
     Class used for controloing the rotation of the scene via mouse or joystick, by generating the virtual trackball effect
-    ====================== =========================
-    Contructor Arguments
-    ====================== =========================
-    w_size                 size of the windows
-    ====================== =========================
+    
+    Constructor
+        
+        ========== =========================
+        Arguments
+        ========== =========================
+        w_size     size of the window
+        ========== =========================
+        
+        Example:
+            Event On click: ::
+            
+                ( x , y ) = get_click_coords_on_window()
+                trk.track_ball_mapping( [ x , y ] )
+                
+            Event On Move: ::
+                
+                ( x , y ) = get_current_coords_on_window()
+                ( rot_axis , rot_angle ) = trk.on_move( [ x , y ] )
+                glRotatef( rot_angle , rot_axis[0] , rot_axis[1] , rot_axis[2] )
     """
     def __init__( self , w_size ):
         
@@ -104,6 +119,9 @@ class TrackBall( object ):
     def on_joystick( self , jaxes ):
         """
         Given the axes ( x and y ) of the joystick; it returns the axis and the angle of rotation.
+            Example: ::
+            
+                ( rot_axis , rot_angle ) = trk.on_joystick( [ x , y ] )
         """
         ws = self.win_size
         

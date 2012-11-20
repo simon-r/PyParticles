@@ -43,13 +43,14 @@ class OdeSolver(object) :
            self.pset.update_boundary() 
     
     Constructor:
-    =========  ================
-    Arguments
-    =========  ================
-    force      the force model
-    p_set      the particle set
-    dt         delta time
-    =========  ================    
+    
+        =========  ================
+        Arguments
+        =========  ================
+        force      the force model
+        p_set      the particle set
+        dt         delta time
+        =========  ================    
     
     """
     def __init__( self , force , p_set , dt ):

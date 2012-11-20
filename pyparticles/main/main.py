@@ -29,6 +29,8 @@ import pyparticles.animation.animated_scatter as anim
 
 import pyparticles.animation as pan
 
+import pyparticles.animation.test_animation as test
+
 import pyparticles.pset.rand_cluster as clu
 import pyparticles.forces.gravity as gr
 import pyparticles.ode.euler_solver as els
@@ -37,6 +39,7 @@ import pyparticles.ode.runge_kutta_solver as rks
 import pyparticles.ode.stormer_verlet_solver as svs
 
 import matplotlib.animation as animation
+
 
 
 
@@ -52,6 +55,8 @@ import pyparticles.demo.springs as spr
 import pyparticles.demo.gas_lennard_jones as lj
 import pyparticles.demo.bubble as bu
 import pyparticles.demo.springs_constr as spc
+import pyparticles.demo.test as tst
+import pyparticles.demo.electrostatic_demo as eld
 
 import pyparticles.utils.parse_args as arg 
 
@@ -69,8 +74,7 @@ import time
 
 import sys
 
-if sys.version_info[0] == 2:
-    import pyparticles.animation.animated_ogl as aogl
+import pyparticles.animation.animated_ogl as aogl
 
 
 def main():
@@ -85,6 +89,13 @@ def main():
     
     if options.version :
         print( py_particle_version() )
+        return
+    
+    if options.test :
+        print("")
+        print("Start a test simulation:")
+        print(" It compares the simulated solution with the analytical solution in a specific problem")
+        tst.test( options.test )
         return
     
     if options.config_model :
@@ -121,7 +132,14 @@ def main():
         print("Start the simulation example:")
         print(" Pseudo bubble demo")
         bu.bubble()
-        return   
+        return
+    
+    if options.demo == "el_static" :
+        print("")
+        print("Start the simulation example:")
+        print(" electro static")
+        eld.electro()
+        return  
     
     if options.path_name == None or options.demo == "solar_system":
         
@@ -163,14 +181,15 @@ def main():
 
 
 
+####################################################################    
+####################################################################    
+####################################################################        
+####################################################################    
+####################################################################    
+####################################################################        
+#### Old test code .....and tests .... 
+####################################################################
 
-
-    
-    ##################################
-    ##################################
-    ##################################    
-    #### Old test code .....and tests .... 
-   
     
 class MyField( vf.VectorFieldForce ):
     def __init__(self,size,dim):
@@ -184,7 +203,7 @@ class MyField( vf.VectorFieldForce ):
 
 
 def my_test() :
-    
+        
     t = tr.Transformations()
     
     t.set_points_tuple_size(1)
@@ -344,8 +363,6 @@ def my_test() :
     
     exit()
     return
-    
-    
     
     #ff.insert3( pset )
     #ff.close()  

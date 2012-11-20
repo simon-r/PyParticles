@@ -6,8 +6,8 @@ PyParticles is a particle simulation toolbox entirely written in python.
 The main objective of PyParticles is to provide a system API simple and fast to use.
 Furthermore is to provide a basic application for the implementation of simple models.
 
-Visit: http://pyparticles.wordpress.com/
-Docs:  http://simon-r.github.com/PyParticles/index.html
+| Visit: http://pyparticles.wordpress.com/
+| Docs:  http://simon-r.github.com/PyParticles/index.html
 
 
 Features
@@ -30,6 +30,8 @@ Simulate a particle by particle model with the most popular integrations methods
 #. Constant
 #. User defined field
 #. Lennard Jones
+#. Drag
+#. Damping
 
 We have also the possibility of modeling the forces with user-defined constraints (See demo *cat_spri*).
 
@@ -64,7 +66,6 @@ The following are the main command of the PyParticles application.
     
 
 * **Start a simulation described in a config file**
-
 ::
 
     pyparticle_app <file_name>
@@ -88,6 +89,14 @@ gas_lj        Lennard jones gas model (should be improved)
     pyparticles_app --demo bubble
     pyparticles_app --demo cat_spri
     pyparticles_app --demo gas_lj
+
+* **Start a testing procedure**
+Execute the specified test: ::
+
+    pyparticles_app --test harmonic
+    pyparticles_app --test fall
+    
+
 
 * **Write out a model config file**
 ::

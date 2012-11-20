@@ -21,9 +21,15 @@ import scipy.spatial.distance as dist
 import pyparticles.forces.force as fr
 
 class Electrostatic( fr.Force ) :
-    """
+    r"""
     Compute the electrostatic force.
-        Note: The real force of an eletrodynamic system is given by the **Maxwell equations**! and not from the Culomb law.
+        Note: The real force of an electrodynamic system is given by the **Maxwell equations**! and not from the Culomb law.
+        
+        The Culomb law is adapt only for computing a static system of particles, and not for moving particles.
+        
+        .. math::
+        
+            \vec F = k \, q_1 \, q_2 \, \frac {\vec r_1 - \vec r_2}{\left \| \vec r_1 - \vec r_2 \right \|^3}
     """
     def __init__(self , size , dim=3 , m=None , Consts=1.0 ):
         
@@ -48,9 +54,9 @@ class Electrostatic( fr.Force ) :
         self.__Q[:,:] = q
         self.__Q[:,:] = self.__Q * self.__Q.T
     
-    def update_force( self , p_set ):        
-        self.__D[:] = dist.squareform( dist.pdist( p_set.X , 'euclidean' ) )
+    def update_force( self , p_set ):
         
+        self.__D[:] = dist.squareform( dist.pdist( p_set.X , 'euclidean' ) )
         
         self.__Fm[:] = self.__K * self.__Q[:] / ( ( self.__D[:] ) ** 3.0 )
 
@@ -61,8 +67,10 @@ class Electrostatic( fr.Force ) :
             self.__V[:,:] = p_set.X[:,i]
             self.__V[:,:] = ( self.__V[:,:].T - p_set.X[:,i] ).T 
                         
-            self.__A[:,i] = np.sum( self.__Fm * self.__V[:,:] , 0 ) / self.__M 
+            self.__A[:,i] = np.sum( self.__Fm * self.__V[:,:] , 0 ) / self.__M.T
         
+        
+        #print( self.__X )
         
         return self.__A
     

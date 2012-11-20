@@ -29,7 +29,6 @@ class MidpointSolver( os.OdeSolver ) :
     
     def __step__( self , dt ):
     
-        
         self.__mid_pset.X[:] = self.pset.X[:] + dt/2.0 * self.pset.V
         
         self.force.update_force( self.__mid_pset )

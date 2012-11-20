@@ -15,52 +15,48 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import numpy as np
+import sys
+import scipy.spatial.distance as dist
+
 import pyparticles.forces.force as fr
 
-class ConstForce( fr.Force ) :
+class Lorentz( fr.Force ) :
     """
-    Constant force field.
-    
-    Constructor
-         
-        ==========  ==========================================
-        Arguments
-        ==========  ==========================================
-        size        the number of particles in the system
-        dim         the dimension of the system
-        m           a vector containig the masses
-        u_force     The force vector (Force per unit of mass)
-        ==========  ==========================================
+    Lorentz Force TODO !!!!
     """
-    
-    def __init__(self , size , dim=3 , m=None , u_force=[0,0,0] , Consts=1.0 ):
+    def __init__(self , size , dim=3 , m=None , Consts=1.0 ):
+        
         self.__dim = dim
         self.__size = size
-        self.__G = Consts
-        self.__UF = np.array( u_force )
+        self.__K = Consts # Culomb constant!
         self.__A = np.zeros( ( size , dim ) )
+        self.__Fm = np.zeros( ( size , size ) )
+        self.__V = np.zeros( ( size , size ) )
+        self.__D = np.zeros( ( size , size ) )
+        self.__Q = np.zeros( ( size , size ) )
         self.__M = np.zeros( ( size , 1 ) )
         if m != None :
-            self.set_messes( m )
-            
-        self.__A[:] = self.__UF
+            self.set_masses( m )
+        
         
     
     def set_masses( self , m ):
-        
         self.__M[:] = m
         
+    def set_charges( self , q ):
+        self.__Q[:,:] = q
+        self.__Q[:,:] = self.__Q * self.__Q.T
     
-    def update_force( self , p_set ):
-        return self.__A
+    def update_force( self , p_set ):        
+        pass
     
     def getA(self):
         return self.__A
     
     A = property( getA )
-    
+
+
     def getF(self):
         return self.__A * self.__M
-
+    
     F = property( getF )
-

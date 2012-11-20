@@ -21,18 +21,26 @@ import scipy.spatial.distance as dist
 import pyparticles.forces.force as fr
 
 class Gravity( fr.Force ) :
-    """
-    Compute the gravitational forve between the particles
-    
-         Constructor:
-           Arguments:
-            =======  ======================================
-            size     the number of particles in the system
-            dim      the dimension of the system
-            m        a vector containig the masses
-            Const    the gravitational constant
-            =======  ======================================    
-    
+    r"""
+    Compute the gravitational force between the particles
+
+    The gravity between two particles is defined as follow:
+
+    .. math::
+
+        \mathbf{F}_{12}=-G \frac{m_1 m_2 }{r^2}\hat{r}_{12}
+
+    Constructor
+
+        ==========  ======================================
+        Arguments
+        ==========  ======================================
+        size        the number of particles in the system
+        dim         the dimension of the system
+        m           a vector containig the masses
+        Const       the gravitational constant
+        ==========  ======================================
+
     """
     def __init__(self , size , dim=3 , m=None , Consts=1.0 ):
         

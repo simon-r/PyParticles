@@ -15,17 +15,20 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
+import pyparticles.animation.test_animation as tt
 
-###########################
-# Current version
-v_major    = 0
-v_minor    = 3
-v_revision = 2
-###########################
-
-def py_particle_version():
-    global v_major
-    global v_minor
-    global v_revision
-    return "%d.%d.%d" % ( v_major , v_minor , v_revision )
-
+def test( ty ):
+    """
+    testing procedures
+    
+    ty: test name
+    """
+    if ty == "fall":
+        tst = tt.TestAnimation()
+    elif ty == "harmonic" :
+        tst = tt.TestAnimationHarmonic()
+    elif ty == "dharmonic" :
+        tst = tt.TestAnimationDampedHarmonic()
+        
+    tst.build_animation()
+    tst.start()

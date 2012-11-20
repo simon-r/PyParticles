@@ -21,6 +21,27 @@ import scipy.spatial.distance as dist
 import pyparticles.forces.force as fr
 
 class Drag( fr.Force ) :
+    r"""
+    Calculate the forces of resistance, resistance is a force that reacts to the movement with respect to a square law speed.
+
+    The force is given the equation:
+
+    .. math::
+
+        F_i=-\frac{1}{2}K\dot{X}^2
+
+    Constructor
+
+        ==========  ======================================
+        Arguments
+        ==========  ======================================
+        size        the number of particles in the system
+        dim         the dimension of the system
+        m           a vector containig the masses
+        Const       the gravitational constant
+        ==========  ======================================
+    """
+
     def __init__(self , size , dim=3 , m=None , Consts=1.0 ):
         
         self.__dim = dim
@@ -46,9 +67,12 @@ class Drag( fr.Force ) :
     
     def update_force( self , pset ):
         
-        self.__V.T[:] = np.sqrt( np.sum( pset.V[:]**2.0 , 1 )  )
+        self.__V.T[:] = np.sqrt( np.sum( pset.V[:]**2 , 1 )  )
         
-        self.__F[:] = -self.__V[:] * pset.V[:] * self.__G[:]
+        #print( self.__V[:] )
+        #print( pset.V[:] )
+        
+        self.__F[:] =  -1./2. * self.__V[:] * pset.V[:] * self.__G[:]
         
         self.__A = self.__F[:] / self.__M
         

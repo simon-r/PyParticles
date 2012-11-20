@@ -9,6 +9,14 @@ demo Package
     :undoc-members:
     :show-inheritance:
 
+:mod:`bubble` Module
+--------------------
+
+.. automodule:: pyparticles.demo.bubble
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 :mod:`gas_lennard_jones` Module
 -------------------------------
 
@@ -29,6 +37,22 @@ demo Package
 ---------------------
 
 .. automodule:: pyparticles.demo.springs
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+:mod:`springs_constr` Module
+----------------------------
+
+.. automodule:: pyparticles.demo.springs_constr
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+:mod:`test` Module
+------------------
+
+.. automodule:: pyparticles.demo.test
     :members:
     :undoc-members:
     :show-inheritance:

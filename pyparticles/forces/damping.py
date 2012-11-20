@@ -15,52 +15,68 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import numpy as np
+import sys
+import scipy.spatial.distance as dist
+
 import pyparticles.forces.force as fr
 
-class ConstForce( fr.Force ) :
+class Damping( fr.Force ) :
     """
-    Constant force field.
+    Compute the damping forces, the damping is a force that react proportionally to the velocity
     
+    The force is given the equation:
+    
+    .. math::
+    
+        F_i = -C\dot{X}
+        
     Constructor
          
-        ==========  ==========================================
+        ==========  ======================================
         Arguments
-        ==========  ==========================================
+        ==========  ======================================
         size        the number of particles in the system
         dim         the dimension of the system
         m           a vector containig the masses
-        u_force     The force vector (Force per unit of mass)
-        ==========  ==========================================
+        Const       the damping factor
+        ==========  ====================================== 
     """
-    
-    def __init__(self , size , dim=3 , m=None , u_force=[0,0,0] , Consts=1.0 ):
+    def __init__(self , size , dim=3 , m=None , Consts=1.0 ):
+        
         self.__dim = dim
         self.__size = size
-        self.__G = Consts
-        self.__UF = np.array( u_force )
+        
+        self.__C = np.zeros( ( size , 1 ) )
+        self.__C[:] = Consts
+        
         self.__A = np.zeros( ( size , dim ) )
+        self.__F = np.zeros( ( size , dim ) )
+                
         self.__M = np.zeros( ( size , 1 ) )
         if m != None :
-            self.set_messes( m )
-            
-        self.__A[:] = self.__UF
+            self.set_masses( m )
+        
         
     
     def set_masses( self , m ):
-        
         self.__M[:] = m
-        
     
-    def update_force( self , p_set ):
+    
+    def update_force( self , pset ):
+        
+        self.__F[:] =  -pset.V[:] * self.__C[:]
+        self.__A = self.__F[:] / self.__M
+        
         return self.__A
     
+
     def getA(self):
         return self.__A
     
     A = property( getA )
-    
+
+
     def getF(self):
-        return self.__A * self.__M
-
+        return self.__A * self.__M[:,0]
+    
     F = property( getF )
-
