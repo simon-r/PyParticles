@@ -20,16 +20,18 @@ import scipy.spatial.distance as dist
 
 import pyparticles.forces.force as fr
 
-class Lorentz( fr.Force ) :
-    """
-    Lorentz Force TODO !!!!
+class Electromagnetic( fr.Force ) :
+    r"""
+    Compute the electromagnetic force of the selfiteracting particles system according to the Lorenz formulation.
     """
     def __init__(self , size , dim=3 , m=None , Consts=1.0 ):
         
         self.__dim = dim
         self.__size = size
         self.__K = Consts # Culomb constant!
-        self.__A = np.zeros( ( size , dim ) )
+        self.__Fel = np.zeros( ( size , dim ) )
+        self.__Fma = np.zeros( ( size , dim ) )
+        self.__Am = np.zeros( ( size , dim ) )
         self.__Fm = np.zeros( ( size , size ) )
         self.__V = np.zeros( ( size , size ) )
         self.__D = np.zeros( ( size , size ) )
@@ -48,7 +50,23 @@ class Lorentz( fr.Force ) :
         self.__Q[:,:] = self.__Q * self.__Q.T
     
     def update_force( self , p_set ):        
-        pass
+        self.__D[:] = dist.squareform( dist.pdist( p_set.X , 'euclidean' ) )
+        
+        self.__Fm[:] = self.__K * self.__Q[:] / ( ( self.__D[:] ) ** 3.0 )
+
+        for j in range( self.__size ) :
+            self.__Fm[j,j] = 0.0
+        
+        for i in range( self.__dim ):
+            self.__V[:,:] = p_set.X[:,i]
+            self.__V[:,:] = ( self.__V[:,:].T - p_set.X[:,i] ).T 
+                        
+            self.__Fel[:,i] = np.sum( self.__Fm * self.__V[:,:] , 0 ) 
+        
+        
+        #print( self.__X )
+        
+        return self.__A
     
     def getA(self):
         return self.__A
