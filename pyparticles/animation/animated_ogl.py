@@ -82,9 +82,9 @@ def InitLight() :
     mat_specular = np.array( [  1.0 , 1.0 , 1.0 , 1.0  ] )
     high_shininess = np.array( [  100.0  ] )
     
-    #glEnable(GL_LIGHT0)
-    #glEnable(GL_NORMALIZE)
-    #glEnable(GL_COLOR_MATERIAL)
+    glEnable(GL_LIGHT0)
+    glEnable(GL_NORMALIZE)
+    glEnable(GL_COLOR_MATERIAL)
     #glEnable(GL_LIGHTING)
     
     glLightfv(GL_LIGHT0, GL_AMBIENT,  light_ambient)
@@ -98,15 +98,15 @@ def InitLight() :
     glMaterialfv(GL_FRONT, GL_SHININESS, high_shininess)    
 
 def enableLight():
-    glEnable(GL_LIGHT0)
-    glEnable(GL_NORMALIZE)
-    glEnable(GL_COLOR_MATERIAL)
+    #glEnable(GL_LIGHT0)
+    #glEnable(GL_NORMALIZE)
+    #glEnable(GL_COLOR_MATERIAL)
     glEnable(GL_LIGHTING)
     
 def disableLight():
-    glDisable(GL_LIGHT0)
-    glDisable(GL_NORMALIZE)
-    glDisable(GL_COLOR_MATERIAL)
+    #glDisable(GL_LIGHT0)
+    #glDisable(GL_NORMALIZE)
+    #glDisable(GL_COLOR_MATERIAL)
     glDisable(GL_LIGHTING)    
     
 
@@ -162,7 +162,13 @@ def DrawGLScene():
     glTranslatef( tr[0] , tr[1] , -15.0 )          
     glMultMatrixf( DrawGLScene.animation.rot_matrix )
 
+    if DrawGLScene.animation.light :
+        enableLight()
+
     DrawGLScene.animation.draw_particles.draw()
+    
+    if DrawGLScene.animation.light :
+        disableLight()
     
     if DrawGLScene.animation.view_axis :
         DrawGLScene.animation.axis.draw_axis()    
@@ -225,10 +231,10 @@ def KeyPressed( c , x , y ):
         KeyPressed.animation.draw_particles.set_particle_model( model="teapot" )
         
     if c == 'L' :
-        enableLight()
+        KeyPressed.animation.light = True
         
     if c == 'l' :
-        disableLight()
+        KeyPressed.animation.light = False
         
 
 
@@ -385,6 +391,8 @@ class AnimatedGl( pan.Animation ):
         self.__trackb = trk.TrackBall( self.win_size )
         self.__tran   = tran.TranslateScene( self.win_size )
         
+        self.__light = False
+        
         self.rot_matrix = np.array( [ 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1 ]  )
         
         self.state = "trackball_down"
@@ -427,6 +435,14 @@ class AnimatedGl( pan.Animation ):
     
     rotation_angle = property( get_rot_angle , set_rot_angle )
     
+    
+    def set_light( self , sw ):
+        self.__light = sw
+        
+    def get_light( self ):
+        return self.__light
+    
+    light = property( get_light , set_light , doc="set or get the opengl lighting"  )
 
     def init_rotation( self , angle , axis ):
         self.__init_rot = list( [ angle , axis ] )
