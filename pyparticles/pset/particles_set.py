@@ -99,7 +99,7 @@ class ParticlesSet(object):
         if self.__label != None :
             self.__property_dict['label'] = self.__label
             
-        if self.__Q :
+        if self.__Q != None :
             self.__property_dict['Q'] = self.__Q
         
         self.__notify_set_changed = []

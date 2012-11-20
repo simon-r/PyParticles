@@ -30,10 +30,12 @@ except:
 
 
 def charged_particles_color( pset , i ):
+    a = 0.4 
+    
     if pset.Q[i] < 0.0 :
-        return ( 0.0 , 0.0 , 1.0 , 1.0 )
+        return ( 1.0 , a , a , 1.0 )
     else :
-        return ( 1.0 , 0.0 , 0.0 , 1.0 )
+        return ( a , a , 1.0 , 1.0 )
 
 
 class DrawParticlesGL(object):
@@ -128,12 +130,15 @@ class DrawParticlesGL(object):
         if self.pset.log_size < self.trajectory_step + 1 :
             return 
         
+        
+        
         unit = self.pset.unit
         glLineWidth( 1.0 )
         
         if self.trajectory_step <= 1 :
             
             for i in range( self.pset.size ) :
+                glColor4f( *self.__color_fun( self.pset , i ) )
                 glBegin(GL_LINE_STRIP)
                 for X in self.pset.logX :
                     glVertex3f( X[i,0] / unit ,
@@ -144,6 +149,7 @@ class DrawParticlesGL(object):
         else:
             
             for i in range( self.pset.size ) :
+                glColor4f( *self.__color_fun( self.pset , i ) )
                 glBegin(GL_LINE_STRIP)
                 j = 0
                 for X in self.pset.logX :

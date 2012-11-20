@@ -56,6 +56,7 @@ import pyparticles.demo.gas_lennard_jones as lj
 import pyparticles.demo.bubble as bu
 import pyparticles.demo.springs_constr as spc
 import pyparticles.demo.test as tst
+import pyparticles.demo.electrostatic_demo as eld
 
 import pyparticles.utils.parse_args as arg 
 
@@ -131,7 +132,14 @@ def main():
         print("Start the simulation example:")
         print(" Pseudo bubble demo")
         bu.bubble()
-        return   
+        return
+    
+    if options.demo == "el_static" :
+        print("")
+        print("Start the simulation example:")
+        print(" electro static")
+        eld.electro()
+        return  
     
     if options.path_name == None or options.demo == "solar_system":
         

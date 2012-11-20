@@ -54,9 +54,9 @@ class Electrostatic( fr.Force ) :
         self.__Q[:,:] = q
         self.__Q[:,:] = self.__Q * self.__Q.T
     
-    def update_force( self , p_set ):        
-        self.__D[:] = dist.squareform( dist.pdist( p_set.X , 'euclidean' ) )
+    def update_force( self , p_set ):
         
+        self.__D[:] = dist.squareform( dist.pdist( p_set.X , 'euclidean' ) )
         
         self.__Fm[:] = self.__K * self.__Q[:] / ( ( self.__D[:] ) ** 3.0 )
 
@@ -67,8 +67,10 @@ class Electrostatic( fr.Force ) :
             self.__V[:,:] = p_set.X[:,i]
             self.__V[:,:] = ( self.__V[:,:].T - p_set.X[:,i] ).T 
                         
-            self.__A[:,i] = np.sum( self.__Fm * self.__V[:,:] , 0 ) / self.__M 
+            self.__A[:,i] = np.sum( self.__Fm * self.__V[:,:] , 0 ) / self.__M.T
         
+        
+        #print( self.__X )
         
         return self.__A
     

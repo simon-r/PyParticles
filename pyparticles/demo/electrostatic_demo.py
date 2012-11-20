@@ -33,12 +33,13 @@ import pyparticles.pset.rand_cluster as rc
 import pyparticles.pset.rebound_boundary as rb
 
 import pyparticles.animation.animated_ogl as aogl
+import pyparticles.ogl.draw_particles_ogl as drp
 
 import sys
 
 def electro():
     """
-    Pseudo bubble simulation
+    Electrostatic demo
     """
     
     steps = 1000000
@@ -47,48 +48,74 @@ def electro():
     r_min=1.5
     
     Ke = 8.9875517873681764e9
-    qe = 1.60217646e-19
+    qe = 1.60217646e-19 * 1.0e8
     
     me = 9.10938188e-31
     mp = 1.67262158e-18
     
     rand_c = rc.RandCluster()
     
-    pset = ps.ParticlesSet( 10 )
+    pset = ps.ParticlesSet( 10 , charge=True )
     
     pset.Q[:5] = qe
     pset.Q[5:10] = -qe
     
-    pset.M[:] = 30.0 * mp
+    pset.M[:] = 1e-3
     
-    rand_c.insert3( X=pset.X ,
-                    M=pset.M ,
-                    start_indx=0 ,
-                    n=pset.size ,
-                    radius=5.0 ,
-                    mass_rng=(0.5,0.8) ,
-                    r_min=0.0 )
+    pset.X[:] = 1.0e-3 * np.array( [
+                            [ 0.0 , 0.0 , 0.0  ] ,
+                            [ 0.0 , 0.0 , 1.0  ] ,
+                            [ 0.0 , 0.0 , -1.0  ] ,
+                            [ 0.0 , 1.0 , 1.0  ] ,
+                            [ -1.0 , -1.0 , -1.0  ] ,
+                            [ 2.0 , -2.0 , 4.0  ] ,
+                            [ 4.0 , 7.0 , 2.0  ] ,
+                            [ -3.0 , -5.0 , 1.0  ] ,
+                            [ 4.0 , 4.0 , -7.0  ] ,
+                            [ 2.0 , 8.0 , -6.0  ] 
+                            ]
+                        )
+    
+    #rand_c.insert3( X=pset.X ,
+    #                M=pset.M ,
+    #                start_indx=0 ,
+    #                n=pset.size ,
+    #                radius=5.0 ,
+    #                mass_rng=(0.5,0.8) ,
+    #                r_min=0.0 )
     
     elecs = esf.Electrostatic( pset.size , dim=3 , Consts=Ke )
 
     
-    multif.set_masses( pset.M )
+    elecs.set_masses( pset.M )
+    elecs.set_charges( pset.Q )
     
     #solver = els.EulerSolver( multif , pset , dt )
     #solver = lps.LeapfrogSolver( lennard_jones , pset , dt )
     #solver = svs.StormerVerletSolver( multif , pset , dt )
-    solver = rks.RungeKuttaSolver( lennard_jones , pset , dt )    
+    solver = rks.RungeKuttaSolver( elecs , pset , dt )    
     #solver = mds.MidpointSolver( lennard_jones , pset , dt ) 
     
-    bound = rb.ReboundBoundary( bound=(-5.0,5.0) )
-    
+    bound = rb.ReboundBoundary( bound=( -10.0e-3 , 10.0e-3 ) )
     pset.set_boundary( bound )
+    
+    pset.unit = 2e-3
+    pset.mass_unit = 1e-3
+    
+    pset.enable_log( True , log_max_size=1000 )
+    
+    solver.update_force()
     
     a = aogl.AnimatedGl()
     
     a.ode_solver = solver
+    
+    a.trajectory = True
+    
     a.pset = pset
     a.steps = steps
+    
+    a.draw_particles.color_fun = drp.charged_particles_color
     
     a.build_animation()
     
