@@ -22,7 +22,7 @@ import pyparticles.forces.force as fr
 
 class Electromagnetic( fr.Force ) :
     r"""
-    Compute the electromagnetic force of the selfiteracting particles system according to the Lorenz formulation.
+    Compute the electromagnetic force of the selfinteracting particles system according to the Lorenz formulation.
     """
     def __init__( self , size , dim=3 , m=None , Consts=1.0 ):
         

@@ -20,9 +20,11 @@ import scipy.spatial.distance as dist
 
 import pyparticles.forces.force as fr
 
+import random
+
 class ElectromagneticField( fr.Force ) :
     r"""
-    Compute the electromagnetic force of the selfiteracting particles system according to the Lorenz formulation.
+    Compute the electromagnetic force of a system of charged and non-selfinteracting particles isystem immersed in an electromagnetic filed  according to the Lorenz formulation.
     """
     def __init__( self , size , dim=3 , m=None , Consts=1.0 ):
         
@@ -48,7 +50,8 @@ class ElectromagneticField( fr.Force ) :
         if m != None :
             self.set_masses( m )
         
-        
+        self.__el_fields = dict()
+        self.__ma_fields = dict()
     
     def set_masses( self , m ):
         self.__M[:] = m
@@ -57,29 +60,25 @@ class ElectromagneticField( fr.Force ) :
         self.__Q[:,:] = q
         self.__Q[:,:] = self.__Q * self.__Q.T
     
+    def append_electric_field( self , ef , key=None ):
+        if key == None :
+            key = random.randint( 0 , 2**64 )
+            
+        self.__el_fields[key] = ef
+        
+        return key
+    
+    def append_magnetic_field( self , ef , key=None ):
+        if key == None :
+            key = random.randint( 0 , 2**64 )
+            
+        self.__ma_fields[key] = ef
+        
+        return key
+    
+    
     def update_force( self , p_set ):        
-        self.__D[:] = dist.squareform( dist.pdist( p_set.X , 'euclidean' ) )
-        
-        self.__Fe[:] = self.__Ke * self.__Q[:] / ( ( self.__D[:] ) ** 3.0 )
-        self.__Fm[:] = self.__Km * self.__Q[:] / ( ( self.__D[:] ) ** 2.0 )
-
-        for j in range( self.__size ) :
-            self.__Fe[j,j] = 0.0
-            self.__Fm[j,j] = 0.0
-        
-        
-        for i in range( self.__dim ):
-            self.__V[:,:] = p_set.X[:,i]
-            self.__V[:,:] = ( self.__V[:,:].T - p_set.X[:,i] ).T 
-                        
-            self.__Ae[:,i] = np.sum( self.__Fe * self.__V[:,:] , 0 ) 
-        
-        
-        #print( self.__X )
-        
-        self.__A[:] = self.__Ae + self.__Am
-        
-        return self.__A
+        pass
     
     def getA(self):
         return self.__A
