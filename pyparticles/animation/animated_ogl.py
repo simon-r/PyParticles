@@ -343,8 +343,6 @@ def print_measures():
 
 def glut_print( x,  y,  font,  text, r,  g , b , a):
     
-    pass
-    
     blending = False 
     if glIsEnabled(GL_BLEND) :
         blending = True
@@ -352,14 +350,12 @@ def glut_print( x,  y,  font,  text, r,  g , b , a):
     glPushMatrix()
     glColor3f(1,1,1)
     glRasterPos2f(x,y)
-    #
         
     text = bytes( text.encode("ascii") ) 
     
     glutBitmapString( font , text ) 
     glPopMatrix()
-    #
-    #
+
     if not blending :
         glDisable(GL_BLEND) 
 

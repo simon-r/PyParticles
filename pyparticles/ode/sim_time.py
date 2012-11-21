@@ -49,3 +49,4 @@ class SimTime( object ):
     
     controller = property( get_controller , doc="get the reference to the time controller" )
     
+    

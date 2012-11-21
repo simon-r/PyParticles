@@ -18,6 +18,8 @@
 import numpy as np
 import sys
 
+import pyparticles.ode.sim_time as st
+
 class OdeSolver(object) :
     """
     Base abstract class for defining the integration method of the ordinary differential equation like Runge Kutta or Euler method,
@@ -57,7 +59,9 @@ class OdeSolver(object) :
         self.__force = force
         self.__p_set = p_set
         self.__dt = dt
-        self.__time = 0.0
+        
+        self.__sim_time = st.SimTime( self )
+        
         self.__steps_cnt = 0        
     
     def get_dt( self ):
@@ -79,12 +83,18 @@ class OdeSolver(object) :
     
     
     def get_time(self):
-        return self.__time
+        return self.__sim_time.time
     
     def set_time( self , t0 ):
-        self.__time = t0
+        self.__sim_time.time = t0
         
     time = property( get_time , set_time , doc="get and set the current simulation time" )
+    
+    
+    def get_sim_time( self ):
+        return self.__sim_time
+    
+    sim_time = property( get_sim_time , doc="get the reference to the SimTime object, used for storing the current simulation time" )
     
     
     def get_force( self ):
@@ -116,7 +126,8 @@ class OdeSolver(object) :
         if dt == None:
             dt = self.dt
         
-        self.__time += dt
+        self.__sim_time.time += dt
+        
         self.__steps_cnt += 1
         
         self.__step__( dt )
