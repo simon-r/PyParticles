@@ -35,6 +35,7 @@ class StormerVerletSolverConstrained( osc.OdeSolverConstrained ) :
     
     def set_x_constraint(self ,  xc ):
         super(StormerVerletSolverConstrained,self).set_x_constraint( xc )
+        
         self.__free_inx = self.x_constraint.get_cx_free_indicies()
         self.__csrt_inx = self.x_constraint.get_cx_indicies()
     

@@ -1,6 +1,6 @@
 
 # PyParticles : Particles simulation in python
-# Copyright (C) 2012  Simone Riva : simone.rva {at} gmail {dot} com
+# Copyright (C) 2012  Simone Riva mail: simone.rva {at} gmail {dot} com
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by

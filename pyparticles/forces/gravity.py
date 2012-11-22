@@ -80,8 +80,10 @@ class Gravity( fr.Force ) :
         
         self.__Fm[:] = - self.__G * self.__M[:] / ( ( self.__D[:] ) ** 3.0 )
 
-        for j in range( self.__size ) :
-            self.__Fm[j,j] = 0.0
+        #for j in range( self.__size ) :
+        #    self.__Fm[j,j] = 0.0
+            
+        np.fill_diagonal( self.__Fm , 0.0 )
         
         #print(" --- Fm ----")
         #print( self.__Fm[:,:] )

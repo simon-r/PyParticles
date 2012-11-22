@@ -65,8 +65,10 @@ class Electrostatic( fr.Force ) :
         
         self.__Fm[:] = self.__K * self.__Q[:] / ( ( self.__D[:] ) ** 3.0 )
 
-        for j in range( self.__size ) :
-            self.__Fm[j,j] = 0.0
+        #for j in range( self.__size ) :
+        #    self.__Fm[j,j] = 0.0
+            
+        np.fill_diagonal( self.__Fm , 0.0 )
         
         for i in range( self.__dim ):
             self.__V[:,:] = p_set.X[:,i]

@@ -1,5 +1,5 @@
 # PyParticles : Particles simulation in python
-# Copyright (C) 2012  Simone Riva
+# Copyright (C) 2012  Simone Riva mail: simone.rva {at} gmail {dot} com
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -71,7 +71,7 @@ def electromag_field():
     pset.Q[5:10] = -qe
     
     pset.V[:5] =  np.array( [ 0.1 , 0 , 0  ] ) 
-    pset.V[5:10] =  np.array( [ -0.1 , 0 , 0  ] ) 
+    pset.V[5:10] =  np.array( [ -0.1 , 0 , -0.3  ] ) 
     
     pset.M[:] = mp
     
