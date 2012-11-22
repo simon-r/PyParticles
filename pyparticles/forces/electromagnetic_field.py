@@ -123,7 +123,7 @@ class ElectromagneticField( fr.Force ) :
     
         for key in self.__ma_fields.keys() :
             self.__ma_fields[key]( self.__B , pset.X[:] )
-            self.__Fm[:] = self.__Q[:] * np.cross( pset.V[:] , self.__B[:] )
+            self.__Fm[:] = self.__Fm[:] + self.__Q[:] * np.cross( pset.V[:] , self.__B[:] )
             
         self.__Fe[:] += self.__Fm[:]
     

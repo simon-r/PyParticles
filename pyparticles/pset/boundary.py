@@ -63,6 +63,6 @@ class Boundary(object):
     bound = property( get_bound )
     
     def boundary( self , p_set ):
-        pass
+        NotImplementedError(" %s : is virtual and must be overridden." % sys._getframe().f_code.co_name )
 
 

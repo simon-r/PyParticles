@@ -31,11 +31,11 @@ import pyparticles.animation.animated_ogl as aogl
 import pyparticles.ogl.draw_particles_ogl as drp
 
 def electric_field( E , X ):
-    E[:] = np.array( [ 10000 , 0 , 0 ] )
+    E[:] = np.array( [ 10 , 10 , 10 ] )
     
 
 def magnetic_field( B , X ):
-    B[:] = np.array( [ 0 , 0 , 100000000 ] )
+    B[:] = np.array( [ 0 , 0 , 1000 ] )
     
 
 def electromag_field():
@@ -44,9 +44,9 @@ def electromag_field():
     """
     
     steps = 1000000
-    dt = 0.01
+    dt = 1e-4
     
-    qe = 1.60217646e-19 * 1.0e8
+    qe = 1.60217646e-19 
     
     me = 9.10938188e-31
     mp = 1.67262158e-18
@@ -70,7 +70,10 @@ def electromag_field():
     pset.Q[:5] = qe
     pset.Q[5:10] = -qe
     
-    pset.M[:] = 1e-3
+    pset.V[:5] =  np.array( [ 0.1 , 0 , 0  ] ) 
+    pset.V[5:10] =  np.array( [ -0.1 , 0 , 0  ] ) 
+    
+    pset.M[:] = mp
     
     elmag = elmf.ElectromagneticField( pset.size , dim=pset.dim , m=pset.M , q=pset.Q )
     
