@@ -32,7 +32,7 @@ def parse_args():
     
     parser.add_argument( "-d" , "--demo",
         action="store",
-        choices=[ "springs" , "solar_system" , "gas_lj" , "bubble" , "cat_spri" , "el_static" ] ,
+        choices=[ "springs" , "solar_system" , "gas_lj" , "bubble" , "cat_spri" , "el_static" , "elmag_field" ] ,
         dest="demo",
         default=None ,
         help="Execute the specified buildin demo"

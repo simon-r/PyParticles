@@ -62,6 +62,8 @@ def electro():
     
     pset.M[:] = 1e-3
     
+    pset.V[:] = 0.0
+    
     pset.X[:] = 1.0e-3 * np.array( [
                             [ 0.0 , 0.0 , 0.0  ] ,
                             [ 0.0 , 0.0 , 1.0  ] ,
@@ -118,7 +120,7 @@ def electro():
     a.draw_particles.color_fun = drp.charged_particles_color
     
     a.build_animation()
-    
+        
     a.start()
     
     return

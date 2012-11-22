@@ -57,6 +57,7 @@ import pyparticles.demo.bubble as bu
 import pyparticles.demo.springs_constr as spc
 import pyparticles.demo.test as tst
 import pyparticles.demo.electrostatic_demo as eld
+import pyparticles.demo.electromagnetic_demo as emd
 
 import pyparticles.utils.parse_args as arg 
 
@@ -140,6 +141,13 @@ def main():
         print(" electro static")
         eld.electro()
         return  
+    
+    if options.demo == "elmag_field" :
+        print("")
+        print("Start the simulation example:")
+        print(" electro magnetic fields")
+        emd.electromag_field()
+        return      
     
     if options.path_name == None or options.demo == "solar_system":
         

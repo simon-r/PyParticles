@@ -27,11 +27,13 @@ class Electrostatic( fr.Force ) :
         
         The Culomb law is adapt only for computing a static system of particles, and not for moving particles.
         
+        But for a very slow movement it should be a good approximation.
+        
         .. math::
         
             \vec F = k \, q_1 \, q_2 \, \frac {\vec r_1 - \vec r_2}{\left \| \vec r_1 - \vec r_2 \right \|^3}
     """
-    def __init__(self , size , dim=3 , m=None , Consts=1.0 ):
+    def __init__(self , size , dim=3 , m=None , q=None , Consts=1.0 ):
         
         self.__dim = dim
         self.__size = size
@@ -42,9 +44,12 @@ class Electrostatic( fr.Force ) :
         self.__D = np.zeros( ( size , size ) )
         self.__Q = np.zeros( ( size , size ) )
         self.__M = np.zeros( ( size , 1 ) )
+        
         if m != None :
             self.set_masses( m )
         
+        if q != None :
+            self.set_charges( q )
         
     
     def set_masses( self , m ):

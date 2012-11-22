@@ -31,16 +31,18 @@ class ElectromagneticField( fr.Force ) :
         \mathbf{F} = q(\mathbf{E} + \mathbf{v} \times \mathbf{B})
     """
     
-    def __init__( self , size , dim=3 , m=None , Consts=1.0 ):
+    def __init__( self , size , dim=3 , m=None , q=None , Consts=1.0 ):
         
         self.__dim = dim
         self.__size = size
         
-        self.__Ke = Consts[0]
-        self.__Km = Consts[1]
+        #self.__Ke = Consts[0]
+        #self.__Km = Consts[1]
 
-        self.__Am = np.zeros( ( size , dim ) )
-        self.__Ae = np.zeros( ( size , dim ) )
+        self.__A = np.zeros( ( size , dim ) )
+        
+        self.__E = np.zeros( ( size , dim ) )
+        self.__B = np.zeros( ( size , dim ) )
         
         self.__Fe = np.zeros( ( size , dim ) )
         self.__Fm = np.zeros( ( size , dim ) )
@@ -48,13 +50,18 @@ class ElectromagneticField( fr.Force ) :
         self.__V = np.zeros( ( size , size ) )
         self.__D = np.zeros( ( size , size ) )
         self.__Q = np.zeros( ( size , size ) )
+        
         self.__M = np.zeros( ( size , 1 ) )
+        self.__Q = np.zeros( ( size , 1 ) )
         
         self.__Cr = np.zeros( ( size , dim ) )
         
         if m != None :
             self.set_masses( m )
         
+        if q != None :
+            self.set_charges( q )
+            
         self.__el_fields = dict()
         self.__ma_fields = dict()
     
@@ -62,22 +69,21 @@ class ElectromagneticField( fr.Force ) :
         self.__M[:] = m
         
     def set_charges( self , q ):
-        self.__Q[:,:] = q
-        self.__Q[:,:] = self.__Q * self.__Q.T
+        self.__Q[:] = q
     
     def append_electric_field( self , ef , key=None ):
         r"""
         Append a vector field funcion to the list of electric field funtions.
         
         The field function must be in the form
-        | E = ef( X )
+        | ef( E , X )
         |
         | Where:
-        |  E is a n by 3 numpy array of vectors
+        |  E is a n by 3 numpy array of vectors used for the resulting filed.
         |  X is a n by 3 numpy array of coordinates
         """
         if key == None :
-            key = random.randint( 0 , 2**64 )
+            key = str( random.randint( 0 , 2**64 ) )
             
         self.__el_fields[key] = ef
         
@@ -85,19 +91,19 @@ class ElectromagneticField( fr.Force ) :
     
     def append_magnetic_field( self , bf , key=None ):
         r"""
-        Append a vector field funcion to the list of electric field funtions.
+        Append a vector field funcion to the list of megnetic field funtions.
         
         It return the key used to identify the funtion, if key == None it uses a random number.
         
         The filed function must be in the form
-        | B = bf( X )
+        | bf( B , X )
         |
         | Where:
-        |  B is a n by 3 numpy array of vectors
+        |  B is a n by 3 numpy array of vectors used for the resulting filed.
         |  X is a n by 3 numpy array of coordinates
         """
         if key == None :
-            key = random.randint( 0 , 2**64 )
+            key = str( random.randint( 0 , 2**64 ) )
             
         self.__ma_fields[key] = bf
         
@@ -105,17 +111,25 @@ class ElectromagneticField( fr.Force ) :
     
     
     def update_force( self , pset ):        
+        
         self.__Fe[:] = 0.0
+        self.__Fm[:] = 0.0
         
         for key in self.__el_fields.keys() :
-            self.__Fe[:] = self.__Fe[:] + pset.Q[:] * pself.__el_fields[key]( pset.X[:] )
+            self.__el_fields[key]( self.__E , pset.X[:] )
+            self.__Fe[:] = self.__Fe[:] + self.__Q[:] * self.__E[:] 
     
-        for key in self.__el_fields.keys() :
-            self.__Fm[:] = self.__Fm[:] + pset.Q[:] * np.cross( pset.V[:] , pself.__el_fields[key]( pset.X[:] ) )
+        #print( self.__Fe )
+    
+        for key in self.__ma_fields.keys() :
+            self.__ma_fields[key]( self.__B , pset.X[:] )
+            self.__Fm[:] = self.__Q[:] * np.cross( pset.V[:] , self.__B[:] )
             
         self.__Fe[:] += self.__Fm[:]
     
-        self.__A = self.__Fe[:] / pset.M[:]
+        self.__A[:] = self.__Fe[:] / self.__M[:]
+        
+        #print( self.__A )
         
         return self.__A
     
