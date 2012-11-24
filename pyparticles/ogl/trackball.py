@@ -19,7 +19,7 @@ import numpy as np
 
 class TrackBall( object ):
     """
-    Class used for controloing the rotation of the scene via mouse or joystick, by generating the virtual trackball effect
+    Class used for controlling the rotation of the scene via mouse or joystick, by generating the virtual trackball effect
     
     Constructor
         

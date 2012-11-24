@@ -94,15 +94,9 @@ def InitLight() :
     glMaterialfv(GL_FRONT, GL_SHININESS, high_shininess)    
 
 def enableLight():
-    #glEnable(GL_LIGHT0)
-    #glEnable(GL_NORMALIZE)
-    #glEnable(GL_COLOR_MATERIAL)
     glEnable(GL_LIGHTING)
     
 def disableLight():
-    #glDisable(GL_LIGHT0)
-    #glDisable(GL_NORMALIZE)
-    #glDisable(GL_COLOR_MATERIAL)
     glDisable(GL_LIGHTING)    
     
 

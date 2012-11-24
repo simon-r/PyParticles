@@ -119,7 +119,6 @@ class ElectromagneticField( fr.Force ) :
             self.__el_fields[key]( self.__E , pset.X[:] )
             self.__Fe[:] = self.__Fe[:] + self.__Q[:] * self.__E[:] 
     
-        #print( self.__Fe )
     
         for key in self.__ma_fields.keys() :
             self.__ma_fields[key]( self.__B , pset.X[:] )
@@ -128,8 +127,6 @@ class ElectromagneticField( fr.Force ) :
         self.__Fe[:] += self.__Fm[:]
     
         self.__A[:] = self.__Fe[:] / self.__M[:]
-        
-        #print( self.__A )
         
         return self.__A
     

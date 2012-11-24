@@ -46,9 +46,7 @@ class Electromagnetic( fr.Force ) :
         
         if m != None :
             self.set_masses( m )
-        
-        
-    
+          
     def set_masses( self , m ):
         self.__M[:] = m
         
@@ -62,10 +60,9 @@ class Electromagnetic( fr.Force ) :
         self.__Fe[:] = self.__Ke * self.__Q[:] / ( ( self.__D[:] ) ** 3.0 )
         self.__Fm[:] = self.__Km * self.__Q[:] / ( ( self.__D[:] ) ** 2.0 )
 
-        for j in range( self.__size ) :
-            self.__Fe[j,j] = 0.0
-            self.__Fm[j,j] = 0.0
-        
+        np.fill_diagonal( self.__Fe , 0.0 )
+        np.fill_diagonal( self.__Fm , 0.0 )
+                
         for i in range( self.__dim ):
             self.__V[:,:] = p_set.X[:,i]
             self.__V[:,:] = ( self.__V[:,:].T - p_set.X[:,i] ).T 

@@ -15,9 +15,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import numpy as np
-from collections import deque
-
-import pyparticles.pset.particles_set as ps
 
 import pyparticles.pset.constraint as ct
 
@@ -28,30 +25,83 @@ class ConstrainedX ( ct.Constraint ):
         self.__X_cr   = None
         self.__X_cr_i = None
         
-        super(ConstrainedX,self).__init__( pset=pset )
+        self.__X_free = None
         
+        self.__use_slice_const = False
+        self.__use_slice_free  = False
+        
+        super(ConstrainedX,self).__init__( pset=pset )
     
     def add_x_constraint( self , indx , constr ):
         """
-        Add new postional contraint and update the referenced particles set.
-        contraints are concatenad to the stored contraints, we don't tests the uniqness of the indicies.
-        be careful with the double indicies
+        Add new positional constraint and update the referenced particles set.
+        constraints are concatenated to the stored constraints, we don't tests the uniqueness of the indices.
+        be careful with the double indices
+        
             ========== ================================
             Arguments
             ========== ================================
-            indx       indicies of the new contraints
-            constr     the new contraints
+            indx       indices of the new constraint
+            constr     the new constraint
             ========== ================================
+            
+        If constr is a slice the constraints will be constants
         """
+        
+        if isinstance( indx , slice ):
+            self.__X_cr = np.array( constr )
+            self.__X_cr_i = indx
+            self.__use_slice_const = True
+            
+            self.pset.X[indx,:] = constr
+            
+            self.__optimize__()
+            return 
+        
+        
         if  self.__X_cr == None :
             self.__X_cr = np.array( constr )
-            self.__X_cr_i = np.array( indx )
+            self.__X_cr_i = np.array( indx , dtype=np.int64 )
         else :
             self.__X_cr_i = np.concatenate( ( self.__X_cr_i , indx ) )
             self.__X_cr = np.concatenate( ( self.__X_cr , constr ) )
 
+        self.__optimize__()
+
         self.pset.X[indx,:] = constr
+      
+      
+    def __optimize__(self):
+        """
+        If possible it tries to use a slice for the free indices 
+        """
+        r = range( self.pset.size )
         
+        if isinstance( self.__X_cr_i , slice ):
+            ra = range( self.__X_cr_i.start , self.__X_cr_i.stop )
+        else:
+            ra = self.__X_cr_i
+        
+        for i in ra :
+            r.remove(i)
+            
+        seq = True
+        for i in range( len(r) - 1 ) :
+            d = r[i+1] - r[i]
+            if d != 1 :
+                seq = False
+                break
+        
+        lr = len(r)
+            
+        if seq :
+            self.__X_free = slice( int( r[0] ) , int( r[lr-1] ) + 1 )
+        else :
+            self.__X_free = np.array( r , dtype=np.int ) 
+            
+        print( self.__X_free )
+      
+    
     def get_pset(self):
         """
         Return the current constrained particles set
@@ -70,10 +120,14 @@ class ConstrainedX ( ct.Constraint ):
         
     def remove_x_constraint( self , indxs ):
         """
-        Remove the element indixed in indxs from the contraits 
+        Remove the element indexed in indxs from the constraints   
          Arguments:
-            #. indxs: an interable containig the indicies of the old contraints.
+            #. indxs: an iterable containing the indices of the old constraints.
         """
+        
+        if self.__use_slice :
+            return
+        
         ix = np.array([]) 
         for i in indxs :
             e, = np.where( i == self.__X_cr_i )
@@ -85,23 +139,29 @@ class ConstrainedX ( ct.Constraint ):
 
     def get_cx_indicies(self):
         """
-        Return a copy of the constrained indicies
+        Return a copy of the constrained indices
         """
-        return np.copy(self.__X_cr_i)
+        if isinstance( self.__X_cr_i , slice) :
+            return self.__X_cr_i
+        else :
+            return np.copy(self.__X_cr_i)
+        
+    def set_free_slice( self , start , stop , step=1 ):
+        self.__X_free = slice( start , stop , step )
+        
         
     def get_cx_free_indicies(self):
         """
-        Return an array containing the not constrained indicies
+        Return an array or if it's possible a slice containing the not constrained indices
         """
-        r = range( self.pset.size )
-        for i in self.__X_cr_i :
-            r.remove(i)
-            
-        return np.array( r , dtype=np.int )
+        return self.__X_free
+        
+              
+
 
     def clear_all_x_constraint(self):
         """
-        clear all positional contraints 
+        clear all positional constraints 
         """
         del self.__X_cr
         del self.__X_cr_i
@@ -112,7 +172,7 @@ class ConstrainedX ( ct.Constraint ):
     def get_cX( self ):
         return self.pset.X[self.__X_cr_i,:]
     
-    cX = property( get_cX , doc="return the constrained X alements" )
+    cX = property( get_cX , doc="return the constrained X elements" )
     
     
     

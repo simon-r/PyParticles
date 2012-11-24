@@ -20,7 +20,6 @@ import numpy as np
 
 import pyparticles.pset.particles_set as ps
 
-import pyparticles.forces.linear_spring as ls
 import pyparticles.forces.linear_spring_constrained as lsc
 
 import pyparticles.forces.const_force as cf
@@ -31,7 +30,6 @@ import pyparticles.forces.damping as da
 import pyparticles.pset.constrained_x as csx
 import pyparticles.pset.constrained_force_interactions as cfi
 
-import pyparticles.pset.rebound_boundary as rb
 
 import pyparticles.measures.elastic_potential_energy as epe
 import pyparticles.measures.kinetic_energy as ke
@@ -46,8 +44,6 @@ import pyparticles.ode.stormer_verlet_solver_constrained as svc
 import pyparticles.ode.runge_kutta_solver_constrained as rkc
 import pyparticles.ode.midpoint_solver_constrained as mdc
 
-
-import sys
 
 def spring_constr():
     """
