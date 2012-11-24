@@ -15,9 +15,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import numpy as np
-import sys
 import scipy.spatial.distance as dist
-
 import pyparticles.forces.force as fr
 
 class Gravity( fr.Force ) :

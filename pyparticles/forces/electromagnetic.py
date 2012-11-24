@@ -15,7 +15,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import numpy as np
-import sys
 import scipy.spatial.distance as dist
 
 import pyparticles.forces.force as fr
@@ -67,16 +66,13 @@ class Electromagnetic( fr.Force ) :
             self.__Fe[j,j] = 0.0
             self.__Fm[j,j] = 0.0
         
-        
         for i in range( self.__dim ):
             self.__V[:,:] = p_set.X[:,i]
             self.__V[:,:] = ( self.__V[:,:].T - p_set.X[:,i] ).T 
                         
             self.__Ae[:,i] = np.sum( self.__Fe * self.__V[:,:] , 0 ) 
         
-        
         #print( self.__X )
-        
         self.__A[:] = self.__Ae + self.__Am
         
         return self.__A

@@ -14,16 +14,14 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-
-import numpy as np
 import sys
 
 class Force(object):
     """
     The main abstract class used as interface for the forces classes
-    
+
     Constructor
-         
+
             ==========  ======================================
             Arguments
             ==========  ======================================
@@ -33,15 +31,14 @@ class Force(object):
             Const       the force constants (Like G, K ...)
             ==========  ====================================== 
     """
-    
+
     def __init__(self , size , dim , m=None , Conts=1.0 ):
         NotImplementedError(" %s : is virtual and must be overridden." % sys._getframe().f_code.co_name )
-    
-        
+
     def set_masses( self , m ):
         """
         Set the masses used for computing the forces.
-        
+
             ========= ==============================
             Arguments
             ========= ==============================
@@ -49,11 +46,11 @@ class Force(object):
             ========= ==============================
         """
         NotImplementedError(" %s : is virtual and must be overridden." % sys._getframe().f_code.co_name )
-    
+
     def update_force( self , p_set ):
         """
         Computes the forces of the current status ad return the accelerations of the particles
-        
+
             ========= ==================
             Arguments
             ========= ==================
@@ -61,24 +58,24 @@ class Force(object):
             ========= ==================
         """
         NotImplementedError(" %s : is virtual and must be overridden." % sys._getframe().f_code.co_name )
-            
+
     def getA(self):
         """
         return the array of the acclerations
         """
         NotImplementedError(" %s : is virtual and must be overridden." % sys._getframe().f_code.co_name )
-        
+
     A = property( getA , doc="(property) return the array of the acclerations")
-        
+
     def getF(self):
         """
         returns the array of the forces
         """
         NotImplementedError(" %s : is virtual and must be overridden." % sys._getframe().f_code.co_name )
-    
+
     F = property( getF , doc="(property) returns the array of the forces" )
-    
-    
+
+
     def get_const( self ):
         """
         returns the force contants
@@ -86,6 +83,5 @@ class Force(object):
         NotImplementedError(" %s : is virtual and must be overridden." % sys._getframe().f_code.co_name )        
 
     const = property( get_const , doc="(property) returns the force contants")
-    
-    
-    
+
+

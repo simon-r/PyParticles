@@ -14,14 +14,9 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import pyparticles.pset.particles_set as ps
+
 
 import pyparticles.animation.animation as pan
-
-
-#import pyparticles.forces.gravity as gr
-
-import matplotlib.animation as animation
 
 import numpy as np
 
@@ -49,6 +44,7 @@ def InitGL( Width , Height , ReSizeFun ):
     """
     Inizialise OpenGl 
     """
+    
     glClearColor(0.0, 0.0, 0.0, 0.0)    
     glClearDepth(1.0)                   
     glDepthFunc(GL_LESS)                
@@ -115,20 +111,18 @@ def DrawGLScene():
     Draw the current particle scene.
     """
     
-    j = DrawGLScene.stream()
+    # Simulation step
+    DrawGLScene.stream()
     
     tr = DrawGLScene.animation.translation
-    unit = DrawGLScene.animation.pset.unit
-    mass_unit = DrawGLScene.animation.pset.mass_unit
     
     sim_time = DrawGLScene.animation.ode_solver.time
-    
-    
+        
     fm = tf.MyTimeFormatter()
         
     glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT )
     
-    Set2DMode( animation )
+    Set2DMode( )
         
     glut_print( 0.02 , 0.02 , GLUT_BITMAP_9_BY_15 , fm.to_str( sim_time ) , 1.0 , 1.0 , 1.0 , 1.0 )
     
@@ -140,7 +134,6 @@ def DrawGLScene():
     
     SetPerspective( DrawGLScene.animation )
 
-    
     glPushMatrix()
     
     glEnable (GL_FOG)
@@ -177,7 +170,7 @@ def DrawGLScene():
     glutSwapBuffers()
 
 
-def Set2DMode( animation ):
+def Set2DMode(  ):
     
     glMatrixMode(GL_PROJECTION)
     glLoadIdentity()
@@ -202,8 +195,6 @@ def ReSizeGLScene(Width, Height):
     
     if Height == 0:                        
         Height = 1
-
-    per = ReSizeGLScene.animation.perspective
     
     MousePressed.animation.win_size = ( Width , Height )
     glViewport(0, 0, Width, Height)
@@ -566,7 +557,6 @@ class AnimatedGl( pan.Animation ):
         
         glutDisplayFunc(DGLS)
         glutIdleFunc(DGLS)
-        
         
         ReSizeFun = ReSizeGLScene
         ReSizeFun.animation = self

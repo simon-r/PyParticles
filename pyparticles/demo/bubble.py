@@ -14,8 +14,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import numpy as np
-
 import pyparticles.pset.particles_set as ps
 
 import pyparticles.forces.pseudo_bubble as pb
@@ -29,15 +27,11 @@ import pyparticles.ode.runge_kutta_solver as rks
 import pyparticles.ode.stormer_verlet_solver as svs
 import pyparticles.ode.midpoint_solver as mds
 
-import pyparticles.measures.kinetic_energy as ke
-import pyparticles.measures.total_energy as te
-
 import pyparticles.pset.rand_cluster as rc
 import pyparticles.pset.rebound_boundary as rb
 
 import pyparticles.animation.animated_ogl as aogl
 
-import sys
 
 def bubble():
     """

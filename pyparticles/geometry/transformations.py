@@ -71,7 +71,7 @@ class Transformations( object ):
         
         self.__p = np.matrix( np.zeros( ( 4,1 ) ) )
         self.__nr = 1
-
+        
     def __iter__(self):
         return self
 
@@ -141,7 +141,7 @@ class Transformations( object ):
             raise ValueError
         
         self.__nr = int( nr )
-    
+        
     def append_point( self , pt ):
         """
         Transforms and append a new point in the points queue
