@@ -146,9 +146,11 @@ class ConstrainedX ( ct.Constraint ):
         else :
             return np.copy(self.__X_cr_i)
         
-    def set_free_slice( self , start , stop , step=1 ):
-        self.__X_free = slice( start , stop , step )
-        
+    def set_free_indicies( self , indx ):
+        if isinstance( indx , slice ) :
+            self.__X_free = indx
+        else :
+            self.__X_free = np.concatenate( ( self.__X_free , indx ) )
         
     def get_cx_free_indicies(self):
         """
@@ -157,8 +159,6 @@ class ConstrainedX ( ct.Constraint ):
         return self.__X_free
         
               
-
-
     def clear_all_x_constraint(self):
         """
         clear all positional constraints 
