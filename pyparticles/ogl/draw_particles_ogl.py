@@ -18,15 +18,10 @@
 import pyparticles.pset.particles_set as ps
 
 import numpy as np
-import sys
 
-
-try:
-    from OpenGL.GL import *
-    from OpenGL.GLUT import *
-    from OpenGL.GLU import *
-except:
-    _____foo = None
+from OpenGL.GL import *
+from OpenGL.GLUT import *
+from OpenGL.GLU import *
 
 
 def charged_particles_color( pset , i ):
