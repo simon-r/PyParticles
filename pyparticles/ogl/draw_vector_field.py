@@ -22,31 +22,117 @@ import random
 import pyparticles.geometry.transformations as tr
 
 from OpenGL.GL import *
-from OpenGL.GLUT import *
 from OpenGL.GLU import *
 
 
-
-
-class DrawVectorField( object , limits , density ):
-    def __init__(self):
+class DrawVectorField( object ):
+    """
+    Draw the given vector fields.
+    
+    Constructor:
+    
+            ========== ==============================================================
+            Arguments
+            ========== ==============================================================
+            limits     size of the draw volume: (x_min,x_max,y_min,y_max,z_min,z_max)
+            density    distance between the plotted vectors  
+            ========== ==============================================================
+    """
+    def __init__( self , limits , density , unit_len=1.0):
         
         self.__fields = dict()
         self.__col_fun = dict()
-    
-        self.__size = size
+        
+        if len(limits) not in ( 4 , 6 ):
+            raise ValueError("limits are allowed only for 2D or 3D")
+        
+        self.__limits = limits
         self.__density = density
+        
+        self.__unit_len = unit_len
+        
+        self._build_coords()
+    
+    
+    def _build_coords(self):
+        """
+        private: build the coordinates of the vectors
+        """
+        
+        li = self.__limits
+        de = self.__density
+        
+        sz_x = int( ( li[1] - li[0] ) / de )
+        sz_y = int( ( li[3] - li[2] ) / de )
+        
+        if len(li) == 6 :
+            sz_z = int( ( li[5] - li[4] ) / de )
+        else: 
+            sz_z = 1
+            li[4] = 0.0
+            li[5] = 0.0
+        
+        self.__X = np.zeros(( sz_x * sz_y * sz_z , 3 ))
+        
+        x = np.float64( li[0] )
+        y = np.float64( li[2] )
+        z = np.float64( li[4] )
+        
+        indx = 0
+        for i in range(sz_z):
+            x = li[0]
+            for j in range(sz_x):
+                y = li[2]
+                for l in range(sz_y):
+                    self.__X[indx,:] = np.array([x,y,z])
+                    indx+=1
+                    y = y + de
+                x = x + de
+            z = z + de
     
     def add_vector_fun( self , fun , color_fun , key=None , time_dep=False ):
+        r"""
+        Insert a new vector function, 
+        
+            ========== ==============================================================
+            Arguments
+            ========== ==============================================================
+            fun        Vector filed function
+            color_fun  Colors function
+            key        [optional] a key used for distinguish the vector field
+            time_dep   [True or **False** ] if True Is a time dependent filed  
+            ========== ==============================================================        
+        
+        where functions are defined:
+            fun( V , X )
+            color_fun( RGBA , X )
+            
+        | X : (n by DIM) coordinates array
+        | V : (n by DIM) resulting vector field
+        | RGBA : (n by 4) colors array
+        """
         if key == None :
             key = str( random.randint( 0 , 2**64 ) )
             
-        self.__fields[key] = { "fum": fun , "color": color_fun , "time_dep" : time_dep , "display_list" : None }
+        self.__fields[key] = { "fun": fun , "color": color_fun , "time_dep" : time_dep , "display_list" : None }
         
         return key
     
     def ogl_init(self):
+        for key in self.__fields.keys() :
+            if not self.__fields[key]["time_dep"] :
+                dl = glGenLists(1)
+                
+                glNewList( dl , GL_COMPILE );
+                self._draw_field(key)
+                glEndList() 
+                
+                self.__fields[key]["display_list"] = dl
+    
+    def _draw_field( self , key ):
         pass
     
     def draw(self):
         pass
+    
+    
