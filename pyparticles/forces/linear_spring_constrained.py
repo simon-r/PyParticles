@@ -57,12 +57,9 @@ class LinearSpringConstrained ( fcr.ForceConstrained ):
                 self.__Fm[k[0],k[1]] = pset.X[k[1],i]
                 self.__Fm[k[1],k[0]] = pset.X[k[0],i]
             
-            #print( self.__Fm.todense() )
             self.__Fm2 = -self.__K * ( self.__Fm.T - self.__Fm ).T 
         
             self.__F[:,i] = self.__Fm2.sum( 0 )
-        
-        #print( self.__Fm[:] )
         
         self.__A[:,:] = self.__F[:,:] / self.__M[:]
         

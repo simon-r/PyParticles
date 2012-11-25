@@ -26,23 +26,15 @@ import pyparticles.ogl.translate_scene as tran
 import pyparticles.utils.time_formatter as tf
 import pyparticles.ogl.draw_particles_ogl as drp
 
-import ctypes 
+from OpenGL.GL import *
+from OpenGL.GLUT import *
+from OpenGL.GLU import *
 
 
-import sys
 
-try:
-    from OpenGL.GL import *
-    from OpenGL.GLUT import *
-    from OpenGL.GLU import *
-except:
-    _____foo = None
-
-    
-    
 def InitGL( Width , Height , ReSizeFun ):
     """
-    Inizialise OpenGl 
+    Initialize OpenGl 
     """
     
     glClearColor(0.0, 0.0, 0.0, 0.0)    

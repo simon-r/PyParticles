@@ -55,7 +55,7 @@ class ConstrainedX ( ct.Constraint ):
             
             self.pset.X[indx,:] = constr
             
-            self.__optimize__()
+            self._optimize()
             return 
         
         
@@ -66,12 +66,12 @@ class ConstrainedX ( ct.Constraint ):
             self.__X_cr_i = np.concatenate( ( self.__X_cr_i , indx ) )
             self.__X_cr = np.concatenate( ( self.__X_cr , constr ) )
 
-        self.__optimize__()
+        self._optimize()
 
         self.pset.X[indx,:] = constr
       
       
-    def __optimize__(self):
+    def _optimize(self):
         """
         If possible it tries to use a slice for the free indices 
         """
@@ -167,6 +167,8 @@ class ConstrainedX ( ct.Constraint ):
         del self.__X_cr_i
         self.__X_cr   = None
         self.__X_cr_i = None
+        
+        self.__X_free = None
         
 
     def get_cX( self ):
