@@ -30,7 +30,7 @@ class ParticlesSet(object):
         mass          (dafault True)  if True the particles have a mass.
         label         (default False) if true it's possible to set a name for each particle
         velocity      (dafault True)  if true the particles has a velocity
-        charge        (default False) if true if True the particles have a charge.
+        charge        (default False) if true the particles have an electric charge.
         log_X         (default False) if true it's possible to logging the position
         log_V         (default False) if true it's possible to logging the velocity
         log_max_size  (default 0) set the maximal size of the log queue
@@ -282,7 +282,7 @@ class ParticlesSet(object):
 
     def append( self , p_dict ) :
         """
-        Append the particle(s) decribed in the given dictionary
+        Append the particle(s) described in the given dictionary
         
          If the particle don't contain every required data will be rejected.
          
@@ -470,7 +470,7 @@ class ParticlesSet(object):
     def add_clusters( self , Cs , n ):
         i = 0
         for c in Cs:
-            self.__X[n[i]:n[i]+C.shape[0]] = c
+            self.__X[n[i]:n[i]+c.shape[0]] = c
             i = i + 1
             
     

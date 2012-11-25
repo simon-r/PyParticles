@@ -31,7 +31,6 @@ from OpenGL.GLUT import *
 from OpenGL.GLU import *
 
 
-
 def InitGL( Width , Height , ReSizeFun ):
     """
     Initialize OpenGl 
