@@ -20,14 +20,16 @@ import numpy as np
 import pyparticles.geometry.transformations as tr
 
 from OpenGL.GL import *
-from OpenGL.GLUT import *
-from OpenGL.GLU import *
     
     
 class AxisOgl(object):
     def __init__(self):
         self.__arrow_len = 5.0
         self.__dl_axis = None
+    
+    def __del__(self):
+        if self.__dl_axis != None :
+            glDeleteLists( self.__dl_axis , 1 )
     
     def ogl_init( self ):
         

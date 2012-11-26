@@ -47,6 +47,17 @@ class DrawParticlesGL(object):
         self.__sph_dl = None
         self.__tea_dl = None
         self.__pt_dl = None
+        
+    def __del__(self):
+        if self.__sph_dl != None :
+            glDeleteLists( self.__sph_dl , 1 )
+        
+        if self.__tea_dl != None :
+            glDeleteLists( self.__tea_dl , 1 )
+            
+        if self.__pt_dl != None :
+            glDeleteLists( self.__pt_dl , 1 )
+    
     
     def ogl_init(self):
         """
