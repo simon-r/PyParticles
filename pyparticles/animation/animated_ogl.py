@@ -23,6 +23,7 @@ import numpy as np
 import pyparticles.ogl.trackball as trk
 import pyparticles.ogl.axis_ogl as axgl
 import pyparticles.ogl.translate_scene as tran
+import pyparticles.ogl.draw_vector_field as dvf
 import pyparticles.utils.time_formatter as tf
 import pyparticles.ogl.draw_particles_ogl as drp
 
@@ -126,7 +127,7 @@ def DrawGLScene():
     
     glLoadIdentity()  
     
-    if DrawGLScene.animation.state == "trackball_down" and DrawGLScene.animation.motion or  joystick_func.animation.joy_state == "joy_on":
+    if DrawGLScene.animation.state == "trackball_down" and DrawGLScene.animation.motion or joystick_func.animation.joy_state == "joy_on":
         ( ax , ay , az ) = DrawGLScene.animation.rotatation_axis
         angle = DrawGLScene.animation.rotation_angle
         glRotatef( angle , ax , ay , az )
@@ -150,6 +151,9 @@ def DrawGLScene():
     
     if DrawGLScene.animation.view_axis :
         DrawGLScene.animation.axis.draw_axis()    
+        
+    if DrawGLScene.animation.draw_vector_field :
+        DrawGLScene.animation.vector_field.draw()
         
     glPopMatrix()
     glutSwapBuffers()
@@ -376,6 +380,9 @@ class AnimatedGl( pan.Animation ):
         
         self.axis = axgl.AxisOgl()
         self.draw_particles = drp.DrawParticlesGL()
+        
+        self.__draw_vector_field = False
+        self.vector_field = None
     
 
     def get_pset(self):
@@ -414,7 +421,8 @@ class AnimatedGl( pan.Animation ):
     def get_light( self ):
         return self.__light
     
-    light = property( get_light , set_light , doc="set or get the opengl lighting"  )
+    light = property( get_light , set_light , doc="enable or disable (True or False) the opengl lighting"  )
+
 
     def init_rotation( self , angle , axis ):
         self.__init_rot = list( [ angle , axis ] )
@@ -475,7 +483,7 @@ class AnimatedGl( pan.Animation ):
         self.trackball.win_size = w_size
         self.translate_scene.win_size = w_size
         
-    win_size = property( get_win_size , set_win_size )
+    win_size = property( get_win_size , set_win_size , doc="get or set the size of the current window. The size is a tuple: (w,h)")
     
     
     def get_trajectory( self ) :
@@ -485,7 +493,7 @@ class AnimatedGl( pan.Animation ):
         super(AnimatedGl,self).set_trajectory( tr )
         self.draw_particles.trajectory = tr
         
-    trajectory = property( get_trajectory , set_trajectory , doc="enable or disable the trajectory" )
+    trajectory = property( get_trajectory , set_trajectory , doc="enable or disable (True or False) the trajectory" )
     
     
     def get_trajectory_step( self ) :
@@ -498,7 +506,24 @@ class AnimatedGl( pan.Animation ):
     trajectory_step = property( get_trajectory_step , set_trajectory_step , doc="set or get the step for drawing the trajectory" )
 
     
+    def get_draw_vector_field(self):
+        return self.__draw_vector_field
     
+    def set_draw_vector_field( self , f ):
+        self.__draw_vector_field = f
+        
+    draw_vector_field = property( get_draw_vector_field , set_draw_vector_field , doc="enable or disable (True of False) vector filed drawing (if available)" )
+    
+    
+    def add_vector_field_fun( self , fun , color_fun=None , rel_density=1.0 ):
+        
+        if self.vector_field == None :
+            lims = [ self.xlim[0] , self.xlim[1] , self.ylim[0] , self.ylim[1] , self.zlim[0] , self.zlim[1] ]
+            self.vector_field = dvf.DrawVectorField( lims , self.pset.unit * rel_density , self.pset.unit )
+        
+        self.vector_field.add_vector_fun( fun , color_fun )
+        
+        
     def zoom_scene( self , f ):
         
         (w,h) = MousePressed.animation.win_size

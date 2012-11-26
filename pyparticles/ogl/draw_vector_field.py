@@ -22,7 +22,7 @@ import random
 import pyparticles.geometry.transformations as tr
 
 from OpenGL.GL import *
-from OpenGL.GLU import *
+
 
 
 class DrawVectorField( object ):
@@ -52,6 +52,11 @@ class DrawVectorField( object ):
         self.__unit_len = unit_len
         
         self._build_coords()
+        
+    def __del__(self):
+        for key in self.__fields.keys() :
+            if self.__fields[key]["display_list"] != None :
+                glDeleteLists( self.__fields[key]["display_list"] , 1 )
     
     
     def _build_coords(self):
@@ -92,7 +97,10 @@ class DrawVectorField( object ):
                 x = x + de
             z = z + de
     
-    def add_vector_fun( self , fun , color_fun , key=None , time_dep=False ):
+    def _default_color(self):
+        return np.array([ 0.7 , 0.7 , 0.0 , 1.0 ])
+    
+    def add_vector_fun( self , fun , color_fun=None , key=None , time_dep=False ):
         r"""
         Insert a new vector function, 
         
@@ -115,8 +123,11 @@ class DrawVectorField( object ):
         """
         if key == None :
             key = str( random.randint( 0 , 2**64 ) )
+        
+        if color_fun == None :
+            color_fun = self._default_color
             
-        self.__fields[key] = { "fun": fun , "color": color_fun , "time_dep" : time_dep , "display_list" : None }
+        self.__fields[key] = { "fun": fun , "color_fun": color_fun , "time_dep" : time_dep , "display_list" : None }
         
         return key
     
@@ -138,6 +149,7 @@ class DrawVectorField( object ):
         sz = self.__X.shape[0]
         
         transf = tr.Transformations()
+        transf.set_points_tuple_size(2)
         
         self.__fields[key]["fun"]( self.__V , self.__X )
         
@@ -163,11 +175,26 @@ class DrawVectorField( object ):
             transf.append_point( [ 0 , 0 , 0 ] )
             transf.append_point( [ le , 0 , 0 ] )
             
-            
             transf.pop_matrix()
+        
+        color = np.zeros((1,4))
+        
+        glBegin(GL_LINES)
+            
+        for pts in transf :
+            self.__fields[key]["color_fun"]( color , pts[0] )
+            
+            glColor4f( color[0] , color[1] , color[2] , color[3] )
+            glVertex3fv( pts[0] )
+            glVertex3fv( pts[1] )
+    
     
     def draw(self):
-        pass
+        for key in self.__fields.keys() :
+            if self.__fields[key]["display_list"] != None :
+                glCallList( self.__fields[key]["display_list"] )
+            else :
+                self._draw_field(key)
     
     
     
