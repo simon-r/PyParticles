@@ -145,6 +145,9 @@ class Transformations( object ):
     def append_point( self , pt ):
         """
         Transforms and append a new point in the points queue
+        
+        Argument:
+            pt : point coord: [ x , y , z ]
         """
         nwp = np.matrix( np.zeros( ( 4 , 1 ) ) )
         
@@ -274,8 +277,8 @@ class Transformations( object ):
         m[0,0] =  np.cos( angle )
         m[1,1] =  np.cos( angle )
         
-        m[0,1] =  np.sin( angle )
-        m[1,0] = -np.sin( angle )
+        m[0,1] = -np.sin( angle )
+        m[1,0] =  np.sin( angle )
         
         self.__cmatrix[:] = self.__cmatrix[:] * m[:]
         

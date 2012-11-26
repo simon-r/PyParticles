@@ -73,6 +73,8 @@ class DrawVectorField( object ):
             li[5] = 0.0
         
         self.__X = np.zeros(( sz_x * sz_y * sz_z , 3 ))
+        self.__V = np.zeros(( sz_x * sz_y * sz_z , 3 ))
+        self.__Vs = np.zeros(( sz_x * sz_y * sz_z , 3 ))
         
         x = np.float64( li[0] )
         y = np.float64( li[2] )
@@ -118,6 +120,7 @@ class DrawVectorField( object ):
         
         return key
     
+    
     def ogl_init(self):
         for key in self.__fields.keys() :
             if not self.__fields[key]["time_dep"] :
@@ -129,10 +132,44 @@ class DrawVectorField( object ):
                 
                 self.__fields[key]["display_list"] = dl
     
+    
     def _draw_field( self , key ):
-        pass
+        
+        sz = self.__X.shape[0]
+        
+        transf = tr.Transformations()
+        
+        self.__fields[key]["fun"]( self.__V , self.__X )
+        
+        # Vector in spherical coordinates
+        self.__Vs[:,0] = np.sqrt( np.sum( self.__X**2 , 1 ) )
+        self.__Vs[:,1] = np.arccos( self.__X[:,2] / self.__Vs[:,0]  ) 
+        self.__Vs[:,2] = np.arctan( self.__X[:,1] / self.__X[:,0] )
+        
+        for i in range(sz):
+            
+            x = self.__X[i,0]
+            y = self.__X[i,1]
+            z = self.__X[i,2]
+            
+            transf.push_matrix()
+            transf.translation( x , y , z )
+            
+            transf.rotZ( self.__Vs[i,2] )
+            transf.rotY( -( np.pi/2.0 - self.__Vs[i,1] ) )
+            
+            le = self.__Vs[:,0] / self.__unit_len
+            
+            transf.append_point( [ 0 , 0 , 0 ] )
+            transf.append_point( [ le , 0 , 0 ] )
+            
+            
+            transf.pop_matrix()
     
     def draw(self):
         pass
+    
+    
+    
     
     
