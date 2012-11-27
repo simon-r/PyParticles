@@ -38,7 +38,7 @@ class DrawVectorField( object ):
             density    distance between the plotted vectors  
             ========== ==============================================================
     """
-    def __init__( self , limits , density , unit_len=1.0):
+    def __init__( self , limits , density ):
         
         self.__fields = dict()
         self.__col_fun = dict()
@@ -48,8 +48,6 @@ class DrawVectorField( object ):
         
         self.__limits = limits
         self.__density = density
-        
-        self.__unit_len = unit_len
         
         self._build_coords()
         
@@ -73,7 +71,7 @@ class DrawVectorField( object ):
         if len(li) == 6 :
             sz_z = int( ( li[5] - li[4] ) / de )
         else: 
-            sz_z = 1
+            sz_z = 1.0
             li[4] = 0.0
             li[5] = 0.0
         
@@ -97,21 +95,20 @@ class DrawVectorField( object ):
                 x = x + de
             z = z + de
     
-    def _default_color(self):
-        return np.array([ 0.7 , 0.7 , 0.0 , 1.0 ])
+    def _default_color( self , RGBA , X ):
+        RGBA[:] = np.array([ 0.7 , 0.7 , 0.0 , 1.0 ])
     
-    def add_vector_fun( self , fun , color_fun=None , key=None , time_dep=False ):
+    def add_vector_fun( self , fun , unit_len=1.0 , color_fun=None ,  key=None , time_dep=False ):
         r"""
         Insert a new vector function, 
         
-            ========== ==============================================================
-            Arguments
-            ========== ==============================================================
-            fun        Vector filed function
-            color_fun  Colors function
-            key        [optional] a key used for distinguish the vector field
-            time_dep   [True or **False** ] if True Is a time dependent filed  
-            ========== ==============================================================        
+            Parameters
+            ----------
+            fun        : Vector filed function
+            color_fun  : Colors function
+            key        : [optional] a key used for distinguish the vector field
+            time_dep   : [True or **False** ] if True Is a time dependent filed  
+                    
         
         where functions are defined:
             fun( V , X )
@@ -127,7 +124,11 @@ class DrawVectorField( object ):
         if color_fun == None :
             color_fun = self._default_color
             
-        self.__fields[key] = { "fun": fun , "color_fun": color_fun , "time_dep" : time_dep , "display_list" : None }
+        self.__fields[key] = { "fun": fun , 
+                              "color_fun": color_fun , 
+                              "time_dep" : time_dep ,
+                              "unit" :  unit_len ,
+                              "display_list" : None }
         
         return key
     
@@ -154,9 +155,14 @@ class DrawVectorField( object ):
         self.__fields[key]["fun"]( self.__V , self.__X )
         
         # Vector in spherical coordinates
-        self.__Vs[:,0] = np.sqrt( np.sum( self.__X**2 , 1 ) )
-        self.__Vs[:,1] = np.arccos( self.__X[:,2] / self.__Vs[:,0]  ) 
-        self.__Vs[:,2] = np.arctan( self.__X[:,1] / self.__X[:,0] )
+        self.__Vs[:,0] = np.sqrt( np.sum( self.__V**2 , 1 ) )
+        self.__Vs[:,1] = np.arccos( self.__V[:,2] / self.__Vs[:,0]  ) 
+        self.__Vs[:,2] = np.arctan( np.divide( self.__V[:,1] , self.__V[:,0] ) )
+        
+        err_nan = np.isnan( self.__Vs[:,2] )
+        self.__Vs[err_nan,2] = np.sign( self.__V[err_nan,2] ) * np.pi / 2.0
+        
+        unit = self.__fields[key]["unit"]
         
         for i in range(sz):
             
@@ -170,27 +176,37 @@ class DrawVectorField( object ):
             transf.rotZ( self.__Vs[i,2] )
             transf.rotY( -( np.pi/2.0 - self.__Vs[i,1] ) )
             
-            le = self.__Vs[:,0] / self.__unit_len
+            le = self.__Vs[i,0] / unit
             
             transf.append_point( [ 0 , 0 , 0 ] )
             transf.append_point( [ le , 0 , 0 ] )
             
             transf.pop_matrix()
         
-        color = np.zeros((1,4))
+        color = np.zeros((4))
         
         glBegin(GL_LINES)
             
-        for pts in transf :
-            self.__fields[key]["color_fun"]( color , pts[0] )
+        for ( pta , ptb ) in transf :
+            self.__fields[key]["color_fun"]( color , pta )
             
             glColor4f( color[0] , color[1] , color[2] , color[3] )
-            glVertex3fv( pts[0] )
-            glVertex3fv( pts[1] )
+            
+            ptb = ptb / self.__density
+            
+            print("----------------------")
+            print( pta / self.__density )
+            print( ptb )
+            
+            glVertex3fv( pta / self.__density )
+            glVertex3fv( ptb )
+            
+        glEnd()
     
     
     def draw(self):
         for key in self.__fields.keys() :
+            
             if self.__fields[key]["display_list"] != None :
                 glCallList( self.__fields[key]["display_list"] )
             else :

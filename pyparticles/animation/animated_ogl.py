@@ -515,13 +515,15 @@ class AnimatedGl( pan.Animation ):
     draw_vector_field = property( get_draw_vector_field , set_draw_vector_field , doc="enable or disable (True of False) vector filed drawing (if available)" )
     
     
-    def add_vector_field_fun( self , fun , color_fun=None , rel_density=1.0 ):
+    def add_vector_field_fun( self , fun ,  unit , density=1.0 , color_fun=None ):
         
         if self.vector_field == None :
+            
             lims = [ self.xlim[0] , self.xlim[1] , self.ylim[0] , self.ylim[1] , self.zlim[0] , self.zlim[1] ]
-            self.vector_field = dvf.DrawVectorField( lims , self.pset.unit * rel_density , self.pset.unit )
+            
+            self.vector_field = dvf.DrawVectorField( lims , density )
         
-        self.vector_field.add_vector_fun( fun , color_fun )
+        self.vector_field.add_vector_fun( fun , unit , color_fun )
         
         
     def zoom_scene( self , f ):
