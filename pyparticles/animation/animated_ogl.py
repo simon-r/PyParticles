@@ -216,6 +216,10 @@ def KeyPressed( c , x , y ):
     if c == 'l' :
         KeyPressed.animation.light = False
         
+    if c == 'v' :
+        KeyPressed.animation.draw_vector_field = not KeyPressed.animation.draw_vector_field
+        
+        
 
 
 def MousePressed(  button , state , x , y ):
@@ -303,6 +307,9 @@ def print_help():
     
     y -= 0.05
     glut_print( 0.1 , y , GLUT_BITMAP_9_BY_15 , "Lighting - L: On  l: OFF " , 1 , 1 , 1 , 1 )
+    
+    y -= 0.05
+    glut_print( 0.1 , y , GLUT_BITMAP_9_BY_15 , "v: Toggle vector field " , 1 , 1 , 1 , 1 )
     
     y -= 0.1    
     glut_print( 0.1 , y , GLUT_BITMAP_9_BY_15 , "h: Toggle help message" , 1 , 1 , 1 , 1 )
@@ -609,7 +616,7 @@ class AnimatedGl( pan.Animation ):
             self.rot_matrix = glGetFloatv( GL_MODELVIEW_MATRIX )
             glPopMatrix()
             
-        if self.draw_vector_field :
+        if self.vector_field != None :
             self.vector_field.ogl_init()
         
         

@@ -20,14 +20,19 @@ import pyparticles.pset.boundary as bd
 
 
 class DefaultBoundary( bd.Boundary ):
-    """
-    If a particle exits form the boudary it's moved to a default position according to the function 'defualt_pos'
+    r"""
+    If a particle exits form the boundary it's moved to a default position according to the function 'defualt_pos'
+    
+    Parameters
+    ----------
+    bound : A tuple that describe the boundary - (min , max) or (x_min,x_man,y_min,y_max,z_min,z_max) 
+    dim : dimension of the system
+    defualt_pos : default position function
     
     | Where:
     |  X = defualt_pos( pset , indx )
     |  pset: particles set
-    |  indx: indecies of the perticles exited
-    |  X: New coordinates
+    |  indx: indices of the involved particles
     """
     def __init__( self , bound=(-1,1) , dim=3 , defualt_pos=None ):
         self.set_boundary( bound , dim )
@@ -36,10 +41,14 @@ class DefaultBoundary( bd.Boundary ):
     
     def boundary( self , p_set ):
         for i in range( self.dim ) :
-            delta = self.bound[i,1] - self.bound[i,0]
             
-            b_mi = p_set.X[:,i] < self.bound[i,0]
-            b_mx = p_set.X[:,i] > self.bound[i,1]
+            print( self.bound )
             
-            p_set.X[b_mi,i] = self.__defualt_pos( p_set , b_mi )
-            p_set.X[b_mx,i] = self.__defualt_pos( p_set , b_mx )
+            b_mi = np.where( p_set.X[:,i] < self.bound[i,0] )
+            b_mx = np.where( p_set.X[:,i] > self.bound[i,1] )
+            
+            if len( b_mi ) > 0 :
+                self.__defualt_pos( p_set , b_mi )
+                
+            if len( b_mx ) > 0 :
+                self.__defualt_pos( p_set , b_mx )

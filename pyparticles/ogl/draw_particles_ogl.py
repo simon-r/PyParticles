@@ -27,7 +27,7 @@ from OpenGL.GLU import *
 def charged_particles_color( pset , i ):
     a = 0.4 
     
-    if pset.Q[i] < 0.0 :
+    if pset.Q[i] > 0.0 :
         return ( 1.0 , a , a , 1.0 )
     else :
         return ( a , a , 1.0 , 1.0 )

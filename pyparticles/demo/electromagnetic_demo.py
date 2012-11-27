@@ -18,6 +18,7 @@
 import numpy as np
 
 import pyparticles.pset.particles_set as ps
+import pyparticles.pset.default_boundary as db
 
 import pyparticles.forces.electromagnetic_field as elmf
 
@@ -35,9 +36,20 @@ def electric_field( E , X ):
     
 
 def magnetic_field( B , X ):
-    B[:] = 1000.0 * np.sin( 500.0 * X )
-    #B[:] = np.array( [ 500 , 1000 , 1000 ] )
+    #B[:] = 1000.0 * np.sin( 500.0 * X )
+    B[:] = np.array( [ 0 , 0 , 1000 ] )
     
+
+def magf_color( RGBA , X ):
+    RGBA[:] = np.array([ 0.4 , 0.4 , 1.0 , 0.6 ])
+
+def elf_color( RGBA , X ):
+    RGBA[:] = np.array([ 0.4 , 1.0 , 0.4 , 0.6 ])
+
+def default_pos( pset , indx ):
+    pset.X[indx,:] = 0.0
+    pset.V[indx,:] = ( ( np.random.rand( len(indx) , 3 ) - 0.5 ) / 2.0 )
+
 
 def electromag_field():
     """
@@ -88,7 +100,10 @@ def electromag_field():
     #solver = mds.MidpointSolver( elmag , pset , dt )
     
     pset.unit = 2e-3
-    pset.mass_unit = 1e-3
+    pset.mass_unit = 1e-3   
+    
+    bound = db.DefaultBoundary( ( -pset.unit*5.0 , pset.unit*5.0 ) , dim=3 , defualt_pos=default_pos )
+    pset.set_boundary(bound)
     
     pset.enable_log( True , log_max_size=1000 )
     
@@ -104,7 +119,9 @@ def electromag_field():
     a.ylim = ( -pset.unit*5.0 , pset.unit*5.0 )
     a.zlim = ( -pset.unit*5.0 , pset.unit*5.0 )
     
-    a.add_vector_field_fun( magnetic_field , 2000.0 , pset.unit )
+    a.add_vector_field_fun( magnetic_field , 2000.0 , pset.unit , color_fun=magf_color )
+    a.add_vector_field_fun( electric_field , 50.0 ,  pset.unit , color_fun=elf_color )
+    
     a.draw_vector_field = True
     
     a.pset = pset
