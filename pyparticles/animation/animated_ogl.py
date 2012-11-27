@@ -608,6 +608,9 @@ class AnimatedGl( pan.Animation ):
             glRotatef( self.__init_rot[0] , self.__init_rot[1][0] , self.__init_rot[1][1] , self.__init_rot[1][2] )
             self.rot_matrix = glGetFloatv( GL_MODELVIEW_MATRIX )
             glPopMatrix()
+            
+        if self.draw_vector_field :
+            self.vector_field.ogl_init()
         
         
     def data_stream(self):

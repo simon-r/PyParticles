@@ -166,9 +166,9 @@ class DrawVectorField( object ):
         
         for i in range(sz):
             
-            x = self.__X[i,0]
-            y = self.__X[i,1]
-            z = self.__X[i,2]
+            x = self.__X[i,0] / self.__density
+            y = self.__X[i,1] / self.__density
+            z = self.__X[i,2] / self.__density
             
             transf.push_matrix()
             transf.translation( x , y , z )
@@ -192,13 +192,13 @@ class DrawVectorField( object ):
             
             glColor4f( color[0] , color[1] , color[2] , color[3] )
             
-            ptb = ptb / self.__density
+            #ptb = ptb / self.__density
             
-            print("----------------------")
-            print( pta / self.__density )
-            print( ptb )
+#            print("----------------------")
+#            print( pta )
+#            print( ptb )
             
-            glVertex3fv( pta / self.__density )
+            glVertex3fv( pta )
             glVertex3fv( ptb )
             
         glEnd()

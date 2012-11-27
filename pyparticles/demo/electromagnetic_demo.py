@@ -103,7 +103,7 @@ def electromag_field():
     a.ylim = ( -pset.unit*5.0 , pset.unit*5.0 )
     a.zlim = ( -pset.unit*5.0 , pset.unit*5.0 )
     
-    a.add_vector_field_fun( magnetic_field , 1000.0 , pset.unit )
+    a.add_vector_field_fun( magnetic_field , 2000.0 , pset.unit )
     a.draw_vector_field = True
     
     a.pset = pset
