@@ -421,7 +421,8 @@ class ParticlesSet(object):
         #print( self.__log_X )
         self.__log_len += max( [ delta_x , delta_v ]  )
         
-            
+    def jump( self , indx ):
+        pass        
 
     def get_logX( self ):
         return self.__log_X

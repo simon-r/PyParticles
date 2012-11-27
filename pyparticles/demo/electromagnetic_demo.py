@@ -57,6 +57,7 @@ def electromag_field():
     """
     
     steps = 1000000
+    size = 1000
     dt = 1e-4
     
     qe = 1.60217646e-19 
@@ -64,28 +65,14 @@ def electromag_field():
     me = 9.10938188e-31
     mp = 1.67262158e-18
     
-    pset = ps.ParticlesSet( 10 , charge=True )
+    pset = ps.ParticlesSet( size , charge=True )
     
-    pset.X[:] = 1.0e-3 * np.array( [
-                            [ 0.0 , 0.0 , 0.0  ] ,
-                            [ 0.0 , 0.0 , 1.0  ] ,
-                            [ 0.0 , 0.0 , -1.0  ] ,
-                            [ 0.0 , 1.0 , 1.0  ] ,
-                            [ -1.0 , -1.0 , -1.0  ] ,
-                            [ 2.0 , -2.0 , 4.0  ] ,
-                            [ 4.0 , 7.0 , 2.0  ] ,
-                            [ -3.0 , -5.0 , 1.0  ] ,
-                            [ 4.0 , 4.0 , -7.0  ] ,
-                            [ 2.0 , 8.0 , -6.0  ] 
-                            ]
-                        )
+    pset.X[:] = 10.0e-3 * ( ( 2.0*np.random.rand( size , 3 ) - 1.0 )  )
     
-    pset.Q[:5] = qe
-    pset.Q[5:10] = -qe
+    pset.Q[:] = qe * np.sign( np.random.rand( size , 1 ) - 0.5 )
     
-    pset.V[:5] =  np.array( [ 0.1 , 0 , 0  ] ) 
-    pset.V[5:10] =  np.array( [ -0.1 , 0 , -0.3  ] ) 
-    
+    pset.V[:] = 0.5 * ( ( np.random.rand( size , 3 ) - 0.5 ) / 2.0 )
+     
     pset.M[:] = mp
     
     elmag = elmf.ElectromagneticField( pset.size , dim=pset.dim , m=pset.M , q=pset.Q )
@@ -96,8 +83,8 @@ def electromag_field():
     #solver = els.EulerSolver( elmag , pset , dt )
     #solver = lps.LeapfrogSolver( elmag , pset , dt )
     #solver = svs.StormerVerletSolver( elmag , pset , dt )
-    solver = rks.RungeKuttaSolver( elmag , pset , dt )    
-    #solver = mds.MidpointSolver( elmag , pset , dt )
+    #solver = rks.RungeKuttaSolver( elmag , pset , dt )    
+    solver = mds.MidpointSolver( elmag , pset , dt )
     
     pset.unit = 2e-3
     pset.mass_unit = 1e-3   
@@ -105,7 +92,7 @@ def electromag_field():
     bound = db.DefaultBoundary( ( -pset.unit*5.0 , pset.unit*5.0 ) , dim=3 , defualt_pos=default_pos )
     pset.set_boundary(bound)
     
-    pset.enable_log( True , log_max_size=1000 )
+    pset.enable_log( True , log_max_size=200 )
     
     solver.update_force()
     
@@ -113,7 +100,7 @@ def electromag_field():
     
     a.ode_solver = solver
     
-    a.trajectory = True
+    a.trajectory = False
     
     a.xlim = ( -pset.unit*5.0 , pset.unit*5.0 )
     a.ylim = ( -pset.unit*5.0 , pset.unit*5.0 )
@@ -122,7 +109,7 @@ def electromag_field():
     a.add_vector_field_fun( magnetic_field , 2000.0 , pset.unit , color_fun=magf_color )
     a.add_vector_field_fun( electric_field , 50.0 ,  pset.unit , color_fun=elf_color )
     
-    a.draw_vector_field = True
+    a.draw_vector_field = False
     
     a.pset = pset
     a.steps = steps

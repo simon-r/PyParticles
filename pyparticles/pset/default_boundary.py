@@ -42,10 +42,8 @@ class DefaultBoundary( bd.Boundary ):
     def boundary( self , p_set ):
         for i in range( self.dim ) :
             
-            print( self.bound )
-            
-            b_mi = np.where( p_set.X[:,i] < self.bound[i,0] )
-            b_mx = np.where( p_set.X[:,i] > self.bound[i,1] )
+            b_mi, = np.where( p_set.X[:,i] < self.bound[i,0] )
+            b_mx, = np.where( p_set.X[:,i] > self.bound[i,1] )
             
             if len( b_mi ) > 0 :
                 self.__defualt_pos( p_set , b_mi )

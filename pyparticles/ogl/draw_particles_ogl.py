@@ -29,8 +29,10 @@ def charged_particles_color( pset , i ):
     
     if pset.Q[i] > 0.0 :
         return ( 1.0 , a , a , 1.0 )
-    else :
+    elif pset.Q[i] < 0.0 :
         return ( a , a , 1.0 , 1.0 )
+    else :
+        return ( a , a , a , 1.0 )
 
 
 class DrawParticlesGL(object):
