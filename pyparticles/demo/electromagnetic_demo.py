@@ -35,7 +35,8 @@ def electric_field( E , X ):
     
 
 def magnetic_field( B , X ):
-    B[:] = np.array( [ 0 , 0 , 1000 ] )
+    B[:] = 1000.0 * np.sin( 500.0 * X )
+    #B[:] = np.array( [ 500 , 1000 , 1000 ] )
     
 
 def electromag_field():

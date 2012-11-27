@@ -96,7 +96,7 @@ class DrawVectorField( object ):
             z = z + de
     
     def _default_color( self , RGBA , X ):
-        RGBA[:] = np.array([ 0.7 , 0.7 , 0.0 , 1.0 ])
+        RGBA[:] = np.array([ 0.7 , 0.7 , 0.0 , 0.5 ])
     
     def add_vector_fun( self , fun , unit_len=1.0 , color_fun=None ,  key=None , time_dep=False ):
         r"""
@@ -150,7 +150,7 @@ class DrawVectorField( object ):
         sz = self.__X.shape[0]
         
         transf = tr.Transformations()
-        transf.set_points_tuple_size(2)
+        transf.set_points_tuple_size(6)
         
         self.__fields[key]["fun"]( self.__V , self.__X )
         
@@ -181,25 +181,31 @@ class DrawVectorField( object ):
             transf.append_point( [ 0 , 0 , 0 ] )
             transf.append_point( [ le , 0 , 0 ] )
             
+            transf.append_point( [ le , 0 , 0 ] )
+            transf.append_point( [ 0.8*le , 0.1*le , 0 ] )
+            
+            transf.append_point( [ le , 0 , 0 ] )
+            transf.append_point( [ 0.8*le , -0.1*le , 0 ] )
+            
             transf.pop_matrix()
         
         color = np.zeros((4))
         
         glBegin(GL_LINES)
             
-        for ( pta , ptb ) in transf :
-            self.__fields[key]["color_fun"]( color , pta )
+        for  pts in transf :
+            self.__fields[key]["color_fun"]( color , pts[0] )
             
             glColor4f( color[0] , color[1] , color[2] , color[3] )
             
-            #ptb = ptb / self.__density
+            glVertex3fv( pts[0] )
+            glVertex3fv( pts[1] )
             
-#            print("----------------------")
-#            print( pta )
-#            print( ptb )
+            glVertex3fv( pts[2] )
+            glVertex3fv( pts[3] )
             
-            glVertex3fv( pta )
-            glVertex3fv( ptb )
+            glVertex3fv( pts[4] )
+            glVertex3fv( pts[5] )
             
         glEnd()
     
