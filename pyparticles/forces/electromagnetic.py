@@ -42,6 +42,8 @@ class Electromagnetic( fr.Force ) :
         self.__Q = np.zeros( ( size , size ) )
         self.__M = np.zeros( ( size , 1 ) )
         
+        self.__r = np.zeros( ( size , dim ) )
+        
         self.__Cr = np.zeros( ( size , dim ) )
         
         if m != None :
@@ -68,6 +70,20 @@ class Electromagnetic( fr.Force ) :
             self.__V[:,:] = ( self.__V[:,:].T - p_set.X[:,i] ).T 
                         
             self.__Ae[:,i] = np.sum( self.__Fe * self.__V[:,:] , 0 ) 
+        
+        r = self.__r
+        for j in range( self.__size ) :
+            r[:] = p_set.X[j,:] - p_set.X[:]
+            r[:] = (r.T / np.sqrt( np.sum(r**2,1))).T
+            
+            r[:] = np.cross( p_set.V[:] , r[:] )
+            r[:] = np.cross( p_set.V[j,:] , r[:] )
+            
+            r[j,:] = 0.0
+            
+            
+            
+            
         
         #print( self.__X )
         self.__A[:] = self.__Ae + self.__Am
