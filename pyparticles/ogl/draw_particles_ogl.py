@@ -138,8 +138,6 @@ class DrawParticlesGL(object):
         if self.pset.log_size < self.trajectory_step + 1 :
             return 
         
-        
-        
         unit = self.pset.unit
         glLineWidth( 1.0 )
         

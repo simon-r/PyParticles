@@ -58,6 +58,7 @@ import pyparticles.demo.springs_constr as spc
 import pyparticles.demo.test as tst
 import pyparticles.demo.electrostatic_demo as eld
 import pyparticles.demo.electromagnetic_demo as emd
+import pyparticles.demo.fountain as fou
 
 import pyparticles.utils.parse_args as arg 
 
@@ -106,6 +107,12 @@ def main():
         print( "" )
         return     
     
+    if options.demo == "fountain" :
+        print("")
+        print("Start the simulation example:")
+        print(" 3 body springs")
+        fou.fountain()
+        return    
     
     if options.demo == "springs" :
         print("")
