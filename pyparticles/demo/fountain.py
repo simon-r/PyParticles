@@ -39,14 +39,16 @@ def default_pos( pset , indx ):
     
     pset.X[indx,:] = 0.01 * np.random.rand( len(indx) , pset.dim )
     
-    fs = 1.0 / ( 1.0 + np.exp( -( t - 3.0 ) ) ) 
+    fs = 1.0 / ( 1.0 + np.exp( -( t - 2.0 ) ) ) 
     
-    vel_z = 10.0 * fs
-    vel_xy = 1 * fs
+    alpha = 2.0 * np.pi * np.random.rand( len(indx) ) 
+    
+    vel_x = 2.0 * fs * np.cos( alpha )
+    vel_y = 2.0 * fs * np.sin( alpha )
         
-    pset.V[indx,0] = 2.0 + vel_xy * ( np.random.rand( len(indx)) - 0.5 )
-    pset.V[indx,1] = vel_xy * ( np.random.rand( len(indx)) - 0.5 )
-    pset.V[indx,2] = 2.0 + vel_z * ( np.random.rand( len(indx)) )
+    pset.V[indx,0] = vel_x  
+    pset.V[indx,1] = vel_y 
+    pset.V[indx,2] = 10.0 * fs + 1.0 * fs * ( np.random.rand( len(indx)) )
 
 
 def fountain():
@@ -54,12 +56,12 @@ def fountain():
     steps = 10000000
     dt = 0.01
     
-    pcnt = 2000
+    pcnt = 250000
     
     pset = ps.ParticlesSet( pcnt )
     
-    pset.M[:] = 1.0
-    pset.X[:,2] = 0.5 * np.random.rand( pset.size )
+    pset.M[:] = 0.1
+    pset.X[:,2] = 0.7 * np.random.rand( pset.size )
     
     vel = 0.05
     pset.V[:,0] = vel * ( np.random.rand( pset.size , 1 ) - 0.5 ).T
@@ -91,6 +93,8 @@ def fountain():
     a.ode_solver = solver
     a.pset = pset
     a.steps = steps
+    
+    a.draw_particles.set_draw_model( 1 )
     
     a.init_rotation( -80 , [ 0.7 , 0.05 , 0 ]  )
     
