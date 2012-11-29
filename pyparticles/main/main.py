@@ -110,7 +110,7 @@ def main():
     if options.demo == "fountain" :
         print("")
         print("Start the simulation example:")
-        print(" 3 body springs")
+        print(" 250K Particles fountain")
         fou.fountain()
         return    
     
