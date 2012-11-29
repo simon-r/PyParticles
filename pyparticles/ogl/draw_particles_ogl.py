@@ -37,6 +37,9 @@ def charged_particles_color( pset , i ):
 
 class DrawParticlesGL(object):
     
+    DRAW_MODEL_LOOP = 0
+    DRAW_MODEL_VECTOR = 1 
+    
     def __init__( self , pset=None ):
         self.pset = pset
         self.__trajectory = False
@@ -49,6 +52,10 @@ class DrawParticlesGL(object):
         self.__sph_dl = None
         self.__tea_dl = None
         self.__pt_dl = None
+        
+        self.__draw_model = self.DRAW_MODEL_LOOP
+        
+        self.__init_vect_fl = False
         
     def __del__(self):
         if self.__sph_dl != None :
@@ -129,9 +136,13 @@ class DrawParticlesGL(object):
             self.__draw_particle = self.draw_particle
         elif model == "sphere" :
             self.__draw_particle = self.draw_particle_sphere
-        if model == "teapot" :
+        elif model == "teapot" :
             self.__draw_particle = self.draw_particle_teapot            
     
+    
+    def set_draw_model( self , model ):
+        self.__draw_model = model
+        
     
     def draw_trajectory(self):
         
@@ -216,25 +227,34 @@ class DrawParticlesGL(object):
         
         glPopMatrix()
     
+    def _draw_vectorized(self):
+        
+        if not self.__init_vect_fl :
+            self.__indices = np.arange( self.pset.size * 3 , dtype=np.uint )
+            self.__init_vect_fl = True
+        
+        glEnableClientState(GL_VERTEX_ARRAY)
+        glVertexPointer( 3 , GL_FLOAT , 0 , self.pset.X )
+        glDrawElements( GL_POINTS , self.pset.size , GL_UNSIGNED_INT , self.__indices )
+        glDisableClientState(GL_VERTEX_ARRAY)
+        
     
     def draw(self):
-         
-        glPointParameterf( GL_POINT_SIZE_MAX , 10.0 )
-        glPointParameterf( GL_POINT_SIZE_MIN , 4.0 )    
-    
-        unit = self.pset.unit
-        mass_unit = self.pset.mass_unit
-    
-        glEnable(GL_POINT_SMOOTH)
-    
-        for i in range( self.pset.size ):
-            self.__draw_particle( self.pset , i )
-            
         
+        if self.__draw_model == self.DRAW_MODEL_LOOP : 
+            glPointParameterf( GL_POINT_SIZE_MAX , 10.0 )
+            glPointParameterf( GL_POINT_SIZE_MIN , 4.0 )    
+    
+            glEnable(GL_POINT_SMOOTH)
+    
+            for i in range( self.pset.size ):
+                self.__draw_particle( self.pset , i )
             
-        if self.pset.log_X_enabled and self.trajectory :
-            self.draw_trajectory()
-
+            if self.pset.log_X_enabled and self.trajectory :
+                self.draw_trajectory()
+                
+        elif self.__draw_model == self.DRAW_MODEL_VECTOR :
+            self._draw_vectorized()
                 
 
 
