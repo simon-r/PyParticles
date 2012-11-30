@@ -87,7 +87,7 @@ As a second point define the initial positions of the particles, in order to gen
         pset.V[:,2] = vel * ( np.random.rand( pset.size , 1 ) ).T
     
     
-The force model is based on a combination between the constant force, for simulating the gravity, and the drag for simulating the friction of the air. 
+The force model is based on a combination between a constant force, for simulating the gravity, and the drag for simulating the friction of the air. 
 
 The two forces must be stored in an object of type  MultipleForce.
 :: 
@@ -114,7 +114,12 @@ Set up the simulation time in the *default_pos* function, used for modeling the 
         default_pos.sim_time = solver.get_sim_time()
         
         
-Build the boundary model   
+Build the boundary model:
+
+The tuples bd represents the size of the box closed domain: :math:`( min_x , max_x , min_y , max_y , min_z , max_z )`
+
+.. note::
+    The class DefaultBoundary positions the particles exited from the limits of the domain according to the function defualt_pos
 ::    
 
         bd = ( -100.0 , 100.0 , -100.0 , 100.0 , 0.0 , 100.0 )
@@ -122,19 +127,28 @@ Build the boundary model
     
         pset.set_boundary( bound )
     
-mmmmmmmmmm
-    a = aogl.AnimatedGl()
-    
-    a.ode_solver = solver
-    a.pset = pset
-    a.steps = steps
+Build the 'animation' class and start.
+
+.. note::
+    a.init_rotation( -80 , [ 0.7 , 0.05 , 0 ]  )
+        setup an initial rotation where parameters are ( rot angle , axis of rotation )
     
     a.draw_particles.set_draw_model( 1 )
+        enable the vectorized rendering, that is fundamental for drawing 250'000 particles
+::
+
+        a = aogl.AnimatedGl()
     
-    a.init_rotation( -80 , [ 0.7 , 0.05 , 0 ]  )
+        a.ode_solver = solver
+        a.pset = pset
+        a.steps = steps
     
-    a.build_animation()
-    a.start()
+        a.draw_particles.set_draw_model( 1 )
     
-    return
+        a.init_rotation( -80 , [ 0.7 , 0.05 , 0 ]  )
+    
+        a.build_animation()
+        a.start()
+    
+        return
 

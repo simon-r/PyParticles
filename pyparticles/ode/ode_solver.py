@@ -46,13 +46,10 @@ class OdeSolver(object) :
     
     Constructor:
     
-        =========  ================
-        Arguments
-        =========  ================
-        force      the force model
-        p_set      the particle set
-        dt         delta time
-        =========  ================    
+        :param force:      the force model
+        :param p_set:      the particle set
+        :param dt:         delta time
+            
     
     """
     def __init__( self , force , p_set , dt ):

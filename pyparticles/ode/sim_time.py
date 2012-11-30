@@ -19,11 +19,10 @@ class SimTime( object ):
     """
     Class used for storing the current simulation time:
     
-    ========== ===========================================================
-    Arguments
-    ========== ===========================================================
-    controller a reference to the object that control the simulation time
-    ========== ===========================================================
+    Constructor
+    
+    :param controller: a reference to the object that control the simulation time
+    
     """
     def __init__( self , controller ):
         self.__time = 0.0
@@ -45,6 +44,11 @@ class SimTime( object ):
     
     
     def get_controller( self ):
+        r"""
+        Get a reference to the simulation time controller, normally an ODE solver
+        
+        :returns the reference to the ODE solver object
+        """
         return self.__controller
     
     controller = property( get_controller , doc="get the reference to the time controller" )
