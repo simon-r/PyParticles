@@ -31,6 +31,8 @@ from OpenGL.GL import *
 from OpenGL.GLUT import *
 from OpenGL.GLU import *
 
+import time
+
 
 def InitGL( Width , Height , ReSizeFun ):
     """
@@ -329,7 +331,7 @@ def print_measures():
     
 
 def glut_print( x,  y,  font,  text, r,  g , b , a):
-    
+        
     blending = False 
     if glIsEnabled(GL_BLEND) :
         blending = True
@@ -622,11 +624,16 @@ class AnimatedGl( pan.Animation ):
         
     def data_stream(self):
         
+        #a = time.time()
+        
         self.pset.log()
         
         self.ode_solver.step()
         
         self.perform_measurement()
+        
+        #b = time.time()
+        #print( "step_time = %f " % (b-a) )
         
         return self.ode_solver.steps_cnt
         

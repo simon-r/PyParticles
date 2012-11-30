@@ -23,7 +23,6 @@ from OpenGL.GL import *
 from OpenGL.GLUT import *
 from OpenGL.GLU import *
 
-
 def charged_particles_color( pset , i ):
     a = 0.4 
     
@@ -39,14 +38,24 @@ def rand_vect_colors( RGBA , pset ):
 
 def charged_particles_vect_color( RGBA , pset ):
     a = 0.4
-    RGBA[ pset.Q[:] > 0.0 ] = np.array( [ 1.0 , a , a , 1.0 ] )
-    RGBA[ pset.Q[:] < 0.0 ] = np.array( [ a , a , 1.0 , 1.0 ] )
-    RGBA[ pset.Q[:] == 0.0 ] = np.array( [ a , a , a , 1.0 ] )
+    
+    i, foo = np.where( pset.Q > 0.0 )
+    RGBA[ i , : ] = np.array( [ 1.0 , a , a , 1.0 ] )
+    
+    i, foo = np.where( pset.Q < 0.0 )
+    RGBA[ i , : ] = np.array( [ a , a , 1.0 , 1.0 ] )
+    
+    i, foo = np.where( pset.Q == 0.0 )
+    RGBA[ i , : ] = np.array( [ a , a , a , 1.0 ] )
 
 class DrawParticlesGL(object):
     
     DRAW_MODEL_LOOP = 0
-    DRAW_MODEL_VECTOR = 1 
+    DRAW_MODEL_VECTOR = 1
+    
+    PARTICLE_MODEL_POINT  = "point"
+    PARTICLE_MODEL_SPHERE = "sphere"
+    PARTICLE_MODEL_TEAPOT = "teapot"
     
     def __init__( self , pset=None ):
         self.pset = pset
@@ -268,7 +277,7 @@ class DrawParticlesGL(object):
         if self.__vect_color_fun_fl :
             glColorPointer( 4 , GL_FLOAT , 0 , self.__color_vect )
         
-        glVertexPointer( 3 , GL_FLOAT , 0 , self.pset.X )
+        glVertexPointer( 3 , GL_FLOAT , 0 , self.pset.X / self.pset.unit )
         glDrawElements( GL_POINTS , self.pset.size , GL_UNSIGNED_INT , self.__indices )
         
         glDisableClientState(GL_VERTEX_ARRAY)

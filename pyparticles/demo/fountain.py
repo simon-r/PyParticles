@@ -91,7 +91,7 @@ def fountain():
     a.pset = pset
     a.steps = steps
     
-    a.draw_particles.set_draw_model( 1 )
+    a.draw_particles.set_draw_model( a.draw_particles.DRAW_MODEL_VECTOR )
     
     a.init_rotation( -80 , [ 0.7 , 0.05 , 0 ]  )
     

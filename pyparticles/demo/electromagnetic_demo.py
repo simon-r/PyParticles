@@ -48,7 +48,7 @@ def elf_color( RGBA , X ):
 
 def default_pos( pset , indx ):
     pset.X[indx,:] = 0.0
-    pset.V[indx,:] = ( ( np.random.rand( len(indx) , 3 ) - 0.5 ) / 2.0 )
+    pset.V[indx,:] = ( ( np.random.rand( len(indx) , 3 ) - 0.5 ) / 3.0 )
 
 
 def electromag_field():
@@ -57,7 +57,7 @@ def electromag_field():
     """
     
     steps = 1000000
-    size = 1000
+    size = 25000
     dt = 1e-4
     
     qe = 1.60217646e-19 
@@ -115,6 +115,10 @@ def electromag_field():
     a.steps = steps
     
     a.draw_particles.color_fun = drp.charged_particles_color
+    
+    a.draw_particles.vect_color_fun = drp.charged_particles_vect_color
+    
+    a.draw_particles.set_draw_model( a.draw_particles.DRAW_MODEL_VECTOR )
     
     a.build_animation()
         

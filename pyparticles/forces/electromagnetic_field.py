@@ -47,9 +47,6 @@ class ElectromagneticField( fr.Force ) :
         self.__Fe = np.zeros( ( size , dim ) )
         self.__Fm = np.zeros( ( size , dim ) )
         
-        self.__V = np.zeros( ( size , size ) )
-        self.__D = np.zeros( ( size , size ) )
-        self.__Q = np.zeros( ( size , size ) )
         
         self.__M = np.zeros( ( size , 1 ) )
         self.__Q = np.zeros( ( size , 1 ) )
