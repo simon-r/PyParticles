@@ -145,14 +145,14 @@ def main():
     if options.demo == "el_static" :
         print("")
         print("Start the simulation example:")
-        print(" electro static")
+        print(" electrostatic")
         eld.electro()
         return  
     
     if options.demo == "elmag_field" :
         print("")
         print("Start the simulation example:")
-        print(" electro magnetic fields")
+        print(" electromagnetic fields")
         emd.electromag_field()
         return      
     
