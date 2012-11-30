@@ -39,7 +39,7 @@ def default_pos( pset , indx ):
     
     pset.X[indx,:] = 0.01 * np.random.rand( len(indx) , pset.dim )
     
-    fs = 1.0 / ( 1.0 + np.exp( -( t - 2.0 ) ) ) 
+    fs = 1.0 / ( 1.0 + np.exp( -( t*4.0 - 2.0 ) ) ) 
     
     alpha = 2.0 * np.pi * np.random.rand( len(indx) ) 
     
@@ -52,7 +52,9 @@ def default_pos( pset , indx ):
 
 
 def fountain():
-    
+    """
+    Fountain demo
+    """
     steps = 10000000
     dt = 0.01
     
@@ -62,12 +64,7 @@ def fountain():
     
     pset.M[:] = 0.1
     pset.X[:,2] = 0.7 * np.random.rand( pset.size )
-    
-    vel = 0.05
-    pset.V[:,0] = vel * ( np.random.rand( pset.size , 1 ) - 0.5 ).T
-    pset.V[:,1] = vel * ( np.random.rand( pset.size , 1 ) - 0.5 ).T
-    pset.V[:,2] = vel * ( np.random.rand( pset.size , 1 ) ).T
-    
+        
     grav = cf.ConstForce( pset.size , dim=pset.dim , u_force=( 0.0 , 0.0 , -10.0 ) )
     drag = dr.Drag( pset.size , dim=pset.dim , Consts=0.01 )
     

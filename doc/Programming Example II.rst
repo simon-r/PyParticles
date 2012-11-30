@@ -86,11 +86,6 @@ As a second point define the initial positions of the particles, in order to gen
         pset.M[:] = 0.1
         pset.X[:,2] = 0.7 * np.random.rand( pset.size )
     
-        vel = 0.05
-        pset.V[:,0] = vel * ( np.random.rand( pset.size , 1 ) - 0.5 ).T
-        pset.V[:,1] = vel * ( np.random.rand( pset.size , 1 ) - 0.5 ).T
-        pset.V[:,2] = vel * ( np.random.rand( pset.size , 1 ) ).T
-    
 Forces model
 ++++++++++++
     
