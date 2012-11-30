@@ -37,6 +37,11 @@ def charged_particles_color( pset , i ):
 def rand_vect_colors( RGBA , pset ):
     RGBA[:] = np.random.rand( pset.size , 4 )
 
+def charged_particles_vect_color( RGBA , pset ):
+    a = 0.4
+    RGBA[ pset.Q[:] > 0.0 ] = np.array( [ 1.0 , a , a , 1.0 ] )
+    RGBA[ pset.Q[:] < 0.0 ] = np.array( [ a , a , 1.0 , 1.0 ] )
+    RGBA[ pset.Q[:] == 0.0 ] = np.array( [ a , a , a , 1.0 ] )
 
 class DrawParticlesGL(object):
     
@@ -102,6 +107,15 @@ class DrawParticlesGL(object):
                                                             " definition of the function color,"
                                                             " it take as args a particle_set obj. and the particle index "
                                                             " \n (R,G,B,A) = cfun( pset , index ) " )
+    
+    def set_vect_color_fun( self , fun ):
+        self.__vect_color_fun = fun
+    
+    def get_vect_color_fun( self , fun ):
+        return self.__vect_color_fun
+    
+    vect_color_fun = property( get_vect_color_fun , set_vect_color_fun , doc="get and set the vector color function")
+    
     
     def get_trajectory( self ) :
         return self.__trajectory
@@ -239,24 +253,28 @@ class DrawParticlesGL(object):
             self.__indices = np.arange( self.pset.size * 3 , dtype=np.uint )
             self.__init_vect_fl = True
         
-#        if not self.__vect_color_fun_fl and self.__vect_color_fun != None :
-#            self.__color_vect = np.zeros(( self.pset.size , 4 ))
-#            self.__vect_color_fun( self.__color_vect , self.pset )
-#            self.__vect_color_fun_fl = True
+        if not self.__vect_color_fun_fl and self.__vect_color_fun != None :
+            self.__color_vect = np.zeros(( self.pset.size , 4 ))
+            self.__vect_color_fun( self.__color_vect , self.pset )
+            self.__vect_color_fun_fl = True
         
         #glColor4f( *self.__color_fun( self.pset , 1 ) )
         
-#        glEnableClientState(GL_COLOR_ARRAY)
+        if self.__vect_color_fun_fl :
+            glEnableClientState(GL_COLOR_ARRAY)
+            
         glEnableClientState(GL_VERTEX_ARRAY)
         
-#        if self.__vect_color_fun_fl :
-#            glColorPointer( 4 , GL_FLOAT , 0 , self.__color_vect )
+        if self.__vect_color_fun_fl :
+            glColorPointer( 4 , GL_FLOAT , 0 , self.__color_vect )
         
         glVertexPointer( 3 , GL_FLOAT , 0 , self.pset.X )
         glDrawElements( GL_POINTS , self.pset.size , GL_UNSIGNED_INT , self.__indices )
         
-#        glDisableClientState(GL_VERTEX_ARRAY)
-        glEnableClientState(GL_COLOR_ARRAY)
+        glDisableClientState(GL_VERTEX_ARRAY)
+        
+        if self.__vect_color_fun_fl :
+            glEnableClientState(GL_COLOR_ARRAY)
         
     
     def draw(self):
