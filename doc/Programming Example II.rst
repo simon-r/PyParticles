@@ -36,7 +36,8 @@ And I use the default_boundary model to control the jet. ::
     import pyparticles.pset.default_boundary as db
 
 
-**Let's start**
+Let's start
++++++++++++
     
 As first I've defined the function for modeling the jet. This function will be used by the boundary controller. 
 
@@ -60,6 +61,8 @@ This is a time-dependent function. And for convenience time is defined as variab
         pset.V[indx,1] = vel_y 
         pset.V[indx,2] = 10.0 * fs + 1.0 * fs * ( np.random.rand( len(indx)) )
 
+the main function
++++++++++++++++++
 
 And finally you can start with the main function: 
     As first I've defined the number of steps the *dt* (step time), the size of the particle set and the **particles set** pset   
@@ -74,6 +77,8 @@ And finally you can start with the main function:
         
         pset = ps.ParticlesSet( pcnt )
     
+Initial position
+++++++++++++++++
     
 As a second point define the initial positions of the particles, in order to generate a continuous stream.
 ::    
@@ -86,6 +91,8 @@ As a second point define the initial positions of the particles, in order to gen
         pset.V[:,1] = vel * ( np.random.rand( pset.size , 1 ) - 0.5 ).T
         pset.V[:,2] = vel * ( np.random.rand( pset.size , 1 ) ).T
     
+Forces model
+++++++++++++
     
 The force model is based on a combination between a constant force, for simulating the gravity, and the drag for simulating the friction of the air. 
 
@@ -102,11 +109,17 @@ The two forces must be stored in an object of type  MultipleForce.
     
         multi.set_masses( pset.M )
    
+ODE integration
++++++++++++++++ 
+   
 As a ODE numerical integration method I've used the mid point algorithm. 
 ::
    
         solver = mds.MidpointSolver( multi , pset , dt )
         solver.update_force()
+    
+Simulation time
++++++++++++++++
     
 Set up the simulation time in the *default_pos* function, used for modeling the jet.
 ::
@@ -114,7 +127,8 @@ Set up the simulation time in the *default_pos* function, used for modeling the 
         default_pos.sim_time = solver.get_sim_time()
         
         
-Build the boundary model:
+Build the boundary model
+++++++++++++++++++++++++
 
 The tuples bd represents the size of the box closed domain: :math:`( min_x , max_x , min_y , max_y , min_z , max_z )`
 
@@ -127,7 +141,8 @@ The tuples bd represents the size of the box closed domain: :math:`( min_x , max
     
         pset.set_boundary( bound )
     
-Build the 'animation' class and start.
+Build the 'animation' class and start
++++++++++++++++++++++++++++++++++++++
 
 .. note::
     a.init_rotation( -80 , [ 0.7 , 0.05 , 0 ]  )
