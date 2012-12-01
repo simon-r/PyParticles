@@ -81,7 +81,7 @@ class Electromagnetic( fr.Force ) :
             
             r[j,:] = 0.0
             
-            
+            self.__Am[j,:] = np.sum( self.__Fm[:,j] * r[:] , 0 ) / self.__M[j]
             
             
         
