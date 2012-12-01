@@ -634,7 +634,7 @@ class AnimatedGl( pan.Animation ):
         
         #b = time.time()
         #print( "step_time = %f " % (b-a) )
-        
+
         return self.ode_solver.steps_cnt
         
     
