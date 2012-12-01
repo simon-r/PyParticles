@@ -9,6 +9,31 @@ ode Package
     :undoc-members:
     :show-inheritance:
 
+
+:mod:`ode_solver` Module
+------------------------
+
+.. automodule:: pyparticles.ode.ode_solver
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+:mod:`ode_solver_constrained` Module
+------------------------------------
+
+.. automodule:: pyparticles.ode.ode_solver_constrained
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+:mod:`sim_time` Module
+------------------------------------
+
+.. automodule:: pyparticles.ode.sim_time
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 :mod:`euler_solver` Module
 --------------------------
 
@@ -53,22 +78,6 @@ ode Package
 -----------------------------------------
 
 .. automodule:: pyparticles.ode.midpoint_solver_constrained
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-:mod:`ode_solver` Module
-------------------------
-
-.. automodule:: pyparticles.ode.ode_solver
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-:mod:`ode_solver_constrained` Module
-------------------------------------
-
-.. automodule:: pyparticles.ode.ode_solver_constrained
     :members:
     :undoc-members:
     :show-inheritance:

@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>animation Package &mdash; PyParticles 0.3.2 documentation</title>
+    <title>animation Package &mdash; PyParticles 0.3.3 documentation</title>
     
     <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.3.2',
+        VERSION:     '0.3.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="PyParticles 0.3.2 documentation" href="index.html" />
+    <link rel="top" title="PyParticles 0.3.3 documentation" href="index.html" />
     <link rel="up" title="pyparticles Package" href="pyparticles.html" />
     <link rel="next" title="demo Package" href="pyparticles.demo.html" />
     <link rel="prev" title="pyparticles Package" href="pyparticles.html" /> 
@@ -46,7 +46,7 @@
         <li class="right" >
           <a href="pyparticles.html" title="pyparticles Package"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">PyParticles 0.3.2 documentation</a> &raquo;</li>
+        <li><a href="index.html">PyParticles 0.3.3 documentation</a> &raquo;</li>
           <li><a href="pyparticles.html" accesskey="U">pyparticles Package</a> &raquo;</li> 
       </ul>
     </div>
@@ -327,6 +327,11 @@ start: start the smulation</dd>
 <em class="property">class </em><tt class="descclassname">pyparticles.animation.animated_ogl.</tt><tt class="descname">AnimatedGl</tt><a class="headerlink" href="#pyparticles.animation.animated_ogl.AnimatedGl" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#pyparticles.animation.animation.Animation" title="pyparticles.animation.animation.Animation"><tt class="xref py py-class docutils literal"><span class="pre">pyparticles.animation.animation.Animation</span></tt></a></p>
 <dl class="method">
+<dt id="pyparticles.animation.animated_ogl.AnimatedGl.add_vector_field_fun">
+<tt class="descname">add_vector_field_fun</tt><big>(</big><em>fun</em>, <em>unit</em>, <em>density=1.0</em>, <em>color_fun=None</em><big>)</big><a class="headerlink" href="#pyparticles.animation.animated_ogl.AnimatedGl.add_vector_field_fun" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="pyparticles.animation.animated_ogl.AnimatedGl.build_animation">
 <tt class="descname">build_animation</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.animation.animated_ogl.AnimatedGl.build_animation" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -334,6 +339,22 @@ start: start the smulation</dd>
 <dl class="method">
 <dt id="pyparticles.animation.animated_ogl.AnimatedGl.data_stream">
 <tt class="descname">data_stream</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.animation.animated_ogl.AnimatedGl.data_stream" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyparticles.animation.animated_ogl.AnimatedGl.draw_vector_field">
+<tt class="descname">draw_vector_field</tt><a class="headerlink" href="#pyparticles.animation.animated_ogl.AnimatedGl.draw_vector_field" title="Permalink to this definition">¶</a></dt>
+<dd><p>enable or disable (True of False) vector filed drawing (if available)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.animation.animated_ogl.AnimatedGl.get_draw_vector_field">
+<tt class="descname">get_draw_vector_field</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.animation.animated_ogl.AnimatedGl.get_draw_vector_field" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.animation.animated_ogl.AnimatedGl.get_light">
+<tt class="descname">get_light</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.animation.animated_ogl.AnimatedGl.get_light" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -397,6 +418,12 @@ start: start the smulation</dd>
 <dd></dd></dl>
 
 <dl class="attribute">
+<dt id="pyparticles.animation.animated_ogl.AnimatedGl.light">
+<tt class="descname">light</tt><a class="headerlink" href="#pyparticles.animation.animated_ogl.AnimatedGl.light" title="Permalink to this definition">¶</a></dt>
+<dd><p>enable or disable (True or False) the opengl lighting</p>
+</dd></dl>
+
+<dl class="attribute">
 <dt id="pyparticles.animation.animated_ogl.AnimatedGl.perspective">
 <tt class="descname">perspective</tt><a class="headerlink" href="#pyparticles.animation.animated_ogl.AnimatedGl.perspective" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -419,6 +446,16 @@ start: start the smulation</dd>
 <dl class="attribute">
 <dt id="pyparticles.animation.animated_ogl.AnimatedGl.rotation_angle">
 <tt class="descname">rotation_angle</tt><a class="headerlink" href="#pyparticles.animation.animated_ogl.AnimatedGl.rotation_angle" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.animation.animated_ogl.AnimatedGl.set_draw_vector_field">
+<tt class="descname">set_draw_vector_field</tt><big>(</big><em>f</em><big>)</big><a class="headerlink" href="#pyparticles.animation.animated_ogl.AnimatedGl.set_draw_vector_field" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.animation.animated_ogl.AnimatedGl.set_light">
+<tt class="descname">set_light</tt><big>(</big><em>sw</em><big>)</big><a class="headerlink" href="#pyparticles.animation.animated_ogl.AnimatedGl.set_light" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -479,7 +516,7 @@ start: start the smulation</dd>
 <dl class="attribute">
 <dt id="pyparticles.animation.animated_ogl.AnimatedGl.trajectory">
 <tt class="descname">trajectory</tt><a class="headerlink" href="#pyparticles.animation.animated_ogl.AnimatedGl.trajectory" title="Permalink to this definition">¶</a></dt>
-<dd><p>enable or disable the trajectory</p>
+<dd><p>enable or disable (True or False) the trajectory</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -501,7 +538,8 @@ start: start the smulation</dd>
 <dl class="attribute">
 <dt id="pyparticles.animation.animated_ogl.AnimatedGl.win_size">
 <tt class="descname">win_size</tt><a class="headerlink" href="#pyparticles.animation.animated_ogl.AnimatedGl.win_size" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>get or set the size of the current window. The size is a tuple: (w,h)</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="pyparticles.animation.animated_ogl.AnimatedGl.zoom_scene">
@@ -519,7 +557,7 @@ start: start the smulation</dd>
 <dl class="function">
 <dt id="pyparticles.animation.animated_ogl.InitGL">
 <tt class="descclassname">pyparticles.animation.animated_ogl.</tt><tt class="descname">InitGL</tt><big>(</big><em>Width</em>, <em>Height</em>, <em>ReSizeFun</em><big>)</big><a class="headerlink" href="#pyparticles.animation.animated_ogl.InitGL" title="Permalink to this definition">¶</a></dt>
-<dd><p>Inizialise OpenGl</p>
+<dd><p>Initialize OpenGl</p>
 </dd></dl>
 
 <dl class="function">
@@ -549,7 +587,7 @@ start: start the smulation</dd>
 
 <dl class="function">
 <dt id="pyparticles.animation.animated_ogl.Set2DMode">
-<tt class="descclassname">pyparticles.animation.animated_ogl.</tt><tt class="descname">Set2DMode</tt><big>(</big><em>animation</em><big>)</big><a class="headerlink" href="#pyparticles.animation.animated_ogl.Set2DMode" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pyparticles.animation.animated_ogl.</tt><tt class="descname">Set2DMode</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.animation.animated_ogl.Set2DMode" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
@@ -755,7 +793,7 @@ start: start the smulation</dd>
         <li class="right" >
           <a href="pyparticles.html" title="pyparticles Package"
              >previous</a> |</li>
-        <li><a href="index.html">PyParticles 0.3.2 documentation</a> &raquo;</li>
+        <li><a href="index.html">PyParticles 0.3.3 documentation</a> &raquo;</li>
           <li><a href="pyparticles.html" >pyparticles Package</a> &raquo;</li> 
       </ul>
     </div>

@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pyparticles &mdash; PyParticles 0.3.2 documentation</title>
+    <title>pyparticles &mdash; PyParticles 0.3.3 documentation</title>
     
     <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.3.2',
+        VERSION:     '0.3.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="PyParticles 0.3.2 documentation" href="index.html" /> 
+    <link rel="top" title="PyParticles 0.3.3 documentation" href="index.html" /> 
   </head>
   <body>
     <div class="related">
@@ -37,7 +37,7 @@
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="index.html">PyParticles 0.3.2 documentation</a> &raquo;</li> 
+        <li><a href="index.html">PyParticles 0.3.3 documentation</a> &raquo;</li> 
       </ul>
     </div>
       <div class="sphinxsidebar">
@@ -99,16 +99,17 @@
 <li class="toctree-l3"><a class="reference internal" href="pyparticles.forces.html">forces Package</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="pyparticles.forces.html#id1"><tt class="docutils literal"><span class="pre">forces</span></tt> Package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pyparticles.forces.html#module-pyparticles.forces.force"><tt class="docutils literal"><span class="pre">force</span></tt> Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pyparticles.forces.html#module-pyparticles.forces.force_constrained"><tt class="docutils literal"><span class="pre">force_constrained</span></tt> Module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pyparticles.forces.html#module-pyparticles.forces.gravity"><tt class="docutils literal"><span class="pre">gravity</span></tt> Module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pyparticles.forces.html#module-pyparticles.forces.const_force"><tt class="docutils literal"><span class="pre">const_force</span></tt> Module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pyparticles.forces.html#module-pyparticles.forces.drag"><tt class="docutils literal"><span class="pre">drag</span></tt> Module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pyparticles.forces.html#damping-module"><tt class="docutils literal"><span class="pre">damping</span></tt> Module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pyparticles.forces.html#module-pyparticles.forces.electrostatic"><tt class="docutils literal"><span class="pre">electrostatic</span></tt> Module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="pyparticles.forces.html#module-pyparticles.forces.force_constrained"><tt class="docutils literal"><span class="pre">force_constrained</span></tt> Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pyparticles.forces.html#electromagnetic-field-module"><tt class="docutils literal"><span class="pre">electromagnetic_field</span></tt> Module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pyparticles.forces.html#module-pyparticles.forces.lennard_jones"><tt class="docutils literal"><span class="pre">lennard_jones</span></tt> Module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pyparticles.forces.html#module-pyparticles.forces.linear_spring"><tt class="docutils literal"><span class="pre">linear_spring</span></tt> Module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pyparticles.forces.html#module-pyparticles.forces.linear_spring_constrained"><tt class="docutils literal"><span class="pre">linear_spring_constrained</span></tt> Module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="pyparticles.forces.html#module-pyparticles.forces.lorentz"><tt class="docutils literal"><span class="pre">lorentz</span></tt> Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pyparticles.forces.html#lorentz-module"><tt class="docutils literal"><span class="pre">lorentz</span></tt> Module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pyparticles.forces.html#module-pyparticles.forces.multiple_force"><tt class="docutils literal"><span class="pre">multiple_force</span></tt> Module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pyparticles.forces.html#module-pyparticles.forces.pseudo_bubble"><tt class="docutils literal"><span class="pre">pseudo_bubble</span></tt> Module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pyparticles.forces.html#module-pyparticles.forces.van_der_waals_force"><tt class="docutils literal"><span class="pre">van_der_waals_force</span></tt> Module</a></li>
@@ -140,14 +141,15 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="pyparticles.ode.html">ode Package</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="pyparticles.ode.html#id1"><tt class="docutils literal"><span class="pre">ode</span></tt> Package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pyparticles.ode.html#module-pyparticles.ode.ode_solver"><tt class="docutils literal"><span class="pre">ode_solver</span></tt> Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pyparticles.ode.html#module-pyparticles.ode.ode_solver_constrained"><tt class="docutils literal"><span class="pre">ode_solver_constrained</span></tt> Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pyparticles.ode.html#module-pyparticles.ode.sim_time"><tt class="docutils literal"><span class="pre">sim_time</span></tt> Module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pyparticles.ode.html#module-pyparticles.ode.euler_solver"><tt class="docutils literal"><span class="pre">euler_solver</span></tt> Module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pyparticles.ode.html#module-pyparticles.ode.euler_solver_constrained"><tt class="docutils literal"><span class="pre">euler_solver_constrained</span></tt> Module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pyparticles.ode.html#module-pyparticles.ode.leapfrog_solver"><tt class="docutils literal"><span class="pre">leapfrog_solver</span></tt> Module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pyparticles.ode.html#module-pyparticles.ode.leapfrog_solver_constrained"><tt class="docutils literal"><span class="pre">leapfrog_solver_constrained</span></tt> Module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pyparticles.ode.html#module-pyparticles.ode.midpoint_solver"><tt class="docutils literal"><span class="pre">midpoint_solver</span></tt> Module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pyparticles.ode.html#module-pyparticles.ode.midpoint_solver_constrained"><tt class="docutils literal"><span class="pre">midpoint_solver_constrained</span></tt> Module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="pyparticles.ode.html#module-pyparticles.ode.ode_solver"><tt class="docutils literal"><span class="pre">ode_solver</span></tt> Module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="pyparticles.ode.html#module-pyparticles.ode.ode_solver_constrained"><tt class="docutils literal"><span class="pre">ode_solver_constrained</span></tt> Module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pyparticles.ode.html#module-pyparticles.ode.runge_kutta_solver"><tt class="docutils literal"><span class="pre">runge_kutta_solver</span></tt> Module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pyparticles.ode.html#module-pyparticles.ode.runge_kutta_solver_constrained"><tt class="docutils literal"><span class="pre">runge_kutta_solver_constrained</span></tt> Module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pyparticles.ode.html#module-pyparticles.ode.stormer_verlet_solver"><tt class="docutils literal"><span class="pre">stormer_verlet_solver</span></tt> Module</a></li>
@@ -158,6 +160,7 @@
 <li class="toctree-l4"><a class="reference internal" href="pyparticles.ogl.html#id1"><tt class="docutils literal"><span class="pre">ogl</span></tt> Package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pyparticles.ogl.html#module-pyparticles.ogl.axis_ogl"><tt class="docutils literal"><span class="pre">axis_ogl</span></tt> Module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pyparticles.ogl.html#module-pyparticles.ogl.draw_particles_ogl"><tt class="docutils literal"><span class="pre">draw_particles_ogl</span></tt> Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pyparticles.ogl.html#module-pyparticles.ogl.draw_vector_field"><tt class="docutils literal"><span class="pre">draw_vector_field</span></tt> Module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pyparticles.ogl.html#module-pyparticles.ogl.trackball"><tt class="docutils literal"><span class="pre">trackball</span></tt> Module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pyparticles.ogl.html#module-pyparticles.ogl.translate_scene"><tt class="docutils literal"><span class="pre">translate_scene</span></tt> Module</a></li>
 </ul>
@@ -209,7 +212,7 @@
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="index.html">PyParticles 0.3.2 documentation</a> &raquo;</li> 
+        <li><a href="index.html">PyParticles 0.3.3 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

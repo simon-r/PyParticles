@@ -17,6 +17,14 @@ forces Package
     :undoc-members:
     :show-inheritance:
     
+:mod:`force_constrained` Module
+-------------------------------
+
+.. automodule:: pyparticles.forces.force_constrained
+    :members:
+    :undoc-members:
+    :show-inheritance:
+    
 :mod:`gravity` Module
 ---------------------
 
@@ -60,16 +68,14 @@ forces Package
     :show-inheritance:
 
 
-:mod:`force_constrained` Module
--------------------------------
+:mod:`electromagnetic_field` Module
+---------------------------
 
-.. automodule:: pyparticles.forces.force_constrained
+.. automodule:: pyparticles.forces.electromagnetic_field
     :members:
     :undoc-members:
     :show-inheritance:
-
-
-
+    
 :mod:`lennard_jones` Module
 ---------------------------
 

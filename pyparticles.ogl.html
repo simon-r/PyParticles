@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>ogl Package &mdash; PyParticles 0.3.2 documentation</title>
+    <title>ogl Package &mdash; PyParticles 0.3.3 documentation</title>
     
     <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.3.2',
+        VERSION:     '0.3.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="PyParticles 0.3.2 documentation" href="index.html" />
+    <link rel="top" title="PyParticles 0.3.3 documentation" href="index.html" />
     <link rel="up" title="pyparticles Package" href="pyparticles.html" />
     <link rel="next" title="pset Package" href="pyparticles.pset.html" />
     <link rel="prev" title="ode Package" href="pyparticles.ode.html" /> 
@@ -46,7 +46,7 @@
         <li class="right" >
           <a href="pyparticles.ode.html" title="ode Package"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">PyParticles 0.3.2 documentation</a> &raquo;</li>
+        <li><a href="index.html">PyParticles 0.3.3 documentation</a> &raquo;</li>
           <li><a href="pyparticles.html" accesskey="U">pyparticles Package</a> &raquo;</li> 
       </ul>
     </div>
@@ -61,6 +61,7 @@
 <li><a class="reference internal" href="#id1"><tt class="docutils literal"><span class="pre">ogl</span></tt> Package</a></li>
 <li><a class="reference internal" href="#module-pyparticles.ogl.axis_ogl"><tt class="docutils literal"><span class="pre">axis_ogl</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pyparticles.ogl.draw_particles_ogl"><tt class="docutils literal"><span class="pre">draw_particles_ogl</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pyparticles.ogl.draw_vector_field"><tt class="docutils literal"><span class="pre">draw_vector_field</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pyparticles.ogl.trackball"><tt class="docutils literal"><span class="pre">trackball</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pyparticles.ogl.translate_scene"><tt class="docutils literal"><span class="pre">translate_scene</span></tt> Module</a></li>
 </ul>
@@ -165,6 +166,31 @@
 <em class="property">class </em><tt class="descclassname">pyparticles.ogl.draw_particles_ogl.</tt><tt class="descname">DrawParticlesGL</tt><big>(</big><em>pset=None</em><big>)</big><a class="headerlink" href="#pyparticles.ogl.draw_particles_ogl.DrawParticlesGL" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
 <dl class="attribute">
+<dt id="pyparticles.ogl.draw_particles_ogl.DrawParticlesGL.DRAW_MODEL_LOOP">
+<tt class="descname">DRAW_MODEL_LOOP</tt><em class="property"> = 0</em><a class="headerlink" href="#pyparticles.ogl.draw_particles_ogl.DrawParticlesGL.DRAW_MODEL_LOOP" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyparticles.ogl.draw_particles_ogl.DrawParticlesGL.DRAW_MODEL_VECTOR">
+<tt class="descname">DRAW_MODEL_VECTOR</tt><em class="property"> = 1</em><a class="headerlink" href="#pyparticles.ogl.draw_particles_ogl.DrawParticlesGL.DRAW_MODEL_VECTOR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyparticles.ogl.draw_particles_ogl.DrawParticlesGL.PARTICLE_MODEL_POINT">
+<tt class="descname">PARTICLE_MODEL_POINT</tt><em class="property"> = 'point'</em><a class="headerlink" href="#pyparticles.ogl.draw_particles_ogl.DrawParticlesGL.PARTICLE_MODEL_POINT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyparticles.ogl.draw_particles_ogl.DrawParticlesGL.PARTICLE_MODEL_SPHERE">
+<tt class="descname">PARTICLE_MODEL_SPHERE</tt><em class="property"> = 'sphere'</em><a class="headerlink" href="#pyparticles.ogl.draw_particles_ogl.DrawParticlesGL.PARTICLE_MODEL_SPHERE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyparticles.ogl.draw_particles_ogl.DrawParticlesGL.PARTICLE_MODEL_TEAPOT">
+<tt class="descname">PARTICLE_MODEL_TEAPOT</tt><em class="property"> = 'teapot'</em><a class="headerlink" href="#pyparticles.ogl.draw_particles_ogl.DrawParticlesGL.PARTICLE_MODEL_TEAPOT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
 <dt id="pyparticles.ogl.draw_particles_ogl.DrawParticlesGL.color_fun">
 <tt class="descname">color_fun</tt><a class="headerlink" href="#pyparticles.ogl.draw_particles_ogl.DrawParticlesGL.color_fun" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set and get the function for calculating the particle color:
@@ -223,6 +249,11 @@ definition of the function color, it take as args a particle_set obj. and the pa
 <dd></dd></dl>
 
 <dl class="method">
+<dt id="pyparticles.ogl.draw_particles_ogl.DrawParticlesGL.get_vect_color_fun">
+<tt class="descname">get_vect_color_fun</tt><big>(</big><em>fun</em><big>)</big><a class="headerlink" href="#pyparticles.ogl.draw_particles_ogl.DrawParticlesGL.get_vect_color_fun" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="pyparticles.ogl.draw_particles_ogl.DrawParticlesGL.init_sphere_dl">
 <tt class="descname">init_sphere_dl</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.ogl.draw_particles_ogl.DrawParticlesGL.init_sphere_dl" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -249,6 +280,11 @@ definition of the function color, it take as args a particle_set obj. and the pa
 <dd></dd></dl>
 
 <dl class="method">
+<dt id="pyparticles.ogl.draw_particles_ogl.DrawParticlesGL.set_draw_model">
+<tt class="descname">set_draw_model</tt><big>(</big><em>model</em><big>)</big><a class="headerlink" href="#pyparticles.ogl.draw_particles_ogl.DrawParticlesGL.set_draw_model" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="pyparticles.ogl.draw_particles_ogl.DrawParticlesGL.set_particle_model">
 <tt class="descname">set_particle_model</tt><big>(</big><em>model=''</em>, <em>user_fun=None</em><big>)</big><a class="headerlink" href="#pyparticles.ogl.draw_particles_ogl.DrawParticlesGL.set_particle_model" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -268,6 +304,11 @@ definition of the function color, it take as args a particle_set obj. and the pa
 <tt class="descname">set_trajectory_step</tt><big>(</big><em>trs</em><big>)</big><a class="headerlink" href="#pyparticles.ogl.draw_particles_ogl.DrawParticlesGL.set_trajectory_step" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="method">
+<dt id="pyparticles.ogl.draw_particles_ogl.DrawParticlesGL.set_vect_color_fun">
+<tt class="descname">set_vect_color_fun</tt><big>(</big><em>fun</em><big>)</big><a class="headerlink" href="#pyparticles.ogl.draw_particles_ogl.DrawParticlesGL.set_vect_color_fun" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="attribute">
 <dt id="pyparticles.ogl.draw_particles_ogl.DrawParticlesGL.trajectory">
 <tt class="descname">trajectory</tt><a class="headerlink" href="#pyparticles.ogl.draw_particles_ogl.DrawParticlesGL.trajectory" title="Permalink to this definition">¶</a></dt>
@@ -280,6 +321,90 @@ definition of the function color, it take as args a particle_set obj. and the pa
 <dd><p>set or get the step for drawing the trajectory</p>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="pyparticles.ogl.draw_particles_ogl.DrawParticlesGL.vect_color_fun">
+<tt class="descname">vect_color_fun</tt><a class="headerlink" href="#pyparticles.ogl.draw_particles_ogl.DrawParticlesGL.vect_color_fun" title="Permalink to this definition">¶</a></dt>
+<dd><p>get and set the vector color function</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="pyparticles.ogl.draw_particles_ogl.charged_particles_color">
+<tt class="descclassname">pyparticles.ogl.draw_particles_ogl.</tt><tt class="descname">charged_particles_color</tt><big>(</big><em>pset</em>, <em>i</em><big>)</big><a class="headerlink" href="#pyparticles.ogl.draw_particles_ogl.charged_particles_color" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="pyparticles.ogl.draw_particles_ogl.charged_particles_vect_color">
+<tt class="descclassname">pyparticles.ogl.draw_particles_ogl.</tt><tt class="descname">charged_particles_vect_color</tt><big>(</big><em>RGBA</em>, <em>pset</em><big>)</big><a class="headerlink" href="#pyparticles.ogl.draw_particles_ogl.charged_particles_vect_color" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="pyparticles.ogl.draw_particles_ogl.rand_vect_colors">
+<tt class="descclassname">pyparticles.ogl.draw_particles_ogl.</tt><tt class="descname">rand_vect_colors</tt><big>(</big><em>RGBA</em>, <em>pset</em><big>)</big><a class="headerlink" href="#pyparticles.ogl.draw_particles_ogl.rand_vect_colors" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-pyparticles.ogl.draw_vector_field">
+<span id="draw-vector-field-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">draw_vector_field</span></tt> Module<a class="headerlink" href="#module-pyparticles.ogl.draw_vector_field" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyparticles.ogl.draw_vector_field.DrawVectorField">
+<em class="property">class </em><tt class="descclassname">pyparticles.ogl.draw_vector_field.</tt><tt class="descname">DrawVectorField</tt><big>(</big><em>limits</em>, <em>density</em><big>)</big><a class="headerlink" href="#pyparticles.ogl.draw_vector_field.DrawVectorField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Draw the given vector fields.</p>
+<p>Constructor:</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="14%" />
+<col width="86%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Arguments</th>
+<th class="head">&nbsp;</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>limits</td>
+<td>size of the draw volume: (x_min,x_max,y_min,y_max,z_min,z_max)</td>
+</tr>
+<tr class="row-odd"><td>density</td>
+<td>distance between the plotted vectors</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<dl class="method">
+<dt id="pyparticles.ogl.draw_vector_field.DrawVectorField.add_vector_fun">
+<tt class="descname">add_vector_fun</tt><big>(</big><em>fun</em>, <em>unit_len=1.0</em>, <em>color_fun=None</em>, <em>key=None</em>, <em>time_dep=False</em><big>)</big><a class="headerlink" href="#pyparticles.ogl.draw_vector_field.DrawVectorField.add_vector_fun" title="Permalink to this definition">¶</a></dt>
+<dd><p>Insert a new vector function,</p>
+<blockquote>
+<div>fun        : Vector filed function
+color_fun  : Colors function
+key        : [optional] a key used for distinguish the vector field
+time_dep   : [True or <strong>False</strong> ] if True Is a time dependent filed</div></blockquote>
+<dl class="docutils">
+<dt>where functions are defined:</dt>
+<dd>fun( V , X )
+color_fun( RGBA , X )</dd>
+</dl>
+<div class="line-block">
+<div class="line">X : (n by DIM) coordinates array</div>
+<div class="line">V : (n by DIM) resulting vector field</div>
+<div class="line">RGBA : (n by 4) colors array</div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.ogl.draw_vector_field.DrawVectorField.draw">
+<tt class="descname">draw</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.ogl.draw_vector_field.DrawVectorField.draw" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.ogl.draw_vector_field.DrawVectorField.ogl_init">
+<tt class="descname">ogl_init</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.ogl.draw_vector_field.DrawVectorField.ogl_init" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 </div>
@@ -289,7 +414,7 @@ definition of the function color, it take as args a particle_set obj. and the pa
 <dt id="pyparticles.ogl.trackball.TrackBall">
 <em class="property">class </em><tt class="descclassname">pyparticles.ogl.trackball.</tt><tt class="descname">TrackBall</tt><big>(</big><em>w_size</em><big>)</big><a class="headerlink" href="#pyparticles.ogl.trackball.TrackBall" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
-<p>Class used for controloing the rotation of the scene via mouse or joystick, by generating the virtual trackball effect</p>
+<p>Class used for controlling the rotation of the scene via mouse or joystick, by generating the virtual trackball effect</p>
 <p>Constructor</p>
 <blockquote>
 <div><table border="1" class="docutils">
@@ -466,7 +591,7 @@ Example:</p>
         <li class="right" >
           <a href="pyparticles.ode.html" title="ode Package"
              >previous</a> |</li>
-        <li><a href="index.html">PyParticles 0.3.2 documentation</a> &raquo;</li>
+        <li><a href="index.html">PyParticles 0.3.3 documentation</a> &raquo;</li>
           <li><a href="pyparticles.html" >pyparticles Package</a> &raquo;</li> 
       </ul>
     </div>

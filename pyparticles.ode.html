@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>ode Package &mdash; PyParticles 0.3.2 documentation</title>
+    <title>ode Package &mdash; PyParticles 0.3.3 documentation</title>
     
     <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.3.2',
+        VERSION:     '0.3.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="PyParticles 0.3.2 documentation" href="index.html" />
+    <link rel="top" title="PyParticles 0.3.3 documentation" href="index.html" />
     <link rel="up" title="pyparticles Package" href="pyparticles.html" />
     <link rel="next" title="ogl Package" href="pyparticles.ogl.html" />
     <link rel="prev" title="measures Package" href="pyparticles.measures.html" /> 
@@ -46,7 +46,7 @@
         <li class="right" >
           <a href="pyparticles.measures.html" title="measures Package"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">PyParticles 0.3.2 documentation</a> &raquo;</li>
+        <li><a href="index.html">PyParticles 0.3.3 documentation</a> &raquo;</li>
           <li><a href="pyparticles.html" accesskey="U">pyparticles Package</a> &raquo;</li> 
       </ul>
     </div>
@@ -59,14 +59,15 @@
   <ul>
 <li><a class="reference internal" href="#">ode Package</a><ul>
 <li><a class="reference internal" href="#id1"><tt class="docutils literal"><span class="pre">ode</span></tt> Package</a></li>
+<li><a class="reference internal" href="#module-pyparticles.ode.ode_solver"><tt class="docutils literal"><span class="pre">ode_solver</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pyparticles.ode.ode_solver_constrained"><tt class="docutils literal"><span class="pre">ode_solver_constrained</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pyparticles.ode.sim_time"><tt class="docutils literal"><span class="pre">sim_time</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pyparticles.ode.euler_solver"><tt class="docutils literal"><span class="pre">euler_solver</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pyparticles.ode.euler_solver_constrained"><tt class="docutils literal"><span class="pre">euler_solver_constrained</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pyparticles.ode.leapfrog_solver"><tt class="docutils literal"><span class="pre">leapfrog_solver</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pyparticles.ode.leapfrog_solver_constrained"><tt class="docutils literal"><span class="pre">leapfrog_solver_constrained</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pyparticles.ode.midpoint_solver"><tt class="docutils literal"><span class="pre">midpoint_solver</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pyparticles.ode.midpoint_solver_constrained"><tt class="docutils literal"><span class="pre">midpoint_solver_constrained</span></tt> Module</a></li>
-<li><a class="reference internal" href="#module-pyparticles.ode.ode_solver"><tt class="docutils literal"><span class="pre">ode_solver</span></tt> Module</a></li>
-<li><a class="reference internal" href="#module-pyparticles.ode.ode_solver_constrained"><tt class="docutils literal"><span class="pre">ode_solver_constrained</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pyparticles.ode.runge_kutta_solver"><tt class="docutils literal"><span class="pre">runge_kutta_solver</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pyparticles.ode.runge_kutta_solver_constrained"><tt class="docutils literal"><span class="pre">runge_kutta_solver_constrained</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pyparticles.ode.stormer_verlet_solver"><tt class="docutils literal"><span class="pre">stormer_verlet_solver</span></tt> Module</a></li>
@@ -112,6 +113,228 @@
 <div class="section" id="id1">
 <h2><tt class="xref py py-mod docutils literal"><span class="pre">ode</span></tt> Package<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <span class="target" id="module-pyparticles.ode"></span></div>
+<div class="section" id="module-pyparticles.ode.ode_solver">
+<span id="ode-solver-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">ode_solver</span></tt> Module<a class="headerlink" href="#module-pyparticles.ode.ode_solver" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyparticles.ode.ode_solver.OdeSolver">
+<em class="property">class </em><tt class="descclassname">pyparticles.ode.ode_solver.</tt><tt class="descname">OdeSolver</tt><big>(</big><em>force</em>, <em>p_set</em>, <em>dt</em><big>)</big><a class="headerlink" href="#pyparticles.ode.ode_solver.OdeSolver" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Base abstract class for defining the integration method of the ordinary differential equation like Runge Kutta or Euler method,
+the user must overide the method <strong>__step__</strong></p>
+<p>Example (Euler method):</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pyparticles.ode.ode_solver</span> <span class="kn">as</span> <span class="nn">os</span>
+
+<span class="k">class</span> <span class="nc">EulerSolver</span><span class="p">(</span> <span class="n">os</span><span class="o">.</span><span class="n">OdeSolver</span> <span class="p">)</span> <span class="p">:</span>
+   <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span> <span class="bp">self</span> <span class="p">,</span> <span class="n">force</span> <span class="p">,</span> <span class="n">p_set</span> <span class="p">,</span> <span class="n">dt</span> <span class="p">):</span>
+       <span class="nb">super</span><span class="p">(</span><span class="n">EulerSolver</span><span class="p">,</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span> <span class="n">force</span> <span class="p">,</span> <span class="n">p_set</span> <span class="p">,</span> <span class="n">dt</span> <span class="p">)</span>
+   
+<span class="k">def</span> <span class="nf">__step__</span><span class="p">(</span> <span class="bp">self</span> <span class="p">,</span> <span class="n">dt</span> <span class="p">):</span>
+
+   <span class="bp">self</span><span class="o">.</span><span class="n">force</span><span class="o">.</span><span class="n">update_force</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">pset</span> <span class="p">)</span>
+   
+   <span class="bp">self</span><span class="o">.</span><span class="n">pset</span><span class="o">.</span><span class="n">V</span><span class="p">[:]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pset</span><span class="o">.</span><span class="n">V</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">force</span><span class="o">.</span><span class="n">A</span> <span class="o">*</span> <span class="n">dt</span>
+   <span class="bp">self</span><span class="o">.</span><span class="n">pset</span><span class="o">.</span><span class="n">X</span><span class="p">[:]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pset</span><span class="o">.</span><span class="n">X</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">pset</span><span class="o">.</span><span class="n">V</span> <span class="o">*</span> <span class="n">dt</span>
+   
+   <span class="bp">self</span><span class="o">.</span><span class="n">pset</span><span class="o">.</span><span class="n">update_boundary</span><span class="p">()</span> 
+</pre></div>
+</div>
+<p>Constructor:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>force</strong> &#8211; the force model</li>
+<li><strong>p_set</strong> &#8211; the particle set</li>
+<li><strong>dt</strong> &#8211; delta time</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pyparticles.ode.ode_solver.OdeSolver.del_steps">
+<tt class="descname">del_steps</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.ode.ode_solver.OdeSolver.del_steps" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyparticles.ode.ode_solver.OdeSolver.dt">
+<tt class="descname">dt</tt><a class="headerlink" href="#pyparticles.ode.ode_solver.OdeSolver.dt" title="Permalink to this definition">¶</a></dt>
+<dd><p>get and set the delta time of the step</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyparticles.ode.ode_solver.OdeSolver.force">
+<tt class="descname">force</tt><a class="headerlink" href="#pyparticles.ode.ode_solver.OdeSolver.force" title="Permalink to this definition">¶</a></dt>
+<dd><p>get and set the used force model</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.ode.ode_solver.OdeSolver.get_dt">
+<tt class="descname">get_dt</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.ode.ode_solver.OdeSolver.get_dt" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.ode.ode_solver.OdeSolver.get_force">
+<tt class="descname">get_force</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.ode.ode_solver.OdeSolver.get_force" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.ode.ode_solver.OdeSolver.get_pset">
+<tt class="descname">get_pset</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.ode.ode_solver.OdeSolver.get_pset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.ode.ode_solver.OdeSolver.get_sim_time">
+<tt class="descname">get_sim_time</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.ode.ode_solver.OdeSolver.get_sim_time" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.ode.ode_solver.OdeSolver.get_steps">
+<tt class="descname">get_steps</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.ode.ode_solver.OdeSolver.get_steps" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.ode.ode_solver.OdeSolver.get_time">
+<tt class="descname">get_time</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.ode.ode_solver.OdeSolver.get_time" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyparticles.ode.ode_solver.OdeSolver.pset">
+<tt class="descname">pset</tt><a class="headerlink" href="#pyparticles.ode.ode_solver.OdeSolver.pset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.ode.ode_solver.OdeSolver.set_dt">
+<tt class="descname">set_dt</tt><big>(</big><em>dt</em><big>)</big><a class="headerlink" href="#pyparticles.ode.ode_solver.OdeSolver.set_dt" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.ode.ode_solver.OdeSolver.set_force">
+<tt class="descname">set_force</tt><big>(</big><em>force</em><big>)</big><a class="headerlink" href="#pyparticles.ode.ode_solver.OdeSolver.set_force" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.ode.ode_solver.OdeSolver.set_pset">
+<tt class="descname">set_pset</tt><big>(</big><em>p_set</em><big>)</big><a class="headerlink" href="#pyparticles.ode.ode_solver.OdeSolver.set_pset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.ode.ode_solver.OdeSolver.set_time">
+<tt class="descname">set_time</tt><big>(</big><em>t0</em><big>)</big><a class="headerlink" href="#pyparticles.ode.ode_solver.OdeSolver.set_time" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyparticles.ode.ode_solver.OdeSolver.sim_time">
+<tt class="descname">sim_time</tt><a class="headerlink" href="#pyparticles.ode.ode_solver.OdeSolver.sim_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>get the reference to the SimTime object, used for storing the current simulation time</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.ode.ode_solver.OdeSolver.step">
+<tt class="descname">step</tt><big>(</big><em>dt=None</em><big>)</big><a class="headerlink" href="#pyparticles.ode.ode_solver.OdeSolver.step" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform an integration step. If the dt is not given (reccomended) it uses the stored <em>dt</em>.
+You must alway use this method for executing a step.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyparticles.ode.ode_solver.OdeSolver.steps_cnt">
+<tt class="descname">steps_cnt</tt><a class="headerlink" href="#pyparticles.ode.ode_solver.OdeSolver.steps_cnt" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the count of the performed steps</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyparticles.ode.ode_solver.OdeSolver.time">
+<tt class="descname">time</tt><a class="headerlink" href="#pyparticles.ode.ode_solver.OdeSolver.time" title="Permalink to this definition">¶</a></dt>
+<dd><p>get and set the current simulation time</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.ode.ode_solver.OdeSolver.update_force">
+<tt class="descname">update_force</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.ode.ode_solver.OdeSolver.update_force" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyparticles.ode.ode_solver_constrained">
+<span id="ode-solver-constrained-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">ode_solver_constrained</span></tt> Module<a class="headerlink" href="#module-pyparticles.ode.ode_solver_constrained" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyparticles.ode.ode_solver_constrained.OdeSolverConstrained">
+<em class="property">class </em><tt class="descclassname">pyparticles.ode.ode_solver_constrained.</tt><tt class="descname">OdeSolverConstrained</tt><big>(</big><em>force</em>, <em>p_set</em>, <em>dt</em>, <em>x_constraint=None</em>, <em>v_constraint=None</em><big>)</big><a class="headerlink" href="#pyparticles.ode.ode_solver_constrained.OdeSolverConstrained" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pyparticles.ode.ode_solver.OdeSolver" title="pyparticles.ode.ode_solver.OdeSolver"><tt class="xref py py-class docutils literal"><span class="pre">pyparticles.ode.ode_solver.OdeSolver</span></tt></a></p>
+<dl class="method">
+<dt id="pyparticles.ode.ode_solver_constrained.OdeSolverConstrained.get_x_constraint">
+<tt class="descname">get_x_constraint</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.ode.ode_solver_constrained.OdeSolverConstrained.get_x_constraint" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns a reference to the current positionals constraints</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.ode.ode_solver_constrained.OdeSolverConstrained.set_x_constraint">
+<tt class="descname">set_x_constraint</tt><big>(</big><em>xc</em><big>)</big><a class="headerlink" href="#pyparticles.ode.ode_solver_constrained.OdeSolverConstrained.set_x_constraint" title="Permalink to this definition">¶</a></dt>
+<dd><p>set the new positionals contraints</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyparticles.ode.ode_solver_constrained.OdeSolverConstrained.x_constraint">
+<tt class="descname">x_constraint</tt><a class="headerlink" href="#pyparticles.ode.ode_solver_constrained.OdeSolverConstrained.x_constraint" title="Permalink to this definition">¶</a></dt>
+<dd><p>get and set the current positionals constraints</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyparticles.ode.sim_time">
+<span id="sim-time-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">sim_time</span></tt> Module<a class="headerlink" href="#module-pyparticles.ode.sim_time" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyparticles.ode.sim_time.SimTime">
+<em class="property">class </em><tt class="descclassname">pyparticles.ode.sim_time.</tt><tt class="descname">SimTime</tt><big>(</big><em>controller</em><big>)</big><a class="headerlink" href="#pyparticles.ode.sim_time.SimTime" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Class used for storing the current simulation time:</p>
+<p>Constructor</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>controller</strong> &#8211; a reference to the object that control the simulation time</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="pyparticles.ode.sim_time.SimTime.controller">
+<tt class="descname">controller</tt><a class="headerlink" href="#pyparticles.ode.sim_time.SimTime.controller" title="Permalink to this definition">¶</a></dt>
+<dd><p>get the reference to the time controller</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.ode.sim_time.SimTime.get_controller">
+<tt class="descname">get_controller</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.ode.sim_time.SimTime.get_controller" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a reference to the simulation time controller, normally an ODE solver</p>
+<p>:returns the reference to the ODE solver object</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.ode.sim_time.SimTime.get_time">
+<tt class="descname">get_time</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.ode.sim_time.SimTime.get_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>get the current time</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.ode.sim_time.SimTime.set_time">
+<tt class="descname">set_time</tt><big>(</big><em>t</em><big>)</big><a class="headerlink" href="#pyparticles.ode.sim_time.SimTime.set_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>set the current time</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyparticles.ode.sim_time.SimTime.time">
+<tt class="descname">time</tt><a class="headerlink" href="#pyparticles.ode.sim_time.SimTime.time" title="Permalink to this definition">¶</a></dt>
+<dd><p>get and set the current simulation time</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="module-pyparticles.ode.euler_solver">
 <span id="euler-solver-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">euler_solver</span></tt> Module<a class="headerlink" href="#module-pyparticles.ode.euler_solver" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
@@ -214,178 +437,6 @@
 </dd></dl>
 
 </div>
-<div class="section" id="module-pyparticles.ode.ode_solver">
-<span id="ode-solver-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">ode_solver</span></tt> Module<a class="headerlink" href="#module-pyparticles.ode.ode_solver" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="pyparticles.ode.ode_solver.OdeSolver">
-<em class="property">class </em><tt class="descclassname">pyparticles.ode.ode_solver.</tt><tt class="descname">OdeSolver</tt><big>(</big><em>force</em>, <em>p_set</em>, <em>dt</em><big>)</big><a class="headerlink" href="#pyparticles.ode.ode_solver.OdeSolver" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
-<p>Base abstract class for defining the integration method of the ordinary differential equation like Runge Kutta or Euler method,
-the user must overide the method <strong>__step__</strong></p>
-<p>Example (Euler method):</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pyparticles.ode.ode_solver</span> <span class="kn">as</span> <span class="nn">os</span>
-
-<span class="k">class</span> <span class="nc">EulerSolver</span><span class="p">(</span> <span class="n">os</span><span class="o">.</span><span class="n">OdeSolver</span> <span class="p">)</span> <span class="p">:</span>
-   <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span> <span class="bp">self</span> <span class="p">,</span> <span class="n">force</span> <span class="p">,</span> <span class="n">p_set</span> <span class="p">,</span> <span class="n">dt</span> <span class="p">):</span>
-       <span class="nb">super</span><span class="p">(</span><span class="n">EulerSolver</span><span class="p">,</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span> <span class="n">force</span> <span class="p">,</span> <span class="n">p_set</span> <span class="p">,</span> <span class="n">dt</span> <span class="p">)</span>
-   
-<span class="k">def</span> <span class="nf">__step__</span><span class="p">(</span> <span class="bp">self</span> <span class="p">,</span> <span class="n">dt</span> <span class="p">):</span>
-
-   <span class="bp">self</span><span class="o">.</span><span class="n">force</span><span class="o">.</span><span class="n">update_force</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">pset</span> <span class="p">)</span>
-   
-   <span class="bp">self</span><span class="o">.</span><span class="n">pset</span><span class="o">.</span><span class="n">V</span><span class="p">[:]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pset</span><span class="o">.</span><span class="n">V</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">force</span><span class="o">.</span><span class="n">A</span> <span class="o">*</span> <span class="n">dt</span>
-   <span class="bp">self</span><span class="o">.</span><span class="n">pset</span><span class="o">.</span><span class="n">X</span><span class="p">[:]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pset</span><span class="o">.</span><span class="n">X</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">pset</span><span class="o">.</span><span class="n">V</span> <span class="o">*</span> <span class="n">dt</span>
-   
-   <span class="bp">self</span><span class="o">.</span><span class="n">pset</span><span class="o">.</span><span class="n">update_boundary</span><span class="p">()</span> 
-</pre></div>
-</div>
-<p>Constructor:</p>
-<blockquote>
-<div><table border="1" class="docutils">
-<colgroup>
-<col width="36%" />
-<col width="64%" />
-</colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Arguments</th>
-<th class="head">&nbsp;</th>
-</tr>
-</thead>
-<tbody valign="top">
-<tr class="row-even"><td>force</td>
-<td>the force model</td>
-</tr>
-<tr class="row-odd"><td>p_set</td>
-<td>the particle set</td>
-</tr>
-<tr class="row-even"><td>dt</td>
-<td>delta time</td>
-</tr>
-</tbody>
-</table>
-</div></blockquote>
-<dl class="method">
-<dt id="pyparticles.ode.ode_solver.OdeSolver.del_steps">
-<tt class="descname">del_steps</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.ode.ode_solver.OdeSolver.del_steps" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="pyparticles.ode.ode_solver.OdeSolver.dt">
-<tt class="descname">dt</tt><a class="headerlink" href="#pyparticles.ode.ode_solver.OdeSolver.dt" title="Permalink to this definition">¶</a></dt>
-<dd><p>get and set the delta time of the step</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="pyparticles.ode.ode_solver.OdeSolver.force">
-<tt class="descname">force</tt><a class="headerlink" href="#pyparticles.ode.ode_solver.OdeSolver.force" title="Permalink to this definition">¶</a></dt>
-<dd><p>get and set the used force model</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="pyparticles.ode.ode_solver.OdeSolver.get_dt">
-<tt class="descname">get_dt</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.ode.ode_solver.OdeSolver.get_dt" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pyparticles.ode.ode_solver.OdeSolver.get_force">
-<tt class="descname">get_force</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.ode.ode_solver.OdeSolver.get_force" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pyparticles.ode.ode_solver.OdeSolver.get_pset">
-<tt class="descname">get_pset</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.ode.ode_solver.OdeSolver.get_pset" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pyparticles.ode.ode_solver.OdeSolver.get_steps">
-<tt class="descname">get_steps</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.ode.ode_solver.OdeSolver.get_steps" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pyparticles.ode.ode_solver.OdeSolver.get_time">
-<tt class="descname">get_time</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.ode.ode_solver.OdeSolver.get_time" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="pyparticles.ode.ode_solver.OdeSolver.pset">
-<tt class="descname">pset</tt><a class="headerlink" href="#pyparticles.ode.ode_solver.OdeSolver.pset" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pyparticles.ode.ode_solver.OdeSolver.set_dt">
-<tt class="descname">set_dt</tt><big>(</big><em>dt</em><big>)</big><a class="headerlink" href="#pyparticles.ode.ode_solver.OdeSolver.set_dt" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pyparticles.ode.ode_solver.OdeSolver.set_force">
-<tt class="descname">set_force</tt><big>(</big><em>force</em><big>)</big><a class="headerlink" href="#pyparticles.ode.ode_solver.OdeSolver.set_force" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pyparticles.ode.ode_solver.OdeSolver.set_pset">
-<tt class="descname">set_pset</tt><big>(</big><em>p_set</em><big>)</big><a class="headerlink" href="#pyparticles.ode.ode_solver.OdeSolver.set_pset" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pyparticles.ode.ode_solver.OdeSolver.set_time">
-<tt class="descname">set_time</tt><big>(</big><em>t0</em><big>)</big><a class="headerlink" href="#pyparticles.ode.ode_solver.OdeSolver.set_time" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pyparticles.ode.ode_solver.OdeSolver.step">
-<tt class="descname">step</tt><big>(</big><em>dt=None</em><big>)</big><a class="headerlink" href="#pyparticles.ode.ode_solver.OdeSolver.step" title="Permalink to this definition">¶</a></dt>
-<dd><p>Perform an integration step. If the dt is not given (reccomended) it uses the stored <em>dt</em>.
-You must alway use this method for executing a step.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="pyparticles.ode.ode_solver.OdeSolver.steps_cnt">
-<tt class="descname">steps_cnt</tt><a class="headerlink" href="#pyparticles.ode.ode_solver.OdeSolver.steps_cnt" title="Permalink to this definition">¶</a></dt>
-<dd><p>return the count of the performed steps</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="pyparticles.ode.ode_solver.OdeSolver.time">
-<tt class="descname">time</tt><a class="headerlink" href="#pyparticles.ode.ode_solver.OdeSolver.time" title="Permalink to this definition">¶</a></dt>
-<dd><p>get and set the current simulation time</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="pyparticles.ode.ode_solver.OdeSolver.update_force">
-<tt class="descname">update_force</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.ode.ode_solver.OdeSolver.update_force" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-</div>
-<div class="section" id="module-pyparticles.ode.ode_solver_constrained">
-<span id="ode-solver-constrained-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">ode_solver_constrained</span></tt> Module<a class="headerlink" href="#module-pyparticles.ode.ode_solver_constrained" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="pyparticles.ode.ode_solver_constrained.OdeSolverConstrained">
-<em class="property">class </em><tt class="descclassname">pyparticles.ode.ode_solver_constrained.</tt><tt class="descname">OdeSolverConstrained</tt><big>(</big><em>force</em>, <em>p_set</em>, <em>dt</em>, <em>x_constraint=None</em>, <em>v_constraint=None</em><big>)</big><a class="headerlink" href="#pyparticles.ode.ode_solver_constrained.OdeSolverConstrained" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#pyparticles.ode.ode_solver.OdeSolver" title="pyparticles.ode.ode_solver.OdeSolver"><tt class="xref py py-class docutils literal"><span class="pre">pyparticles.ode.ode_solver.OdeSolver</span></tt></a></p>
-<dl class="method">
-<dt id="pyparticles.ode.ode_solver_constrained.OdeSolverConstrained.get_x_constraint">
-<tt class="descname">get_x_constraint</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.ode.ode_solver_constrained.OdeSolverConstrained.get_x_constraint" title="Permalink to this definition">¶</a></dt>
-<dd><p>returns a reference to the current positionals constraints</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="pyparticles.ode.ode_solver_constrained.OdeSolverConstrained.set_x_constraint">
-<tt class="descname">set_x_constraint</tt><big>(</big><em>xc</em><big>)</big><a class="headerlink" href="#pyparticles.ode.ode_solver_constrained.OdeSolverConstrained.set_x_constraint" title="Permalink to this definition">¶</a></dt>
-<dd><p>set the new positionals contraints</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="pyparticles.ode.ode_solver_constrained.OdeSolverConstrained.x_constraint">
-<tt class="descname">x_constraint</tt><a class="headerlink" href="#pyparticles.ode.ode_solver_constrained.OdeSolverConstrained.x_constraint" title="Permalink to this definition">¶</a></dt>
-<dd><p>get and set the current positionals constraints</p>
-</dd></dl>
-
-</dd></dl>
-
-</div>
 <div class="section" id="module-pyparticles.ode.runge_kutta_solver">
 <span id="runge-kutta-solver-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">runge_kutta_solver</span></tt> Module<a class="headerlink" href="#module-pyparticles.ode.runge_kutta_solver" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
@@ -477,7 +528,7 @@ You must alway use this method for executing a step.</p>
         <li class="right" >
           <a href="pyparticles.measures.html" title="measures Package"
              >previous</a> |</li>
-        <li><a href="index.html">PyParticles 0.3.2 documentation</a> &raquo;</li>
+        <li><a href="index.html">PyParticles 0.3.3 documentation</a> &raquo;</li>
           <li><a href="pyparticles.html" >pyparticles Package</a> &raquo;</li> 
       </ul>
     </div>

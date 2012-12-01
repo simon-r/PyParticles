@@ -1,0 +1,290 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Programming examples II &mdash; PyParticles 0.3.3 documentation</title>
+    
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.3.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="PyParticles 0.3.3 documentation" href="index.html" />
+    <link rel="next" title="Testing Procedures" href="Testing.html" />
+    <link rel="prev" title="Programming examples I" href="Programming Example.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="Testing.html" title="Testing Procedures"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="Programming Example.html" title="Programming examples I"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">PyParticles 0.3.3 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/logo_pyp.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Programming examples II</a><ul>
+<li><a class="reference internal" href="#k-particles-fountain">250K Particles Fountain</a><ul>
+<li><a class="reference internal" href="#let-s-start">Let&#8217;s start</a></li>
+<li><a class="reference internal" href="#the-main-function">the main function</a></li>
+<li><a class="reference internal" href="#initial-position">Initial position</a></li>
+<li><a class="reference internal" href="#forces-model">Forces model</a></li>
+<li><a class="reference internal" href="#ode-integration">ODE integration</a></li>
+<li><a class="reference internal" href="#simulation-time">Simulation time</a></li>
+<li><a class="reference internal" href="#build-the-boundary-model">Build the boundary model</a></li>
+<li><a class="reference internal" href="#build-the-animation-class-and-start">Build the &#8216;animation&#8217; class and start</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="Programming Example.html"
+                        title="previous chapter">Programming examples I</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="Testing.html"
+                        title="next chapter">Testing Procedures</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/Programming Example II.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="programming-examples-ii">
+<h1>Programming examples II<a class="headerlink" href="#programming-examples-ii" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="k-particles-fountain">
+<h2>250K Particles Fountain<a class="headerlink" href="#k-particles-fountain" title="Permalink to this headline">¶</a></h2>
+<p>Bellow I describe how to build the 250&#8216;000 particles fountain demo included as example in the main application.</p>
+<p>The demo can be executed with the command:</p>
+<div class="highlight-python"><pre>pyparticles_app -d fountain</pre>
+</div>
+<p>First, you must import the libraries: numpy and particles set.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pyparticles.pset.particles_set</span> <span class="kn">as</span> <span class="nn">ps</span>
+</pre></div>
+</div>
+<p>For this demo I&#8217;ve chosen the midpoint method as ode numerical integration, but you can try with another one.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">pyparticles.ode.midpoint_solver</span> <span class="kn">as</span> <span class="nn">mds</span>
+</pre></div>
+</div>
+<p>The force is a combination between the constant gravity and the drag of the atmosphere, so I import the &#8216;const_force&#8217; and &#8216;drag&#8217;; and the multiple force for building the full scenario</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">pyparticles.forces.const_force</span> <span class="kn">as</span> <span class="nn">cf</span>
+<span class="kn">import</span> <span class="nn">pyparticles.forces.drag</span> <span class="kn">as</span> <span class="nn">dr</span>
+<span class="kn">import</span> <span class="nn">pyparticles.forces.multiple_force</span> <span class="kn">as</span> <span class="nn">mf</span>
+</pre></div>
+</div>
+<p>The &#8216;animation&#8217; that control the simulation and the visualization is animation_ogl.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">pyparticles.animation.animated_ogl</span> <span class="kn">as</span> <span class="nn">aogl</span>
+</pre></div>
+</div>
+<p>And I use the default_boundary model to control the jet.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">pyparticles.pset.default_boundary</span> <span class="kn">as</span> <span class="nn">db</span>
+</pre></div>
+</div>
+<div class="section" id="let-s-start">
+<h3>Let&#8217;s start<a class="headerlink" href="#let-s-start" title="Permalink to this headline">¶</a></h3>
+<p>As first I&#8217;ve defined the function for modeling the jet. This function will be used by the boundary controller.</p>
+<p>This is a time-dependent function. And for convenience time is defined as variable internal to the function. As rule, the time must be based on a reference to an object of type <strong>SimTime</strong>.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">default_pos</span><span class="p">(</span> <span class="n">pset</span> <span class="p">,</span> <span class="n">indx</span> <span class="p">):</span>
+
+    <span class="n">t</span> <span class="o">=</span> <span class="n">default_pos</span><span class="o">.</span><span class="n">sim_time</span><span class="o">.</span><span class="n">time</span>
+
+    <span class="n">pset</span><span class="o">.</span><span class="n">X</span><span class="p">[</span><span class="n">indx</span><span class="p">,:]</span> <span class="o">=</span> <span class="mf">0.01</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span> <span class="nb">len</span><span class="p">(</span><span class="n">indx</span><span class="p">)</span> <span class="p">,</span> <span class="n">pset</span><span class="o">.</span><span class="n">dim</span> <span class="p">)</span>
+
+    <span class="n">fs</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="p">(</span> <span class="mf">1.0</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span> <span class="o">-</span><span class="p">(</span> <span class="n">t</span> <span class="o">-</span> <span class="mf">2.0</span> <span class="p">)</span> <span class="p">)</span> <span class="p">)</span>
+
+    <span class="n">alpha</span> <span class="o">=</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span> <span class="nb">len</span><span class="p">(</span><span class="n">indx</span><span class="p">)</span> <span class="p">)</span>
+
+    <span class="n">vel_x</span> <span class="o">=</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">fs</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span> <span class="n">alpha</span> <span class="p">)</span>
+    <span class="n">vel_y</span> <span class="o">=</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">fs</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span> <span class="n">alpha</span> <span class="p">)</span>
+
+    <span class="n">pset</span><span class="o">.</span><span class="n">V</span><span class="p">[</span><span class="n">indx</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">vel_x</span>
+    <span class="n">pset</span><span class="o">.</span><span class="n">V</span><span class="p">[</span><span class="n">indx</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">vel_y</span>
+    <span class="n">pset</span><span class="o">.</span><span class="n">V</span><span class="p">[</span><span class="n">indx</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mf">10.0</span> <span class="o">*</span> <span class="n">fs</span> <span class="o">+</span> <span class="mf">1.0</span> <span class="o">*</span> <span class="n">fs</span> <span class="o">*</span> <span class="p">(</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span> <span class="nb">len</span><span class="p">(</span><span class="n">indx</span><span class="p">))</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="the-main-function">
+<h3>the main function<a class="headerlink" href="#the-main-function" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>And finally you can start with the main function:</dt>
+<dd>As first I&#8217;ve defined the number of steps the <em>dt</em> (step time), the size of the particle set and the <strong>particles set</strong> pset</dd>
+</dl>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">fountain</span><span class="p">():</span>
+
+    <span class="n">steps</span> <span class="o">=</span> <span class="mi">10000000</span>
+    <span class="n">dt</span> <span class="o">=</span> <span class="mf">0.01</span>
+
+    <span class="n">pcnt</span> <span class="o">=</span> <span class="mi">250000</span>
+
+    <span class="n">pset</span> <span class="o">=</span> <span class="n">ps</span><span class="o">.</span><span class="n">ParticlesSet</span><span class="p">(</span> <span class="n">pcnt</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="initial-position">
+<h3>Initial position<a class="headerlink" href="#initial-position" title="Permalink to this headline">¶</a></h3>
+<p>As a second point define the initial positions of the particles, in order to generate a continuous stream.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">pset</span><span class="o">.</span><span class="n">M</span><span class="p">[:]</span> <span class="o">=</span> <span class="mf">0.1</span>
+<span class="n">pset</span><span class="o">.</span><span class="n">X</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.7</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span> <span class="n">pset</span><span class="o">.</span><span class="n">size</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="forces-model">
+<h3>Forces model<a class="headerlink" href="#forces-model" title="Permalink to this headline">¶</a></h3>
+<p>The force model is based on a combination between a constant force, for simulating the gravity, and the drag for simulating the friction of the air.</p>
+<p>The two forces must be stored in an object of type  MultipleForce.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">grav</span> <span class="o">=</span> <span class="n">cf</span><span class="o">.</span><span class="n">ConstForce</span><span class="p">(</span> <span class="n">pset</span><span class="o">.</span><span class="n">size</span> <span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="n">pset</span><span class="o">.</span><span class="n">dim</span> <span class="p">,</span> <span class="n">u_force</span><span class="o">=</span><span class="p">(</span> <span class="mf">0.0</span> <span class="p">,</span> <span class="mf">0.0</span> <span class="p">,</span> <span class="o">-</span><span class="mf">10.0</span> <span class="p">)</span> <span class="p">)</span>
+<span class="n">drag</span> <span class="o">=</span> <span class="n">dr</span><span class="o">.</span><span class="n">Drag</span><span class="p">(</span> <span class="n">pset</span><span class="o">.</span><span class="n">size</span> <span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="n">pset</span><span class="o">.</span><span class="n">dim</span> <span class="p">,</span> <span class="n">Consts</span><span class="o">=</span><span class="mf">0.01</span> <span class="p">)</span>
+
+<span class="n">multi</span> <span class="o">=</span> <span class="n">mf</span><span class="o">.</span><span class="n">MultipleForce</span><span class="p">(</span> <span class="n">pset</span><span class="o">.</span><span class="n">size</span> <span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="n">pset</span><span class="o">.</span><span class="n">dim</span> <span class="p">)</span>
+
+<span class="n">multi</span><span class="o">.</span><span class="n">append_force</span><span class="p">(</span> <span class="n">grav</span> <span class="p">)</span>
+<span class="n">multi</span><span class="o">.</span><span class="n">append_force</span><span class="p">(</span> <span class="n">drag</span> <span class="p">)</span>
+
+<span class="n">multi</span><span class="o">.</span><span class="n">set_masses</span><span class="p">(</span> <span class="n">pset</span><span class="o">.</span><span class="n">M</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="ode-integration">
+<h3>ODE integration<a class="headerlink" href="#ode-integration" title="Permalink to this headline">¶</a></h3>
+<p>As a ODE numerical integration method I&#8217;ve used the mid point algorithm.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">solver</span> <span class="o">=</span> <span class="n">mds</span><span class="o">.</span><span class="n">MidpointSolver</span><span class="p">(</span> <span class="n">multi</span> <span class="p">,</span> <span class="n">pset</span> <span class="p">,</span> <span class="n">dt</span> <span class="p">)</span>
+<span class="n">solver</span><span class="o">.</span><span class="n">update_force</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="simulation-time">
+<h3>Simulation time<a class="headerlink" href="#simulation-time" title="Permalink to this headline">¶</a></h3>
+<p>Set up the simulation time in the <em>default_pos</em> function, used for modeling the jet.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">default_pos</span><span class="o">.</span><span class="n">sim_time</span> <span class="o">=</span> <span class="n">solver</span><span class="o">.</span><span class="n">get_sim_time</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="build-the-boundary-model">
+<h3>Build the boundary model<a class="headerlink" href="#build-the-boundary-model" title="Permalink to this headline">¶</a></h3>
+<p>The tuples bd represents the size of the box closed domain: <img class="math" src="_images/math/6f1008bcb53feda0f448eabb0dd37204d4eb9235.png" alt="( min_x , max_x , min_y , max_y , min_z , max_z )"/></p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The class DefaultBoundary positions the particles exited from the limits of the domain according to the function defualt_pos</p>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">bd</span> <span class="o">=</span> <span class="p">(</span> <span class="o">-</span><span class="mf">100.0</span> <span class="p">,</span> <span class="mf">100.0</span> <span class="p">,</span> <span class="o">-</span><span class="mf">100.0</span> <span class="p">,</span> <span class="mf">100.0</span> <span class="p">,</span> <span class="mf">0.0</span> <span class="p">,</span> <span class="mf">100.0</span> <span class="p">)</span>
+<span class="n">bound</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">DefaultBoundary</span><span class="p">(</span> <span class="n">bd</span> <span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">3</span> <span class="p">,</span> <span class="n">defualt_pos</span><span class="o">=</span><span class="n">default_pos</span> <span class="p">)</span>
+
+<span class="n">pset</span><span class="o">.</span><span class="n">set_boundary</span><span class="p">(</span> <span class="n">bound</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="build-the-animation-class-and-start">
+<h3>Build the &#8216;animation&#8217; class and start<a class="headerlink" href="#build-the-animation-class-and-start" title="Permalink to this headline">¶</a></h3>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<dl class="last docutils">
+<dt>a.init_rotation( -80 , [ 0.7 , 0.05 , 0 ]  )</dt>
+<dd>setup an initial rotation where parameters are ( rot angle , axis of rotation )</dd>
+<dt>a.draw_particles.set_draw_model( 1 )</dt>
+<dd>enable the vectorized rendering, that is fundamental for drawing 250&#8216;000 particles</dd>
+</dl>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">a</span> <span class="o">=</span> <span class="n">aogl</span><span class="o">.</span><span class="n">AnimatedGl</span><span class="p">()</span>
+
+<span class="n">a</span><span class="o">.</span><span class="n">ode_solver</span> <span class="o">=</span> <span class="n">solver</span>
+<span class="n">a</span><span class="o">.</span><span class="n">pset</span> <span class="o">=</span> <span class="n">pset</span>
+<span class="n">a</span><span class="o">.</span><span class="n">steps</span> <span class="o">=</span> <span class="n">steps</span>
+
+<span class="n">a</span><span class="o">.</span><span class="n">draw_particles</span><span class="o">.</span><span class="n">set_draw_model</span><span class="p">(</span> <span class="mi">1</span> <span class="p">)</span>
+
+<span class="n">a</span><span class="o">.</span><span class="n">init_rotation</span><span class="p">(</span> <span class="o">-</span><span class="mi">80</span> <span class="p">,</span> <span class="p">[</span> <span class="mf">0.7</span> <span class="p">,</span> <span class="mf">0.05</span> <span class="p">,</span> <span class="mi">0</span> <span class="p">]</span>  <span class="p">)</span>
+
+<span class="n">a</span><span class="o">.</span><span class="n">build_animation</span><span class="p">()</span>
+<span class="n">a</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+
+<span class="k">return</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="Testing.html" title="Testing Procedures"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="Programming Example.html" title="Programming examples I"
+             >previous</a> |</li>
+        <li><a href="index.html">PyParticles 0.3.3 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012, Simone Riva.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

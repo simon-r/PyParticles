@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -7,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>PyParticles &mdash; PyParticles 0.3.2 documentation</title>
+    <title>PyParticles &mdash; PyParticles 0.3.3 documentation</title>
     
     <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -15,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.3.2',
+        VERSION:     '0.3.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -24,7 +25,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="PyParticles 0.3.2 documentation" href="#" />
+    <link rel="top" title="PyParticles 0.3.3 documentation" href="#" />
     <link rel="next" title="Problem Config file" href="Config File.html" /> 
   </head>
   <body>
@@ -40,7 +41,7 @@
         <li class="right" >
           <a href="Config File.html" title="Problem Config file"
              accesskey="N">next</a> |</li>
-        <li><a href="#">PyParticles 0.3.2 documentation</a> &raquo;</li> 
+        <li><a href="#">PyParticles 0.3.3 documentation</a> &raquo;</li> 
       </ul>
     </div>
       <div class="sphinxsidebar">
@@ -96,8 +97,8 @@
 <p>The main objective of PyParticles is to provide a system API simple and fast to use.
 Furthermore is to provide a basic application for the implementation of simple models.</p>
 <div class="line-block">
-<div class="line">Visit: <a class="reference external" href="http://pyparticles.wordpress.com/">http://pyparticles.wordpress.com/</a></div>
-<div class="line">github:  <a class="reference external" href="https://github.com/simon-r/PyParticles">http://simon-r.github.com/PyParticles/index.html</a></div>
+<div class="line">Blog: <a class="reference external" href="http://pyparticles.wordpress.com/">http://pyparticles.wordpress.com/</a></div>
+<div class="line">GitHub:  <a class="reference external" href="https://github.com/simon-r/PyParticles">https://github.com/simon-r/PyParticles</a></div>
 </div>
 <div class="section" id="index">
 <h2>Index<a class="headerlink" href="#index" title="Permalink to this headline">¶</a></h2>
@@ -112,8 +113,12 @@ Furthermore is to provide a basic application for the implementation of simple m
 <li class="toctree-l2"><a class="reference internal" href="Config File.html#examples">Examples:</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="Programming Example.html">Programming examples</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="Programming Example.html">Programming examples I</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="Programming Example.html#the-solar-system">The Solar System</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Programming Example II.html">Programming examples II</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Programming Example II.html#k-particles-fountain">250K Particles Fountain</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Testing.html">Testing Procedures</a></li>
@@ -163,6 +168,7 @@ Furthermore is to provide a basic application for the implementation of simple m
 <li>Lennard Jones</li>
 <li>Drag</li>
 <li>Damping</li>
+<li>Electromagnetic fields</li>
 </ol>
 <p>We have also the possibility of modeling the forces with user-defined constraints (See demo <em>cat_spri</em>).</p>
 <p>PyParticle offers an easy to use class structure with a fully <em>interchangeable</em> integrations method or force model, it also implements the possibility to add some boundary model.</p>
@@ -218,13 +224,21 @@ Furthermore is to provide a basic application for the implementation of simple m
 <tr class="row-even"><td>gas_lj</td>
 <td>Lennard jones gas model (should be improved)</td>
 </tr>
+<tr class="row-odd"><td>elmag_field</td>
+<td>Electromagnetic field</td>
+</tr>
+<tr class="row-even"><td>fountain</td>
+<td>250&#8216;000 particles fountain</td>
+</tr>
 </tbody>
 </table>
 <div class="highlight-python"><pre>pyparticles_app --demo springs
 pyparticles_app --demo solar_system
 pyparticles_app --demo bubble
 pyparticles_app --demo cat_spri
-pyparticles_app --demo gas_lj</pre>
+pyparticles_app --demo gas_lj
+pyparticles_app --demo elmag_field
+pyparticles_app --demo fountain</pre>
 </div>
 <p><strong>Start a testing procedure</strong>
 Execute the specified test:</p>
@@ -286,7 +300,7 @@ zlim = -5.0  5.0</pre>
         <li class="right" >
           <a href="Config File.html" title="Problem Config file"
              >next</a> |</li>
-        <li><a href="#">PyParticles 0.3.2 documentation</a> &raquo;</li> 
+        <li><a href="#">PyParticles 0.3.3 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

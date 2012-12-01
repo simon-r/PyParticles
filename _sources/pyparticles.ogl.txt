@@ -24,6 +24,14 @@ ogl Package
     :members:
     :undoc-members:
     :show-inheritance:
+    
+:mod:`draw_vector_field` Module
+--------------------------------
+
+.. automodule:: pyparticles.ogl.draw_vector_field
+    :members:
+    :undoc-members:
+    :show-inheritance:
 
 :mod:`trackball` Module
 -----------------------

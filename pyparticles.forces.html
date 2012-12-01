@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>forces Package &mdash; PyParticles 0.3.2 documentation</title>
+    <title>forces Package &mdash; PyParticles 0.3.3 documentation</title>
     
     <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.3.2',
+        VERSION:     '0.3.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="PyParticles 0.3.2 documentation" href="index.html" />
+    <link rel="top" title="PyParticles 0.3.3 documentation" href="index.html" />
     <link rel="up" title="pyparticles Package" href="pyparticles.html" />
     <link rel="next" title="geometry Package" href="pyparticles.geometry.html" />
     <link rel="prev" title="demo Package" href="pyparticles.demo.html" /> 
@@ -46,7 +46,7 @@
         <li class="right" >
           <a href="pyparticles.demo.html" title="demo Package"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">PyParticles 0.3.2 documentation</a> &raquo;</li>
+        <li><a href="index.html">PyParticles 0.3.3 documentation</a> &raquo;</li>
           <li><a href="pyparticles.html" accesskey="U">pyparticles Package</a> &raquo;</li> 
       </ul>
     </div>
@@ -60,16 +60,17 @@
 <li><a class="reference internal" href="#">forces Package</a><ul>
 <li><a class="reference internal" href="#id1"><tt class="docutils literal"><span class="pre">forces</span></tt> Package</a></li>
 <li><a class="reference internal" href="#module-pyparticles.forces.force"><tt class="docutils literal"><span class="pre">force</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pyparticles.forces.force_constrained"><tt class="docutils literal"><span class="pre">force_constrained</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pyparticles.forces.gravity"><tt class="docutils literal"><span class="pre">gravity</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pyparticles.forces.const_force"><tt class="docutils literal"><span class="pre">const_force</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pyparticles.forces.drag"><tt class="docutils literal"><span class="pre">drag</span></tt> Module</a></li>
 <li><a class="reference internal" href="#damping-module"><tt class="docutils literal"><span class="pre">damping</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pyparticles.forces.electrostatic"><tt class="docutils literal"><span class="pre">electrostatic</span></tt> Module</a></li>
-<li><a class="reference internal" href="#module-pyparticles.forces.force_constrained"><tt class="docutils literal"><span class="pre">force_constrained</span></tt> Module</a></li>
+<li><a class="reference internal" href="#electromagnetic-field-module"><tt class="docutils literal"><span class="pre">electromagnetic_field</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pyparticles.forces.lennard_jones"><tt class="docutils literal"><span class="pre">lennard_jones</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pyparticles.forces.linear_spring"><tt class="docutils literal"><span class="pre">linear_spring</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pyparticles.forces.linear_spring_constrained"><tt class="docutils literal"><span class="pre">linear_spring_constrained</span></tt> Module</a></li>
-<li><a class="reference internal" href="#module-pyparticles.forces.lorentz"><tt class="docutils literal"><span class="pre">lorentz</span></tt> Module</a></li>
+<li><a class="reference internal" href="#lorentz-module"><tt class="docutils literal"><span class="pre">lorentz</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pyparticles.forces.multiple_force"><tt class="docutils literal"><span class="pre">multiple_force</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pyparticles.forces.pseudo_bubble"><tt class="docutils literal"><span class="pre">pseudo_bubble</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pyparticles.forces.van_der_waals_force"><tt class="docutils literal"><span class="pre">van_der_waals_force</span></tt> Module</a></li>
@@ -229,6 +230,30 @@
 </tbody>
 </table>
 </dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyparticles.forces.force_constrained">
+<span id="force-constrained-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">force_constrained</span></tt> Module<a class="headerlink" href="#module-pyparticles.forces.force_constrained" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyparticles.forces.force_constrained.ForceConstrained">
+<em class="property">class </em><tt class="descclassname">pyparticles.forces.force_constrained.</tt><tt class="descname">ForceConstrained</tt><big>(</big><em>size</em>, <em>dim</em>, <em>m=None</em>, <em>Conts=1.0</em>, <em>f_inter=None</em><big>)</big><a class="headerlink" href="#pyparticles.forces.force_constrained.ForceConstrained" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pyparticles.forces.force.Force" title="pyparticles.forces.force.Force"><tt class="xref py py-class docutils literal"><span class="pre">pyparticles.forces.force.Force</span></tt></a></p>
+<dl class="attribute">
+<dt id="pyparticles.forces.force_constrained.ForceConstrained.force_interactions">
+<tt class="descname">force_interactions</tt><a class="headerlink" href="#pyparticles.forces.force_constrained.ForceConstrained.force_interactions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.forces.force_constrained.ForceConstrained.get_force_interactions">
+<tt class="descname">get_force_interactions</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.forces.force_constrained.ForceConstrained.get_force_interactions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.forces.force_constrained.ForceConstrained.set_force_interactions">
+<tt class="descname">set_force_interactions</tt><big>(</big><em>fi</em><big>)</big><a class="headerlink" href="#pyparticles.forces.force_constrained.ForceConstrained.set_force_interactions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 
@@ -524,12 +549,13 @@
 <span id="electrostatic-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">electrostatic</span></tt> Module<a class="headerlink" href="#module-pyparticles.forces.electrostatic" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pyparticles.forces.electrostatic.Electrostatic">
-<em class="property">class </em><tt class="descclassname">pyparticles.forces.electrostatic.</tt><tt class="descname">Electrostatic</tt><big>(</big><em>size</em>, <em>dim=3</em>, <em>m=None</em>, <em>Consts=1.0</em><big>)</big><a class="headerlink" href="#pyparticles.forces.electrostatic.Electrostatic" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">pyparticles.forces.electrostatic.</tt><tt class="descname">Electrostatic</tt><big>(</big><em>size</em>, <em>dim=3</em>, <em>m=None</em>, <em>q=None</em>, <em>Consts=1.0</em><big>)</big><a class="headerlink" href="#pyparticles.forces.electrostatic.Electrostatic" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#pyparticles.forces.force.Force" title="pyparticles.forces.force.Force"><tt class="xref py py-class docutils literal"><span class="pre">pyparticles.forces.force.Force</span></tt></a></p>
 <dl class="docutils">
 <dt>Compute the electrostatic force.</dt>
 <dd><p class="first">Note: The real force of an electrodynamic system is given by the <strong>Maxwell equations</strong>! and not from the Culomb law.</p>
 <p>The Culomb law is adapt only for computing a static system of particles, and not for moving particles.</p>
+<p>But for a very slow movement it should be a good approximation.</p>
 <div class="last math">
 <p><img src="_images/math/a6f753d0318fdf95a7015c0af198b0650b54e790.png" alt="\vec F = k \, q_1 \, q_2 \, \frac {\vec r_1 - \vec r_2}{\left \| \vec r_1 - \vec r_2 \right \|^3}"/></p>
 </div></dd>
@@ -572,25 +598,73 @@
 </dd></dl>
 
 </div>
-<div class="section" id="module-pyparticles.forces.force_constrained">
-<span id="force-constrained-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">force_constrained</span></tt> Module<a class="headerlink" href="#module-pyparticles.forces.force_constrained" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="pyparticles.forces.force_constrained.ForceConstrained">
-<em class="property">class </em><tt class="descclassname">pyparticles.forces.force_constrained.</tt><tt class="descname">ForceConstrained</tt><big>(</big><em>size</em>, <em>dim</em>, <em>m=None</em>, <em>Conts=1.0</em>, <em>f_inter=None</em><big>)</big><a class="headerlink" href="#pyparticles.forces.force_constrained.ForceConstrained" title="Permalink to this definition">¶</a></dt>
+<div class="section" id="electromagnetic-field-module">
+<h2><tt class="xref py py-mod docutils literal"><span class="pre">electromagnetic_field</span></tt> Module<a class="headerlink" href="#electromagnetic-field-module" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-pyparticles.forces.electromagnetic_field"></span><dl class="class">
+<dt id="pyparticles.forces.electromagnetic_field.ElectromagneticField">
+<em class="property">class </em><tt class="descclassname">pyparticles.forces.electromagnetic_field.</tt><tt class="descname">ElectromagneticField</tt><big>(</big><em>size</em>, <em>dim=3</em>, <em>m=None</em>, <em>q=None</em>, <em>Consts=1.0</em><big>)</big><a class="headerlink" href="#pyparticles.forces.electromagnetic_field.ElectromagneticField" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#pyparticles.forces.force.Force" title="pyparticles.forces.force.Force"><tt class="xref py py-class docutils literal"><span class="pre">pyparticles.forces.force.Force</span></tt></a></p>
+<p>Compute the electromagnetic force of a system of charged and non-selfinteracting particles system immersed in an electromagnetic filed  according to the Lorenz formulation.</p>
+<div class="math">
+<p><img src="_images/math/fa8db78edf3127cd94c0e5d156f830aee84bcc57.png" alt="\mathbf{F} = q(\mathbf{E} + \mathbf{v} \times \mathbf{B})"/></p>
+</div><dl class="attribute">
+<dt id="pyparticles.forces.electromagnetic_field.ElectromagneticField.A">
+<tt class="descname">A</tt><a class="headerlink" href="#pyparticles.forces.electromagnetic_field.ElectromagneticField.A" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="attribute">
-<dt id="pyparticles.forces.force_constrained.ForceConstrained.force_interactions">
-<tt class="descname">force_interactions</tt><a class="headerlink" href="#pyparticles.forces.force_constrained.ForceConstrained.force_interactions" title="Permalink to this definition">¶</a></dt>
+<dt id="pyparticles.forces.electromagnetic_field.ElectromagneticField.F">
+<tt class="descname">F</tt><a class="headerlink" href="#pyparticles.forces.electromagnetic_field.ElectromagneticField.F" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="pyparticles.forces.force_constrained.ForceConstrained.get_force_interactions">
-<tt class="descname">get_force_interactions</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.forces.force_constrained.ForceConstrained.get_force_interactions" title="Permalink to this definition">¶</a></dt>
+<dt id="pyparticles.forces.electromagnetic_field.ElectromagneticField.append_electric_field">
+<tt class="descname">append_electric_field</tt><big>(</big><em>ef</em>, <em>key=None</em><big>)</big><a class="headerlink" href="#pyparticles.forces.electromagnetic_field.ElectromagneticField.append_electric_field" title="Permalink to this definition">¶</a></dt>
+<dd><p>Append a vector field funcion to the list of electric field funtions.</p>
+<p>The field function must be in the form
+| ef( E , X )
+|
+| Where:
+|  E is a n by 3 numpy array of vectors used for the resulting filed.
+|  X is a n by 3 numpy array of coordinates</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.forces.electromagnetic_field.ElectromagneticField.append_magnetic_field">
+<tt class="descname">append_magnetic_field</tt><big>(</big><em>bf</em>, <em>key=None</em><big>)</big><a class="headerlink" href="#pyparticles.forces.electromagnetic_field.ElectromagneticField.append_magnetic_field" title="Permalink to this definition">¶</a></dt>
+<dd><p>Append a vector field funcion to the list of megnetic field funtions.</p>
+<p>It return the key used to identify the funtion, if key == None it uses a random number.</p>
+<p>The filed function must be in the form
+| bf( B , X )
+|
+| Where:
+|  B is a n by 3 numpy array of vectors used for the resulting filed.
+|  X is a n by 3 numpy array of coordinates</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.forces.electromagnetic_field.ElectromagneticField.getA">
+<tt class="descname">getA</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.forces.electromagnetic_field.ElectromagneticField.getA" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="pyparticles.forces.force_constrained.ForceConstrained.set_force_interactions">
-<tt class="descname">set_force_interactions</tt><big>(</big><em>fi</em><big>)</big><a class="headerlink" href="#pyparticles.forces.force_constrained.ForceConstrained.set_force_interactions" title="Permalink to this definition">¶</a></dt>
+<dt id="pyparticles.forces.electromagnetic_field.ElectromagneticField.getF">
+<tt class="descname">getF</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.forces.electromagnetic_field.ElectromagneticField.getF" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.forces.electromagnetic_field.ElectromagneticField.set_charges">
+<tt class="descname">set_charges</tt><big>(</big><em>q</em><big>)</big><a class="headerlink" href="#pyparticles.forces.electromagnetic_field.ElectromagneticField.set_charges" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.forces.electromagnetic_field.ElectromagneticField.set_masses">
+<tt class="descname">set_masses</tt><big>(</big><em>m</em><big>)</big><a class="headerlink" href="#pyparticles.forces.electromagnetic_field.ElectromagneticField.set_masses" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.forces.electromagnetic_field.ElectromagneticField.update_force">
+<tt class="descname">update_force</tt><big>(</big><em>pset</em><big>)</big><a class="headerlink" href="#pyparticles.forces.electromagnetic_field.ElectromagneticField.update_force" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -825,50 +899,8 @@
 </dd></dl>
 
 </div>
-<div class="section" id="module-pyparticles.forces.lorentz">
-<span id="lorentz-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">lorentz</span></tt> Module<a class="headerlink" href="#module-pyparticles.forces.lorentz" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="pyparticles.forces.lorentz.Lorentz">
-<em class="property">class </em><tt class="descclassname">pyparticles.forces.lorentz.</tt><tt class="descname">Lorentz</tt><big>(</big><em>size</em>, <em>dim=3</em>, <em>m=None</em>, <em>Consts=1.0</em><big>)</big><a class="headerlink" href="#pyparticles.forces.lorentz.Lorentz" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#pyparticles.forces.force.Force" title="pyparticles.forces.force.Force"><tt class="xref py py-class docutils literal"><span class="pre">pyparticles.forces.force.Force</span></tt></a></p>
-<p>Lorentz Force TODO !!!!</p>
-<dl class="attribute">
-<dt id="pyparticles.forces.lorentz.Lorentz.A">
-<tt class="descname">A</tt><a class="headerlink" href="#pyparticles.forces.lorentz.Lorentz.A" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="pyparticles.forces.lorentz.Lorentz.F">
-<tt class="descname">F</tt><a class="headerlink" href="#pyparticles.forces.lorentz.Lorentz.F" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pyparticles.forces.lorentz.Lorentz.getA">
-<tt class="descname">getA</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.forces.lorentz.Lorentz.getA" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pyparticles.forces.lorentz.Lorentz.getF">
-<tt class="descname">getF</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.forces.lorentz.Lorentz.getF" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pyparticles.forces.lorentz.Lorentz.set_charges">
-<tt class="descname">set_charges</tt><big>(</big><em>q</em><big>)</big><a class="headerlink" href="#pyparticles.forces.lorentz.Lorentz.set_charges" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pyparticles.forces.lorentz.Lorentz.set_masses">
-<tt class="descname">set_masses</tt><big>(</big><em>m</em><big>)</big><a class="headerlink" href="#pyparticles.forces.lorentz.Lorentz.set_masses" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pyparticles.forces.lorentz.Lorentz.update_force">
-<tt class="descname">update_force</tt><big>(</big><em>p_set</em><big>)</big><a class="headerlink" href="#pyparticles.forces.lorentz.Lorentz.update_force" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
+<div class="section" id="lorentz-module">
+<h2><tt class="xref py py-mod docutils literal"><span class="pre">lorentz</span></tt> Module<a class="headerlink" href="#lorentz-module" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="module-pyparticles.forces.multiple_force">
 <span id="multiple-force-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">multiple_force</span></tt> Module<a class="headerlink" href="#module-pyparticles.forces.multiple_force" title="Permalink to this headline">¶</a></h2>
@@ -1063,7 +1095,7 @@ It behaves like any other force, and can be used with all methods of numerical i
         <li class="right" >
           <a href="pyparticles.demo.html" title="demo Package"
              >previous</a> |</li>
-        <li><a href="index.html">PyParticles 0.3.2 documentation</a> &raquo;</li>
+        <li><a href="index.html">PyParticles 0.3.3 documentation</a> &raquo;</li>
           <li><a href="pyparticles.html" >pyparticles Package</a> &raquo;</li> 
       </ul>
     </div>
