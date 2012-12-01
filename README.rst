@@ -32,6 +32,7 @@ Simulate a particle by particle model with the most popular integrations methods
 #. Lennard Jones
 #. Drag
 #. Damping
+#. Electromagnetic fields  
 
 We have also the possibility of modeling the forces with user-defined constraints (See demo *cat_spri*).
 
@@ -81,6 +82,8 @@ solar_system  Simulation of the solar system with realistic magnitudes
 bubble        Bubbles. With a non realistic force
 cat_spri      Vibrating string with gravity and air drag
 gas_lj        Lennard jones gas model (should be improved)
+elmag_field   Electromagnetic field 
+fountain      250'000 particles fountain
 ============= ========================================================
 ::
 
@@ -89,6 +92,9 @@ gas_lj        Lennard jones gas model (should be improved)
     pyparticles_app --demo bubble
     pyparticles_app --demo cat_spri
     pyparticles_app --demo gas_lj
+    pyparticles_app --demo elmag_field
+    pyparticles_app --demo fountain
+    
 
 * **Start a testing procedure**
 Execute the specified test: ::
