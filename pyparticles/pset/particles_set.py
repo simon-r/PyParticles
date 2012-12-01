@@ -22,21 +22,21 @@ class ParticlesSet(object):
     """
     The main class for storing the particles data set.
     
-        ============= =============== =======================================================
-        Arguments
-        ============= =============== =======================================================
-        size          (default 0)     Number of particles
-        dim           (default 3)     dimensions of the system 2 or 3 ... 2D 3D
-        mass          (dafault True)  if True the particles have a mass.
-        label         (default False) if true it's possible to set a name for each particle
-        velocity      (dafault True)  if true the particles has a velocity
-        charge        (default False) if true the particles have an electric charge.
-        log_X         (default False) if true it's possible to logging the position
-        log_V         (default False) if true it's possible to logging the velocity
-        log_max_size  (default 0) set the maximal size of the log queue
-        ============= =============== =======================================================
+    Constructor:
         
-       Note: The properties: position X and velocity V are mandatory.
+    :param    size:          (default 0)     Number of particles
+    :param    dim:           (default 3)     dimensions of the system 2 or 3 ... 2D 3D
+    :param    mass:          (dafault True)  if True the particles have a mass.
+    :param    label:         (default False) if true it's possible to set a name for each particle
+    :param    velocity:      (dafault True)  if true the particles has a velocity
+    :param    charge:        (default False) if true the particles have an electric charge.
+    :param    log_X:         (default False) if true it's possible to logging the position
+    :param    log_V:         (default False) if true it's possible to logging the velocity
+    :param    log_max_size:  (default 0) set the maximal size of the log queue
+        
+        
+    .. note:: 
+        The properties: position X and velocity V are mandatory.
     """
     def __init__( self , size=1 , dim=3 , boundary=None ,
                  label=False , mass=True , velocity=True , charge=False ,
@@ -191,14 +191,11 @@ class ParticlesSet(object):
         
         If the model of the property is 'list' the dim is forced to 1
         
-            ===================  ==============================================================================
-            Arguments
-            ===================  ==============================================================================
-             property_name       the name of the new property
-             dim                 the dimension of the new property ( 2 = "2D  , 3 = 3D ... )
-             model               'list' or 'numpy_array'
-             to_type=np.float64  an array-numpy type for the model 'numpy_array' [ np.float64 , np.int64 ... ]
-            ===================  ==============================================================================
+        :param     property_name:       the name of the new property
+        :param     dim:                 the dimension of the new property ( 2 = "2D  , 3 = 3D ... )
+        :param     model:               'list' or 'numpy_array'
+        :param     to_type: [np.float64]  an array-numpy type for the model 'numpy_array' [ np.float64 , np.int64 ... ]
+            
             
         For example add 'friction' or 'radius':
         ::
@@ -349,11 +346,11 @@ class ParticlesSet(object):
     
     def enable_log( self , log_X=True , log_V=False , log_max_size=0 ):
         """
-        |Eanble the X and V logging:
-        |args:
-            #. log_X=True : log the positions
-            #. log_V=False : log the velocity
-            #. log_max_size: max size of the log queue
+        Eanble the X and V logging:
+        
+        :param   log_X=True: log the positions
+        :param   log_V=False: log the velocity
+        :param   log_max_size: max size of the log queue
         """
         if ( not self.log_X_enabled ) and log_X :
             self.__log_X = deque([])

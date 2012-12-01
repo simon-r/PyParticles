@@ -52,7 +52,7 @@ class ReboundBoundary( bd.Boundary ):
             v_mi[:] = 0.0
             v_mx[:] = 0.0
             
-            delta = self.bound[i,1] - self.bound[i,0]
+            #delta = self.bound[i,1] - self.bound[i,0]
             
             b_mi = p_set.X[:,i] < self.bound[i,0]
             b_mx = p_set.X[:,i] > self.bound[i,1]

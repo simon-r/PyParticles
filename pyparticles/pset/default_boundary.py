@@ -23,14 +23,13 @@ class DefaultBoundary( bd.Boundary ):
     r"""
     If a particle exits form the boundary it's moved to a default position according to the function 'defualt_pos'
     
-    Parameters
-    ----------
-    bound : A tuple that describe the boundary - (min , max) or (x_min,x_man,y_min,y_max,z_min,z_max) 
-    dim : dimension of the system
-    defualt_pos : default position function
+    
+    :param bound: A tuple that describe the boundary - (min , max) or (x_min,x_man,y_min,y_max,z_min,z_max) 
+    :param dim: dimension of the system
+    :param defualt_pos: default position function
     
     | Where:
-    |  X = defualt_pos( pset , indx )
+    |  defualt_pos( pset , indx ) update the X and/or V of the particles set pset 
     |  pset: particles set
     |  indx: indices of the involved particles
     """

@@ -26,32 +26,36 @@ class FileCluster(object):
     The first row of the csv contains the size and the dim of the particles set.
     
     The other rows are the data of the perticles in the order:
-    
-    ======== ======== ==== ================
-    Position Velocity Mass label (optional)
-    ======== ======== ==== ================
-        
     """
     
     def __init__(self):
         pass
 
     def open( self , cfile , mode="r" ):
-        #if type( cfile ) is str :
-        #    self.__f = open( cfile , mode )
-        #else :
-        #    self.__f = cfile
+        """
+        Open the csv file named cfile.
+        
+        :param cfile: The file name
+        :param mode: file mode (default reading)
+        """
             
         self.__cfile = cfile
             
             
     def close(self):
+        """
+        Close the file
+        """
         pass
         #self.__f.close()
 
 
     def insert3( self , pset ):
+        """
+        Insert the particles described in the file in the ParticlesSet pset
         
+        :param pset: A reference to the particles set   
+        """
         ff = open( self.__cfile , 'rb')
         csv_w = csv.reader( ff , delimiter=' ')
         
@@ -96,7 +100,11 @@ class FileCluster(object):
 
 
     def write_out( self , pset ):
+        """
+        Write out in the csv file the particles described in pset.
         
+        :param pset: A reference to the particles set
+        """
         ff = open( self.__cfile , 'wb')
         csv_w = csv.writer( ff , delimiter=' ')
         
