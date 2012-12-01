@@ -202,6 +202,7 @@ class ParticlesSet(object):
         
             # Add the friction to the particles set 
             pset.add_property_by_name( "friction" , dim=1 , to_type=np.float32 )
+            pset.add_property_by_name( "radius" , dim=1 , to_type=np.float32 )
         """
         
         if dim == None :
@@ -215,7 +216,7 @@ class ParticlesSet(object):
 
     def get_properties_names(self):
         """
-        Return a list of containig the names of all properties
+        Return a list of containing the names of all properties
         """
         return self.__property_dict.keys()
 
@@ -308,20 +309,20 @@ class ParticlesSet(object):
     
     def notify_set_changed(self):
         """
-        Call this methos when the particle set is modified.
+        Call this methods when the particle set is modified.
         """
         for e in self.__notify_set_changed :
             e.particles_set_changed( self )
 
     def add_set_changed_listener( self , listener ) :
         """
-        Add an object that contains a member methond called: *particles_set_changed( pset )* that there will be called if the particle set will be modified.
+        Add an object that contains a member methods called: *particles_set_changed( pset )* that there will be called if the particle set will be modified.
         """
         self.__notify_set_changed.append( listener )
 
     def update_boundary( self ):
         """
-        Update the particle set according to the boudary rule
+        Update the particle set according to the boundary rule
         """
         if self.__bound != None :
             self.__bound.boundary( self )
@@ -332,7 +333,7 @@ class ParticlesSet(object):
     def set_boundary( self , boundary):
         self.__bound = boundary
 
-    boundary = property( get_boundary , set_boundary , doc="return the reference to the boudary, None if the boudary are not set or open")
+    boundary = property( get_boundary , set_boundary , doc="return the reference to the boundary, None if the boundary are not set or open")
 
     
     def get_log_max_size( self ):
@@ -437,7 +438,7 @@ class ParticlesSet(object):
     def get_unit(self):
         return self.__unit
     
-    unit = property( get_unit , set_unit , doc="set the unit lenght")
+    unit = property( get_unit , set_unit , doc="set the unit length")
     
     
     def set_mass_unit( self , u ):
@@ -450,10 +451,20 @@ class ParticlesSet(object):
     
     
     def update_centre_of_mass(self):
+        """
+        Compute and return the center of mass
+        """
         self.__centre_mass = np.sum( self.__X * self.__mass , axis=0 ) / np.float( self.__size )
         return self.__centre_mass
         
     def centre_of_mass(self):
+        """
+        Return the stored center of mass.
+        
+        .. note::
+        
+            this function don't compute the center of mass, but simply return the stored value.
+        """
         return self.__centre_mass
     
     def get_dim(self):
@@ -462,8 +473,9 @@ class ParticlesSet(object):
     def get_size( self ):
         return self.__size
     
-    dim = property( get_dim )
-    size = property( get_size )
+    dim = property( get_dim , doc="get the dim of the set" )
+    
+    size = property( get_size , doc="get the size of the set" )
     
     def add_clusters( self , Cs , n ):
         i = 0
