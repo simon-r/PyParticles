@@ -28,14 +28,10 @@ class LinearSpring( fr.Force ) :
         
            F_i = -k X
      
-        ========= ==============================
-        Arguments
-        ========= ==============================
-        size      size of the particles system
-        dim       dimension of the system
-        m         an array containig the masses
-        const     spring constant ( K )
-        ========= ==============================
+    :param    size:      size of the particles system
+    :param    dim:       dimension of the system
+    :param    m:         an array containing the masses
+    :param    const:     spring constant ( K )   
     """
     def __init__(self , size , dim=3 , m=None , Consts=1.0 ):
         

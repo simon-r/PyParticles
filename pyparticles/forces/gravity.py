@@ -29,16 +29,11 @@ class Gravity( fr.Force ) :
         \mathbf{F}_{12}=-G \frac{m_1 m_2 }{r^2}\hat{r}_{12}
 
     Constructor
-
-        ==========  ======================================
-        Arguments
-        ==========  ======================================
-        size        the number of particles in the system
-        dim         the dimension of the system
-        m           a vector containig the masses
-        Const       the gravitational constant
-        ==========  ======================================
-
+    
+    :param    size:        the number of particles in the system
+    :param    dim:         the dimension of the system
+    :param    m:           a vector containig the masses
+    :param    Const:       the gravitational constant
     """
     def __init__(self , size , dim=3 , m=None , Consts=1.0 ):
         

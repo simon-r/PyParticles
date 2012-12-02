@@ -22,14 +22,10 @@ class Force(object):
 
     Constructor
 
-            ==========  ======================================
-            Arguments
-            ==========  ======================================
-            size        the number of particles in the system
-            dim         the dimension of the system (3D, 2D..)
-            m           a vector containig the masses
-            Const       the force constants (Like G, K ...)
-            ==========  ====================================== 
+    :param        size:        the number of particles in the system
+    :param        dim:         the dimension of the system (3D, 2D..)
+    :param        m:           a vector containig the masses
+    :param        Const:       the force constants (Like G, K ...)
     """
 
     def __init__(self , size , dim , m=None , Conts=1.0 ):
@@ -39,23 +35,15 @@ class Force(object):
         """
         Set the masses used for computing the forces.
 
-            ========= ==============================
-            Arguments
-            ========= ==============================
-            m         An array containig the masses
-            ========= ==============================
+        :param    m:         An array containig the masses
         """
         NotImplementedError(" %s : is virtual and must be overridden." % sys._getframe().f_code.co_name )
 
     def update_force( self , p_set ):
         """
         Computes the forces of the current status ad return the accelerations of the particles
-
-            ========= ==================
-            Arguments
-            ========= ==================
-            p_set     Particles set obj.
-            ========= ==================
+    
+        :param    p_set:     Particles set obj.
         """
         NotImplementedError(" %s : is virtual and must be overridden." % sys._getframe().f_code.co_name )
 

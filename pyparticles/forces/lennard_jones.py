@@ -32,19 +32,16 @@ class LenardJones( fr.Force ) :
         \mathbf{F}(r) = 4 \epsilon \left(12\,{\frac{{\sigma}^{12}}{{r}^{13}}}-6\,{\frac{{\sigma}^{6}}{{r}^{7}}}\right)\hat{\mathbf{r}}
 
 
-    Constructor
+    Constructor:
 
-        ==========  =============================================
-        Arguments
-        ==========  =============================================
-        size        the number of particles in the system
-        dim         the dimension of the system
-        m           a vector containig the masses
-        Const       An indexable object[*] with the two contants
-        ==========  =============================================
+    :param    size:        the number of particles in the system
+    :param    dim:         the dimension of the system
+    :param    m:           a vector containig the masses
+    :param    Const:       An indexable object[*] with the two contants
+        
 
-         [*] Const[0] = :math:`\epsilon`
-             Const[1] = :math:`\sigma`
+    [*] Const[0] = :math:`\epsilon`
+        Const[1] = :math:`\sigma`
 
     """
 
@@ -78,11 +75,7 @@ class LenardJones( fr.Force ) :
         """
         Compute the force of the current status of the system and return the accelerations of every particle in a *size by dim* array
         
-            ========= ==================
-            Arguments
-            ========= ==================
-            p_set     Particles set obj.
-            ========= ==================
+        :param    p_set:     Particles set obj.
         """
         
         r =  dist.pdist( p_set.X , 'euclidean' )
