@@ -20,6 +20,16 @@ import pyparticles.forces.force as fr
 import scipy.spatial.distance as dist
 
 class PseudoBubble( fr.Force ) :
+    r"""
+    Pseudo Bubble is a **fake force** that produce the effect of the bubbles in a fluid.
+    
+    .. math::
+    
+        \begin{cases}
+         & \text{ if } d_{i,j} < R \,\,\, \text{then} \,\,\,F_{i,j}= -\frac{B}{R}d_{i,j}+\frac{B}{d_{i,j}} \\ 
+         & \text{ if } d_{i,j} \geqslant  R \,\,\, \text{then} \,\,\,F_{i,j}= 0
+        \end{cases}
+    """
     def __init__(self , size , dim=3 , m=None , Consts=( 0.3 , 2.0 ) ):
         self.__dim = dim
         self.__size = size
@@ -31,7 +41,8 @@ class PseudoBubble( fr.Force ) :
         self.__M = np.zeros( ( size , 1 ) )
         
         self.__F = np.zeros( ( size , size ) )
-        #self.__D = np.zeros( ( size , size ) )
+        self.__D = np.zeros( ( size , size ) )
+        #self.__bool = np.zeros( ( size , size ) , dtype=np.bool )
         
         self.__V = np.zeros( ( size , size ) )
         
@@ -45,14 +56,16 @@ class PseudoBubble( fr.Force ) :
     
     def update_force( self , pset ):
         
-        D = dist.squareform( dist.pdist( pset.X ) )
-        b = np.logical_and( D <= self.__R , D != 0.0 )
+        D = self.__D
+        
+        D[:] = dist.squareform( dist.pdist( pset.X ) )
+        ( n , m ) = np.where( np.logical_and( D <= self.__R , D != 0.0 ) )
         
         #print(np.where(b))
         
         self.__F[:] = 0.0
         
-        self.__F[b] = ( -( self.__B / self.__R ) * D[b] + self.__B ) / D[b]
+        self.__F[n,m] = ( -( self.__B / self.__R ) * D[n,m] + self.__B ) / D[n,m]
         
         for i in range( pset.dim ) :
             self.__V[:,:] = pset.X[:,i]
