@@ -23,14 +23,10 @@ class ConstForce( fr.Force ) :
     
     Constructor
          
-        ==========  ==========================================
-        Arguments
-        ==========  ==========================================
-        size        the number of particles in the system
-        dim         the dimension of the system
-        m           a vector containig the masses
-        u_force     The force vector (Force per unit of mass)
-        ==========  ==========================================
+    :param    size:        the number of particles in the system
+    :param    dim:         the dimension of the system
+    :param    m:           a vector containig the masses
+    :param    u_force:     The force vector (Force per unit of mass)
     """
     
     def __init__(self , size , dim=3 , m=None , u_force=[0,0,0] , Consts=1.0 ):

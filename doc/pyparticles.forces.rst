@@ -100,13 +100,6 @@ forces Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`lorentz` Module
----------------------
-
-.. automodule:: pyparticles.forces.lorentz
-    :members:
-    :undoc-members:
-    :show-inheritance:
 
 :mod:`multiple_force` Module
 ----------------------------

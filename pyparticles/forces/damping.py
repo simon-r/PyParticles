@@ -19,7 +19,7 @@ import numpy as np
 import pyparticles.forces.force as fr
 
 class Damping( fr.Force ) :
-    """
+    r"""
     Compute the damping forces, the damping is a force that react proportionally to the velocity
     
     The force is given the equation:
@@ -30,14 +30,10 @@ class Damping( fr.Force ) :
         
     Constructor
          
-        ==========  ======================================
-        Arguments
-        ==========  ======================================
-        size        the number of particles in the system
-        dim         the dimension of the system
-        m           a vector containig the masses
-        Const       the damping factor
-        ==========  ====================================== 
+    :param    size:        the number of particles in the system
+    :param    dim:         the dimension of the system
+    :param    m:           a vector containig the masses
+    :param    Const:       the damping factor
     """
     def __init__(self , size , dim=3 , m=None , Consts=1.0 ):
         

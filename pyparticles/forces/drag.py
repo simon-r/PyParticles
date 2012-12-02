@@ -19,7 +19,7 @@ import pyparticles.forces.force as fr
 
 class Drag( fr.Force ) :
     r"""
-    Calculate the forces of resistance, resistance is a force that reacts to the movement with respect to a square law speed.
+    Calculate the forces of resistance. Drag is a force that reacts to the movement with respect to a square law speed. It's commonly used for describing the resistance  of a fluid
 
     The force is given the equation:
 
@@ -27,16 +27,12 @@ class Drag( fr.Force ) :
 
         F_i=-\frac{1}{2}K\dot{X}^2
 
-    Constructor
-
-        ==========  ======================================
-        Arguments
-        ==========  ======================================
-        size        the number of particles in the system
-        dim         the dimension of the system
-        m           a vector containig the masses
-        Const       the gravitational constant
-        ==========  ======================================
+    Constructor:
+        
+    :param    size:        the number of particles in the system
+    :param    dim:         the dimension of the system
+    :param    m:           a vector containig the masses
+    :param    Const:       the drag factor K
     """
 
     def __init__(self , size , dim=3 , m=None , Consts=1.0 ):
