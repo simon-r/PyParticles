@@ -24,7 +24,7 @@ class ParticlesSet(object):
     
     Constructor:
         
-    :param    size:          (default 0)     Number of particles
+    :param    size:          (default 1)     Number of particles
     :param    dim:           (default 3)     dimensions of the system 2 or 3 ... 2D 3D
     :param    mass:          (dafault True)  if True the particles have a mass.
     :param    label:         (default False) if true it's possible to set a name for each particle
@@ -34,8 +34,9 @@ class ParticlesSet(object):
     :param    log_V:         (default False) if true it's possible to logging the velocity
     :param    log_max_size:  (default 0) set the maximal size of the log queue
         
-        
+
     .. note:: 
+    
         The properties: position X and velocity V are mandatory.
     """
     def __init__( self , size=1 , dim=3 , boundary=None ,
@@ -202,7 +203,7 @@ class ParticlesSet(object):
         
             # Add the friction to the particles set 
             pset.add_property_by_name( "friction" , dim=1 , to_type=np.float32 )
-            pset.add_property_by_name( "radius" , dim=1 , to_type=np.float32 )
+            pset.add_property_by_name( "radius" , dim=1 , to_type=np.float64 )
         """
         
         if dim == None :
