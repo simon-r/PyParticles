@@ -15,7 +15,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import numpy as np
-import sys
 import scipy.spatial.distance as dist
 
 import pyparticles.forces.force as fr
@@ -30,7 +29,6 @@ class LenardJones( fr.Force ) :
     .. math::
 
         \mathbf{F}(r) = 4 \epsilon \left(12\,{\frac{{\sigma}^{12}}{{r}^{13}}}-6\,{\frac{{\sigma}^{6}}{{r}^{7}}}\right)\hat{\mathbf{r}}
-
 
     Constructor:
 
@@ -65,10 +63,10 @@ class LenardJones( fr.Force ) :
         
         
     def set_masses( self , m ):
-       """
-       Set the masses used for computing the forces.
-       """
-       self.__M[:] = m
+        """
+        Set the masses used for computing the forces.
+        """
+        self.__M[:] = m
        
     
     def update_force( self , p_set ):

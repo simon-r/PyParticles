@@ -29,8 +29,6 @@ import pyparticles.ode.midpoint_solver as mds
 import pyparticles.measures.kinetic_energy as ke
 import pyparticles.measures.total_energy as te
 
-import sys
-
 import pyparticles.animation.animated_ogl as aogl
 
 
