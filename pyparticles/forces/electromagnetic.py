@@ -21,7 +21,11 @@ import pyparticles.forces.force as fr
 
 class Electromagnetic( fr.Force ) :
     r"""
-    Compute the electromagnetic force of the selfinteracting particles system according to the Lorenz formulation.
+    Compute the electromagnetic force of a self-interacting particles system according to the Lorenz formulation.
+    
+    
+    
+    Not yet tested.
     """
     def __init__( self , size , dim=3 , m=None , Consts=1.0 ):
         
@@ -74,17 +78,16 @@ class Electromagnetic( fr.Force ) :
         r = self.__r
         for j in range( self.__size ) :
             r[:] = p_set.X[j,:] - p_set.X[:]
+            
             r[:] = (r.T / np.sqrt( np.sum(r**2,1))).T
+            r[j,:] = 0.0
             
             r[:] = np.cross( p_set.V[:] , r[:] )
             r[:] = np.cross( p_set.V[j,:] , r[:] )
             
-            r[j,:] = 0.0
-            
-            self.__Am[j,:] = np.sum( self.__Fm[:,j] * r[:] , 0 ) / self.__M[j]
+            self.__Am[j,:] = np.sum( self.__Fm[:,j].T * r[:] , 0 ).T / self.__M[j]
             
             
-        
         #print( self.__X )
         self.__A[:] = self.__Ae + self.__Am
         
