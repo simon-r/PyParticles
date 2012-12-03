@@ -17,6 +17,17 @@
 import numpy as np
 
 class logger ( object ):
+    """
+    Class used for logging the status of the particles system, this class will be used by the ParticlesSet class.
+    This class uses a matrix of size [ log_size by pasrticles_size by dim ] for saving the status.
+    
+    Constructor
+    
+    :param  pset: A reference to the particles set to be logged.
+    :param  log_max_size: The maximal size of the log
+    :param  log_X: (default=True) log the positions
+    :param  log_V: (default=False) log the velocities  
+    """
     def __init__( self , pset , log_max_size , log_X=True , log_V=False ):
         
         self.__pset = pset
@@ -42,6 +53,10 @@ class logger ( object ):
             self.__log_V = None
     
     def log( self ):
+        """
+        Save the current status of the particles-set in the log queue.
+        If the log queue is filled it removes the oldest status
+        """
         
         self.__log_cnt += 1
         
@@ -76,27 +91,64 @@ class logger ( object ):
             self.__state = 1 
             
 
+    def get_log_indices( self ):
+        if self.__state == 0 :
+            ind = np.arange( self.__La , self.__Lb , dtype=np.int32 )
+            
+        elif self.__state == 1 :
+            ind = np.concatenate( np.arange( self.__La , self.log_max_size , dtype=np.int32 ) , 
+                                     np.arange( 0 , self.__Lb+1 , dtype=np.int32 ) )
+            
+        elif self.__state == 2 :
+            ind = np.concatenate( np.arange( self.__Lb , self.log_max_size , dtype=np.int32 ) , 
+                                     np.arange( 0 , self.__La+1 , dtype=np.int32 ) )
+            
+        return ind
+
+    def get_particles_log( self , i , log_X=True , log_V=False ):
+        """
+        Return an numpy array containing the log if the i-th particles 
+        
+        :param i: Index (or indices) of the particles
+        :param log_X: (default=True) return the log of the positions
+        :param log_V: (default=False) return the log of the velocities
+        
+        :returns: A tuple containing the log arrays ( log_x , [log_V] ) 
+        """
+        
+        ind = self.get_log_indices()
+        
+        l = list([])
+        
+        if log_X :
+            l.append( self.__Log_X[ind,i,:] )
+        
+        if log_V :
+            l.append( self.__Log_V[ind,i,:] )
+        
+        return tuple( l )
+        
+
+    def resize( self , log_max_size ):
+        pass
 
     def get_log_max_size( self ):
         return self.__log_max_size
-    
-    def set_log_max_size( self , log_max_size ):
-        self.__log_max_size = log_max_size
-        
-    log_max_size = property( get_log_max_size , set_log_max_size , doc="set and get the max allowed size of the log")
+            
+    log_max_size = property( get_log_max_size , doc="get the max allowed size of the log")
     
     
     def get_log_size(self):
-        return self.__log_len
+        return self.__size
     
     log_size = property( get_log_size )
     
  
     def get_log_X_enabled(self):
-        return ( self.__log_X != None )
+        return self.__log_X != None
     
     def get_log_V_enabled(self):
-        return ( self.__log_V != None )
+        return self.__log_V != None
 
 
     log_V_enabled = property( get_log_V_enabled , doc="return true if the logging of the position is enabled")
