@@ -38,7 +38,7 @@ class logger ( object ):
         self.__log_cnt = 0
         
         self.__La = 0 
-        self.__Lb = 0
+        self.__Lb = -1
         
         self.__state = 0
         
@@ -60,12 +60,6 @@ class logger ( object ):
         
         self.__log_cnt += 1
         
-        if self.__log_X != None :
-            self.__log_X[ self.__Lb , : , : ] = self.__pset.X
-
-        if self.__log_V != None :
-            self.__log_V[ self.__Lb , : , : ] = self.__pset.V
-        
         if self.__state == 0 :
             self.__size +=1
             self.__Lb += 1
@@ -74,10 +68,10 @@ class logger ( object ):
             self.__La += 1
             self.__Lb += 1
             
-            if self.__La > self.__log_max_size :
+            if self.__La >= self.__log_max_size :
                 self.__La = 0
                 
-            if self.__Lb > self.__log_max_size :
+            if self.__Lb >= self.__log_max_size :
                 self.__Lb = 0
 
         if self.__state != 0 and self.__La > self.__Lb :
@@ -86,23 +80,40 @@ class logger ( object ):
         if self.__state != 0 and self.__La < self.__Lb :
             self.__state = 2
 
-        if self.__state == 0 and self.__size > self.__log_max_size :
+        if self.__state == 0 and self.__Lb >= self.__log_max_size :
             self.__size = self.__log_max_size
+            self.__Lb = 0
+            self.__La = 1
             self.__state = 1 
+                    
+        
+        if self.__log_X != None :
+            self.__log_X[ self.__Lb , : , : ] = self.__pset.X
+
+        if self.__log_V != None :
+            self.__log_V[ self.__Lb , : , : ] = self.__pset.V
+        
+
+        
+#        print( "----------------------------------------------" )   
+#        print( self.__log_cnt ) 
+#        print( " a = %d , b = %d " % ( self.__La , self.__Lb ) )
+#        print( self.get_log_indices() )
+#        
+#        #print( self.__log_X )
             
 
-    def get_log_indices( self ):
+    def __get_log_indices( self ):
         if self.__state == 0 :
-            ind = np.arange( self.__La , self.__Lb , dtype=np.int32 )
+            ind = np.arange( self.__La , self.__Lb+1 , dtype=np.int32 )
             
-        elif self.__state == 1 :
-            ind = np.concatenate( np.arange( self.__La , self.log_max_size , dtype=np.int32 ) , 
-                                     np.arange( 0 , self.__Lb+1 , dtype=np.int32 ) )
+        elif self.__state == 1 :            
+            ind = np.concatenate( ( np.arange( self.__La , self.log_max_size , dtype=np.int32 ) , 
+                                     np.arange( 0 , self.__Lb+1 , dtype=np.int32 ) ) )
             
         elif self.__state == 2 :
-            ind = np.concatenate( np.arange( self.__Lb , self.log_max_size , dtype=np.int32 ) , 
-                                     np.arange( 0 , self.__La+1 , dtype=np.int32 ) )
-            
+            ind = np.concatenate( ( np.arange( self.__Lb , self.log_max_size , dtype=np.int32 ) , 
+                                     np.arange( 0 , self.__La+1 , dtype=np.int32 ) ) )
         return ind
 
     def get_particles_log( self , i , log_X=True , log_V=False ):
@@ -116,20 +127,23 @@ class logger ( object ):
         :returns: A tuple containing the log arrays ( log_x , [log_V] ) 
         """
         
-        ind = self.get_log_indices()
+        ind = self.__get_log_indices()
         
         l = list([])
         
         if log_X :
-            l.append( self.__Log_X[ind,i,:] )
+            l.append( self.__log_X[ind,i,:] )
         
         if log_V :
-            l.append( self.__Log_V[ind,i,:] )
+            l.append( self.__log_V[ind,i,:] )
         
         return tuple( l )
         
 
     def resize( self , log_max_size ):
+        pass
+    
+    def jump( self ):
         pass
 
     def get_log_max_size( self ):

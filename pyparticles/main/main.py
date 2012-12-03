@@ -25,6 +25,8 @@ import matplotlib
 import numpy as np
 
 import pyparticles.pset.particles_set as ps
+import pyparticles.pset.logger as log
+
 import pyparticles.animation.animated_scatter as anim
 
 import pyparticles.animation as pan
@@ -39,8 +41,6 @@ import pyparticles.ode.runge_kutta_solver as rks
 import pyparticles.ode.stormer_verlet_solver as svs
 
 import matplotlib.animation as animation
-
-
 
 
 import pyparticles.pset.periodic_boundary as pb
@@ -218,6 +218,19 @@ class MyField( vf.VectorFieldForce ):
 
 
 def my_test() :
+    
+    
+    pset = ps.ParticlesSet( 10 )
+    
+    lo = log.logger( pset , 10 )
+    
+    for i in range( 105 ) :
+        pset.X[:] =  float(i) 
+        lo.log()
+        
+        print( lo.get_particles_log( 3 ) )
+    
+    exit()
         
     t = tr.Transformations()
     
