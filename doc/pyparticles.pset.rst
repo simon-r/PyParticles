@@ -17,6 +17,16 @@ pset Package
     :undoc-members:
     :show-inheritance:
 
+
+:mod:`logger` Module
+---------------------------
+
+.. automodule:: pyparticles.pset.logger
+    :members:
+    :undoc-members:
+    :show-inheritance:
+    
+
 :mod:`boundary` Module
 ----------------------
 
@@ -80,7 +90,6 @@ pset Package
     :members:
     :undoc-members:
     :show-inheritance:
-
 
 
 :mod:`periodic_boundary` Module
