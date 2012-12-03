@@ -222,7 +222,7 @@ def my_test() :
     
     pset = ps.ParticlesSet( 10 )
     
-    lo = log.logger( pset , 10 )
+    lo = log.Logger( pset , 10 )
     
     for i in range( 105 ) :
         pset.X[:] =  float(i) 

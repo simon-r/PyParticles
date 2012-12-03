@@ -18,6 +18,11 @@
 import numpy as np
 from collections import deque
 
+import pyparticles.pset.logger as log
+
+import random
+import string
+
 class ParticlesSet(object):
     """
     The main class for storing the particles data set.
@@ -32,7 +37,7 @@ class ParticlesSet(object):
     :param    charge:        (default False) if true the particles have an electric charge.
     :param    log_X:         (default False) if true it's possible to logging the position
     :param    log_V:         (default False) if true it's possible to logging the velocity
-    :param    log_max_size:  (default 0) set the maximal size of the log queue
+    :param    log_max_size:  (default 0)     set the maximal size of the log queue
         
 
     .. note:: 
@@ -77,6 +82,7 @@ class ParticlesSet(object):
         self.__unit = 1.0
         self.__mass_unit = 1.0
         
+        ## Old log
         if log_X == True :
             self.__log_X = deque([])
         else :
@@ -89,6 +95,10 @@ class ParticlesSet(object):
             
         self.__log_max_size = log_max_size
         self.__log_len = 0
+        #########################
+        
+        self.__log = dict()
+        self.__default_logger = None
         
         self.__property_dict = dict()
         self.__property_dict['X'] = self.__X
@@ -346,6 +356,25 @@ class ParticlesSet(object):
     log_max_size = property( get_log_max_size , set_log_max_size , doc="set and get the max allowed size of the log")
     
     
+    def append_logger( self , logger , key=None ):
+        if key == None :
+            key = "".join(random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for x in range(40))
+            
+        self.__log[key] = logger
+        
+        if self.__default_logger == None :
+            self.__default_logger = key
+        
+        return key
+        
+    def log_new(self):
+        """
+        | If the log is enabled, save the current status in the log queue.
+        | The last element of the queue will be removed if we reach the max allowed size
+        """
+        for key in self.__log.keys() :
+            self.__log[key].log()
+    
     def enable_log( self , log_X=True , log_V=False , log_max_size=0 ):
         """
         Eanble the X and V logging:
@@ -354,7 +383,13 @@ class ParticlesSet(object):
         :param   log_V=False: log the velocity
         :param   log_max_size: max size of the log queue
         """
-        if ( not self.log_X_enabled ) and log_X :
+        
+        if len( self.__log ) == 0 :
+            logg = log.Logger( self , log_max_size=log_max_size , log_X=log_X , log_V=log_V )
+            self.append_logger( logg )
+         
+        #### cut ####   
+        if log_X :
             self.__log_X = deque([])
             
         if ( not self.log_V_enabled ) and log_V :
@@ -365,17 +400,18 @@ class ParticlesSet(object):
     
     def get_log_size(self):
         return self.__log_len
+        #return self.__log[self.__default_logger].log_size
     
     log_size = property( get_log_size )
 
     def get_log_X_enabled(self):
-        return ( self.__log_X != None )
+        return self.__log[self.__default_logger].log_X_enabled
     
     def get_log_V_enabled(self):
-        return ( self.__log_V != None )
+        return self.__log[self.__default_logger].log_V_enabled
 
     def get_log_enabled(self):
-        return ( self.log_V_enabled or self.log_X_enabled )
+        return len( self.__log ) > 0
 
     log_V_enabled = property( get_log_V_enabled , doc="return true if the logging of the position is enabled")
     log_X_enabled = property( get_log_X_enabled , doc="return true if the logging of the velocity is enabled")

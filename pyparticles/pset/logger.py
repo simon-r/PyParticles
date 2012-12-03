@@ -16,7 +16,7 @@
 
 import numpy as np
 
-class logger ( object ):
+class Logger ( object ):
     """
     Class used for logging the status of the particles system, this class will be used by the ParticlesSet class.
     This class uses a matrix of size [ log_size by pasrticles_size by dim ] for saving the status.
@@ -92,16 +92,7 @@ class logger ( object ):
 
         if self.__log_V != None :
             self.__log_V[ self.__Lb , : , : ] = self.__pset.V
-        
-
-        
-#        print( "----------------------------------------------" )   
-#        print( self.__log_cnt ) 
-#        print( " a = %d , b = %d " % ( self.__La , self.__Lb ) )
-#        print( self.get_log_indices() )
-#        
-#        #print( self.__log_X )
-            
+                    
 
     def __get_log_indices( self ):
         if self.__state == 0 :
