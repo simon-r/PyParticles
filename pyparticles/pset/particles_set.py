@@ -368,7 +368,7 @@ class ParticlesSet(object):
         return key
         
         
-    def log_new(self):
+    def log(self):
         """
         | If the log is enabled, save the current status in the log queue.
         | The last element of the queue will be removed if we reach the max allowed size
@@ -438,7 +438,7 @@ class ParticlesSet(object):
 
     
 
-    def log(self):
+    def log_(self):
         """
         if the log is enabled, save the current status in the log queue.
         

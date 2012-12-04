@@ -173,7 +173,7 @@ class DrawParticlesGL(object):
         self.__draw_model = model
         
     
-    def draw_trajectory_new(self):
+    def draw_trajectory(self):
         if self.pset.log_size < self.trajectory_step + 1 :
             return         
         unit = self.pset.unit
@@ -184,14 +184,17 @@ class DrawParticlesGL(object):
             
             glEnableClientState(GL_VERTEX_ARRAY)
             
-            glVertexPointer( 3 , GL_FLOAT , 0 , self.pset.get_log_array(i) / self.pset.unit )
-            glDrawElements( GL_LINES , self.pset.size , GL_UNSIGNED_INT , self.pset.get_log_indices_segments() )
+            ( lga, ) = self.pset.get_log_array(i)
+            ind = self.pset.get_log_indices_segments()
+                        
+            glVertexPointer( 3 , GL_FLOAT , 0 , lga / unit )
+            glDrawElements( GL_LINES , ind.shape[0] , GL_UNSIGNED_INT , ind )
             
             glDisableClientState(GL_VERTEX_ARRAY)
             
             
     
-    def draw_trajectory(self):
+    def draw_trajectory_(self):
         
         if self.pset.log_size < self.trajectory_step + 1 :
             return 
@@ -301,7 +304,7 @@ class DrawParticlesGL(object):
         glDisableClientState(GL_VERTEX_ARRAY)
         
         if self.__vect_color_fun_fl :
-            glEnableClientState(GL_COLOR_ARRAY)
+            glDisableClientState(GL_COLOR_ARRAY)
         
     
     def draw(self):

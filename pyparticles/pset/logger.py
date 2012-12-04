@@ -98,13 +98,15 @@ class Logger ( object ):
         if self.__state == 0 :
             ind = np.arange( self.__La , self.__Lb+1 , dtype=np.int32 )
             
-        elif self.__state == 1 :            
+        elif self.__state == 1 :
             ind = np.concatenate( ( np.arange( self.__La , self.log_max_size , dtype=np.int32 ) , 
                                      np.arange( 0 , self.__Lb+1 , dtype=np.int32 ) ) )
             
         elif self.__state == 2 :
-            ind = np.concatenate( ( np.arange( self.__Lb , self.log_max_size , dtype=np.int32 ) , 
-                                     np.arange( 0 , self.__La+1 , dtype=np.int32 ) ) )
+            ind = np.concatenate( ( np.arange( self.__La , self.__Lb , dtype=np.int32 ) , 
+                                     np.arange( self.__Lb , self.__log_max_size , dtype=np.int32 ) ) )
+         
+
         return ind
         
 
@@ -136,8 +138,8 @@ class Logger ( object ):
         
         d = self.__size
         
-        i = np.arange( d , dtype=np.int32 )
-        f = np.zeros( ( 2*d - 2 ) , dtype=np.int32 )
+        i = np.arange( d , dtype=np.uint )
+        f = np.zeros( ( 2*d - 2 ) , dtype=np.uint )
         
         f[2:(2*d-2):2] = i[1:(d-1)]
         f[1:(2*d-2):2] = i[1:]
@@ -173,4 +175,5 @@ class Logger ( object ):
 
     log_V_enabled = property( get_log_V_enabled , doc="return true if the logging of the position is enabled")
     log_X_enabled = property( get_log_X_enabled , doc="return true if the logging of the velocity is enabled")
+             
              

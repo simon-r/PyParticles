@@ -36,7 +36,7 @@ def solar_system():
     """
     Solar system demo
     """
-    dt = 6*3600
+    dt = 4.0*3600.0
     steps = 1000000
     
     G = 6.67384e-11
