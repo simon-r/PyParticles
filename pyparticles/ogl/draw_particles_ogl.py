@@ -192,43 +192,7 @@ class DrawParticlesGL(object):
             
             glDisableClientState(GL_VERTEX_ARRAY)
             
-            
-    
-    def draw_trajectory_(self):
-        
-        if self.pset.log_size < self.trajectory_step + 1 :
-            return 
-        
-        unit = self.pset.unit
-        glLineWidth( 1.0 )
-        
-        if self.trajectory_step <= 1 :
-            
-            for i in range( self.pset.size ) :
-                glColor4f( *self.__color_fun( self.pset , i ) )
-                glBegin(GL_LINE_STRIP)
-                for X in self.pset.logX :
-                    glVertex3f( X[i,0] / unit ,
-                                X[i,1] / unit ,
-                                X[i,2] / unit )
-
-                glEnd()        
-        else:
-            
-            for i in range( self.pset.size ) :
-                glColor4f( *self.__color_fun( self.pset , i ) )
-                glBegin(GL_LINE_STRIP)
-                j = 0
-                for X in self.pset.logX :
-                    j += 1
-                    if ( j % self.trajectory_step ) == 0  :
-                        glVertex3f( X[i,0] / unit ,
-                                    X[i,1] / unit ,
-                                    X[i,2] / unit )
-    
-                glEnd()
-
-    
+                
     def get_pcolor(self):
         return 
     

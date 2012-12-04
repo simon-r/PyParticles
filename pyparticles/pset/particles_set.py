@@ -81,22 +81,7 @@ class ParticlesSet(object):
         
         self.__unit = 1.0
         self.__mass_unit = 1.0
-        
-        ## Old log
-        if log_X == True :
-            self.__log_X = deque([])
-        else :
-            self.__log_X = None
-            
-        if log_V == True :
-            self.__log_V = deque([])
-        else :
-            self.__log_V = None
-            
-        self.__log_max_size = log_max_size
-        self.__log_len = 0
-        #########################
-        
+                
         self.__log = dict()
         self.__default_logger = None
         
@@ -405,19 +390,9 @@ class ParticlesSet(object):
         if len( self.__log ) == 0 :
             logg = log.Logger( self , log_max_size=log_max_size , log_X=log_X , log_V=log_V )
             self.append_logger( logg )
-         
-        #### cut ####   
-        if log_X :
-            self.__log_X = deque([])
-            
-        if ( not self.log_V_enabled ) and log_V :
-            self.__log_V = deque([])
-            
-        self.log_max_size = log_max_size
-            
+        
     
     def get_log_size(self):
-        #return self.__log_len
         return self.__log[self.__default_logger].log_size
     
     log_size = property( get_log_size )
@@ -436,56 +411,10 @@ class ParticlesSet(object):
     
     log_enabled = property( get_log_enabled , doc="return true if the logging of position or velocity is enabled")
 
-    
-
-    def log_(self):
-        """
-        if the log is enabled, save the current status in the log queue.
-        
-        The last element of the queue will be removed if we reach the max allowed size
-        """
-        delta_x = 0
-        delta_v = 0
-        
-        if self.__log_X != None :
-            lX = np.zeros(( self.size , self.dim ))
-            lX[:] = self.X
             
-            #print(lX)
-            
-            if self.log_size > self.log_max_size :
-                self.__log_X.popleft()
-                delta_x -= 1
-            
-            self.__log_X.append( lX )
-            delta_x += 1
-        
-        if self.__log_V != None :
-            lV = np.zeros(( self.size , self.dim ))
-            lV[:] = self.V
-            
-            if self.log_size > self.log_max_size :
-                self.__log_V.popleft()
-                delta_v -= 1
-            
-            self.__log_V.append( lV )
-            delta_v+=1
-            
-        #print( self.__log_X )
-        self.__log_len += max( [ delta_x , delta_v ]  )
-        
     def jump( self , indx ):
         pass        
 
-    def get_logX( self ):
-        return self.__log_X
-        
-    def get_logV( self , i ):
-        return self.__log_V
-    
-    logX = property( get_logX , doc="return the log queue X: position" )
-    logV = property( get_logV , doc="return the log queue V: velocity" )
-    
 
     def set_unit( self , u ):
         self.__unit = u

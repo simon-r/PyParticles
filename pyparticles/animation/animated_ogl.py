@@ -624,17 +624,11 @@ class AnimatedGl( pan.Animation ):
         
     def data_stream(self):
         
-        #a = time.time()
-        
         self.pset.log()
         
         self.ode_solver.step()
-        
         self.perform_measurement()
         
-        #b = time.time()
-        #print( "step_time = %f " % (b-a) )
-
         return self.ode_solver.steps_cnt
         
     
