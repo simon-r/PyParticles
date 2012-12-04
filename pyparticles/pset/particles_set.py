@@ -190,7 +190,7 @@ class ParticlesSet(object):
         for example 'X' , 'V' , 'M' ...
         ::
         
-            # set to [1,2,3] the position of the 10th particle
+            # set to [1,2,3] the coordinates of the 10th particle
             pset.get_by_name('X')[10,:] = [1,2,3]
         """
         return self.__property_dict[property_name]
@@ -367,6 +367,7 @@ class ParticlesSet(object):
         
         return key
         
+        
     def log_new(self):
         """
         | If the log is enabled, save the current status in the log queue.
@@ -374,6 +375,23 @@ class ParticlesSet(object):
         """
         for key in self.__log.keys() :
             self.__log[key].log()
+    
+    
+    def get_log_array( self , i , log_X=True , log_V=False ):
+        return self.__log[self.__default_logger].get_log_array( i , log_X , log_V )
+    
+    
+    def get_log_indices_segments(self):
+        return self.__log[self.__default_logger].get_log_indices_segments()
+    
+    
+    def set_default_logger( self , key ):
+        
+        if key not in self.__log.keys() :
+            raise ValueError("A log named %s do not exits" % key )
+        
+        self.__default_logger = key
+        
     
     def enable_log( self , log_X=True , log_V=False , log_max_size=0 ):
         """
@@ -399,8 +417,8 @@ class ParticlesSet(object):
             
     
     def get_log_size(self):
-        return self.__log_len
-        #return self.__log[self.__default_logger].log_size
+        #return self.__log_len
+        return self.__log[self.__default_logger].log_size
     
     log_size = property( get_log_size )
 

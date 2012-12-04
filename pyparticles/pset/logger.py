@@ -106,8 +106,9 @@ class Logger ( object ):
             ind = np.concatenate( ( np.arange( self.__Lb , self.log_max_size , dtype=np.int32 ) , 
                                      np.arange( 0 , self.__La+1 , dtype=np.int32 ) ) )
         return ind
+        
 
-    def get_particles_log( self , i , log_X=True , log_V=False ):
+    def get_log_array( self , i , log_X=True , log_V=False ):
         """
         Return an numpy array containing the log if the i-th particles 
         
@@ -129,6 +130,20 @@ class Logger ( object ):
             l.append( self.__log_V[ind,i,:] )
         
         return tuple( l )
+
+
+    def get_log_indices_segments(self):
+        
+        d = self.__size
+        
+        i = np.arange( d , dtype=np.int32 )
+        f = np.zeros( ( 2*d - 2 ) , dtype=np.int32 )
+        
+        f[2:(2*d-2):2] = i[1:(d-1)]
+        f[1:(2*d-2):2] = i[1:]
+        
+        return f
+        
         
 
     def resize( self , log_max_size ):
