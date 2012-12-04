@@ -398,10 +398,16 @@ class ParticlesSet(object):
     log_size = property( get_log_size )
 
     def get_log_X_enabled(self):
-        return self.__log[self.__default_logger].log_X_enabled
+        if not self.log_enabled :
+            return False
+        else :
+            return self.__log[self.__default_logger].log_X_enabled
     
     def get_log_V_enabled(self):
-        return self.__log[self.__default_logger].log_V_enabled
+        if not self.log_enabled :
+            return False
+        else :        
+            return self.__log[self.__default_logger].log_V_enabled
 
     def get_log_enabled(self):
         return len( self.__log ) > 0

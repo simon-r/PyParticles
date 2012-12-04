@@ -120,6 +120,9 @@ def DrawGLScene():
     if DrawGLScene.animation.print_help :
         print_help()
     
+    if DrawGLScene.animation.fps_print :
+        print_fps( DrawGLScene.animation.fps )
+    
     SetPerspective( DrawGLScene.animation )
 
     glPushMatrix()
@@ -202,6 +205,9 @@ def KeyPressed( c , x , y ):
         
     if c == 't' :
         KeyPressed.animation.trajectory = not KeyPressed.animation.trajectory
+        
+    if c == 'f' :
+        KeyPressed.animation.fps_print = not KeyPressed.animation.fps_print        
         
     if c == 'p' :
         KeyPressed.animation.draw_particles.set_particle_model( model="point" )
@@ -313,6 +319,9 @@ def print_help():
     y -= 0.05
     glut_print( 0.1 , y , GLUT_BITMAP_9_BY_15 , "v: Toggle vector field " , 1 , 1 , 1 , 1 )
     
+    y -= 0.05
+    glut_print( 0.1 , y , GLUT_BITMAP_9_BY_15 , "f: Toggle FPS " , 1 , 1 , 1 , 1 )
+    
     y -= 0.1    
     glut_print( 0.1 , y , GLUT_BITMAP_9_BY_15 , "h: Toggle help message" , 1 , 1 , 1 , 1 )
     
@@ -328,8 +337,11 @@ def print_measures():
         glut_print( 0.7 , y , GLUT_BITMAP_9_BY_15 , " %s:  %s " % ( na , m ) , 1 , 1 , 1 , 1 )
         y -= 0.05
         
+        
+def print_fps( fps ):
+    glut_print( 0.9 , 0.05 , GLUT_BITMAP_9_BY_15 , "FPS: %.2f" % fps , 1 , 1 , 1 , 1 )
     
-
+        
 def glut_print( x,  y,  font,  text, r,  g , b , a):
         
     blending = False 
@@ -628,6 +640,8 @@ class AnimatedGl( pan.Animation ):
         
         self.ode_solver.step()
         self.perform_measurement()
+        
+        self.update_fps()
         
         return self.ode_solver.steps_cnt
         

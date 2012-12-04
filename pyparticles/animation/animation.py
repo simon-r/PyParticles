@@ -18,6 +18,7 @@
 
 
 import sys
+import time
 
 
 class Animation(object):
@@ -65,6 +66,12 @@ class Animation(object):
         
         self.__measures = dict()
         self.__measures_names = []
+        
+        self.__fps = 0.0
+        self.__fps_init_time = 0.0
+        self.__fps_steps = 7
+        self.__fps_cnt = 0
+        self.__fps_print = False
         
         
     def set_ode_solver( self , solver ):
@@ -137,6 +144,51 @@ class Animation(object):
         self.__steps = steps
     
     steps = property( get_steps , set_steps )
+    
+    
+    def update_fps(self):
+        """
+        Update the FPS, this method must be called every step.
+        
+        :returns: True if the FPS has been updated
+        """
+        if self.__fps_cnt == 0 :
+            self.__fps_init_time = time.time()
+            self.__fps_cnt += 1
+            return False
+            
+        elif self.__fps_cnt == self.__fps_steps :
+            et = time.time()
+            self.__fps = float(self.__fps_cnt) / ( et - self.__fps_init_time )
+            self.__fps_cnt = 0 
+            return True
+             
+        else :
+            self.__fps_cnt += 1
+            return False 
+    
+    def get_fps(self):
+        return self.__fps 
+    
+    fps = property( get_fps , doc="get the current FPS" )
+    
+    
+    def get_fps_steps(self):
+        return self.__fps_steps
+    
+    def set_fps_steps( self , stp ):
+        self.__fps_steps = stp
+    
+    fps_steps = property( get_fps_steps , set_fps_steps , doc="get and set the steps used for computing the fps" )
+    
+    
+    def get_fps_print( self ):
+        return self.__fps_print
+    
+    def set_fps_print( self , f ):
+        self.__fps_print = f 
+    
+    fps_print = property( get_fps_print , set_fps_print , doc="Toggle the printing of the FPS (True | False)")   
     
     
     def set_xlim( self , xl ):
