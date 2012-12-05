@@ -23,6 +23,7 @@ from OpenGL.GL import *
 from OpenGL.GLUT import *
 from OpenGL.GLU import *
 
+
 def charged_particles_color( pset , i ):
     a = 0.4 
     
@@ -33,8 +34,10 @@ def charged_particles_color( pset , i ):
     else :
         return ( a , a , a , 1.0 )
 
+
 def rand_vect_colors( RGBA , pset ):
     RGBA[:] = np.random.rand( pset.size , 4 )
+
 
 def charged_particles_vect_color( RGBA , pset ):
     a = 0.4
@@ -47,6 +50,7 @@ def charged_particles_vect_color( RGBA , pset ):
     
     i, foo = np.where( pset.Q == 0.0 )
     RGBA[ i , : ] = np.array( [ a , a , a , 1.0 ] )
+
 
 class DrawParticlesGL(object):
     
@@ -76,6 +80,10 @@ class DrawParticlesGL(object):
         self.__draw_model = self.DRAW_MODEL_LOOP
         
         self.__init_vect_fl = False
+        
+        self.__log_indices = None
+        self.__log_array = None
+        
         
     def __del__(self):
         if self.__sph_dl != None :
@@ -174,8 +182,14 @@ class DrawParticlesGL(object):
         
     
     def draw_trajectory(self):
+        
         if self.pset.log_size < self.trajectory_step + 1 :
-            return         
+            return
+        
+        if self.__log_indices == None :
+            self.__log_indices = self.pset.get_log_indices_segments( True )
+            self.__log_array = np.zeros( ( self.pset.log_max_size , self.pset.dim ) )
+                 
         unit = self.pset.unit
         glLineWidth( 1.0 )
         
@@ -184,11 +198,11 @@ class DrawParticlesGL(object):
             
             glEnableClientState(GL_VERTEX_ARRAY)
             
-            ( lga, ) = self.pset.get_log_array(i)
-            ind = self.pset.get_log_indices_segments()
-                        
-            glVertexPointer( 3 , GL_FLOAT , 0 , lga / unit )
-            glDrawElements( GL_LINES , ind.shape[0] , GL_UNSIGNED_INT , ind )
+            ( b , e ) = self.pset.read_log_array( i , ( self.__log_array, ) )
+    
+            glVertexPointer( 3 , GL_FLOAT , 0 , self.__log_array / unit )
+            
+            glDrawElements( GL_LINES , e-1 , GL_UNSIGNED_INT , self.__log_indices )
             
             glDisableClientState(GL_VERTEX_ARRAY)
             

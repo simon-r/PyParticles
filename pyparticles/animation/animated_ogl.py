@@ -30,9 +30,9 @@ import pyparticles.ogl.draw_particles_ogl as drp
 from OpenGL.GL import *
 from OpenGL.GLUT import *
 from OpenGL.GLU import *
+ 
 
 import time
-
 
 def InitGL( Width , Height , ReSizeFun ):
     """
@@ -56,6 +56,8 @@ def InitGL( Width , Height , ReSizeFun ):
     glHint( GL_LINE_SMOOTH_HINT , GL_NICEST )
     
     ReSizeFun(Width, Height)
+    
+    
     
     InitLight()
 
@@ -225,7 +227,7 @@ def KeyPressed( c , x , y ):
         KeyPressed.animation.light = False
         
     if c == 'v' :
-        KeyPressed.animation.draw_vector_field = not KeyPressed.animation.draw_vector_field
+        KeyPressed.animation.draw_vector_field = ( not KeyPressed.animation.draw_vector_field ) and ( KeyPressed.animation.vector_field != None )
         
         
 
@@ -632,7 +634,7 @@ class AnimatedGl( pan.Animation ):
             
         if self.vector_field != None :
             self.vector_field.ogl_init()
-        
+            
         
     def data_stream(self):
         

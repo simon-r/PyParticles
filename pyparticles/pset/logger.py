@@ -134,9 +134,38 @@ class Logger ( object ):
         return tuple( l )
 
 
-    def get_log_indices_segments(self):
+    def read_log_array( self , i , ta , log_X=True , log_V=False ):
+        """
+        Write in the arrays stored in the tuple **ta** the log if the i-th particles 
         
-        d = self.__size
+        :param i: Index (or indices) of the particles
+        :param ta: A tuple with the reference to the target arrays ( X , V ). The size of X and V must be ( max_log_length by dim )
+        :param log_X: (default=True) return the log of the positions
+        :param log_V: (default=False) return the log of the velocities
+        
+        :returns: A tuple containing the log arrays ( log_x , [log_V] ) 
+        """
+        
+        ind = self.__get_log_indices()
+        li = len(ind)
+        
+        if log_X :
+            x = ta[0]            
+            x[0:li,:] = self.__log_X[ind,i,:]
+            
+        if log_V :
+            v = ta[1]
+            v[0:li,:] = self.__log_X[ind,i,:]
+        
+        return ( 0 , 2*li )
+
+
+    def get_log_indices_segments( self , full=False ):
+        
+        if full :
+            d = self.__log_max_size
+        else :
+            d = self.__size
         
         i = np.arange( d , dtype=np.uint )
         f = np.zeros( ( 2*d - 2 ) , dtype=np.uint )
@@ -145,7 +174,6 @@ class Logger ( object ):
         f[1:(2*d-2):2] = i[1:]
         
         return f
-        
         
 
     def resize( self , log_max_size ):

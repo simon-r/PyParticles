@@ -333,10 +333,10 @@ class ParticlesSet(object):
 
     
     def get_log_max_size( self ):
-        return self.__log_max_size
+        return self.__log[self.__default_logger].log_max_size
     
     def set_log_max_size( self , log_max_size ):
-        self.__log_max_size = log_max_size
+        self.__log[self.__default_logger].log_max_size = log_max_size
     
     log_max_size = property( get_log_max_size , set_log_max_size , doc="set and get the max allowed size of the log")
     
@@ -366,8 +366,12 @@ class ParticlesSet(object):
         return self.__log[self.__default_logger].get_log_array( i , log_X , log_V )
     
     
-    def get_log_indices_segments(self):
-        return self.__log[self.__default_logger].get_log_indices_segments()
+    def read_log_array( self , i , ta , log_X=True , log_V=False ):
+        return self.__log[self.__default_logger].read_log_array( i , ta , log_X , log_V )
+    
+    
+    def get_log_indices_segments( self , full=False ):
+        return self.__log[self.__default_logger].get_log_indices_segments( full )
     
     
     def set_default_logger( self , key ):
