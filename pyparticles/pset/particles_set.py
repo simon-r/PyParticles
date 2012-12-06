@@ -172,7 +172,10 @@ class ParticlesSet(object):
     def get_by_name( self , property_name ):
         """
         Return a property reference by name:
-        for example 'X' , 'V' , 'M' ...
+            for example 'X' , 'V' , 'M' , 'Q' ...
+        
+        :param property_name: The name of a property 
+        
         ::
         
             # set to [1,2,3] the coordinates of the 10th particle
@@ -214,7 +217,7 @@ class ParticlesSet(object):
         """
         Return a list of containing the names of all properties
         """
-        return self.__property_dict.keys()
+        return self.__property_dict.keys().copy()
 
 
     def getX(self):
@@ -332,15 +335,8 @@ class ParticlesSet(object):
     boundary = property( get_boundary , set_boundary , doc="return the reference to the boundary, None if the boundary are not set or open")
 
     
-    def get_log_max_size( self ):
-        return self.__log[self.__default_logger].log_max_size
-    
-    def set_log_max_size( self , log_max_size ):
-        self.__log[self.__default_logger].log_max_size = log_max_size
-    
-    log_max_size = property( get_log_max_size , set_log_max_size , doc="set and get the max allowed size of the log")
-    
-    
+
+      
     def append_logger( self , logger , key=None ):
         if key == None :
             key = "".join(random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for x in range(40))
@@ -351,6 +347,20 @@ class ParticlesSet(object):
             self.__default_logger = key
         
         return key
+     
+     
+    def enable_log( self , log_X=True , log_V=False , log_max_size=0 ):
+        """
+        Eanble the X and V logging:
+        
+        :param   log_X=True: log the positions
+        :param   log_V=False: log the velocity
+        :param   log_max_size: max size of the log queue
+        """
+        
+        if len( self.__log ) == 0 :
+            logg = log.Logger( self , log_max_size=log_max_size , log_X=log_X , log_V=log_V )
+            self.append_logger( logg )     
         
         
     def log(self):
@@ -360,6 +370,23 @@ class ParticlesSet(object):
         """
         for key in self.__log.keys() :
             self.__log[key].log()
+    
+    def close_log(self):
+        """
+        This function must be called after the end of the simulation for closing the log procedure.
+        """
+        for key in self.__log.keys() :
+            self.__log[key].close_log()
+    
+    
+    def get_log_max_size( self ):
+        return self.__log[self.__default_logger].log_max_size
+    
+    def set_log_max_size( self , log_max_size ):
+        self.__log[self.__default_logger].log_max_size = log_max_size
+    
+    log_max_size = property( get_log_max_size , set_log_max_size , doc="set and get the max allowed size of the log")
+        
     
     
     def get_log_array( self , i , log_X=True , log_V=False ):
@@ -381,20 +408,7 @@ class ParticlesSet(object):
         
         self.__default_logger = key
         
-    
-    def enable_log( self , log_X=True , log_V=False , log_max_size=0 ):
-        """
-        Eanble the X and V logging:
-        
-        :param   log_X=True: log the positions
-        :param   log_V=False: log the velocity
-        :param   log_max_size: max size of the log queue
-        """
-        
-        if len( self.__log ) == 0 :
-            logg = log.Logger( self , log_max_size=log_max_size , log_X=log_X , log_V=log_V )
-            self.append_logger( logg )
-        
+            
     
     def get_log_size(self):
         return self.__log[self.__default_logger].log_size

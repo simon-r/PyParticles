@@ -34,7 +34,7 @@ class LinearSpringConstrained ( fcr.ForceConstrained ):
         
         self.__Fm = dok.dok_matrix( ( size , size ) )
         self.__Fm2 = csr.csr_matrix( ( size , size ) )
-        
+                
         self.__M = np.zeros( ( size , 1 ) )
         if m != None :
             self.set_masses( m )

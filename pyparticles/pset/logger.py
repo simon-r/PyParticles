@@ -94,6 +94,9 @@ class Logger ( object ):
             self.__log_V[ self.__Lb , : , : ] = self.__pset.V
                     
 
+    def close_log(self):
+        pass
+
     def __get_log_indices( self ):
         if self.__state == 0 :
             ind = np.arange( self.__La , self.__Lb+1 , dtype=np.int32 )

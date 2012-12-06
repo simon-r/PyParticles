@@ -89,7 +89,7 @@ class OdeSolver(object) :
     def get_sim_time( self ):
         return self.__sim_time
     
-    sim_time = property( get_sim_time , doc="get the reference to the SimTime object, used for storing the current simulation time" )
+    sim_time = property( get_sim_time , doc="get the reference to the SimTime object, used for storing and sharing the current simulation time" )
     
     
     def get_force( self ):

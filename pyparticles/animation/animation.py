@@ -238,8 +238,13 @@ class Animation(object):
     def data_stream(self):
         NotImplementedError(" %s : is virtual and must be overridden." % sys._getframe().f_code.co_name )
         
+    def closing_procedure(self):
+        NotImplementedError(" %s : is virtual and must be overridden." % sys._getframe().f_code.co_name )
+        
     def start(self):
         NotImplementedError(" %s : is virtual and must be overridden." % sys._getframe().f_code.co_name )
+        
+    
         
 
         
