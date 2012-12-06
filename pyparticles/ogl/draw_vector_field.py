@@ -30,13 +30,10 @@ class DrawVectorField( object ):
     Draw the given vector fields.
     
     Constructor:
-    
-            ========== ==============================================================
-            Arguments
-            ========== ==============================================================
-            limits     size of the draw volume: (x_min,x_max,y_min,y_max,z_min,z_max)
-            density    distance between the plotted vectors  
-            ========== ==============================================================
+           
+    :param limits:     size of the draw volume: (x_min,x_max,y_min,y_max,z_min,z_max)
+    :param density:    distance between the plotted vectors  
+           
     """
     def __init__( self , limits , density ):
         
