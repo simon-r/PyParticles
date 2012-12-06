@@ -67,13 +67,6 @@ pset Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`electrically_charged_particle_set` Module
------------------------------------------------
-
-.. automodule:: pyparticles.pset.electrically_charged_particle_set
-    :members:
-    :undoc-members:
-    :show-inheritance:
 
 :mod:`file_cluster` Module
 --------------------------

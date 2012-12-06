@@ -39,9 +39,9 @@ Section: set_config
 
     **Varibles:**
 
-           ===========================          ==============================================
+           ==================================== ==============================================
            Variable                             Description
-           ===========================          ==============================================
+           ==================================== ==============================================
            len_unit  = <number>                 How many meters is a unit
            mass_unit = <number>                 How many Kg is a unit
            boundary  = [open|periodic|rebound]  The boundary model used in the simulation
@@ -50,7 +50,7 @@ Section: set_config
            sim_log_X = [True|False]             If sim_log is enabled log the position
            sim_log_V = [True|False]             If sim_log is enabled log the velocities
            rand_part_nr = <number>              The total number of particles for a rand set
-           ===========================          ==============================================
+           ==================================== ==============================================
 
            Note: len_unit & mass_unit are used only for drawing the particles
     

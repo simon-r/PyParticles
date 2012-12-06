@@ -15,9 +15,9 @@ Index
 .. toctree::
    :maxdepth: 2
 
-   Config File
    Programming Example
    Programming Example II
+   Config File
    Testing
    Packages Descriptions
    pyparticles

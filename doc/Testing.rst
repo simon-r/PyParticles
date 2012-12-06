@@ -23,10 +23,10 @@ Commands for executing available tests: ::
     
 
 Test problems definitions
-=========================
+-------------------------
 
 Free fall in a drag fluid
--------------------------
++++++++++++++++++++++++++
 
 The free fall test is based on a single particle that falls in a constant force field with a drag fluid (or air).
 
@@ -68,8 +68,8 @@ In pyparticles the problem is desribed as follow: ::
     multi.set_masses( self.pset.M )
 
 
-Harmonic motion:
-----------------
+Harmonic motion
++++++++++++++++
 
 The first particle is fixed to a point while the second free to move.
 
@@ -116,8 +116,8 @@ In pyparticles the problem is desribed as follow: ::
     spring = ls.LinearSpring( self.pset.size , self.pset.dim , Consts=1.0 )
 
 
-Damped Harmonic motion:
------------------------
+Damped Harmonic motion
+++++++++++++++++++++++
 
 The first particle is fixed to a point while the second free to move. The damping force has a magnitude proportional to the velocity.
 
@@ -177,8 +177,8 @@ In pyparticles the problem is desribed as follow: ::
     multi.set_masses( self.pset.M )
     
     
-Tests results:
-==============
+Tests results
+-------------
 
 Below are shown evolution of the absolute error in the problems described above, we can see that the error is always low and reasonably acceptable.
 
@@ -186,43 +186,43 @@ Below are shown evolution of the absolute error in the problems described above,
 
 
 Free fall in a drag fluid
--------------------------
++++++++++++++++++++++++++
 
 .. image:: img/fall.png
    :width: 100%
    
    
 Harmonic motion
----------------
++++++++++++++++
    
 .. image:: img/har.png
    :width: 100%
 
    
 Damped Harmonic motion
-----------------------
+++++++++++++++++++++++
    
 .. image:: img/dhar.png
    :width: 100%
    
 
-Analytical solutions plot:
-==========================
+Analytical solutions plot
+-------------------------
 
 Free fall in a drag fluid
--------------------------
++++++++++++++++++++++++++
 
 .. image:: img/fall_an.jpg
    :width: 50%
    
 Harmonic motion
----------------
++++++++++++++++
 
 .. image:: img/har_an.jpg
    :width: 50%
    
 Damped Harmonic motion
-----------------------
+++++++++++++++++++++++
 
 .. image:: img/dam_an.jpg
    :width: 50%

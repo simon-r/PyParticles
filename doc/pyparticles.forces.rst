@@ -51,7 +51,7 @@ forces Package
 
 
 :mod:`damping` Module
-------------------
+---------------------
 
 .. automodule:: pyparticles.forces.damping
     :members:
@@ -69,7 +69,7 @@ forces Package
 
 
 :mod:`electromagnetic_field` Module
----------------------------
+-----------------------------------
 
 .. automodule:: pyparticles.forces.electromagnetic_field
     :members:
