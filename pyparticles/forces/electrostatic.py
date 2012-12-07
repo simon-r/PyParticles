@@ -24,7 +24,7 @@ class Electrostatic( fr.Force ) :
     r"""
     Compute the electrostatic force using the Culomb law.
         
-    ..Note::
+    ..note::
      
         The real forces of an electrodynamic system is given by the **Maxwell equations**! and not from the Culomb law.
         

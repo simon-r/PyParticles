@@ -27,8 +27,9 @@ class Logger ( object ):
     :param  log_max_size: The maximal size of the log
     :param  log_X: (default=True) log the positions
     :param  log_V: (default=False) log the velocities  
+    :param  sim_time: (default=None) log the simulation time
     """
-    def __init__( self , pset , log_max_size , log_X=True , log_V=False ):
+    def __init__( self , pset , log_max_size , log_X=True , log_V=False , sim_time=None ):
         
         self.__pset = pset
         
@@ -41,6 +42,12 @@ class Logger ( object ):
         self.__Lb = -1
         
         self.__state = 0
+        
+        if sim_time != None :
+            self.__sim_time = sim_time
+            self.__log_time = np.zeros(( log_max_size ))
+        else :
+            self.__sim_time = None
         
         if log_X :
             self.__log_X = np.zeros(( log_max_size , pset.size , pset.dim ))
@@ -87,6 +94,9 @@ class Logger ( object ):
             self.__state = 1 
                     
         
+        if self.__sim_time != None :
+            self.__log_time[ self.__Lb ] = self.__sim_time.time
+        
         if self.__log_X != None :
             self.__log_X[ self.__Lb , : , : ] = self.__pset.X
 
@@ -113,7 +123,7 @@ class Logger ( object ):
         return ind
         
 
-    def get_log_array( self , i , log_X=True , log_V=False ):
+    def get_log_array( self , i , log_X=True , log_V=False , log_time=False ):
         """
         Return an numpy array containing the log if the i-th particles 
         
@@ -134,10 +144,13 @@ class Logger ( object ):
         if log_V :
             l.append( self.__log_V[ind,i,:] )
         
+        if log_time :
+            l.append( self.__log_time[ind] )
+        
         return tuple( l )
 
 
-    def read_log_array( self , i , ta , log_X=True , log_V=False ):
+    def read_log_array( self , i , ta , log_X=True , log_V=False , log_time=False ):
         """
         Write in the arrays stored in the tuple **ta** the log if the i-th particles 
         
@@ -146,7 +159,7 @@ class Logger ( object ):
         :param log_X: (default=True) return the log of the positions
         :param log_V: (default=False) return the log of the velocities
         
-        :returns: A tuple containing the log arrays ( log_x , [log_V] ) 
+        :returns: A tuple containing the log indices for using the segments array ( begin . end ). 
         """
         
         ind = self.__get_log_indices()
@@ -159,6 +172,10 @@ class Logger ( object ):
         if log_V :
             v = ta[1]
             v[0:li,:] = self.__log_X[ind,i,:]
+        
+        if log_time :
+            t = ta[2]
+            t[0:li] = self.__log_time[ind]
         
         return ( 0 , 2*li )
 

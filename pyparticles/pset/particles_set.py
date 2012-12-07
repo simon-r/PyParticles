@@ -349,7 +349,7 @@ class ParticlesSet(object):
         return key
      
      
-    def enable_log( self , log_X=True , log_V=False , log_max_size=0 ):
+    def enable_log( self , log_X=True , log_V=False , sim_time=None , log_max_size=0 ):
         """
         Eanble the X and V logging:
         
@@ -359,7 +359,7 @@ class ParticlesSet(object):
         """
         
         if len( self.__log ) == 0 :
-            logg = log.Logger( self , log_max_size=log_max_size , log_X=log_X , log_V=log_V )
+            logg = log.Logger( self , log_max_size=log_max_size , log_X=log_X , log_V=log_V , sim_time=sim_time )
             self.append_logger( logg )     
         
         
