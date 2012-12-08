@@ -18,15 +18,14 @@ import numpy as np
 
 class Measure( object ):
     """
-    Main abstract class for defining the measurments procedures of the system, for example the total kinetic energy.
+    Main abstract class for defining the measurement procedures of the system, for example the total kinetic energy.
     """
     def __init__( self , pset=None , force=None ):
         """
-        Constructor:
-          ======= ==============================================================================
-          pset    The particles set
-          force   The model of the used force
-          ======= ==============================================================================
+        Constructor
+          
+        :param pset:    The particles set
+        :param force:   The model of the used force
         """
         self.__pset  = pset
         self.__force = force
@@ -54,8 +53,8 @@ class Measure( object ):
     
     def get_parameter( self , name , val ):
         """
-        return the reference to the dict of the used paramenter
-            A paramenter shold be the volume, some constant ....
+        return the reference to the dict of the used parameter
+            A parameter  should be the volume, some constant ....
         """
         return self.__par
     
@@ -118,12 +117,12 @@ class MeasureParticles( Measure ):
     def __init__( self , pset=None , force=None , subset=None , model="part_by_part" ):
         """
         Constructor:
-          ======= ==============================================================================
-          pset    The particles set
-          force   The model of the used force
-          subset  a numpy 1D array containing the indicies of the measured particles
-          model   a strung describing the model for the measure: "part_by_part" or "subsystem"
-          ======= ==============================================================================
+          
+        :param pset:    The particles set
+        :param force:   The model of the used force
+        :param subset:  a numpy 1D array containing the indicies of the measured particles
+        :param model:   a strung describing the model for the measure: "part_by_part" or "subsystem"
+          
         """
         self.__subset = np.copy(subset)
         

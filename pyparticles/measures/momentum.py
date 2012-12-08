@@ -84,14 +84,11 @@ class MomentumParticles( me.MeasureParticles ):
         >    ]
      
     Constructor:
-      ========= ==============================================================================
-      Arguments
-      ========= ==============================================================================
-      pset      The particles set
-      force     The model of the used force
-      subset    a numpy 1D array containing the indicies of the measured particles
-      model     a strung describing the model for the measure: "part_by_part" or "subsystem"
-      ========= ==============================================================================       
+      
+    :param pset      The particles set
+    :param force     The model of the used force
+    :param subset    a numpy 1D array containing the indicies of the measured particles
+    :param model     a strung describing the model for the measure: "part_by_part" or "subsystem"
     """
     def __init__( self , pset=None , force=None , subset=None , model="part_by_part" ):
       
