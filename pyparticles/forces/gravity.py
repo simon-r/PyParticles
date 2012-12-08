@@ -56,10 +56,7 @@ class Gravity( fr.Force ) :
         """
         self.__M[:,:] = m
         
-        #print(" --- M ----")
-        #print( self.__M[:,:] )
-        #print()
-    
+        
     def update_force( self , p_set ):
         """
         Compute the force of the current status of the system and return the accelerations of every particle in a *size by dim* array
@@ -67,32 +64,18 @@ class Gravity( fr.Force ) :
         
         self.__D[:] = dist.squareform( dist.pdist( p_set.X , 'euclidean' ) )
         
-        #print(" --- D ----")
-        #print( self.__D[:,:] )
-        #print()
-        
         self.__Fm[:] = - self.__G * self.__M[:] / ( ( self.__D[:] ) ** 3.0 )
-
-        #for j in range( self.__size ) :
-        #    self.__Fm[j,j] = 0.0
             
         np.fill_diagonal( self.__Fm , 0.0 )
-        
-        #print(" --- Fm ----")
-        #print( self.__Fm[:,:] )
-        #print()        
-        
+                
         for i in range( self.__dim ):
             self.__V[:,:] = p_set.X[:,i]
             self.__V[:,:] = ( self.__V[:,:].T - p_set.X[:,i] ).T 
                         
             self.__A[:,i] = np.sum( self.__Fm * self.__V[:,:] , 0 )
-        
-        #print(" --- F ----")
-        #print( self.__F )
-        #print()
-        
+                
         return self.__A
+    
     
     def getA(self):
         """

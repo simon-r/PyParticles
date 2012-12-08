@@ -29,3 +29,11 @@ def py_particle_version():
     global v_revision
     return "%d.%d.%d" % ( v_major , v_minor , v_revision )
 
+
+def test_pyopencl():
+    try :
+        import pyopencl
+    except :
+        return False
+    else :
+        return True
