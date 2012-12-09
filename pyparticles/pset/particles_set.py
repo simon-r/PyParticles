@@ -46,7 +46,7 @@ class ParticlesSet(object):
     """
     def __init__( self , size=1 , dim=3 , boundary=None ,
                  label=False , mass=True , velocity=True , charge=False ,
-                 log_X=False , log_V=False , log_max_size=0 ):
+                 log_X=False , log_V=False , log_max_size=0 , dtype=np.float64 ):
         
         if size < 0 :
             raise

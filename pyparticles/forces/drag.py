@@ -74,7 +74,7 @@ class Drag( fr.Force ) :
         
         self.__F[:] =  -1./2. * self.__V[:] * pset.V[:] * self.__G[:]
         
-        self.__A = self.__F[:] / self.__M
+        self.__A =  self.__F[:] / self.__M
         
         return self.__A
     
@@ -115,25 +115,25 @@ class DragOCL( fr.Force ) :
     :param    Const:       the drag factor K
     """
 
-    def __init__(self , size , dim=3 , m=None , Consts=1.0 , np_type=np.float32):
+    def __init__(self , size , dim=3 , m=None , Consts=1.0 , dtype=np.float32 ):
         
-        self.__dim = dim
-        self.__size = size
+        self.__dim = np.int( dim )
+        self.__size = np.int( size )
         
-        self.__G = np_type( Consts )
+        self.__dtype = dtype
         
-        self.__A = np.zeros( ( size , dim ) )
-        self.__F = np.zeros( ( size , dim ) )
+        self.__G = dtype( Consts )
         
-        self.__V = np.zeros( ( size , 1 ) )
+        self.__A = np.zeros( ( size , dim ) , dtype=dtype )
+        self.__F = np.zeros( ( size , dim ) , dtype=dtype )
         
-        self.__M = np.zeros( ( size , 1 ) )
+        self.__M = np.zeros( ( size , 1 )  , dtype=dtype )
         
         self.__cl_context = cl.create_some_context()
         self.__cl_queue = cl.CommandQueue(self.__cl_context, properties=cl.command_queue_properties.PROFILING_ENABLE )
         
-        self.__V_cla = cla.to_device( self.__cl_queue , self.__V )
-        self.__A_cla = cla.Array( self.__cl_queue , ( self.__size , self.__dim ) , np_type )
+        self.__V_cla = cla.Array( self.__cl_queue , ( size , dim ) , dtype )
+        self.__A_cla = cla.Array( self.__cl_queue , ( size , dim ) , dtype )
         
         if m != None :
             self.set_masses( m )
@@ -146,34 +146,35 @@ class DragOCL( fr.Force ) :
         __kernel void drag(__global const float *V , 
                            __global const float *M ,
                                           float  G , 
-                           __global       float *A ,
-                                          uint    dim  )
+                           __global       float *A )
         {
-            i = get_global_id(0);
-            j = get_global_id(1);
+            int i = get_global_id(0);
+            int j = get_global_id(1);
             
-            A[3*i+j] = ( -0.5f * V[3*i+j]*V[3*i+j] * G ) / M[i]
+            A[3*i+j] = ( -0.5f * G * pown( V[3*i+j] , 2 ) ) / M[i] ;
         }
         """
         
         self.__cl_program = cl.Program( self.__cl_context , self.__drag_prg ).build()
     
     def set_masses( self , m ):
-        self.__M[:] = m
+        self.__M[:] = self.__dtype( m )
+        
         self.__M_cla = cla.to_device( self.__cl_queue , self.__M )
     
     def update_force( self , pset ):
         
-        self.__V_cla.set( pset.V , queue=self.__cl_queue )
+        self.__V_cla.set( self.__dtype( pset.V ) , queue=self.__cl_queue )
         
         self.__cl_program.drag( self.__cl_queue , ( self.__size , self.__dim ) , None , 
                                 self.__V_cla.data ,
                                 self.__M_cla.data , 
                                 self.__G , 
-                                self.__A_cla.data ,
-                                self.__dim )
+                                self.__A_cla.data )
     
         self.__A_cla.get( self.__cl_queue , self.__A )
+        
+        return self.__A
     
 
     def getA(self):
