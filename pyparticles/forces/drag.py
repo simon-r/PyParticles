@@ -111,7 +111,7 @@ class DragOCL( fr.Force ) :
     :param    Const:       the drag factor K
     """
 
-    def __init__(self , size , dim=3 , m=None , Consts=1.0 , dtype=np.float32 ):
+    def __init__(self , size , dim=3 , m=None , Consts=1.0 , dtype=np.float32 , ocl_context=None ):
         
         self.__dim = np.int( dim )
         self.__size = np.int( size )
@@ -123,14 +123,11 @@ class DragOCL( fr.Force ) :
         self.__A = np.zeros( ( size , dim ) , dtype=dtype )
         self.__F = np.zeros( ( size , dim ) , dtype=dtype )
         
-        self.__occ = occ.OpneCLcontext( size , dim , ( occ.OCLC_X | occ.OCLC_V | occ.OCLC_A | occ.OCLC_M )  )
-        
-        #self.__cl_context = cl.create_some_context()
-        #self.__cl_queue = cl.CommandQueue(self.__cl_context, properties=cl.command_queue_properties.PROFILING_ENABLE )
-        
-        #self.__V_cla = cla.Array( self.__cl_queue , ( size , dim ) , dtype )
-        #self.__A_cla = cla.Array( self.__cl_queue , ( size , dim ) , dtype )
-        
+        if ocl_context == None :
+            self.__occ = occ.OpneCLcontext( size , dim , ( occ.OCLC_V | occ.OCLC_A | occ.OCLC_M )  )
+        else :
+            self.__occ = ocl_context
+                
         if m != None :
             self.set_masses( m )
         

@@ -19,6 +19,8 @@ import numpy as np
 
 import pyparticles.pset.particles_set as ps
 
+import pyparticles.pset.opencl_context as occ 
+
 import pyparticles.ode.euler_solver as els
 import pyparticles.ode.leapfrog_solver as lps
 import pyparticles.ode.runge_kutta_solver as rks
@@ -60,7 +62,7 @@ def fountain():
     steps = 10000000
     dt = 0.01
     
-    pcnt = 500000
+    pcnt = 250000
     
     pset = ps.ParticlesSet( pcnt , dtype=np.float32 )
     
@@ -70,7 +72,8 @@ def fountain():
     grav = cf.ConstForce( pset.size , dim=pset.dim , u_force=( 0.0 , 0.0 , -10.0 ) )
     
     if test_pyopencl() :
-        drag = dr.DragOCL( pset.size , dim=pset.dim , Consts=0.01 )
+        occx = occ.OpneCLcontext( pset.size , pset.dim , ( occ.OCLC_X | occ.OCLC_V | occ.OCLC_A | occ.OCLC_M ) )
+        drag = dr.DragOCL( pset.size , dim=pset.dim , Consts=0.01 , ocl_context=occx )
     else :
         drag = dr.Drag( pset.size , dim=pset.dim , Consts=0.01 )
     
@@ -82,7 +85,10 @@ def fountain():
     multi.set_masses( pset.M )
     
     #solver = mds.MidpointSolver( multi , pset , dt )
-    solver = els.EulerSolver( multi , pset , dt )
+    if not test_pyopencl() :
+        solver = els.EulerSolverOCL( multi , pset , dt , ocl_context=occx )
+    else :
+        solver = els.EulerSolver( multi , pset , dt )
     
     
     solver.update_force()

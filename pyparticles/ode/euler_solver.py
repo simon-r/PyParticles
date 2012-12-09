@@ -17,6 +17,14 @@
 
 import numpy as np
 import pyparticles.ode.ode_solver as os
+import pyparticles.pset.opencl_context as occ 
+
+try:
+    import pyopencl as cl
+    import pyopencl.array as cla
+except:
+    ___foo = 0
+
 
 class EulerSolver( os.OdeSolver ) :
     def __init__( self , force , p_set , dt ):
@@ -31,3 +39,60 @@ class EulerSolver( os.OdeSolver ) :
         self.pset.X[:] = self.pset.X + self.pset.V * dt
         
         self.pset.update_boundary() 
+        
+        
+
+class EulerSolverOCL( os.OdeSolver ) :
+    def __init__( self , force , p_set , dt , ocl_context=None ):
+        super(EulerSolverOCL,self).__init__( force , p_set , dt )
+        
+        if ocl_context == None :
+            self.__occ = occ.OpneCLcontext( self.pset.size , self.pset.dim , ( occ.OCLC_X | occ.OCLC_V | occ.OCLC_A )  )
+        else :
+            self.__occ = ocl_context
+            
+        self.__init_prog_cl()
+                    
+    
+    def __init_prog_cl(self):
+        self.__euler_prg = """
+        __kernel void euler( __global       float *V , 
+                             __global const float *A , 
+                             __global       float *X ,
+                                            float  dt )
+        {
+            int i = get_global_id(0) ;
+            
+            V[3*i]   = V[3*i]   + A[3*i]*dt ;
+            V[3*i+1] = V[3*i+1] + A[3*i+1]*dt ;
+            V[3*i+2] = V[3*i+2] + A[3*i+2]*dt ;
+            
+            X[3*i]   = X[3*i]   + V[3*i]*dt ;
+            X[3*i+1] = X[3*i+1] + V[3*i+1]*dt ;
+            X[3*i+2] = X[3*i+2] + V[3*i+2]*dt ;       
+        }
+        """
+        
+        self.__cl_program = cl.Program( self.__occ.CL_context , self.__euler_prg ).build()
+        
+    
+    def __step__( self , dt ):
+        
+        self.__occ.V_cla.set( np.float32( self.pset.V ) , queue=self.__occ.CL_queue )
+        self.__occ.A_cla.set( np.float32( self.force.A ) , queue=self.__occ.CL_queue )
+        
+        self.__cl_program.euler( self.__occ.CL_queue , ( self.pset.size , ) , None , 
+                                 self.__occ.V_cla.data ,
+                                 self.__occ.A_cla.data , 
+                                 self.__occ.X_cla.data ,
+                                 np.float32( dt ) )
+        
+        self.__occ.X_cla.get( self.__occ.CL_queue , self.pset.X )
+        self.__occ.V_cla.get( self.__occ.CL_queue , self.pset.V )
+        
+        print( self.pset.X )
+
+
+
+
+
