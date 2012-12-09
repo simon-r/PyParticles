@@ -39,11 +39,11 @@ def default_pos( pset , indx ):
     
     t = default_pos.sim_time.time
     
-    pset.X[indx,:] = 0.01 * np.random.rand( len(indx) , pset.dim )
+    pset.X[indx,:] = 0.01 * np.random.rand( len(indx) , pset.dim ).astype( pset.dtype )
     
     fs = 1.0 / ( 1.0 + np.exp( -( t*4.0 - 2.0 ) ) ) 
     
-    alpha = 2.0 * np.pi * np.random.rand( len(indx) ) 
+    alpha = 2.0 * np.pi * np.random.rand( len(indx) ).astype( pset.dtype ) 
     
     vel_x = 2.0 * fs * np.cos( alpha )
     vel_y = 2.0 * fs * np.sin( alpha )
@@ -60,9 +60,9 @@ def fountain():
     steps = 10000000
     dt = 0.01
     
-    pcnt = 150000
+    pcnt = 500000
     
-    pset = ps.ParticlesSet( pcnt )
+    pset = ps.ParticlesSet( pcnt , dtype=np.float32 )
     
     pset.M[:] = 0.1
     pset.X[:,2] = 0.7 * np.random.rand( pset.size )
@@ -81,7 +81,8 @@ def fountain():
     
     multi.set_masses( pset.M )
     
-    solver = mds.MidpointSolver( multi , pset , dt )
+    #solver = mds.MidpointSolver( multi , pset , dt )
+    solver = els.EulerSolver( multi , pset , dt )
     
     
     solver.update_force()

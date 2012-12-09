@@ -17,6 +17,8 @@
 import numpy as np
 import pyparticles.forces.force as fr
 
+import pyparticles.pset.opencl_context as occ 
+
 try:
     import pyopencl as cl
     import pyopencl.array as cla
@@ -98,14 +100,8 @@ class Drag( fr.Force ) :
 class DragOCL( fr.Force ) :
     r"""
     Calculate the forces of resistance. Drag is a force that reacts to the movement with respect to a square law speed. It's commonly used for describing the resistance  of a fluid
-    
+        
     this class is based on openCL
-
-    The force is given the equation:
-
-    .. math::
-
-        F_i=-\frac{1}{2}K\dot{X}^2
 
     Constructor:
         
@@ -127,13 +123,13 @@ class DragOCL( fr.Force ) :
         self.__A = np.zeros( ( size , dim ) , dtype=dtype )
         self.__F = np.zeros( ( size , dim ) , dtype=dtype )
         
-        self.__M = np.zeros( ( size , 1 )  , dtype=dtype )
+        self.__occ = occ.OpneCLcontext( size , dim , ( occ.OCLC_X | occ.OCLC_V | occ.OCLC_A | occ.OCLC_M )  )
         
-        self.__cl_context = cl.create_some_context()
-        self.__cl_queue = cl.CommandQueue(self.__cl_context, properties=cl.command_queue_properties.PROFILING_ENABLE )
+        #self.__cl_context = cl.create_some_context()
+        #self.__cl_queue = cl.CommandQueue(self.__cl_context, properties=cl.command_queue_properties.PROFILING_ENABLE )
         
-        self.__V_cla = cla.Array( self.__cl_queue , ( size , dim ) , dtype )
-        self.__A_cla = cla.Array( self.__cl_queue , ( size , dim ) , dtype )
+        #self.__V_cla = cla.Array( self.__cl_queue , ( size , dim ) , dtype )
+        #self.__A_cla = cla.Array( self.__cl_queue , ( size , dim ) , dtype )
         
         if m != None :
             self.set_masses( m )
@@ -160,24 +156,23 @@ class DragOCL( fr.Force ) :
         }
         """
         
-        self.__cl_program = cl.Program( self.__cl_context , self.__drag_prg ).build()
+        self.__cl_program = cl.Program( self.__occ.CL_context , self.__drag_prg ).build()
     
     def set_masses( self , m ):
-        self.__M[:] = self.__dtype( m )
-        
-        self.__M_cla = cla.to_device( self.__cl_queue , self.__M )
+        self.__occ.M_cla.set( self.__dtype( m ) , queue=self.__occ.CL_queue )
+    
     
     def update_force( self , pset ):
         
-        self.__V_cla.set( self.__dtype( pset.V ) , queue=self.__cl_queue )
+        self.__occ.V_cla.set( self.__dtype( pset.V ) , queue=self.__occ.CL_queue )
         
-        self.__cl_program.drag( self.__cl_queue , ( self.__size , ) , None , 
-                                self.__V_cla.data ,
-                                self.__M_cla.data , 
+        self.__cl_program.drag( self.__occ.CL_queue , ( self.__size , ) , None , 
+                                self.__occ.V_cla.data ,
+                                self.__occ.M_cla.data , 
                                 self.__K , 
-                                self.__A_cla.data )
+                                self.__occ.A_cla.data )
     
-        self.__A_cla.get( self.__cl_queue , self.__A )
+        self.__occ.A_cla.get( self.__occ.CL_queue , self.__A )
         
         return self.__A
     
