@@ -38,7 +38,7 @@ class ParticlesSet(object):
     :param    log_X:         (default False) if true it's possible to logging the position
     :param    log_V:         (default False) if true it's possible to logging the velocity
     :param    log_max_size:  (default 0)     set the maximal size of the log queue
-        
+    :param    dtype:         (default np.float64) the floating point type ot the set    
 
     .. note:: 
     
@@ -50,6 +50,8 @@ class ParticlesSet(object):
         
         if size < 0 :
             raise
+        
+        self.__dtype = dtype
         
         self.__X = np.zeros((size,dim))
         
@@ -219,6 +221,10 @@ class ParticlesSet(object):
         """
         return self.__property_dict.keys().copy()
 
+    def get_dtype(self):
+        return self.__dtype
+    
+    dtype = property( get_dtype , doc="return the dtype of the set" )
 
     def getX(self):
         return self.__X

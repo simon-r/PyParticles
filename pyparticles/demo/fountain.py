@@ -58,7 +58,7 @@ def fountain():
     steps = 10000000
     dt = 0.01
     
-    pcnt = 250000
+    pcnt = 100000
     
     pset = ps.ParticlesSet( pcnt )
     
@@ -66,7 +66,7 @@ def fountain():
     pset.X[:,2] = 0.7 * np.random.rand( pset.size )
         
     grav = cf.ConstForce( pset.size , dim=pset.dim , u_force=( 0.0 , 0.0 , -10.0 ) )
-    drag = dr.Drag( pset.size , dim=pset.dim , Consts=0.01 )
+    drag = dr.DragOCL( pset.size , dim=pset.dim , Consts=0.01 )
     
     multi = mf.MultipleForce( pset.size , dim=pset.dim )
     
@@ -76,6 +76,8 @@ def fountain():
     multi.set_masses( pset.M )
     
     solver = mds.MidpointSolver( multi , pset , dt )
+    
+    
     solver.update_force()
     
     default_pos.sim_time = solver.get_sim_time()

@@ -122,7 +122,7 @@ class DragOCL( fr.Force ) :
         
         self.__dtype = dtype
         
-        self.__G = dtype( Consts )
+        self.__K = dtype( Consts )
         
         self.__A = np.zeros( ( size , dim ) , dtype=dtype )
         self.__F = np.zeros( ( size , dim ) , dtype=dtype )
@@ -145,13 +145,18 @@ class DragOCL( fr.Force ) :
         self.__drag_prg = """
         __kernel void drag(__global const float *V , 
                            __global const float *M ,
-                                          float  G , 
+                                          float  K , 
                            __global       float *A )
         {
-            int i = get_global_id(0);
-            int j = get_global_id(1);
+            int i = get_global_id(0) ;
+            float mod ;
             
-            A[3*i+j] = ( -0.5f * G * pown( V[3*i+j] , 2 ) ) / M[i] ;
+            mod = sqrt( pown( V[3*i] , 2 ) + pown( V[3*i+1] , 2 )  + pown( V[3*i+2] , 2 ) ) ;
+                        
+            A[3*i]   = ( -0.5f * K * mod * V[3*i] )  / M[i] ;
+            A[3*i+1] = ( -0.5f * K * mod * V[3*i+1] )  / M[i] ;
+            A[3*i+2] = ( -0.5f * K * mod * V[3*i+2] )  / M[i] ;
+            
         }
         """
         
@@ -166,10 +171,10 @@ class DragOCL( fr.Force ) :
         
         self.__V_cla.set( self.__dtype( pset.V ) , queue=self.__cl_queue )
         
-        self.__cl_program.drag( self.__cl_queue , ( self.__size , self.__dim ) , None , 
+        self.__cl_program.drag( self.__cl_queue , ( self.__size , ) , None , 
                                 self.__V_cla.data ,
                                 self.__M_cla.data , 
-                                self.__G , 
+                                self.__K , 
                                 self.__A_cla.data )
     
         self.__A_cla.get( self.__cl_queue , self.__A )

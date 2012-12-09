@@ -274,9 +274,9 @@ class DrawParticlesGL(object):
         glEnableClientState(GL_VERTEX_ARRAY)
         
         if self.__vect_color_fun_fl :
-            glColorPointer( 4 , GL_FLOAT , 0 , self.__color_vect )
+            glColorPointer( 4 , GL_DOUBLE , 0 , self.__color_vect )
         
-        glVertexPointer( 3 , GL_FLOAT , 0 , self.pset.X / self.pset.unit )
+        glVertexPointer( 3 , GL_DOUBLE , 0 , self.pset.X / self.pset.unit )
         glDrawElements( GL_POINTS , self.pset.size , GL_UNSIGNED_INT , self.__indices )
         
         glDisableClientState(GL_VERTEX_ARRAY)
