@@ -266,7 +266,7 @@ class TreeElement( object ):
         mx = d
         if self.__tree != None:
             for tr in self.__tree :
-                mx = max ( tr.depth( pset , d+1 ) , mx )
+                mx = max ( tr.depth( d+1 ) , mx )
             
         return mx
     
