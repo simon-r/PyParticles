@@ -33,6 +33,8 @@ import pyparticles.animation.animated_ogl as aogl
 
 import pyparticles.pset.default_boundary as db
 
+from pyparticles.utils.pypart_global import test_pyopencl
+
 def default_pos( pset , indx ):
     
     t = default_pos.sim_time.time
@@ -58,7 +60,7 @@ def fountain():
     steps = 10000000
     dt = 0.01
     
-    pcnt = 100000
+    pcnt = 150000
     
     pset = ps.ParticlesSet( pcnt )
     
@@ -66,7 +68,11 @@ def fountain():
     pset.X[:,2] = 0.7 * np.random.rand( pset.size )
         
     grav = cf.ConstForce( pset.size , dim=pset.dim , u_force=( 0.0 , 0.0 , -10.0 ) )
-    drag = dr.DragOCL( pset.size , dim=pset.dim , Consts=0.01 )
+    
+    if test_pyopencl() :
+        drag = dr.DragOCL( pset.size , dim=pset.dim , Consts=0.01 )
+    else :
+        drag = dr.Drag( pset.size , dim=pset.dim , Consts=0.01 )
     
     multi = mf.MultipleForce( pset.size , dim=pset.dim )
     

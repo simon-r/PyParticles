@@ -53,20 +53,20 @@ class ParticlesSet(object):
         
         self.__dtype = dtype
         
-        self.__X = np.zeros((size,dim))
+        self.__X = np.zeros((size,dim) , dtype=dtype )
         
         if velocity:
-            self.__V = np.zeros((size,dim))
+            self.__V = np.zeros((size,dim) , dtype=dtype )
         else:
             self.__V = None
         
         if mass :
-            self.__mass = np.zeros((size,1))
+            self.__mass = np.zeros((size,1) , dtype=dtype )
         else:
             self.__mass = None
         
         if charge :
-            self.__Q = np.zeros(( size , 1 ))
+            self.__Q = np.zeros(( size , 1 ) , dtype=dtype )
         else:
             self.__Q = None
         
@@ -186,7 +186,7 @@ class ParticlesSet(object):
         return self.__property_dict[property_name]
 
 
-    def add_property_by_name( self , property_name , dim=None , model="numpy_array" , to_type=np.float64 ):
+    def add_property_by_name( self , property_name , dim=None , model="numpy_array" , to_type=None ):
         """
         Insert a new property by name. If the dim is not specified it uses the current dimension of the set.
         
@@ -195,7 +195,7 @@ class ParticlesSet(object):
         :param     property_name:       the name of the new property
         :param     dim:                 the dimension of the new property ( 2 = "2D  , 3 = 3D ... )
         :param     model:               'list' or 'numpy_array'
-        :param     to_type: [np.float64]  an array-numpy type for the model 'numpy_array' [ np.float64 , np.int64 ... ]
+        :param     to_type: [self.dtype]  an array-numpy type for the model 'numpy_array' [ np.float64 , np.int64 ... ]
             
             
         For example add 'friction' or 'radius':
@@ -205,6 +205,9 @@ class ParticlesSet(object):
             pset.add_property_by_name( "friction" , dim=1 , to_type=np.float32 )
             pset.add_property_by_name( "radius" , dim=1 , to_type=np.float64 )
         """
+        
+        if to_type == None :
+            to_type = self.dtype
         
         if dim == None :
             dim = self.dim
@@ -468,7 +471,7 @@ class ParticlesSet(object):
         """
         Compute and return the center of mass
         """
-        self.__centre_mass = np.sum( self.__X * self.__mass , axis=0 ) / np.float( self.__size )
+        self.__centre_mass = np.sum( self.__X * self.__mass , axis=0 ) / self.dtype( self.__size )
         return self.__centre_mass
         
     def centre_of_mass(self):
