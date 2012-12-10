@@ -21,7 +21,6 @@ import pyparticles.pset.opencl_context as occ
 
 try:
     import pyopencl as cl
-    import pyopencl.array as cla
 except:
     ___foo = 0
 
@@ -47,7 +46,7 @@ class EulerSolverOCL( os.OdeSolver ) :
         super(EulerSolverOCL,self).__init__( force , p_set , dt )
         
         if ocl_context == None :
-            self.__occ = occ.OpneCLcontext( self.pset.size , self.pset.dim , ( occ.OCLC_X | occ.OCLC_V | occ.OCLC_A )  )
+            self.__occ = occ.OpenCLcontext( self.pset.size , self.pset.dim , ( occ.OCLC_X | occ.OCLC_V | occ.OCLC_A )  )
         else :
             self.__occ = ocl_context
             
