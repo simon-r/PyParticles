@@ -128,7 +128,7 @@ class GravityOCL( fr.Force ) :
         self.__size = np.int( size )
         
         if ocl_context == None :
-            self.__occ = occ.OpenCLcontext( size , dim , ( occ.OCLC_V | occ.OCLC_A | occ.OCLC_M )  )
+            self.__occ = occ.OpenCLcontext( size , dim , ( occ.OCLC_X | occ.OCLC_A | occ.OCLC_M )  )
         else :
             self.__occ = ocl_context   
         
@@ -141,6 +141,8 @@ class GravityOCL( fr.Force ) :
         
         if m != None :
             self.set_masses( m )
+            
+        self.__init_prog_cl()
         
         
     def __init_prog_cl(self):
@@ -178,13 +180,13 @@ class GravityOCL( fr.Force ) :
                 f = -1.0 * G * M[n] / pown( dist , 3 ) ;
                 
                 at.x = at.x + f * u.x ;
-                at.y = at.x + f * u.y ;
-                at.z = at.x + f * u.z ;
+                at.y = at.y + f * u.y ;
+                at.z = at.z + f * u.z ;
             } 
             
             A[3*i] = at.x ;
             A[3*i+1] = at.y ;
-            A[3*i+2] = at.w ;
+            A[3*i+2] = at.z ;
         }
         """
         

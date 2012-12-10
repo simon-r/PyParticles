@@ -37,7 +37,8 @@ def parse_args():
                  "cat_spri" , 
                  "el_static" , 
                  "elmag_field" ,
-                 "fountain" ] ,
+                 "fountain" ,
+                 "cluster_grav"] ,
         dest="demo",
         default=None ,
         help="Execute the specified buildin demo"

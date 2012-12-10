@@ -35,6 +35,7 @@ import pyparticles.animation.test_animation as test
 
 import pyparticles.pset.rand_cluster as clu
 import pyparticles.forces.gravity as gr
+
 import pyparticles.ode.euler_solver as els
 import pyparticles.ode.leapfrog_solver as lps
 import pyparticles.ode.runge_kutta_solver as rks
@@ -59,6 +60,7 @@ import pyparticles.demo.test as tst
 import pyparticles.demo.electrostatic_demo as eld
 import pyparticles.demo.electromagnetic_demo as emd
 import pyparticles.demo.fountain as fou
+import pyparticles.demo.gravity_clusters as grav
 
 import pyparticles.utils.parse_args as arg 
 
@@ -159,6 +161,13 @@ def main():
         print(" electromagnetic fields")
         emd.electromag_field()
         return      
+    
+    if options.demo == "cluster_grav" :
+        print("")
+        print("Start the simulation example:")
+        print(" Gravitational clusters")
+        grav.gravity_cluster()
+        return       
     
     if options.path_name == None or options.demo == "solar_system":
         
