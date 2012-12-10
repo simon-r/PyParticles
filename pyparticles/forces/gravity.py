@@ -22,7 +22,6 @@ import pyparticles.pset.opencl_context as occ
 
 try:
     import pyopencl as cl
-    import pyopencl.array as cla
 except:
     ___foo = 0
 
@@ -125,14 +124,20 @@ class GravityOCL( fr.Force ) :
     """
     def __init__(self , size , dim=3 , m=None , Consts=1.0 , ocl_context=None ):
         
-        self.__dim = dim
-        self.__size = size
-        self.__G = Consts
-        self.__A = np.zeros( ( size , dim ) )
-        self.__Fm = np.zeros( ( size , size ) )
-        self.__V = np.zeros( ( size , size ) )
-        self.__D = np.zeros( ( size , size ) )
-        self.__M = np.zeros( ( size , size ) )
+        self.__dim = np.int( dim )
+        self.__size = np.int( size )
+        
+        if ocl_context == None :
+            self.__occ = occ.OpenCLcontext( size , dim , ( occ.OCLC_V | occ.OCLC_A | occ.OCLC_M )  )
+        else :
+            self.__occ = ocl_context   
+        
+        self.__dtype = self.__occ.dtype
+        
+        self.__G = self.__dtype( Consts )
+        
+        self.__A = np.zeros( ( size , dim ) , dtype=self.__occ.dtype )
+        self.__F = np.zeros( ( size , dim ) , dtype=self.__occ.dtype )
         
         if m != None :
             self.set_masses( m )
@@ -140,10 +145,10 @@ class GravityOCL( fr.Force ) :
         
     def __init_prog_cl(self):
         self.__gravity_prg = """
-        __kernel void drag(__global const float *X , 
-                           __global const float *M ,
-                                          float  G , 
-                           __global       float *A )
+        __kernel void gravity(__global const float *X , 
+                              __global const float *M ,
+                                             float  G , 
+                              __global       float *A )
         {
             int i  = get_global_id(0) ;
             int sz = get_global_size(0) ;
@@ -163,22 +168,22 @@ class GravityOCL( fr.Force ) :
             {
                 if ( n == i ) continue ;
                 
-                u.x = X[3*i] - X[3*n]
-                u.y = X[3*i+1] - X[3*n+1]
-                u.z = X[3*i+2] - X[3*n+2]
+                u.x = X[3*i] - X[3*n] ;
+                u.y = X[3*i+1] - X[3*n+1] ;
+                u.z = X[3*i+2] - X[3*n+2] ;
                 
                 dist = length( u ) ;
                 
-                f = G * M[n] / pown( dist , 3 )
+                f = -1.0 * G * M[n] / pown( dist , 3 ) ;
                 
-                at.x = at.x + f * u.x
-                at.y = at.x + f * u.y
-                at.z = at.x + f * u.z
+                at.x = at.x + f * u.x ;
+                at.y = at.x + f * u.y ;
+                at.z = at.x + f * u.z ;
             } 
             
-            A[3*i] = at.x
-            A[3*i+1] = at.y
-            A[3*i+2] = at.w
+            A[3*i] = at.x ;
+            A[3*i+1] = at.y ;
+            A[3*i+2] = at.w ;
         }
         """
         
@@ -189,7 +194,7 @@ class GravityOCL( fr.Force ) :
         """
         Set the masses used for computing the forces.
         """
-        pass
+        self.__occ.M_cla.set( self.__dtype( m ) , queue=self.__occ.CL_queue )
         
         
     def update_force( self , p_set ):
@@ -197,8 +202,16 @@ class GravityOCL( fr.Force ) :
         Compute the force of the current status of the system and return the accelerations of every particle in a *size by dim* array
         """
         
-        pass
-                
+        self.__occ.X_cla.set( self.__dtype( p_set.X ) , queue=self.__occ.CL_queue )
+        
+        self.__cl_program.gravity( self.__occ.CL_queue , ( self.__size , ) , None ,
+                                   self.__occ.X_cla.data ,
+                                   self.__occ.M_cla.data ,
+                                   self.__G ,
+                                   self.__occ.A_cla.data )
+
+        self.__occ.A_cla.get( self.__occ.CL_queue , self.__A )
+                        
         return self.__A
     
     
