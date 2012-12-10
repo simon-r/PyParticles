@@ -147,7 +147,45 @@ Observe that the uneeded parameters are ignored; if there are an editing error n
 <div><p><strong>Particles data set configauration</strong></p>
 <p><strong>Varibles:</strong></p>
 <blockquote>
-<div>Note: len_unit &amp; mass_unit are used only for drawing the particles</div></blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="44%" />
+<col width="56%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Variable</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>len_unit  = &lt;number&gt;</td>
+<td>How many meters is a unit</td>
+</tr>
+<tr class="row-odd"><td>mass_unit = &lt;number&gt;</td>
+<td>How many Kg is a unit</td>
+</tr>
+<tr class="row-even"><td>boundary  = [open|periodic|rebound]</td>
+<td>The boundary model used in the simulation</td>
+</tr>
+<tr class="row-odd"><td>boundary_lim = &lt;#&gt; &lt;#&gt;</td>
+<td>Define the size of the boundary</td>
+</tr>
+<tr class="row-even"><td>sim_log = &lt;number&gt;</td>
+<td>The size of the log queue (0 disable the log)</td>
+</tr>
+<tr class="row-odd"><td>sim_log_X = [True|False]</td>
+<td>If sim_log is enabled log the position</td>
+</tr>
+<tr class="row-even"><td>sim_log_V = [True|False]</td>
+<td>If sim_log is enabled log the velocities</td>
+</tr>
+<tr class="row-odd"><td>rand_part_nr = &lt;number&gt;</td>
+<td>The total number of particles for a rand set</td>
+</tr>
+</tbody>
+</table>
+<p>Note: len_unit &amp; mass_unit are used only for drawing the particles</p>
+</div></blockquote>
 </div></blockquote>
 </div>
 <div class="section" id="section-model">

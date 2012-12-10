@@ -64,13 +64,12 @@
 <li><a class="reference internal" href="#module-pyparticles.forces.gravity"><tt class="docutils literal"><span class="pre">gravity</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pyparticles.forces.const_force"><tt class="docutils literal"><span class="pre">const_force</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pyparticles.forces.drag"><tt class="docutils literal"><span class="pre">drag</span></tt> Module</a></li>
-<li><a class="reference internal" href="#damping-module"><tt class="docutils literal"><span class="pre">damping</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pyparticles.forces.damping"><tt class="docutils literal"><span class="pre">damping</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pyparticles.forces.electrostatic"><tt class="docutils literal"><span class="pre">electrostatic</span></tt> Module</a></li>
-<li><a class="reference internal" href="#electromagnetic-field-module"><tt class="docutils literal"><span class="pre">electromagnetic_field</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pyparticles.forces.electromagnetic_field"><tt class="docutils literal"><span class="pre">electromagnetic_field</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pyparticles.forces.lennard_jones"><tt class="docutils literal"><span class="pre">lennard_jones</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pyparticles.forces.linear_spring"><tt class="docutils literal"><span class="pre">linear_spring</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pyparticles.forces.linear_spring_constrained"><tt class="docutils literal"><span class="pre">linear_spring_constrained</span></tt> Module</a></li>
-<li><a class="reference internal" href="#lorentz-module"><tt class="docutils literal"><span class="pre">lorentz</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pyparticles.forces.multiple_force"><tt class="docutils literal"><span class="pre">multiple_force</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pyparticles.forces.pseudo_bubble"><tt class="docutils literal"><span class="pre">pseudo_bubble</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pyparticles.forces.van_der_waals_force"><tt class="docutils literal"><span class="pre">van_der_waals_force</span></tt> Module</a></li>
@@ -124,33 +123,20 @@
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
 <p>The main abstract class used as interface for the forces classes</p>
 <p>Constructor</p>
-<blockquote>
-<div><table border="1" class="docutils">
-<colgroup>
-<col width="21%" />
-<col width="79%" />
-</colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Arguments</th>
-<th class="head">&nbsp;</th>
-</tr>
-</thead>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
 <tbody valign="top">
-<tr class="row-even"><td>size</td>
-<td>the number of particles in the system</td>
-</tr>
-<tr class="row-odd"><td>dim</td>
-<td>the dimension of the system (3D, 2D..)</td>
-</tr>
-<tr class="row-even"><td>m</td>
-<td>a vector containig the masses</td>
-</tr>
-<tr class="row-odd"><td>Const</td>
-<td>the force constants (Like G, K ...)</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>size</strong> &#8211; the number of particles in the system</li>
+<li><strong>dim</strong> &#8211; the dimension of the system (3D, 2D..)</li>
+<li><strong>m</strong> &#8211; a vector containig the masses</li>
+<li><strong>Const</strong> &#8211; the force constants (Like G, K ...)</li>
+</ul>
+</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
 <dl class="attribute">
 <dt id="pyparticles.forces.force.Force.A">
 <tt class="descname">A</tt><a class="headerlink" href="#pyparticles.forces.force.Force.A" title="Permalink to this definition">¶</a></dt>
@@ -191,19 +177,11 @@
 <dt id="pyparticles.forces.force.Force.set_masses">
 <tt class="descname">set_masses</tt><big>(</big><em>m</em><big>)</big><a class="headerlink" href="#pyparticles.forces.force.Force.set_masses" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set the masses used for computing the forces.</p>
-<table border="1" class="docutils">
-<colgroup>
-<col width="23%" />
-<col width="77%" />
-</colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Arguments</th>
-<th class="head">&nbsp;</th>
-</tr>
-</thead>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
 <tbody valign="top">
-<tr class="row-even"><td>m</td>
-<td>An array containig the masses</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>m</strong> &#8211; An array containig the masses</td>
 </tr>
 </tbody>
 </table>
@@ -213,19 +191,11 @@
 <dt id="pyparticles.forces.force.Force.update_force">
 <tt class="descname">update_force</tt><big>(</big><em>p_set</em><big>)</big><a class="headerlink" href="#pyparticles.forces.force.Force.update_force" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computes the forces of the current status ad return the accelerations of the particles</p>
-<table border="1" class="docutils">
-<colgroup>
-<col width="33%" />
-<col width="67%" />
-</colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Arguments</th>
-<th class="head">&nbsp;</th>
-</tr>
-</thead>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
 <tbody valign="top">
-<tr class="row-even"><td>p_set</td>
-<td>Particles set obj.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>p_set</strong> &#8211; Particles set obj.</td>
 </tr>
 </tbody>
 </table>
@@ -269,33 +239,20 @@
 <div class="math">
 <p><img src="_images/math/983f27ecfbfd6cf3d439c35f1a457eea868338c3.png" alt="\mathbf{F}_{12}=-G \frac{m_1 m_2 }{r^2}\hat{r}_{12}"/></p>
 </div><p>Constructor</p>
-<blockquote>
-<div><table border="1" class="docutils">
-<colgroup>
-<col width="21%" />
-<col width="79%" />
-</colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Arguments</th>
-<th class="head">&nbsp;</th>
-</tr>
-</thead>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
 <tbody valign="top">
-<tr class="row-even"><td>size</td>
-<td>the number of particles in the system</td>
-</tr>
-<tr class="row-odd"><td>dim</td>
-<td>the dimension of the system</td>
-</tr>
-<tr class="row-even"><td>m</td>
-<td>a vector containig the masses</td>
-</tr>
-<tr class="row-odd"><td>Const</td>
-<td>the gravitational constant</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>size</strong> &#8211; the number of particles in the system</li>
+<li><strong>dim</strong> &#8211; the dimension of the system</li>
+<li><strong>m</strong> &#8211; a vector containig the masses</li>
+<li><strong>Const</strong> &#8211; the gravitational constant</li>
+</ul>
+</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
 <dl class="attribute">
 <dt id="pyparticles.forces.gravity.Gravity.A">
 <tt class="descname">A</tt><a class="headerlink" href="#pyparticles.forces.gravity.Gravity.A" title="Permalink to this definition">¶</a></dt>
@@ -343,33 +300,20 @@
 <dd><p>Bases: <a class="reference internal" href="#pyparticles.forces.force.Force" title="pyparticles.forces.force.Force"><tt class="xref py py-class docutils literal"><span class="pre">pyparticles.forces.force.Force</span></tt></a></p>
 <p>Constant force field.</p>
 <p>Constructor</p>
-<blockquote>
-<div><table border="1" class="docutils">
-<colgroup>
-<col width="19%" />
-<col width="81%" />
-</colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Arguments</th>
-<th class="head">&nbsp;</th>
-</tr>
-</thead>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
 <tbody valign="top">
-<tr class="row-even"><td>size</td>
-<td>the number of particles in the system</td>
-</tr>
-<tr class="row-odd"><td>dim</td>
-<td>the dimension of the system</td>
-</tr>
-<tr class="row-even"><td>m</td>
-<td>a vector containig the masses</td>
-</tr>
-<tr class="row-odd"><td>u_force</td>
-<td>The force vector (Force per unit of mass)</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>size</strong> &#8211; the number of particles in the system</li>
+<li><strong>dim</strong> &#8211; the dimension of the system</li>
+<li><strong>m</strong> &#8211; a vector containig the masses</li>
+<li><strong>u_force</strong> &#8211; The force vector (Force per unit of mass)</li>
+</ul>
+</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
 <dl class="attribute">
 <dt id="pyparticles.forces.const_force.ConstForce.A">
 <tt class="descname">A</tt><a class="headerlink" href="#pyparticles.forces.const_force.ConstForce.A" title="Permalink to this definition">¶</a></dt>
@@ -409,38 +353,25 @@
 <dt id="pyparticles.forces.drag.Drag">
 <em class="property">class </em><tt class="descclassname">pyparticles.forces.drag.</tt><tt class="descname">Drag</tt><big>(</big><em>size</em>, <em>dim=3</em>, <em>m=None</em>, <em>Consts=1.0</em><big>)</big><a class="headerlink" href="#pyparticles.forces.drag.Drag" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#pyparticles.forces.force.Force" title="pyparticles.forces.force.Force"><tt class="xref py py-class docutils literal"><span class="pre">pyparticles.forces.force.Force</span></tt></a></p>
-<p>Calculate the forces of resistance, resistance is a force that reacts to the movement with respect to a square law speed.</p>
+<p>Calculate the forces of resistance. Drag is a force that reacts to the movement with respect to a square law speed. It&#8217;s commonly used for describing the resistance  of a fluid</p>
 <p>The force is given the equation:</p>
 <div class="math">
 <p><img src="_images/math/212289aee996e6c3263a857bed95df54b1ef4309.png" alt="F_i=-\frac{1}{2}K\dot{X}^2"/></p>
-</div><p>Constructor</p>
-<blockquote>
-<div><table border="1" class="docutils">
-<colgroup>
-<col width="21%" />
-<col width="79%" />
-</colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Arguments</th>
-<th class="head">&nbsp;</th>
-</tr>
-</thead>
+</div><p>Constructor:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
 <tbody valign="top">
-<tr class="row-even"><td>size</td>
-<td>the number of particles in the system</td>
-</tr>
-<tr class="row-odd"><td>dim</td>
-<td>the dimension of the system</td>
-</tr>
-<tr class="row-even"><td>m</td>
-<td>a vector containig the masses</td>
-</tr>
-<tr class="row-odd"><td>Const</td>
-<td>the gravitational constant</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>size</strong> &#8211; the number of particles in the system</li>
+<li><strong>dim</strong> &#8211; the dimension of the system</li>
+<li><strong>m</strong> &#8211; a vector containig the masses</li>
+<li><strong>Const</strong> &#8211; the drag factor K</li>
+</ul>
+</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
 <dl class="attribute">
 <dt id="pyparticles.forces.drag.Drag.A">
 <tt class="descname">A</tt><a class="headerlink" href="#pyparticles.forces.drag.Drag.A" title="Permalink to this definition">¶</a></dt>
@@ -474,9 +405,9 @@
 </dd></dl>
 
 </div>
-<div class="section" id="damping-module">
-<h2><tt class="xref py py-mod docutils literal"><span class="pre">damping</span></tt> Module<a class="headerlink" href="#damping-module" title="Permalink to this headline">¶</a></h2>
-<span class="target" id="module-pyparticles.forces.damping"></span><dl class="class">
+<div class="section" id="module-pyparticles.forces.damping">
+<span id="damping-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">damping</span></tt> Module<a class="headerlink" href="#module-pyparticles.forces.damping" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
 <dt id="pyparticles.forces.damping.Damping">
 <em class="property">class </em><tt class="descclassname">pyparticles.forces.damping.</tt><tt class="descname">Damping</tt><big>(</big><em>size</em>, <em>dim=3</em>, <em>m=None</em>, <em>Consts=1.0</em><big>)</big><a class="headerlink" href="#pyparticles.forces.damping.Damping" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#pyparticles.forces.force.Force" title="pyparticles.forces.force.Force"><tt class="xref py py-class docutils literal"><span class="pre">pyparticles.forces.force.Force</span></tt></a></p>
@@ -485,33 +416,20 @@
 <div class="math">
 <p><img src="_images/math/27b1f0a54e063a60b938bcd9d436405f1b684610.png" alt="F_i = -C\dot{X}"/></p>
 </div><p>Constructor</p>
-<blockquote>
-<div><table border="1" class="docutils">
-<colgroup>
-<col width="21%" />
-<col width="79%" />
-</colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Arguments</th>
-<th class="head">&nbsp;</th>
-</tr>
-</thead>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
 <tbody valign="top">
-<tr class="row-even"><td>size</td>
-<td>the number of particles in the system</td>
-</tr>
-<tr class="row-odd"><td>dim</td>
-<td>the dimension of the system</td>
-</tr>
-<tr class="row-even"><td>m</td>
-<td>a vector containig the masses</td>
-</tr>
-<tr class="row-odd"><td>Const</td>
-<td>the damping factor</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>size</strong> &#8211; the number of particles in the system</li>
+<li><strong>dim</strong> &#8211; the dimension of the system</li>
+<li><strong>m</strong> &#8211; a vector containig the masses</li>
+<li><strong>Const</strong> &#8211; the damping factor</li>
+</ul>
+</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
 <dl class="attribute">
 <dt id="pyparticles.forces.damping.Damping.A">
 <tt class="descname">A</tt><a class="headerlink" href="#pyparticles.forces.damping.Damping.A" title="Permalink to this definition">¶</a></dt>
@@ -551,16 +469,17 @@
 <dt id="pyparticles.forces.electrostatic.Electrostatic">
 <em class="property">class </em><tt class="descclassname">pyparticles.forces.electrostatic.</tt><tt class="descname">Electrostatic</tt><big>(</big><em>size</em>, <em>dim=3</em>, <em>m=None</em>, <em>q=None</em>, <em>Consts=1.0</em><big>)</big><a class="headerlink" href="#pyparticles.forces.electrostatic.Electrostatic" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#pyparticles.forces.force.Force" title="pyparticles.forces.force.Force"><tt class="xref py py-class docutils literal"><span class="pre">pyparticles.forces.force.Force</span></tt></a></p>
-<dl class="docutils">
-<dt>Compute the electrostatic force.</dt>
-<dd><p class="first">Note: The real force of an electrodynamic system is given by the <strong>Maxwell equations</strong>! and not from the Culomb law.</p>
-<p>The Culomb law is adapt only for computing a static system of particles, and not for moving particles.</p>
-<p>But for a very slow movement it should be a good approximation.</p>
-<div class="last math">
+<p>Compute the electrostatic force using the Culomb law.</p>
+<p>..note:</p>
+<div class="highlight-python"><pre>The real forces of an electrodynamic system is given by the **Maxwell equations**! and not from the Culomb law.
+
+The Culomb law is adapt for computing forces in a static system of particles and not for moving particles.
+
+But for a very slow movement it should be a good approximation.</pre>
+</div>
+<div class="math">
 <p><img src="_images/math/a6f753d0318fdf95a7015c0af198b0650b54e790.png" alt="\vec F = k \, q_1 \, q_2 \, \frac {\vec r_1 - \vec r_2}{\left \| \vec r_1 - \vec r_2 \right \|^3}"/></p>
-</div></dd>
-</dl>
-<dl class="attribute">
+</div><dl class="attribute">
 <dt id="pyparticles.forces.electrostatic.Electrostatic.A">
 <tt class="descname">A</tt><a class="headerlink" href="#pyparticles.forces.electrostatic.Electrostatic.A" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -598,9 +517,9 @@
 </dd></dl>
 
 </div>
-<div class="section" id="electromagnetic-field-module">
-<h2><tt class="xref py py-mod docutils literal"><span class="pre">electromagnetic_field</span></tt> Module<a class="headerlink" href="#electromagnetic-field-module" title="Permalink to this headline">¶</a></h2>
-<span class="target" id="module-pyparticles.forces.electromagnetic_field"></span><dl class="class">
+<div class="section" id="module-pyparticles.forces.electromagnetic_field">
+<span id="electromagnetic-field-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">electromagnetic_field</span></tt> Module<a class="headerlink" href="#module-pyparticles.forces.electromagnetic_field" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
 <dt id="pyparticles.forces.electromagnetic_field.ElectromagneticField">
 <em class="property">class </em><tt class="descclassname">pyparticles.forces.electromagnetic_field.</tt><tt class="descname">ElectromagneticField</tt><big>(</big><em>size</em>, <em>dim=3</em>, <em>m=None</em>, <em>q=None</em>, <em>Consts=1.0</em><big>)</big><a class="headerlink" href="#pyparticles.forces.electromagnetic_field.ElectromagneticField" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#pyparticles.forces.force.Force" title="pyparticles.forces.force.Force"><tt class="xref py py-class docutils literal"><span class="pre">pyparticles.forces.force.Force</span></tt></a></p>
@@ -680,40 +599,25 @@
 <p>The L. J. force between two particles is defined as follow:</p>
 <div class="math">
 <p><img src="_images/math/046e709aa67e28440a0053a496e5e643f31776f0.png" alt="\mathbf{F}(r) = 4 \epsilon \left(12\,{\frac{{\sigma}^{12}}{{r}^{13}}}-6\,{\frac{{\sigma}^{6}}{{r}^{7}}}\right)\hat{\mathbf{r}}"/></p>
-</div><p>Constructor</p>
-<blockquote>
-<div><table border="1" class="docutils">
-<colgroup>
-<col width="18%" />
-<col width="82%" />
-</colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Arguments</th>
-<th class="head">&nbsp;</th>
-</tr>
-</thead>
+</div><p>Constructor:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
 <tbody valign="top">
-<tr class="row-even"><td>size</td>
-<td>the number of particles in the system</td>
-</tr>
-<tr class="row-odd"><td>dim</td>
-<td>the dimension of the system</td>
-</tr>
-<tr class="row-even"><td>m</td>
-<td>a vector containig the masses</td>
-</tr>
-<tr class="row-odd"><td>Const</td>
-<td>An indexable object[*] with the two contants</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>size</strong> &#8211; the number of particles in the system</li>
+<li><strong>dim</strong> &#8211; the dimension of the system</li>
+<li><strong>m</strong> &#8211; a vector containig the masses</li>
+<li><strong>Const</strong> &#8211; An indexable object[*] with the two contants</li>
+</ul>
+</td>
 </tr>
 </tbody>
 </table>
-<blockquote>
-<div><dl class="docutils">
+<dl class="docutils">
 <dt>[*] Const[0] = <img class="math" src="_images/math/eaf4418fbe935c15a606516d8f55dc380cd8e822.png" alt="\epsilon"/></dt>
 <dd>Const[1] = <img class="math" src="_images/math/fa35d9fc104207e09a712110ac81612c5b279a6c.png" alt="\sigma"/></dd>
 </dl>
-</div></blockquote>
-</div></blockquote>
 <dl class="attribute">
 <dt id="pyparticles.forces.lennard_jones.LenardJones.A">
 <tt class="descname">A</tt><a class="headerlink" href="#pyparticles.forces.lennard_jones.LenardJones.A" title="Permalink to this definition">¶</a></dt>
@@ -748,19 +652,11 @@
 <dt id="pyparticles.forces.lennard_jones.LenardJones.update_force">
 <tt class="descname">update_force</tt><big>(</big><em>p_set</em><big>)</big><a class="headerlink" href="#pyparticles.forces.lennard_jones.LenardJones.update_force" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute the force of the current status of the system and return the accelerations of every particle in a <em>size by dim</em> array</p>
-<table border="1" class="docutils">
-<colgroup>
-<col width="33%" />
-<col width="67%" />
-</colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Arguments</th>
-<th class="head">&nbsp;</th>
-</tr>
-</thead>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
 <tbody valign="top">
-<tr class="row-even"><td>p_set</td>
-<td>Particles set obj.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>p_set</strong> &#8211; Particles set obj.</td>
 </tr>
 </tbody>
 </table>
@@ -775,36 +671,27 @@
 <dt id="pyparticles.forces.linear_spring.LinearSpring">
 <em class="property">class </em><tt class="descclassname">pyparticles.forces.linear_spring.</tt><tt class="descname">LinearSpring</tt><big>(</big><em>size</em>, <em>dim=3</em>, <em>m=None</em>, <em>Consts=1.0</em><big>)</big><a class="headerlink" href="#pyparticles.forces.linear_spring.LinearSpring" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#pyparticles.forces.force.Force" title="pyparticles.forces.force.Force"><tt class="xref py py-class docutils literal"><span class="pre">pyparticles.forces.force.Force</span></tt></a></p>
-<p>Compute the forces according to the Hooke&#8217;s law.</p>
+<blockquote>
+<div><p>Compute the forces according to the Hooke&#8217;s law.</p>
 <blockquote>
 <div><div class="math">
 <p><img src="_images/math/ced9dac04a0ebb83e017b71850488ebecf657348.png" alt="F_i = -k X"/></p>
-</div><table border="1" class="docutils">
-<colgroup>
-<col width="23%" />
-<col width="77%" />
-</colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Arguments</th>
-<th class="head">&nbsp;</th>
-</tr>
-</thead>
+</div></div></blockquote>
+</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
 <tbody valign="top">
-<tr class="row-even"><td>size</td>
-<td>size of the particles system</td>
-</tr>
-<tr class="row-odd"><td>dim</td>
-<td>dimension of the system</td>
-</tr>
-<tr class="row-even"><td>m</td>
-<td>an array containig the masses</td>
-</tr>
-<tr class="row-odd"><td>const</td>
-<td>spring constant ( K )</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>size</strong> &#8211; size of the particles system</li>
+<li><strong>dim</strong> &#8211; dimension of the system</li>
+<li><strong>m</strong> &#8211; an array containing the masses</li>
+<li><strong>const</strong> &#8211; spring constant ( K )</li>
+</ul>
+</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
 <dl class="attribute">
 <dt id="pyparticles.forces.linear_spring.LinearSpring.A">
 <tt class="descname">A</tt><a class="headerlink" href="#pyparticles.forces.linear_spring.LinearSpring.A" title="Permalink to this definition">¶</a></dt>
@@ -899,9 +786,6 @@
 </dd></dl>
 
 </div>
-<div class="section" id="lorentz-module">
-<h2><tt class="xref py py-mod docutils literal"><span class="pre">lorentz</span></tt> Module<a class="headerlink" href="#lorentz-module" title="Permalink to this headline">¶</a></h2>
-</div>
 <div class="section" id="module-pyparticles.forces.multiple_force">
 <span id="multiple-force-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">multiple_force</span></tt> Module<a class="headerlink" href="#module-pyparticles.forces.multiple_force" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
@@ -956,7 +840,13 @@ It behaves like any other force, and can be used with all methods of numerical i
 <dt id="pyparticles.forces.pseudo_bubble.PseudoBubble">
 <em class="property">class </em><tt class="descclassname">pyparticles.forces.pseudo_bubble.</tt><tt class="descname">PseudoBubble</tt><big>(</big><em>size</em>, <em>dim=3</em>, <em>m=None</em>, <em>Consts=(0.3</em>, <em>2.0)</em><big>)</big><a class="headerlink" href="#pyparticles.forces.pseudo_bubble.PseudoBubble" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#pyparticles.forces.force.Force" title="pyparticles.forces.force.Force"><tt class="xref py py-class docutils literal"><span class="pre">pyparticles.forces.force.Force</span></tt></a></p>
-<dl class="attribute">
+<p>Pseudo Bubble is a <strong>fake force</strong> that produce the effect of the bubbles in a fluid.</p>
+<div class="math">
+<p><img src="_images/math/be01bab42d0ac13430ef46a1633b734c1b5cd777.png" alt="\begin{cases}
+ &amp; \text{ if } d_{i,j} &lt; R \,\,\, \text{then} \,\,\,F_{i,j}= -\frac{B}{R}d_{i,j}+\frac{B}{d_{i,j}} \\ 
+ &amp; \text{ if } d_{i,j} \geqslant  R \,\,\, \text{then} \,\,\,F_{i,j}= 0
+\end{cases}"/></p>
+</div><dl class="attribute">
 <dt id="pyparticles.forces.pseudo_bubble.PseudoBubble.A">
 <tt class="descname">A</tt><a class="headerlink" href="#pyparticles.forces.pseudo_bubble.PseudoBubble.A" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>

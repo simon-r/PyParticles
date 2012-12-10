@@ -273,7 +273,7 @@
 <dt id="pyparticles.measures.measure.Measure">
 <em class="property">class </em><tt class="descclassname">pyparticles.measures.measure.</tt><tt class="descname">Measure</tt><big>(</big><em>pset=None</em>, <em>force=None</em><big>)</big><a class="headerlink" href="#pyparticles.measures.measure.Measure" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
-<p>Main abstract class for defining the measurments procedures of the system, for example the total kinetic energy.</p>
+<p>Main abstract class for defining the measurement procedures of the system, for example the total kinetic energy.</p>
 <dl class="method">
 <dt id="pyparticles.measures.measure.Measure.dim">
 <tt class="descname">dim</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.measures.measure.Measure.dim" title="Permalink to this definition">¶</a></dt>
@@ -294,8 +294,8 @@
 <dl class="method">
 <dt id="pyparticles.measures.measure.Measure.get_parameter">
 <tt class="descname">get_parameter</tt><big>(</big><em>name</em>, <em>val</em><big>)</big><a class="headerlink" href="#pyparticles.measures.measure.Measure.get_parameter" title="Permalink to this definition">¶</a></dt>
-<dd><p>return the reference to the dict of the used paramenter
-A paramenter shold be the volume, some constant ....</p>
+<dd><p>return the reference to the dict of the used parameter
+A parameter  should be the volume, some constant ....</p>
 </dd></dl>
 
 <dl class="method">
@@ -429,35 +429,11 @@ print( P.value )
 &gt;     [ 1.8 , 2.3 , 1.7 ]
 &gt;    ]</pre>
 </div>
-<dl class="docutils">
-<dt>Constructor:</dt>
-<dd><table border="1" class="first last docutils">
-<colgroup>
-<col width="10%" />
-<col width="90%" />
-</colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Arguments</th>
-<th class="head">&nbsp;</th>
-</tr>
-</thead>
-<tbody valign="top">
-<tr class="row-even"><td>pset</td>
-<td>The particles set</td>
-</tr>
-<tr class="row-odd"><td>force</td>
-<td>The model of the used force</td>
-</tr>
-<tr class="row-even"><td>subset</td>
-<td>a numpy 1D array containing the indicies of the measured particles</td>
-</tr>
-<tr class="row-odd"><td>model</td>
-<td>a strung describing the model for the measure: &#8220;part_by_part&#8221; or &#8220;subsystem&#8221;</td>
-</tr>
-</tbody>
-</table>
-</dd>
-</dl>
+<p>Constructor:</p>
+<p>:param pset      The particles set
+:param force     The model of the used force
+:param subset    a numpy 1D array containing the indicies of the measured particles
+:param model     a strung describing the model for the measure: &#8220;part_by_part&#8221; or &#8220;subsystem&#8221;</p>
 <dl class="method">
 <dt id="pyparticles.measures.momentum.MomentumParticles.dim">
 <tt class="descname">dim</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.measures.momentum.MomentumParticles.dim" title="Permalink to this definition">¶</a></dt>

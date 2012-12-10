@@ -60,12 +60,12 @@
 <li><a class="reference internal" href="#">pset Package</a><ul>
 <li><a class="reference internal" href="#id1"><tt class="docutils literal"><span class="pre">pset</span></tt> Package</a></li>
 <li><a class="reference internal" href="#module-pyparticles.pset.particles_set"><tt class="docutils literal"><span class="pre">particles_set</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-pyparticles.pset.logger"><tt class="docutils literal"><span class="pre">logger</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pyparticles.pset.boundary"><tt class="docutils literal"><span class="pre">boundary</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pyparticles.pset.cluster"><tt class="docutils literal"><span class="pre">cluster</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pyparticles.pset.constrained_force_interactions"><tt class="docutils literal"><span class="pre">constrained_force_interactions</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pyparticles.pset.constrained_x"><tt class="docutils literal"><span class="pre">constrained_x</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pyparticles.pset.constraint"><tt class="docutils literal"><span class="pre">constraint</span></tt> Module</a></li>
-<li><a class="reference internal" href="#electrically-charged-particle-set-module"><tt class="docutils literal"><span class="pre">electrically_charged_particle_set</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pyparticles.pset.file_cluster"><tt class="docutils literal"><span class="pre">file_cluster</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pyparticles.pset.octree"><tt class="docutils literal"><span class="pre">octree</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-pyparticles.pset.periodic_boundary"><tt class="docutils literal"><span class="pre">periodic_boundary</span></tt> Module</a></li>
@@ -119,62 +119,30 @@
 <em class="property">class </em><tt class="descclassname">pyparticles.pset.particles_set.</tt><tt class="descname">ParticlesSet</tt><big>(</big><em>size=1</em>, <em>dim=3</em>, <em>boundary=None</em>, <em>label=False</em>, <em>mass=True</em>, <em>velocity=True</em>, <em>charge=False</em>, <em>log_X=False</em>, <em>log_V=False</em>, <em>log_max_size=0</em><big>)</big><a class="headerlink" href="#pyparticles.pset.particles_set.ParticlesSet" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
 <p>The main class for storing the particles data set.</p>
-<blockquote>
-<div><blockquote>
-<div><table border="1" class="docutils">
-<colgroup>
-<col width="16%" />
-<col width="18%" />
-<col width="66%" />
-</colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Arguments</th>
-<th class="head">&nbsp;</th>
-<th class="head">&nbsp;</th>
-</tr>
-</thead>
+<p>Constructor:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
 <tbody valign="top">
-<tr class="row-even"><td>size</td>
-<td>(default 0)</td>
-<td>Number of particles</td>
-</tr>
-<tr class="row-odd"><td>dim</td>
-<td>(default 3)</td>
-<td>dimensions of the system 2 or 3 ... 2D 3D</td>
-</tr>
-<tr class="row-even"><td>mass</td>
-<td>(dafault True)</td>
-<td>if True the particles have a mass.</td>
-</tr>
-<tr class="row-odd"><td>label</td>
-<td>(default False)</td>
-<td>if true it&#8217;s possible to set a name for each particle</td>
-</tr>
-<tr class="row-even"><td>velocity</td>
-<td>(dafault True)</td>
-<td>if true the particles has a velocity</td>
-</tr>
-<tr class="row-odd"><td>charge</td>
-<td>(default False)</td>
-<td>if true the particles have an electric charge.</td>
-</tr>
-<tr class="row-even"><td>log_X</td>
-<td>(default False)</td>
-<td>if true it&#8217;s possible to logging the position</td>
-</tr>
-<tr class="row-odd"><td>log_V</td>
-<td>(default False)</td>
-<td>if true it&#8217;s possible to logging the velocity</td>
-</tr>
-<tr class="row-even"><td>log_max_size</td>
-<td>(default 0) set</td>
-<td>the maximal size of the log queue</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>size</strong> &#8211; (default 1)     Number of particles</li>
+<li><strong>dim</strong> &#8211; (default 3)     dimensions of the system 2 or 3 ... 2D 3D</li>
+<li><strong>mass</strong> &#8211; (dafault True)  if True the particles have a mass.</li>
+<li><strong>label</strong> &#8211; (default False) if true it&#8217;s possible to set a name for each particle</li>
+<li><strong>velocity</strong> &#8211; (dafault True)  if true the particles has a velocity</li>
+<li><strong>charge</strong> &#8211; (default False) if true the particles have an electric charge.</li>
+<li><strong>log_X</strong> &#8211; (default False) if true it&#8217;s possible to logging the position</li>
+<li><strong>log_V</strong> &#8211; (default False) if true it&#8217;s possible to logging the velocity</li>
+<li><strong>log_max_size</strong> &#8211; (default 0)     set the maximal size of the log queue</li>
+</ul>
+</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
-<p>Note: The properties: position X and velocity V are mandatory.</p>
-</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The properties: position X and velocity V are mandatory.</p>
+</div>
 <dl class="attribute">
 <dt id="pyparticles.pset.particles_set.ParticlesSet.M">
 <tt class="descname">M</tt><a class="headerlink" href="#pyparticles.pset.particles_set.ParticlesSet.M" title="Permalink to this definition">¶</a></dt>
@@ -209,36 +177,24 @@
 <tt class="descname">add_property_by_name</tt><big>(</big><em>property_name</em>, <em>dim=None</em>, <em>model='numpy_array'</em>, <em>to_type=&lt;type 'numpy.float64'&gt;</em><big>)</big><a class="headerlink" href="#pyparticles.pset.particles_set.ParticlesSet.add_property_by_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>Insert a new property by name. If the dim is not specified it uses the current dimension of the set.</p>
 <p>If the model of the property is &#8216;list&#8217; the dim is forced to 1</p>
-<blockquote>
-<div><table border="1" class="docutils">
-<colgroup>
-<col width="20%" />
-<col width="80%" />
-</colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Arguments</th>
-<th class="head">&nbsp;</th>
-</tr>
-</thead>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
 <tbody valign="top">
-<tr class="row-even"><td>property_name</td>
-<td>the name of the new property</td>
-</tr>
-<tr class="row-odd"><td>dim</td>
-<td>the dimension of the new property ( 2 = &#8220;2D  , 3 = 3D ... )</td>
-</tr>
-<tr class="row-even"><td>model</td>
-<td>&#8216;list&#8217; or &#8216;numpy_array&#8217;</td>
-</tr>
-<tr class="row-odd"><td>to_type=np.float64</td>
-<td>an array-numpy type for the model &#8216;numpy_array&#8217; [ np.float64 , np.int64 ... ]</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>property_name</strong> &#8211; the name of the new property</li>
+<li><strong>dim</strong> &#8211; the dimension of the new property ( 2 = &#8220;2D  , 3 = 3D ... )</li>
+<li><strong>model</strong> &#8211; &#8216;list&#8217; or &#8216;numpy_array&#8217;</li>
+<li><strong>to_type</strong> &#8211; [np.float64]  an array-numpy type for the model &#8216;numpy_array&#8217; [ np.float64 , np.int64 ... ]</li>
+</ul>
+</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
 <p>For example add &#8216;friction&#8217; or &#8216;radius&#8217;:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="c"># Add the friction to the particles set </span>
 <span class="n">pset</span><span class="o">.</span><span class="n">add_property_by_name</span><span class="p">(</span> <span class="s">&quot;friction&quot;</span> <span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span> <span class="p">,</span> <span class="n">to_type</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span> <span class="p">)</span>
+<span class="n">pset</span><span class="o">.</span><span class="n">add_property_by_name</span><span class="p">(</span> <span class="s">&quot;radius&quot;</span> <span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span> <span class="p">,</span> <span class="n">to_type</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span> <span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -246,7 +202,7 @@
 <dl class="method">
 <dt id="pyparticles.pset.particles_set.ParticlesSet.add_set_changed_listener">
 <tt class="descname">add_set_changed_listener</tt><big>(</big><em>listener</em><big>)</big><a class="headerlink" href="#pyparticles.pset.particles_set.ParticlesSet.add_set_changed_listener" title="Permalink to this definition">¶</a></dt>
-<dd><p>Add an object that contains a member methond called: <em>particles_set_changed( pset )</em> that there will be called if the particle set will be modified.</p>
+<dd><p>Add an object that contains a member methods called: <em>particles_set_changed( pset )</em> that there will be called if the particle set will be modified.</p>
 </dd></dl>
 
 <dl class="method">
@@ -257,34 +213,56 @@
 <p>The dictionary <em>p_dict</em> must contains the name of the property and it&#8217;s value, and it <strong>must include all property</strong>, also the user defined!</p>
 </dd></dl>
 
+<dl class="method">
+<dt id="pyparticles.pset.particles_set.ParticlesSet.append_logger">
+<tt class="descname">append_logger</tt><big>(</big><em>logger</em>, <em>key=None</em><big>)</big><a class="headerlink" href="#pyparticles.pset.particles_set.ParticlesSet.append_logger" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="attribute">
 <dt id="pyparticles.pset.particles_set.ParticlesSet.boundary">
 <tt class="descname">boundary</tt><a class="headerlink" href="#pyparticles.pset.particles_set.ParticlesSet.boundary" title="Permalink to this definition">¶</a></dt>
-<dd><p>return the reference to the boudary, None if the boudary are not set or open</p>
+<dd><p>return the reference to the boundary, None if the boundary are not set or open</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="pyparticles.pset.particles_set.ParticlesSet.centre_of_mass">
 <tt class="descname">centre_of_mass</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.pset.particles_set.ParticlesSet.centre_of_mass" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Return the stored center of mass.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">this function don&#8217;t compute the center of mass, but simply return the stored value.</p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.pset.particles_set.ParticlesSet.close_log">
+<tt class="descname">close_log</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.pset.particles_set.ParticlesSet.close_log" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function must be called after the end of the simulation for closing the log procedure.</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="pyparticles.pset.particles_set.ParticlesSet.dim">
 <tt class="descname">dim</tt><a class="headerlink" href="#pyparticles.pset.particles_set.ParticlesSet.dim" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>get the dim of the set</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="pyparticles.pset.particles_set.ParticlesSet.enable_log">
-<tt class="descname">enable_log</tt><big>(</big><em>log_X=True</em>, <em>log_V=False</em>, <em>log_max_size=0</em><big>)</big><a class="headerlink" href="#pyparticles.pset.particles_set.ParticlesSet.enable_log" title="Permalink to this definition">¶</a></dt>
-<dd><p><a href="#id2"><span class="problematic" id="id3">|</span></a>Eanble the X and V logging:
-<a href="#id4"><span class="problematic" id="id5">|</span></a>args:</p>
-<blockquote>
-<div><ol class="arabic simple">
-<li>log_X=True : log the positions</li>
-<li>log_V=False : log the velocity</li>
-<li>log_max_size: max size of the log queue</li>
-</ol>
-</div></blockquote>
+<tt class="descname">enable_log</tt><big>(</big><em>log_X=True</em>, <em>log_V=False</em>, <em>sim_time=None</em>, <em>log_max_size=0</em><big>)</big><a class="headerlink" href="#pyparticles.pset.particles_set.ParticlesSet.enable_log" title="Permalink to this definition">¶</a></dt>
+<dd><p>Eanble the X and V logging:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>log_X=True</strong> &#8211; log the positions</li>
+<li><strong>log_V=False</strong> &#8211; log the velocity</li>
+<li><strong>log_max_size</strong> &#8211; max size of the log queue</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
@@ -315,9 +293,19 @@
 <dl class="method">
 <dt id="pyparticles.pset.particles_set.ParticlesSet.get_by_name">
 <tt class="descname">get_by_name</tt><big>(</big><em>property_name</em><big>)</big><a class="headerlink" href="#pyparticles.pset.particles_set.ParticlesSet.get_by_name" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return a property reference by name:
-for example &#8216;X&#8217; , &#8216;V&#8217; , &#8216;M&#8217; ...</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># set to [1,2,3] the position of the 10th particle</span>
+<dd><dl class="docutils">
+<dt>Return a property reference by name:</dt>
+<dd>for example &#8216;X&#8217; , &#8216;V&#8217; , &#8216;M&#8217; , &#8216;Q&#8217; ...</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>property_name</strong> &#8211; The name of a property</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># set to [1,2,3] the coordinates of the 10th particle</span>
 <span class="n">pset</span><span class="o">.</span><span class="n">get_by_name</span><span class="p">(</span><span class="s">&#39;X&#39;</span><span class="p">)[</span><span class="mi">10</span><span class="p">,:]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
 </pre></div>
 </div>
@@ -341,16 +329,6 @@ TODO: adapt to property by name</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="pyparticles.pset.particles_set.ParticlesSet.get_logV">
-<tt class="descname">get_logV</tt><big>(</big><em>i</em><big>)</big><a class="headerlink" href="#pyparticles.pset.particles_set.ParticlesSet.get_logV" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pyparticles.pset.particles_set.ParticlesSet.get_logX">
-<tt class="descname">get_logX</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.pset.particles_set.ParticlesSet.get_logX" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
 <dt id="pyparticles.pset.particles_set.ParticlesSet.get_log_V_enabled">
 <tt class="descname">get_log_V_enabled</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.pset.particles_set.ParticlesSet.get_log_V_enabled" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -361,8 +339,18 @@ TODO: adapt to property by name</p>
 <dd></dd></dl>
 
 <dl class="method">
+<dt id="pyparticles.pset.particles_set.ParticlesSet.get_log_array">
+<tt class="descname">get_log_array</tt><big>(</big><em>i</em>, <em>log_X=True</em>, <em>log_V=False</em><big>)</big><a class="headerlink" href="#pyparticles.pset.particles_set.ParticlesSet.get_log_array" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="pyparticles.pset.particles_set.ParticlesSet.get_log_enabled">
 <tt class="descname">get_log_enabled</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.pset.particles_set.ParticlesSet.get_log_enabled" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.pset.particles_set.ParticlesSet.get_log_indices_segments">
+<tt class="descname">get_log_indices_segments</tt><big>(</big><em>full=False</em><big>)</big><a class="headerlink" href="#pyparticles.pset.particles_set.ParticlesSet.get_log_indices_segments" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -383,7 +371,7 @@ TODO: adapt to property by name</p>
 <dl class="method">
 <dt id="pyparticles.pset.particles_set.ParticlesSet.get_properties_names">
 <tt class="descname">get_properties_names</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.pset.particles_set.ParticlesSet.get_properties_names" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return a list of containig the names of all properties</p>
+<dd><p>Return a list of containing the names of all properties</p>
 </dd></dl>
 
 <dl class="method">
@@ -410,20 +398,10 @@ TODO: adapt to property by name</p>
 <dl class="method">
 <dt id="pyparticles.pset.particles_set.ParticlesSet.log">
 <tt class="descname">log</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.pset.particles_set.ParticlesSet.log" title="Permalink to this definition">¶</a></dt>
-<dd><p>if the log is enabled, save the current status in the log queue.</p>
-<p>The last element of the queue will be removed if we reach the max allowed size</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="pyparticles.pset.particles_set.ParticlesSet.logV">
-<tt class="descname">logV</tt><a class="headerlink" href="#pyparticles.pset.particles_set.ParticlesSet.logV" title="Permalink to this definition">¶</a></dt>
-<dd><p>return the log queue V: velocity</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="pyparticles.pset.particles_set.ParticlesSet.logX">
-<tt class="descname">logX</tt><a class="headerlink" href="#pyparticles.pset.particles_set.ParticlesSet.logX" title="Permalink to this definition">¶</a></dt>
-<dd><p>return the log queue X: position</p>
+<dd><div class="line-block">
+<div class="line">If the log is enabled, save the current status in the log queue.</div>
+<div class="line">The last element of the queue will be removed if we reach the max allowed size</div>
+</div>
 </dd></dl>
 
 <dl class="attribute">
@@ -464,8 +442,13 @@ TODO: adapt to property by name</p>
 <dl class="method">
 <dt id="pyparticles.pset.particles_set.ParticlesSet.notify_set_changed">
 <tt class="descname">notify_set_changed</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.pset.particles_set.ParticlesSet.notify_set_changed" title="Permalink to this definition">¶</a></dt>
-<dd><p>Call this methos when the particle set is modified.</p>
+<dd><p>Call this methods when the particle set is modified.</p>
 </dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.pset.particles_set.ParticlesSet.read_log_array">
+<tt class="descname">read_log_array</tt><big>(</big><em>i</em>, <em>ta</em>, <em>log_X=True</em>, <em>log_V=False</em><big>)</big><a class="headerlink" href="#pyparticles.pset.particles_set.ParticlesSet.read_log_array" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="method">
 <dt id="pyparticles.pset.particles_set.ParticlesSet.realloc">
@@ -490,6 +473,11 @@ if it is smaller it cancels the data.</p>
 <dd></dd></dl>
 
 <dl class="method">
+<dt id="pyparticles.pset.particles_set.ParticlesSet.set_default_logger">
+<tt class="descname">set_default_logger</tt><big>(</big><em>key</em><big>)</big><a class="headerlink" href="#pyparticles.pset.particles_set.ParticlesSet.set_default_logger" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="pyparticles.pset.particles_set.ParticlesSet.set_log_max_size">
 <tt class="descname">set_log_max_size</tt><big>(</big><em>log_max_size</em><big>)</big><a class="headerlink" href="#pyparticles.pset.particles_set.ParticlesSet.set_log_max_size" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -507,23 +495,167 @@ if it is smaller it cancels the data.</p>
 <dl class="attribute">
 <dt id="pyparticles.pset.particles_set.ParticlesSet.size">
 <tt class="descname">size</tt><a class="headerlink" href="#pyparticles.pset.particles_set.ParticlesSet.size" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>get the size of the set</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="pyparticles.pset.particles_set.ParticlesSet.unit">
 <tt class="descname">unit</tt><a class="headerlink" href="#pyparticles.pset.particles_set.ParticlesSet.unit" title="Permalink to this definition">¶</a></dt>
-<dd><p>set the unit lenght</p>
+<dd><p>set the unit length</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="pyparticles.pset.particles_set.ParticlesSet.update_boundary">
 <tt class="descname">update_boundary</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.pset.particles_set.ParticlesSet.update_boundary" title="Permalink to this definition">¶</a></dt>
-<dd><p>Update the particle set according to the boudary rule</p>
+<dd><p>Update the particle set according to the boundary rule</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="pyparticles.pset.particles_set.ParticlesSet.update_centre_of_mass">
 <tt class="descname">update_centre_of_mass</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.pset.particles_set.ParticlesSet.update_centre_of_mass" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute and return the center of mass</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyparticles.pset.logger">
+<span id="logger-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">logger</span></tt> Module<a class="headerlink" href="#module-pyparticles.pset.logger" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyparticles.pset.logger.Logger">
+<em class="property">class </em><tt class="descclassname">pyparticles.pset.logger.</tt><tt class="descname">Logger</tt><big>(</big><em>pset</em>, <em>log_max_size</em>, <em>log_X=True</em>, <em>log_V=False</em>, <em>sim_time=None</em><big>)</big><a class="headerlink" href="#pyparticles.pset.logger.Logger" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Class used for logging the status of the particles system, this class will be used by the ParticlesSet class.
+This class uses a matrix of size [ log_size by pasrticles_size by dim ] for saving the status.</p>
+<p>Constructor</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>pset</strong> &#8211; A reference to the particles set to be logged.</li>
+<li><strong>log_max_size</strong> &#8211; The maximal size of the log</li>
+<li><strong>log_X</strong> &#8211; (default=True) log the positions</li>
+<li><strong>log_V</strong> &#8211; (default=False) log the velocities</li>
+<li><strong>sim_time</strong> &#8211; (default=None) log the simulation time</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pyparticles.pset.logger.Logger.close_log">
+<tt class="descname">close_log</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.pset.logger.Logger.close_log" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.pset.logger.Logger.get_log_V_enabled">
+<tt class="descname">get_log_V_enabled</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.pset.logger.Logger.get_log_V_enabled" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.pset.logger.Logger.get_log_X_enabled">
+<tt class="descname">get_log_X_enabled</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.pset.logger.Logger.get_log_X_enabled" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.pset.logger.Logger.get_log_array">
+<tt class="descname">get_log_array</tt><big>(</big><em>i</em>, <em>log_X=True</em>, <em>log_V=False</em>, <em>log_time=False</em><big>)</big><a class="headerlink" href="#pyparticles.pset.logger.Logger.get_log_array" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an numpy array containing the log if the i-th particles</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>i</strong> &#8211; Index (or indices) of the particles</li>
+<li><strong>log_X</strong> &#8211; (default=True) return the log of the positions</li>
+<li><strong>log_V</strong> &#8211; (default=False) return the log of the velocities</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A tuple containing the log arrays ( log_x , [log_V] )</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.pset.logger.Logger.get_log_indices_segments">
+<tt class="descname">get_log_indices_segments</tt><big>(</big><em>full=False</em><big>)</big><a class="headerlink" href="#pyparticles.pset.logger.Logger.get_log_indices_segments" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.pset.logger.Logger.get_log_max_size">
+<tt class="descname">get_log_max_size</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.pset.logger.Logger.get_log_max_size" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.pset.logger.Logger.get_log_size">
+<tt class="descname">get_log_size</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.pset.logger.Logger.get_log_size" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.pset.logger.Logger.jump">
+<tt class="descname">jump</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.pset.logger.Logger.jump" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.pset.logger.Logger.log">
+<tt class="descname">log</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.pset.logger.Logger.log" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save the current status of the particles-set in the log queue.
+If the log queue is filled it removes the oldest status</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyparticles.pset.logger.Logger.log_V_enabled">
+<tt class="descname">log_V_enabled</tt><a class="headerlink" href="#pyparticles.pset.logger.Logger.log_V_enabled" title="Permalink to this definition">¶</a></dt>
+<dd><p>return true if the logging of the position is enabled</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyparticles.pset.logger.Logger.log_X_enabled">
+<tt class="descname">log_X_enabled</tt><a class="headerlink" href="#pyparticles.pset.logger.Logger.log_X_enabled" title="Permalink to this definition">¶</a></dt>
+<dd><p>return true if the logging of the velocity is enabled</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyparticles.pset.logger.Logger.log_max_size">
+<tt class="descname">log_max_size</tt><a class="headerlink" href="#pyparticles.pset.logger.Logger.log_max_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>get the max allowed size of the log</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyparticles.pset.logger.Logger.log_size">
+<tt class="descname">log_size</tt><a class="headerlink" href="#pyparticles.pset.logger.Logger.log_size" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.pset.logger.Logger.read_log_array">
+<tt class="descname">read_log_array</tt><big>(</big><em>i</em>, <em>ta</em>, <em>log_X=True</em>, <em>log_V=False</em>, <em>log_time=False</em><big>)</big><a class="headerlink" href="#pyparticles.pset.logger.Logger.read_log_array" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write in the arrays stored in the tuple <strong>ta</strong> the log if the i-th particles</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>i</strong> &#8211; Index (or indices) of the particles</li>
+<li><strong>ta</strong> &#8211; A tuple with the reference to the target arrays ( X , V ). The size of X and V must be ( max_log_length by dim )</li>
+<li><strong>log_X</strong> &#8211; (default=True) return the log of the positions</li>
+<li><strong>log_V</strong> &#8211; (default=False) return the log of the velocities</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A tuple containing the log indices for using the segments array ( begin . end ).</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyparticles.pset.logger.Logger.resize">
+<tt class="descname">resize</tt><big>(</big><em>log_max_size</em><big>)</big><a class="headerlink" href="#pyparticles.pset.logger.Logger.resize" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -808,9 +940,6 @@ Arguments:</p>
 </dd></dl>
 
 </div>
-<div class="section" id="electrically-charged-particle-set-module">
-<h2><tt class="xref py py-mod docutils literal"><span class="pre">electrically_charged_particle_set</span></tt> Module<a class="headerlink" href="#electrically-charged-particle-set-module" title="Permalink to this headline">¶</a></h2>
-</div>
 <div class="section" id="module-pyparticles.pset.file_cluster">
 <span id="file-cluster-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">file_cluster</span></tt> Module<a class="headerlink" href="#module-pyparticles.pset.file_cluster" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
@@ -820,40 +949,57 @@ Arguments:</p>
 <p>Read the data from a csv formatted file:</p>
 <p>The first row of the csv contains the size and the dim of the particles set.</p>
 <p>The other rows are the data of the perticles in the order:</p>
-<table border="1" class="docutils">
-<colgroup>
-<col width="22%" />
-<col width="22%" />
-<col width="11%" />
-<col width="44%" />
-</colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td>Position</td>
-<td>Velocity</td>
-<td>Mass</td>
-<td>label (optional)</td>
-</tr>
-</tbody>
-</table>
 <dl class="method">
 <dt id="pyparticles.pset.file_cluster.FileCluster.close">
 <tt class="descname">close</tt><big>(</big><big>)</big><a class="headerlink" href="#pyparticles.pset.file_cluster.FileCluster.close" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Close the file</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="pyparticles.pset.file_cluster.FileCluster.insert3">
 <tt class="descname">insert3</tt><big>(</big><em>pset</em><big>)</big><a class="headerlink" href="#pyparticles.pset.file_cluster.FileCluster.insert3" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Insert the particles described in the file in the ParticlesSet pset</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>pset</strong> &#8211; A reference to the particles set</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="pyparticles.pset.file_cluster.FileCluster.open">
 <tt class="descname">open</tt><big>(</big><em>cfile</em>, <em>mode='r'</em><big>)</big><a class="headerlink" href="#pyparticles.pset.file_cluster.FileCluster.open" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Open the csv file named cfile.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>cfile</strong> &#8211; The file name</li>
+<li><strong>mode</strong> &#8211; file mode (default reading)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="pyparticles.pset.file_cluster.FileCluster.write_out">
 <tt class="descname">write_out</tt><big>(</big><em>pset</em><big>)</big><a class="headerlink" href="#pyparticles.pset.file_cluster.FileCluster.write_out" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Write out in the csv file the particles described in pset.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>pset</strong> &#8211; A reference to the particles set</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 </dd></dl>
 
@@ -864,7 +1010,7 @@ Arguments:</p>
 <dt id="pyparticles.pset.octree.OcTree">
 <em class="property">class </em><tt class="descclassname">pyparticles.pset.octree.</tt><tt class="descname">OcTree</tt><a class="headerlink" href="#pyparticles.pset.octree.OcTree" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
-<p><a href="#id6"><span class="problematic" id="id7">|</span></a>OcTree particles container class</p>
+<p><a href="#id2"><span class="problematic" id="id3">|</span></a>OcTree particles container class</p>
 <dl class="method">
 <dt id="pyparticles.pset.octree.OcTree.build_tree">
 <tt class="descname">build_tree</tt><big>(</big><em>pset</em><big>)</big><a class="headerlink" href="#pyparticles.pset.octree.OcTree.build_tree" title="Permalink to this definition">¶</a></dt>
@@ -1137,17 +1283,17 @@ d:  current depth (1 for the first node)</dd>
 <dd><p>Bases: <a class="reference internal" href="#pyparticles.pset.cluster.Cluster" title="pyparticles.pset.cluster.Cluster"><tt class="xref py py-class docutils literal"><span class="pre">pyparticles.pset.cluster.Cluster</span></tt></a></p>
 <dl class="method">
 <dt id="pyparticles.pset.rand_cluster.RandCluster.bomb_vel">
-<tt class="descname">bomb_vel</tt><big>(</big><em>X</em>, <em>V</em>, <em>start_indx=0</em>, <em>n=100</em>, <em>centre=(0.0</em>, <em>0.0</em>, <em>0.0)</em>, <em>vel_rng=(0.5</em>, <em>1.0)</em>, <em>randg=&lt;built-in method rand of mtrand.RandomState object at 0x1ae8378&gt;</em><big>)</big><a class="headerlink" href="#pyparticles.pset.rand_cluster.RandCluster.bomb_vel" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">bomb_vel</tt><big>(</big><em>X</em>, <em>V</em>, <em>start_indx=0</em>, <em>n=100</em>, <em>centre=(0.0</em>, <em>0.0</em>, <em>0.0)</em>, <em>vel_rng=(0.5</em>, <em>1.0)</em>, <em>randg=&lt;built-in method rand of mtrand.RandomState object at 0x3b47318&gt;</em><big>)</big><a class="headerlink" href="#pyparticles.pset.rand_cluster.RandCluster.bomb_vel" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="pyparticles.pset.rand_cluster.RandCluster.const_vel">
-<tt class="descname">const_vel</tt><big>(</big><em>X, V, start_indx=0, n=100, vel_rng=(0.5, 1.0), vel_dir=[1, 0, 0], randg=&lt;built-in method rand of mtrand.RandomState object at 0x1ae8378&gt;</em><big>)</big><a class="headerlink" href="#pyparticles.pset.rand_cluster.RandCluster.const_vel" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">const_vel</tt><big>(</big><em>X, V, start_indx=0, n=100, vel_rng=(0.5, 1.0), vel_dir=[1, 0, 0], randg=&lt;built-in method rand of mtrand.RandomState object at 0x3b47318&gt;</em><big>)</big><a class="headerlink" href="#pyparticles.pset.rand_cluster.RandCluster.const_vel" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="pyparticles.pset.rand_cluster.RandCluster.insert3">
-<tt class="descname">insert3</tt><big>(</big><em>X</em>, <em>M=None</em>, <em>V=None</em>, <em>start_indx=0</em>, <em>n=100</em>, <em>centre=(0.0</em>, <em>0.0</em>, <em>0.0)</em>, <em>radius=1.0</em>, <em>mass_rng=(0.5</em>, <em>1)</em>, <em>vel_rng=(0.5</em>, <em>1.0)</em>, <em>vel_mdl=None</em>, <em>vel_dir=None</em>, <em>randg=&lt;built-in method rand of mtrand.RandomState object at 0x1ae8378&gt;</em>, <em>r_min=0.0</em><big>)</big><a class="headerlink" href="#pyparticles.pset.rand_cluster.RandCluster.insert3" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">insert3</tt><big>(</big><em>X</em>, <em>M=None</em>, <em>V=None</em>, <em>start_indx=0</em>, <em>n=100</em>, <em>centre=(0.0</em>, <em>0.0</em>, <em>0.0)</em>, <em>radius=1.0</em>, <em>mass_rng=(0.5</em>, <em>1)</em>, <em>vel_rng=(0.5</em>, <em>1.0)</em>, <em>vel_mdl=None</em>, <em>vel_dir=None</em>, <em>randg=&lt;built-in method rand of mtrand.RandomState object at 0x3b47318&gt;</em>, <em>r_min=0.0</em><big>)</big><a class="headerlink" href="#pyparticles.pset.rand_cluster.RandCluster.insert3" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>

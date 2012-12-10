@@ -51,7 +51,7 @@ forces Package
 
 
 :mod:`damping` Module
-------------------
+---------------------
 
 .. automodule:: pyparticles.forces.damping
     :members:
@@ -69,7 +69,7 @@ forces Package
 
 
 :mod:`electromagnetic_field` Module
----------------------------
+-----------------------------------
 
 .. automodule:: pyparticles.forces.electromagnetic_field
     :members:
@@ -100,13 +100,6 @@ forces Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`lorentz` Module
----------------------
-
-.. automodule:: pyparticles.forces.lorentz
-    :members:
-    :undoc-members:
-    :show-inheritance:
 
 :mod:`multiple_force` Module
 ----------------------------
