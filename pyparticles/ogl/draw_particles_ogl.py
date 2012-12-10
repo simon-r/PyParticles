@@ -201,8 +201,8 @@ class DrawParticlesGL(object):
             ( b , e ) = self.pset.read_log_array( i , ( self.__log_array, ) )
     
             glVertexPointer( 3 , GL_FLOAT , 0 , self.__log_array / unit )
-            
-            glDrawElements( GL_LINES , e-1 , GL_UNSIGNED_INT , self.__log_indices )
+                        
+            glDrawElements( GL_LINES , e , GL_UNSIGNED_INT , self.__log_indices )
             
             glDisableClientState(GL_VERTEX_ARRAY)
             

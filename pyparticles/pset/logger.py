@@ -177,7 +177,7 @@ class Logger ( object ):
             t = ta[2]
             t[0:li] = self.__log_time[ind]
         
-        return ( 0 , 2*li )
+        return ( 0 , 2*li-2 )
 
 
     def get_log_indices_segments( self , full=False ):
