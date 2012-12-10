@@ -111,23 +111,23 @@ class DragOCL( fr.Force ) :
     :param    Const:       the drag factor K
     """
 
-    def __init__(self , size , dim=3 , m=None , Consts=1.0 , dtype=np.float32 , ocl_context=None ):
+    def __init__(self , size , dim=3 , m=None , Consts=1.0 , ocl_context=None ):
         
         self.__dim = np.int( dim )
         self.__size = np.int( size )
         
-        self.__dtype = dtype
-        
-        self.__K = dtype( Consts )
-        
-        self.__A = np.zeros( ( size , dim ) , dtype=dtype )
-        self.__F = np.zeros( ( size , dim ) , dtype=dtype )
-        
         if ocl_context == None :
-            self.__occ = occ.OpneCLcontext( size , dim , ( occ.OCLC_V | occ.OCLC_A | occ.OCLC_M )  )
+            self.__occ = occ.OpenCLcontext( size , dim , ( occ.OCLC_V | occ.OCLC_A | occ.OCLC_M )  )
         else :
-            self.__occ = ocl_context
-                
+            self.__occ = ocl_context        
+        
+        self.__dtype = self.__occ.dtype
+        
+        self.__K = self.__occ.dtype( Consts )
+        
+        self.__A = np.zeros( ( size , dim ) , dtype=self.__occ.dtype )
+        self.__F = np.zeros( ( size , dim ) , dtype=self.__occ.dtype )
+                        
         if m != None :
             self.set_masses( m )
         
@@ -178,12 +178,6 @@ class DragOCL( fr.Force ) :
         return self.__A
     
     A = property( getA )
-
-
-    def get_A_ocl(self):
-        return self.__A_cla
-    
-    A_ocl = property( get_A_ocl )
 
     def getF(self):
         return self.__A * self.__M[:]

@@ -29,8 +29,10 @@ OCLC_V = np.uint8( 0b01000000 )
 OCLC_A = np.uint8( 0b00100000 ) 
 OCLC_M = np.uint8( 0b00010000 )
 
-class OpneCLcontext( object ):
+class OpenCLcontext( object ):
     def __init__( self , size , dim , mask=( OCLC_X | OCLC_V | OCLC_A | OCLC_M ) , dtype=np.float32 ):
+        
+        self.__dtype = dtype 
                 
         self.__cl_context = cl.create_some_context()
         self.__cl_queue = cl.CommandQueue(self.__cl_context, properties=cl.command_queue_properties.PROFILING_ENABLE )
@@ -59,6 +61,11 @@ class OpneCLcontext( object ):
         else :
             self.__M_cla = None
                                     
+
+    def get_dtype(self):
+        return self.__dtype
+    
+    dtype = property( get_dtype , doc="return the dtype of the context" )
     
     
     def get_CL_context(self):

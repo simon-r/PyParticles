@@ -75,7 +75,7 @@ def fountain():
     
     occx = None
     if test_pyopencl() :
-        occx = occ.OpneCLcontext( pset.size , pset.dim , ( occ.OCLC_X | occ.OCLC_V | occ.OCLC_A | occ.OCLC_M ) )
+        occx = occ.OpenCLcontext( pset.size , pset.dim , ( occ.OCLC_X | occ.OCLC_V | occ.OCLC_A | occ.OCLC_M ) )
         drag = dr.DragOCL( pset.size , dim=pset.dim , Consts=0.01 , ocl_context=occx )
     else :
         drag = dr.Drag( pset.size , dim=pset.dim , Consts=0.01 )
