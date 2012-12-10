@@ -52,6 +52,10 @@ class OpenCLcontext( object ):
             
             # Share the same context between gravity and the Euler Solver
             
+            import pyparticles.ode.euler_solver as els
+            import pyparticles.forces.gravity as gr
+            import pyparticles.pset.opencl_context as occ 
+            
             occx = occ.OpenCLcontext(  pset.size , pset.dim , (occ.OCLC_X|occ.OCLC_V|occ.OCLC_A|occ.OCLC_M) )
             grav = gr.GravityOCL( pset.size , Consts=G , ocl_context=occx  )
             solver = els.EulerSolverOCL( grav , pset , dt , ocl_context=occx )
@@ -104,8 +108,8 @@ class OpenCLcontext( object ):
         Add a new array by name.
         
         :param key: The key (or name) of the new array
-        :param size: (Default val) The size of the new array, by default it uses the current size
-        :param dim: (Default val) The dim of the new array, by default it uses the current dim 
+        :param size: (Default: current) The size of the new array, if not specified by default it uses the current size
+        :param dim: (Default: current) The dim of the new array, if not specified by default it uses the current dim 
         """
         if size == None :
             size = self.__size
@@ -118,7 +122,7 @@ class OpenCLcontext( object ):
         
     def get_by_name( self , key ):
         """
-        Return the array named key
+        Return the array named "key"
         """
         return self.__opt_arrays[key]
     
@@ -126,36 +130,36 @@ class OpenCLcontext( object ):
     def get_CL_context(self):
         return self.__cl_context
     
-    CL_context = property( get_CL_context )
+    CL_context = property( get_CL_context , doc="return the opencl context")
     
     
     def get_CL_queue(self):
         return self.__cl_queue
         
-    CL_queue = property( get_CL_queue )
+    CL_queue = property( get_CL_queue , doc="return the command queue" )
     
         
     def get_X_cla(self):
         return self.__X_cla
     
-    X_cla = property( get_X_cla )
+    X_cla = property( get_X_cla , doc="return the positions array" )
     
     
     def get_A_cla(self):
         return self.__A_cla
     
-    A_cla = property( get_A_cla )
+    A_cla = property( get_A_cla , doc="return the acceleration array" )
     
     
     def get_V_cla(self):
         return self.__V_cla
     
-    V_cla = property( get_V_cla )
+    V_cla = property( get_V_cla , doc="return the velocity array" )
     
     
     def get_M_cla(self):
         return self.__M_cla
         
-    M_cla = property( get_M_cla )
+    M_cla = property( get_M_cla , doc="return the masses array (this is a 1D array)" )
     
     
