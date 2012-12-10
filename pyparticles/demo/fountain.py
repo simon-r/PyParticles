@@ -60,10 +60,23 @@ def fountain():
     Fountain demo
     """
     steps = 10000000
-    dt = 0.01
-    
+    dt = 0.005
+    pcnt = 100000
 
-    pcnt = 250000
+    fl = True
+    if test_pyopencl() :
+        print( "OpenCL is installed and enabled " )
+        print( " Try, at least, 200000 particles " )
+        
+        while fl :
+            try :
+                print( " " )
+                pcnt = int( raw_input('How many particles: ') )
+            except :
+                print( "Please insert a number! " )
+            else :
+                fl = False
+        
  
     
     pset = ps.ParticlesSet( pcnt , dtype=np.float32 )
