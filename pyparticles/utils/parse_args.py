@@ -62,4 +62,10 @@ def parse_args():
         help="print the current version and exit"
         )
     
+    parser.add_argument( "-a" , "--about",
+        action="store_true",
+        dest="about",
+        help="print the about message and exit"
+        )    
+    
     return parser.parse_args()

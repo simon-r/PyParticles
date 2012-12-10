@@ -17,7 +17,7 @@
 
 import matplotlib.animation as animation
 
-from pyparticles.utils.pypart_global import py_particle_version
+from pyparticles.utils.pypart_global import *
 
 from mpl_toolkits.mplot3d import Axes3D
 import matplotlib.pyplot as plt
@@ -91,6 +91,10 @@ def main():
     
     if options.version :
         print( py_particle_version() )
+        return
+    
+    if options.about :
+        about()
         return
     
     if options.test :
