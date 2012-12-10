@@ -144,6 +144,7 @@ class GravityOCL( fr.Force ) :
         
         
     def __init_prog_cl(self):
+        
         self.__gravity_prg = """
         __kernel void gravity(__global const float *X , 
                               __global const float *M ,
