@@ -111,13 +111,14 @@ class OpenCLcontext( object ):
         :param size: (Default: current) The size of the new array, if not specified by default it uses the current size
         :param dim: (Default: current) The dim of the new array, if not specified by default it uses the current dim 
         """
+        
+        if dim == None :
+            dim = self.__dim        
+        
         if size == None :
             size = self.__size
             
-        if dim == None :
-            dim == self.__dim
-        
-        self.__opt_arrays[key] = cla.Array( self.__cl_queue , ( size , 1 ) , self.dtype )
+        self.__opt_arrays[key] = cla.Array( self.__cl_queue , ( size , dim ) , self.dtype )
     
         
     def get_by_name( self , key ):
