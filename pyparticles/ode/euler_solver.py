@@ -80,9 +80,11 @@ class EulerSolverOCL( os.OdeSolver ) :
         
         self.force.update_force( self.pset )
         
-        self.__occ.V_cla.set( np.float32( self.pset.V ) , queue=self.__occ.CL_queue )
-        self.__occ.A_cla.set( np.float32( self.force.A ) , queue=self.__occ.CL_queue )
-        self.__occ.X_cla.set( np.float32( self.pset.X ) , queue=self.__occ.CL_queue )
+        dtype = self.__occ.dtype
+        
+        self.__occ.V_cla.set( dtype( self.pset.V ) , queue=self.__occ.CL_queue )
+        self.__occ.A_cla.set( dtype( self.force.A ) , queue=self.__occ.CL_queue )
+        self.__occ.X_cla.set( dtype( self.pset.X ) , queue=self.__occ.CL_queue )
         
         self.__cl_program.euler( self.__occ.CL_queue , ( self.pset.size , ) , None , 
                                  self.__occ.V_cla.data ,
