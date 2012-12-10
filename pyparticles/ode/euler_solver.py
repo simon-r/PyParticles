@@ -78,8 +78,11 @@ class EulerSolverOCL( os.OdeSolver ) :
     
     def __step__( self , dt ):
         
+        self.force.update_force( self.pset )
+        
         self.__occ.V_cla.set( np.float32( self.pset.V ) , queue=self.__occ.CL_queue )
         self.__occ.A_cla.set( np.float32( self.force.A ) , queue=self.__occ.CL_queue )
+        self.__occ.X_cla.set( np.float32( self.pset.X ) , queue=self.__occ.CL_queue )
         
         self.__cl_program.euler( self.__occ.CL_queue , ( self.pset.size , ) , None , 
                                  self.__occ.V_cla.data ,
@@ -89,8 +92,9 @@ class EulerSolverOCL( os.OdeSolver ) :
         
         self.__occ.X_cla.get( self.__occ.CL_queue , self.pset.X )
         self.__occ.V_cla.get( self.__occ.CL_queue , self.pset.V )
+                
+        self.pset.update_boundary() 
         
-        print( self.pset.X )
 
 
 

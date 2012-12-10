@@ -80,13 +80,13 @@ class OpneCLcontext( object ):
     
     
     def get_A_cla(self):
-        return self.__X_cla
+        return self.__A_cla
     
     A_cla = property( get_A_cla )
     
     
     def get_V_cla(self):
-        return self.__X_cla
+        return self.__V_cla
     
     V_cla = property( get_V_cla )
     
