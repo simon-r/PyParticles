@@ -155,11 +155,16 @@ class GravityOCL( fr.Force ) :
         {
             int i  = get_global_id(0) ;
             int sz = get_global_size(0) ;
-            int n ;
+            
+            int n , i0 , i1 , i2 , n0 , m1 , n2 ;
             float dist , f ;
             
             float4 at , u ;
             
+            i0 = 3*i ;
+            i1 = 3*i+1 ;
+            i2 = 3*i+2 ;
+                        
             at.x = 0.0 ;
             at.y = 0.0 ;
             at.z = 0.0 ;
@@ -171,9 +176,9 @@ class GravityOCL( fr.Force ) :
             {
                 if ( n == i ) continue ;
                 
-                u.x = X[3*i] - X[3*n] ;
-                u.y = X[3*i+1] - X[3*n+1] ;
-                u.z = X[3*i+2] - X[3*n+2] ;
+                u.x = X[i0] - X[3*n] ;
+                u.y = X[i1] - X[3*n+1] ;
+                u.z = X[i2] - X[3*n+2] ;
                 
                 dist = length( u ) ;
                 
