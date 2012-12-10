@@ -47,6 +47,7 @@ Requirements
 | **scipy** : http://scipy.org/Download
 | **pyopengl** : http://pyopengl.sourceforge.net/
 | **matplotlib** : http://matplotlib.org/
+| **pyopencl** : http://mathema.tician.de/software/pyopencl (optional)
 
 For more details about the installation visit the Blog: http://pyparticles.wordpress.com/installation/
 
