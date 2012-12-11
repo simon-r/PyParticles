@@ -108,19 +108,18 @@ class Gravity( fr.Force ) :
 class GravityOCL( fr.Force ) :
     r"""
     Compute the gravitational force between the particles
-
-    The gravity between two particles is defined as follow:
-
-    .. math::
-
-        \mathbf{F}_{12}=-G \frac{m_1 m_2 }{r^2}\hat{r}_{12}
-
+    
+    This is the OpenCL based procedure.
+    
     Constructor
     
     :param    size:        the number of particles in the system
     :param    dim:         the dimension of the system
-    :param    m:           a vector containig the masses
+    :param    m:           a vector containing the masses
     :param    Const:       the gravitational constant
+    :param    ocl_context: The context for using OpenCL
+    
+    :type    ocl_context: OpenCLcontext
     """
     def __init__(self , size , dim=3 , m=None , Consts=1.0 , ocl_context=None ):
         
