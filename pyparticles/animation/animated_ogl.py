@@ -30,9 +30,8 @@ import pyparticles.ogl.draw_particles_ogl as drp
 from OpenGL.GL import *
 from OpenGL.GLUT import *
 from OpenGL.GLU import *
+#from OpenGL.GLX import *
  
-
-import time
 
 def InitGL( Width , Height , ReSizeFun ):
     """
@@ -634,6 +633,13 @@ class AnimatedGl( pan.Animation ):
             
         if self.vector_field != None :
             self.vector_field.ogl_init()
+            
+#        rr = glXSwapIntervalSGI(-1)
+#        
+#        if rr == GLX_BAD_VALUE :
+#            print ("GLX_BAD_VALUE")
+#        elif rr == GLX_BAD_CONTEXT :
+#            print("GLX_BAD_CONTEXT")
             
         
     def data_stream(self):
