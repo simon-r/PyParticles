@@ -98,7 +98,7 @@ class Gravity( fr.Force ) :
         """
         Return the currents forces on the particles
         """
-        return self.__A * self.__M[:,0]
+        return ( self.__A.T * self.__M[:,0] ).T
     
     F = property( getF , doc="Return the currents forces on the particles (getter only)")
 

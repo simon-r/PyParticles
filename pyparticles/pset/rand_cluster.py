@@ -18,6 +18,9 @@ import numpy as np
 import pyparticles.pset.cluster as clu
 import scipy.spatial.distance as dist
 
+import pyparticles.forces.gravity as gr
+import pyparticles.pset.particles_set as ps
+
 
 class RandCluster( clu.Cluster ):
     def __init__(self):
@@ -122,39 +125,65 @@ class RandGalaxyCluster( clu.Cluster ):
     def __init__(self):
         pass
     
-        def insert3( self ,
+    def insert3( self ,
                 X , 
-                M=None ,
-                V=None ,
+                M ,
+                V ,
                 start_indx=0 ,
                 n=-1 ,
                 centre=(0.0,0.0,0.0) ,
                 radius=1.0 ,
-                mass_rng=(0.5,1) ,
-                vel_rng=(0.5,1.0) ,
-                vel_mdl=None ,
-                vel_dir=None ,
-                randg=np.random.rand ,
-                r_min=0.0 ):
+                mass_rng=( 0.5 , 1 ) ,
+                std=( 3.0 , 0.6 , 0.2 ),
+                black_hole_mass=5000.0 
+                ):
             
+        if n <= 0 :
+            n = X.shape[0] - start_indx
             
-            flag = True 
-            
-            if n <= 0 :
-                n = X.shape[0] - start_indx
-            
-            si = int(start_indx)
-            ei = int(start_indx + n) 
+        si = int(start_indx)
+        ei = int(start_indx + n) 
     
-            rng = slice( si , ei )
+        rng = slice( si , ei )
         
-            i = 0 ;
+        std_x = std[0]
+        std_y = std[1]
+        std_z = std[2]
+            
+        X[rng,0] = radius*np.random.normal( 0.0 , std_x , n )
+        X[rng,1] = radius*np.random.normal( 0.0 , std_y , n )
+        X[rng,2] = radius*np.random.normal( 0.0 , std_z , n )
         
-            while flag :
-                x = ( np.random.rand(3) - 0.5 ) * radius
+        X[si,:] = np.array([0.0,0.0,0.0])
+            
+        if M != None :
+            M[rng] = mass_rng[0] + np.random.rand(n,1)*( mass_rng[1] - mass_rng[0] )
+            M[si] = black_hole_mass
                 
-                
-                
+        c = np.cross(X, np.array([ 0 , 0 , 1 ]) )  
+        
+        c = ( c.T / np.sqrt( np.sum( c**2 , 1 ) ) ).T
+        
+        c[si,:] = np.array([0.0,0.0,0.0])
+        
+        pset = ps.ParticlesSet( n )
+        
+        pset.X[:] = X[rng,:]
+        pset.M[:] = M[rng]
+        
+        grav = gr.Gravity( n , Consts=0.000001 )
+        
+        grav.set_masses( pset.M )
+        grav.update_force(pset)
+        
+        f = np.sqrt( np.sum( grav.F**2 , 1 ) )
+        
+        r = np.sqrt( np.sum( pset.X**2 , 1 ) )
+        
+        v = np.sqrt( f * r / pset.M[:,0] ) 
+        
+        V[rng,:] = (v * c.T).T / 1.5
+        
                 
                 
                 

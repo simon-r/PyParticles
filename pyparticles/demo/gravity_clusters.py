@@ -43,23 +43,17 @@ def gravity_cluster():
         return 
         
     
-    G = 0.00001
+    G = 0.000001
     steps = 100000000
     
-    n = 3000
-    dt = 0.01
+    n = 5000
+    dt = 0.05
     
     pset = ps.ParticlesSet( n , dtype=np.float32 ) 
+        
+    cs = clu.RandGalaxyCluster()
     
-    cs = clu.RandCluster()
-    
-    cs.insert3( pset.X , M=pset.M , V=pset.V ,
-                n = n/2 , centre=(-1.5,1,0.5) , mass_rng=(0.5,5.0) ,
-                vel_rng=(0,0) , vel_mdl="bomb" )
-    
-    cs.insert3( pset.X , M=pset.M , V=pset.V ,
-                start_indx=int(n/2) , n = int(n/2) , centre=(1.5,-0.5,0.5) ,
-                vel_rng=(0.0,0.0) , vel_mdl="const" , vel_dir=[-1.0,0.0,0.0] )
+    cs.insert3( pset.X, M=pset.M, V=pset.V )
     
     try :
         occx = occ.OpenCLcontext(  pset.size , pset.dim , (occ.OCLC_X|occ.OCLC_V|occ.OCLC_A|occ.OCLC_M) )

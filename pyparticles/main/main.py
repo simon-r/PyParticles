@@ -162,7 +162,7 @@ def main():
         emd.electromag_field()
         return      
     
-    if options.demo == "cluster_grav" :
+    if options.demo == "galaxy" :
         print("")
         print("Start the simulation example:")
         print(" Gravitational clusters")

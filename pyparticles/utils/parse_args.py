@@ -38,7 +38,7 @@ def parse_args():
                  "el_static" , 
                  "elmag_field" ,
                  "fountain" ,
-                 "cluster_grav"] ,
+                 "galaxy"] ,
         dest="demo",
         default=None ,
         help="Execute the specified buildin demo"
