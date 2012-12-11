@@ -129,11 +129,12 @@ class RandGalaxyCluster( clu.Cluster ):
                 X , 
                 M ,
                 V ,
+                G ,
                 start_indx=0 ,
                 n=-1 ,
                 centre=(0.0,0.0,0.0) ,
                 radius=1.0 ,
-                mass_rng=( 0.5 , 1 ) ,
+                mass_rng=( 0.7 , 1 ) ,
                 std=( 3.0 , 0.6 , 0.2 ),
                 black_hole_mass=5000.0 
                 ):
@@ -171,7 +172,7 @@ class RandGalaxyCluster( clu.Cluster ):
         pset.X[:] = X[rng,:]
         pset.M[:] = M[rng]
         
-        grav = gr.Gravity( n , Consts=0.000001 )
+        grav = gr.Gravity( n , Consts=G )
         
         grav.set_masses( pset.M )
         grav.update_force(pset)
@@ -182,7 +183,9 @@ class RandGalaxyCluster( clu.Cluster ):
         
         v = np.sqrt( f * r / pset.M[:,0] ) 
         
-        V[rng,:] = (v * c.T).T / 1.5
+        V[rng,:] = (v * c.T).T / 1.3
+        
+        X[rng,:] = X[rng,:] + np.array( centre ) 
         
                 
                 

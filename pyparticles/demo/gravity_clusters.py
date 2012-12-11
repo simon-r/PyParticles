@@ -18,9 +18,6 @@ import pyparticles.pset.rand_cluster as clu
 import pyparticles.forces.gravity as gr
 
 import pyparticles.ode.euler_solver as els
-import pyparticles.ode.leapfrog_solver as lps
-import pyparticles.ode.runge_kutta_solver as rks
-import pyparticles.ode.stormer_verlet_solver as svs
 
 import pyparticles.pset.particles_set as ps
 import pyparticles.pset.opencl_context as occ 
@@ -46,14 +43,15 @@ def gravity_cluster():
     G = 0.000001
     steps = 100000000
     
-    n = 5000
-    dt = 0.05
+    n = 7000
+    dt = 0.04
     
     pset = ps.ParticlesSet( n , dtype=np.float32 ) 
         
     cs = clu.RandGalaxyCluster()
     
-    cs.insert3( pset.X, M=pset.M, V=pset.V )
+    print("Building initial galaxy .... ")
+    cs.insert3( pset.X, M=pset.M, V=pset.V , G=G )
     
     try :
         occx = occ.OpenCLcontext(  pset.size , pset.dim , (occ.OCLC_X|occ.OCLC_V|occ.OCLC_A|occ.OCLC_M) )
@@ -71,13 +69,8 @@ def gravity_cluster():
     grav.update_force( pset )
     
     solver = els.EulerSolverOCL( grav , pset , dt , ocl_context=occx )
-    #solver = els.EulerSolver( grav , pset , dt  )
-    #solver = lps.LeapfrogSolver( grav , pset , dt )
-    #solver = svs.StormerVerletSolver( grav , pset , dt )
-    #solver = rks.RungeKuttaSolver( grav , pset , dt )
     
     a = aogl.AnimatedGl()
-    # a = anim.AnimatedScatter()
         
     a.draw_particles.set_draw_model( a.draw_particles.DRAW_MODEL_VECTOR )
         
