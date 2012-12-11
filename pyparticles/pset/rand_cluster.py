@@ -116,3 +116,47 @@ class RandCluster( clu.Cluster ):
         
         V[si:ei,:] = V[si:ei,:] + ( v_dir.T * ( vel_rng[0] + randg( n ) * ( vel_rng[1] - vel_rng[0] ) ) ).T
         
+    
+        
+class RandGalaxyCluster( clu.Cluster ):
+    def __init__(self):
+        pass
+    
+        def insert3( self ,
+                X , 
+                M=None ,
+                V=None ,
+                start_indx=0 ,
+                n=-1 ,
+                centre=(0.0,0.0,0.0) ,
+                radius=1.0 ,
+                mass_rng=(0.5,1) ,
+                vel_rng=(0.5,1.0) ,
+                vel_mdl=None ,
+                vel_dir=None ,
+                randg=np.random.rand ,
+                r_min=0.0 ):
+            
+            
+            flag = True 
+            
+            if n <= 0 :
+                n = X.shape[0] - start_indx
+            
+            si = int(start_indx)
+            ei = int(start_indx + n) 
+    
+            rng = slice( si , ei )
+        
+            i = 0 ;
+        
+            while flag :
+                x = ( np.random.rand(3) - 0.5 ) * radius
+                
+                
+                
+                
+                
+                
+                
+                  
