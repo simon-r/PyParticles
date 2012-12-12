@@ -21,7 +21,6 @@ import pyparticles.pset.opencl_context as occ
 
 try:
     import pyopencl as cl
-    import pyopencl.array as cla
 except:
     ___foo = 0
 
