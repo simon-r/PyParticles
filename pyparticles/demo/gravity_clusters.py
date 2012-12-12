@@ -28,7 +28,6 @@ from pyparticles.utils.pypart_global import test_pyopencl
 
 import numpy as np
 
-
 def gravity_cluster():
     
     if not test_pyopencl() :
@@ -43,7 +42,7 @@ def gravity_cluster():
     G = 0.000001
     steps = 100000000
     
-    n = 1000
+    n = 2000
     dt = 0.04
     
     pset = ps.ParticlesSet( n , dtype=np.float32 ) 
