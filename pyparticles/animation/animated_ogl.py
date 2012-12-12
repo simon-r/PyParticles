@@ -19,6 +19,8 @@
 import pyparticles.animation.animation as pan
 
 import numpy as np
+import sys 
+
 
 import pyparticles.ogl.trackball as trk
 import pyparticles.ogl.axis_ogl as axgl
@@ -31,6 +33,9 @@ from OpenGL.GL import *
 from OpenGL.GLUT import *
 from OpenGL.GLU import *
 #from OpenGL.GLX import *
+
+if sys.platform.startswith("win") :
+    from OpenGL.WGL import *
  
 
 def InitGL( Width , Height , ReSizeFun ):
@@ -362,6 +367,28 @@ def glut_print( x,  y,  font,  text, r,  g , b , a):
         glDisable(GL_BLEND) 
 
 
+if sys.platform.startswith("win"):
+    def SwapIntervalEXT( value ):   
+        import ctypes
+        # Open the opengl32.dll
+        gldll = ctypes.windll.opengl32
+        # define a function pointer prototype of *(GLuint program, GLenum pname, GLint value)
+        prototype = ctypes.WINFUNCTYPE( ctypes.c_int , ctypes.c_uint )
+        # Get the win gl func adress
+        fptr = gldll.wglGetProcAddress( 'wglSwapIntervalEXT' )
+        if fptr==0:
+            raise Exception( "wglSwapIntervalEXT ('wglSwapIntervalEXT ') returned a zero adress, which will result in a nullpointer error if used.")
+        _wglSwapIntervalEXT = prototype( fptr )
+        
+        _wglSwapIntervalEXT( value )
+        
+elif sys.platform.startswith("linux"):
+    def SwapIntervalEXT( value ):
+        pass
+else :
+    def SwapIntervalEXT( value ):
+        pass
+
 
 class AnimatedGl( pan.Animation ):
     def __init__(self):
@@ -633,13 +660,10 @@ class AnimatedGl( pan.Animation ):
             
         if self.vector_field != None :
             self.vector_field.ogl_init()
-            
-#        rr = glXSwapIntervalSGI(-1)
-#        
-#        if rr == GLX_BAD_VALUE :
-#            print ("GLX_BAD_VALUE")
-#        elif rr == GLX_BAD_CONTEXT :
-#            print("GLX_BAD_CONTEXT")
+                    
+        SwapIntervalEXT(0)
+        
+        print sys.platform.startswith("win")
             
         
     def data_stream(self):
