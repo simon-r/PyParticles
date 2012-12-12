@@ -32,10 +32,12 @@ import pyparticles.ogl.draw_particles_ogl as drp
 from OpenGL.GL import *
 from OpenGL.GLUT import *
 from OpenGL.GLU import *
-#from OpenGL.GLX import *
 
 if sys.platform.startswith("win") :
     from OpenGL.WGL import *
+    
+if sys.platform.startswith("linux") :
+    from OpenGL.GLX import *
  
 
 def InitGL( Width , Height , ReSizeFun ):
@@ -388,6 +390,8 @@ elif sys.platform.startswith("linux"):
 else :
     def SwapIntervalEXT( value ):
         pass
+
+
 
 
 class AnimatedGl( pan.Animation ):
