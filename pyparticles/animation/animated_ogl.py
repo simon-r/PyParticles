@@ -660,10 +660,11 @@ class AnimatedGl( pan.Animation ):
             
         if self.vector_field != None :
             self.vector_field.ogl_init()
-                    
-        SwapIntervalEXT(0)
         
-        print sys.platform.startswith("win")
+        try :            
+            SwapIntervalEXT(0)
+        except :
+            print( "ERROR: VSYNC not disabled" )
             
         
     def data_stream(self):
