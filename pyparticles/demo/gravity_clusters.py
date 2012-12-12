@@ -43,7 +43,7 @@ def gravity_cluster():
     G = 0.000001
     steps = 100000000
     
-    n = 7000
+    n = 1000
     dt = 0.04
     
     pset = ps.ParticlesSet( n , dtype=np.float32 ) 
