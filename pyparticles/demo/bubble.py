@@ -32,6 +32,8 @@ import pyparticles.pset.rebound_boundary as rb
 
 import pyparticles.animation.animated_ogl as aogl
 
+import numpy as np
+
 
 def bubble():
     """
@@ -45,7 +47,7 @@ def bubble():
     
     rand_c = rc.RandCluster()
     
-    pset = ps.ParticlesSet( 1000 )
+    pset = ps.ParticlesSet( 700 , dtype=np.float32 )
     
     rand_c.insert3( X=pset.X ,
                     M=pset.M ,
@@ -81,6 +83,9 @@ def bubble():
     a.ode_solver = solver
     a.pset = pset
     a.steps = steps
+    
+    #a.draw_particles.set_draw_model( a.draw_particles.DRAW_MODEL_VECTOR )
+    a.init_rotation( -80 , [ 0.7 , 0.05 , 0 ]  )
     
     a.build_animation()
     
