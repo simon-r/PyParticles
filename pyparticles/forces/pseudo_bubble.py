@@ -19,6 +19,14 @@ import pyparticles.forces.force as fr
 
 import scipy.spatial.distance as dist
 
+import pyparticles.pset.opencl_context as occ 
+
+try:
+    import pyopencl as cl
+except:
+    ___foo = 0
+
+
 class PseudoBubble( fr.Force ) :
     r"""
     Pseudo Bubble is a **fake force** that produce the effect of the bubbles in a fluid.
@@ -73,6 +81,124 @@ class PseudoBubble( fr.Force ) :
             
             self.__A[:,i] = np.sum( self.__F * self.__V[:,:] / self.__M.T , 0 )
         
+        return self.__A
+    
+    def getA(self):
+        return self.__A
+    
+    A = property( getA )
+    
+    def getF(self):
+        return self.__A * self.__M
+
+    F = property( getF )
+    
+    
+class PseudoBubbleOCL( fr.Force ) :
+    r"""
+    Pseudo Bubble is a **fake force** that produce the effect of the bubbles in a fluid.
+    
+    .. math::
+    
+        \begin{cases}
+         & \text{ if } d_{i,j} < R \,\,\, \text{then} \,\,\,F_{i,j}= -\frac{B}{R}d_{i,j}+\frac{B}{d_{i,j}} \\ 
+         & \text{ if } d_{i,j} \geqslant  R \,\,\, \text{then} \,\,\,F_{i,j}= 0
+        \end{cases}
+    """
+    def __init__(self , size , dim=3 , m=None , Consts=( 0.3 , 2.0 ) , ocl_context=None ):
+        
+        self.__dim = np.int( dim )
+        self.__size = np.int( size )
+        
+        if ocl_context == None :
+            self.__occ = occ.OpenCLcontext( size , dim , ( occ.OCLC_X | occ.OCLC_A | occ.OCLC_M )  )
+        else :
+            self.__occ = ocl_context    
+        
+        self.__R = self.__occ.dtype( Consts[0] )
+        self.__B = self.__occ.dtype( Consts[1] )
+        
+        self.__A = np.zeros( ( size , dim ) , dtype=self.__occ.dtype )
+        
+        if m != None :
+            self.__occ.M_cla.set( self.__dtype( m ) , queue=self.__occ.CL_queue )
+            
+        self.__init_prog_cl()
+            
+        
+    def __init_prog_cl(self):
+        self.__pseudo_bubble_prg = """
+        __kernel void pseudo_bubble( __global const float *X , 
+                                     __global const float *M ,
+                                                    float  R ,
+                                                    float  B , 
+                                     __global       float *A )
+        {
+            int i = get_global_id(0) ;
+            int sz = get_global_size(0) ;
+            
+            float4 at , u ;
+            
+            u.w = 0.0 ;            
+            
+            int i0 = 3*i ;
+            int i1 = 3*i+1 ;
+            int i2 = 3*i+2 ;            
+            
+            at.x = 0.0 ;
+            at.y = 0.0 ;
+            at.z = 0.0 ;
+            at.w = 0.0 ;            
+            
+            int n ;
+            
+            float d , f , dist ;
+            
+            for( n = 0 ; n < sz ; n++ )
+            {
+                if ( n == i ) continue ;
+                
+                u.x = X[i0] - X[3*n] ;
+                u.y = X[i1] - X[3*n+1] ;
+                u.z = X[i2] - X[3*n+2] ;
+                
+                dist = length( u ) ;                
+                
+                if ( dist >= R ) continue ;
+                 
+                f = ( -1.0 * B/R * dist + B ) / dist  ;
+                
+                at.x = at.x + u.x * f / M[i] ;
+                at.y = at.y + u.y * f / M[i] ;
+                at.z = at.z + u.z * f / M[i] ;
+            }
+            
+            A[i0] = at.x ;
+            A[i1] = at.y ;
+            A[i2] = at.z ;
+        }
+        """
+        
+        self.__cl_program = cl.Program( self.__occ.CL_context , self.__pseudo_bubble_prg ).build()        
+        
+    
+    def set_masses( self , m ):
+        self.__occ.M_cla.set( self.__occ.dtype( m ) , queue=self.__occ.CL_queue )
+        
+    
+    def update_force( self , pset ):
+
+        self.__occ.X_cla.set( self.__occ.dtype( pset.X ) , queue=self.__occ.CL_queue )
+        
+        self.__cl_program.pseudo_bubble( self.__occ.CL_queue , ( self.__size , ) , None ,
+                                         self.__occ.X_cla.data ,
+                                         self.__occ.M_cla.data ,
+                                         self.__R ,
+                                         self.__B ,
+                                         self.__occ.A_cla.data )
+
+        self.__occ.A_cla.get( self.__occ.CL_queue , self.__A )
+                
         return self.__A
     
     def getA(self):
