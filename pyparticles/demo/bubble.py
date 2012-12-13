@@ -34,32 +34,49 @@ import pyparticles.animation.animated_ogl as aogl
 
 import numpy as np
 
+from pyparticles.utils.pypart_global import test_pyopencl
+import pyparticles.pset.opencl_context as occ 
+
 
 def bubble():
     """
     Pseudo bubble simulation
     """
     
+    ocl_ok = test_pyopencl()
+    
+    if ocl_ok :
+        pcnt = 9000
+        r_min=0.5
+        occx = occ.OpenCLcontext( pcnt , 3  )
+    else :
+        pcnt = 700
+        r_min = 1.5
+    
     steps = 1000000
     dt = 0.01
     
-    r_min=1.5
     
     rand_c = rc.RandCluster()
     
-    pset = ps.ParticlesSet( 700 , dtype=np.float32 )
+    pset = ps.ParticlesSet( pcnt , dtype=np.float32 )
     
     rand_c.insert3( X=pset.X ,
                     M=pset.M ,
                     start_indx=0 ,
                     n=pset.size ,
-                    radius=5.0 ,
+                    radius=3.0 ,
                     mass_rng=(0.5,0.8) ,
                     r_min=0.0 )
     
-    bubble = pb.PseudoBubble( pset.size , pset.dim , Consts=(r_min,10) )
-    constf = cf.ConstForce( pset.size , dim=pset.dim , u_force=[ 0 , 0 , -10 ] )
-    drag = dr.Drag( pset.size , pset.dim , Consts=0.01 )
+    if ocl_ok :
+        bubble = pb.PseudoBubbleOCL( pset.size , pset.dim , Consts=(r_min,10) )
+        drag = dr.DragOCL( pset.size , pset.dim , Consts=0.01 )
+    else :
+        bubble = pb.PseudoBubble( pset.size , pset.dim , Consts=(r_min,10) )
+        drag = dr.Drag( pset.size , pset.dim , Consts=0.01 )
+
+    constf = cf.ConstForce( pset.size , dim=pset.dim , u_force=[ 0 , 0 , -10.0 ] )
     
     multif = mf.MultipleForce( pset.size , pset.dim )
     multif.append_force( bubble )
@@ -69,7 +86,7 @@ def bubble():
     multif.set_masses( pset.M )
     
     #solver = els.EulerSolver( multif , pset , dt )
-    #solver = lps.LeapfrogSolver( lennard_jones , pset , dt )
+    #solver = lps.LeapfrogSolver( multif , pset , dt )
     solver = svs.StormerVerletSolver( multif , pset , dt )
     #solver = rks.RungeKuttaSolver( lennard_jones , pset , dt )    
     #solver = mds.MidpointSolver( lennard_jones , pset , dt ) 
@@ -84,7 +101,9 @@ def bubble():
     a.pset = pset
     a.steps = steps
     
-    #a.draw_particles.set_draw_model( a.draw_particles.DRAW_MODEL_VECTOR )
+    if ocl_ok :
+        a.draw_particles.set_draw_model( a.draw_particles.DRAW_MODEL_VECTOR )
+        
     a.init_rotation( -80 , [ 0.7 , 0.05 , 0 ]  )
     
     a.build_animation()
