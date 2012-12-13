@@ -103,13 +103,14 @@ class OpenCLcontext( object ):
     dtype = property( get_dtype , doc="return the dtype of the context" )
     
     
-    def add_array_by_name( self , key , size=None , dim=None ):
+    def add_array_by_name( self , key , size=None , dim=None , dtype=None ):
         """
         Add a new array by name.
         
         :param key: The key (or name) of the new array
         :param size: (Default: current) The size of the new array, if not specified by default it uses the current size
         :param dim: (Default: current) The dim of the new array, if not specified by default it uses the current dim 
+        :param dtype: (Dafault: current) The dtype of the new array, if not specified by default it uses the context dtype
         """
         
         if dim == None :
@@ -118,7 +119,11 @@ class OpenCLcontext( object ):
         if size == None :
             size = self.__size
             
-        self.__opt_arrays[key] = cla.Array( self.__cl_queue , ( size , dim ) , self.dtype )
+        if dtype == None :
+            dtype = self.dtype 
+            
+            
+        self.__opt_arrays[key] = cla.Array( self.__cl_queue , ( size , dim ) , dtype=dtype )
     
         
     def get_by_name( self , key ):
