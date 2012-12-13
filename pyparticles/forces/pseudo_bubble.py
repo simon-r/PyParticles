@@ -230,6 +230,12 @@ class PseudoBubbleFastOCL( fr.Force ) :
         self.__Ix = np.zeros( size , dtype=np.uint32 )
         self.__occ.add_array_by_name( "Ix" , dtype=np.uint32 )
         
+        self.__n_sub_dom = np.uint32( ( domain[1] - domain[0] ) / ( 2.0 * self.__R ) + 1.0 ) 
+        self.__sub_d_vec = np.zeros( self.__n_sub_dom+1 , dtype=self.__occ.dtype )
+        
+        self.__sub_d_bd[:] = np.arange( self.__n_sub_dom + 1 ) * ( 2.0 * self.__R )
+        self.__sub_d_ind = np.zeros( self.__n_sub_dom + 1 , dtype=np.uint32 )
+        
         if m != None :
             self.__occ.M_cla.set( self.__dtype( m ) , queue=self.__occ.CL_queue )
             
@@ -237,6 +243,42 @@ class PseudoBubbleFastOCL( fr.Force ) :
             
         
     def __init_prog_cl(self):
+        
+        self.__search_domain_bound_prg = """
+        __kernel void search_domain_bound( __global const float *X ,
+                                           __global const uint  *Ix ,
+                                           __global const float *Bd ,
+                                           __global       uint  *Ind ,
+                                                          uint   inr )
+        {
+        
+            int i = get_global_id(0) ;
+            int gs = get_global_size(0) ;
+            
+            if ( i == 0 )
+            {
+                Ind[0] = 0 ;
+                return ;
+            }
+            
+            if ( i+1 => gs )
+            {
+                Ind[inr-1] = gs ;
+                return ;
+            }
+                        
+            ia = Ix[i] ;
+            ib = Ix[i+1] ;
+            
+            int md =  i % inr ;
+            
+            if ( X[3*ia] < Bd[l] && X[3*ib] >= Bd[l] )
+                Ind[md] = i+1 ;
+                
+            
+        }
+        """
+        
         self.__pseudo_bubble_prg = """
         __kernel void pseudo_bubble( __global const float *X , 
                                      __global const float *M ,
@@ -300,6 +342,8 @@ class PseudoBubbleFastOCL( fr.Force ) :
     def update_force( self , pset ):
 
         self.__Ix[:] = np.argsort( pset.X[:,0] )
+
+        
 
         self.__occ.X_cla.set( self.__occ.dtype( pset.X ) , queue=self.__occ.CL_queue )
         self.__occ.get_by_name("Ix").set( self.__Ix , queue=self.__occ.CL_queue )
