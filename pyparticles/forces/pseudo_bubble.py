@@ -274,8 +274,6 @@ class PseudoBubbleFastOCL( fr.Force ) :
             
             if ( X[3*ia] < Bd[l] && X[3*ib] >= Bd[l] )
                 Ind[md] = i+1 ;
-                
-            
         }
         """
         
@@ -283,6 +281,9 @@ class PseudoBubbleFastOCL( fr.Force ) :
         __kernel void pseudo_bubble( __global const float *X , 
                                      __global const float *M ,
                                      __global const  uint *Ix ,
+                                     __global const  uint *Ind ,
+                                                     unit  Insz ,
+                                     __global const float *Bd ,
                                                     float  R ,
                                                     float  B , 
                                      __global       float *A )
@@ -303,11 +304,21 @@ class PseudoBubbleFastOCL( fr.Force ) :
             at.z = 0.0 ;
             at.w = 0.0 ;            
             
-            int n ;
+            int n , m ;
+            int dom ;
             
             float d , f , dist ;
             
-            for( n = 0 ; n < sz ; n++ )
+            for ( m = 0 ; m < Insz ; m++ ) 
+            {
+                if( X[i] >= Bd[m] && X[i] >= Bd[m+1] )
+                {
+                    dom = m ;
+                    break ;
+                }
+            }
+            
+            for( n = Ind[dom] ; n < Ind[dom+1] ; n++ )
             {
                 if ( n == i ) continue ;
                 
