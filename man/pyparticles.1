@@ -1,6 +1,6 @@
-usage: pyparticles_app [-h] [-m]                                                                                                                                                                                                                    
-                       [-d {springs,solar_system,gas_lj,bubble,cat_spri,el_static,elmag_field,fountain}]
-                       [-t {fall,harmonic,dharmonic}] [-v]
+usage: pyparticles_app [-h] [-m]
+                       [-d {springs,solar_system,gas_lj,bubble,cat_spri,el_static,elmag_field,fountain,galaxy}]
+                       [-t {fall,harmonic,dharmonic}] [-v] [-a]
                        [path_name]
 
 PyParticles is a particle simulation tool box that support the most diffused
@@ -12,12 +12,10 @@ positional arguments:
 optional arguments:
   -h, --help            show this help message and exit
   -m, --config_model    Write out the model of a config file and exit
-  -d {springs,solar_system,gas_lj,bubble,cat_spri,el_static,elmag_field,fountain}, --demo {springs,solar_system,gas_lj,bubble,cat_spri,el_static,elmag_field,fountain}
+  -d {springs,solar_system,gas_lj,bubble,cat_spri,el_static,elmag_field,fountain,galaxy}, --demo {springs,solar_system,gas_lj,bubble,cat_spri,el_static,elmag_field,fountain,galaxy}
                         Execute the specified buildin demo
   -t {fall,harmonic,dharmonic}, --test {fall,harmonic,dharmonic}
                         Execute the specified buildin test
   -v, --version         print the current version and exit
-
-
-
+  -a, --about           print the about message and exit
 
