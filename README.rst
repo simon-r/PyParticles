@@ -52,6 +52,12 @@ Requirements
 For more details about the installation visit the Blog: http://pyparticles.wordpress.com/installation/
 
 
+Download
+--------
+
+`PyParticles v0.3.5 tgz <http://sourceforge.net/projects/pyparticles/files/PyParticles-0.3.5/pyparticles-0.3.5.tar.gz>`_
+
+
 Command line tool usage:
 ------------------------
 
