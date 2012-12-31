@@ -21,6 +21,7 @@ import pyparticles.animation.animation as pan
 import numpy as np
 import sys 
 
+import time
 
 import pyparticles.ogl.trackball as trk
 import pyparticles.ogl.axis_ogl as axgl
@@ -677,7 +678,7 @@ class AnimatedGl( pan.Animation ):
         
         self.ode_solver.step()
         self.perform_measurement()
-        
+                
         self.update_fps()
         
         return self.ode_solver.steps_cnt
