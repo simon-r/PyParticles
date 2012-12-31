@@ -16,12 +16,12 @@
 
 
 import numpy as np
-import pyparticles.ode.ode_solver_constrained as osc
+#import pyparticles.ode.ode_solver_constrained as osc
 import pyparticles.pset.particles_set as ps
 
+import pyparticles.ode.ode_solver as ods
 
-
-class RungeKuttaSolverConstrained( osc.OdeSolverConstrained ) :
+class RungeKuttaSolverConstrained( ods.OdeSolverConstrained ) :
     def __init__( self , force , p_set , dt , x_constraint=None , v_constraint=None ):
         super(RungeKuttaSolverConstrained,self).__init__( force , p_set , dt , x_constraint=None , v_constraint=None )
         

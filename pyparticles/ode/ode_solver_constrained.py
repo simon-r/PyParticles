@@ -16,28 +16,30 @@
 
 
 import numpy as np
-import pyparticles.ode.ode_solver as os
+import pyparticles.ode.ode_solver
 
-class OdeSolverConstrained( os.OdeSolver ) :
-    def __init__(self , force , p_set , dt , x_constraint=None , v_constraint=None ):
-        
-        self.__x_constr = x_constraint
-        self.__v_constr = v_constraint
-        
-        super(OdeSolverConstrained,self).__init__( force , p_set , dt )
-        
-
-    def get_x_constraint(self):
-        """
-        returns a reference to the current positionals constraints
-        """
-        return self.__x_constr
-    
-    def set_x_constraint(self ,  xc ):
-        """
-        set the new positionals contraints
-        """
-        self.__x_constr = xc
-        self.__x_constr.pset = self.pset
-    
-    x_constraint = property( get_x_constraint , set_x_constraint , doc="get and set the current positionals constraints" )
+#class OdeSolverConstrained( os.OdeSolver ) :
+#    def __init__(self , force , p_set , dt , x_constraint=None , v_constraint=None ):
+#        
+#        self.__x_constr = x_constraint
+#        self.__v_constr = v_constraint
+#        
+#        super(OdeSolverConstrained,self).__init__( force , p_set , dt )
+#        
+#
+#    def get_x_constraint(self):
+#        """
+#        returns a reference to the current positionals constraints
+#        """
+#        return self.__x_constr
+#    
+#    def set_x_constraint(self ,  xc ):
+#        """
+#        set the new positionals contraints
+#        """
+#        self.__x_constr = xc
+#        self.__x_constr.pset = self.pset
+#    
+#    x_constraint = property( get_x_constraint , set_x_constraint , doc="get and set the current positionals constraints" )
+#    
+#    

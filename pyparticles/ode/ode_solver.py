@@ -18,6 +18,7 @@
 import numpy as np
 import sys
 
+
 import pyparticles.ode.sim_time as st
 
 class OdeSolver(object) :
@@ -132,3 +133,29 @@ class OdeSolver(object) :
         Abstract methos that contain the code for computing the new status of the particles system. This methos must be overidden by the user.
         """
         NotImplementedError(" %s : is virtual and must be overridden." % sys._getframe().f_code.co_name )
+
+
+
+class OdeSolverConstrained( OdeSolver ) :
+    def __init__(self , force , p_set , dt , x_constraint=None , v_constraint=None ):
+        
+        self.__x_constr = x_constraint
+        self.__v_constr = v_constraint
+        
+        super(OdeSolverConstrained,self).__init__( force , p_set , dt )
+        
+
+    def get_x_constraint(self):
+        """
+        returns a reference to the current positionals constraints
+        """
+        return self.__x_constr
+    
+    def set_x_constraint(self ,  xc ):
+        """
+        set the new positionals contraints
+        """
+        self.__x_constr = xc
+        self.__x_constr.pset = self.pset
+    
+    x_constraint = property( get_x_constraint , set_x_constraint , doc="get and set the current positionals constraints" )

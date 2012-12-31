@@ -16,9 +16,10 @@
 
 
 import numpy as np
-import pyparticles.ode.ode_solver_constrained as osc
+#import pyparticles.ode.ode_solver_constrained as osc
+import pyparticles.ode.ode_solver as ods
 
-class LeapfrogSolverConstrained( osc.OdeSolverConstrained ) :
+class LeapfrogSolverConstrained( ods.OdeSolverConstrained ) :
     def __init__( self , force , p_set , dt , x_constraint=None , v_constraint=None ):
         super(LeapfrogSolverConstrained,self).__init__( force , p_set , dt , x_constraint=None , v_constraint=None )
         self.__Ai = np.zeros( self.force.A.shape )
