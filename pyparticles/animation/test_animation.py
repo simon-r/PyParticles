@@ -26,7 +26,7 @@ import pyparticles.ode.runge_kutta_solver as rks
 import pyparticles.ode.midpoint_solver as mps
 import pyparticles.ode.stormer_verlet_solver as svs
 
-import pyparticles.ode.euler_solver_constrained as asc
+#import pyparticles.ode.euler_solver_constrained as asc
 import pyparticles.ode.leapfrog_solver_constrained as lpc
 import pyparticles.ode.stormer_verlet_solver_constrained as svc
 import pyparticles.ode.runge_kutta_solver_constrained as rkc
@@ -245,7 +245,7 @@ class TestAnimationHarmonic( TestAnimation ):
                
         self.odes = dict()
         
-        self.odes["Euler      "] = asc.EulerSolverConstrained( spring , self.pset , dt , costrs )
+        self.odes["Euler      "] = els.EulerSolverConstrained( spring , self.pset , dt , costrs )
         self.odes["Runge Kutta"] = rkc.RungeKuttaSolverConstrained( spring , self.pset , dt , costrs )
         self.odes["Leap Frog  "] = lpc.LeapfrogSolverConstrained( spring , self.pset , dt , costrs )
         self.odes["MidPoint   "] = mdc.MidpointSolverConstrained( spring , self.pset , dt , costrs )
@@ -303,7 +303,7 @@ class TestAnimationDampedHarmonic( TestAnimation ):
                
         self.odes = dict()
         
-        self.odes["Euler      "] = asc.EulerSolverConstrained( multi , self.pset , dt , costrs )
+        self.odes["Euler      "] = els.EulerSolverConstrained( multi , self.pset , dt , costrs )
         self.odes["Runge Kutta"] = rkc.RungeKuttaSolverConstrained( multi , self.pset , dt , costrs )
         self.odes["Leap Frog  "] = lpc.LeapfrogSolverConstrained( multi , self.pset , dt , costrs )
         self.odes["MidPoint   "] = mdc.MidpointSolverConstrained( multi , self.pset , dt , costrs )

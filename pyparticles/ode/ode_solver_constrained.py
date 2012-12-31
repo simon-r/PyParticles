@@ -15,8 +15,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-import numpy as np
-import pyparticles.ode.ode_solver
+#import numpy as np
+#import pyparticles.ode.ode_solver
 
 #class OdeSolverConstrained( os.OdeSolver ) :
 #    def __init__(self , force , p_set , dt , x_constraint=None , v_constraint=None ):

@@ -38,7 +38,7 @@ import pyparticles.measures.total_energy as te
 
 import pyparticles.animation.animated_ogl as aogl
 
-import pyparticles.ode.euler_solver_constrained as asc
+import pyparticles.ode.euler_solver as els
 import pyparticles.ode.leapfrog_solver_constrained as lpc
 import pyparticles.ode.stormer_verlet_solver_constrained as svc
 import pyparticles.ode.runge_kutta_solver_constrained as rkc
@@ -109,11 +109,11 @@ def spring_constr():
     
     multif.set_masses( pset.M )
     
-    #solver = asc.EulerSolverConstrained( multif , pset , dt , costrs )
+    solver = els.EulerSolverConstrained( multif , pset , dt , costrs )
     #solver = lpc.LeapfrogSolverConstrained( multif , pset , dt , costrs )
     #solver = svc.StormerVerletSolverConstrained( multif , pset , dt , costrs )
     #solver = rkc.RungeKuttaSolverConstrained( multif , pset , dt , costrs )
-    solver = mdc.MidpointSolverConstrained( multif , pset , dt , costrs )
+    #solver = mdc.MidpointSolverConstrained( multif , pset , dt , costrs )
     
     a = aogl.AnimatedGl()
     
