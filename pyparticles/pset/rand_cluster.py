@@ -75,7 +75,7 @@ class RandCluster( clu.Cluster ):
                 if len( indx ) == 0 :
                     flag = False
                 
-        if M != None:
+        if M is not None:
             M[si:ei,0] = mass_rng[0] + randg(n)*( mass_rng[1] - mass_rng[0] )
             
         if V != None and "bomb" in vel_mdl :
@@ -157,7 +157,7 @@ class RandGalaxyCluster( clu.Cluster ):
         
         X[si,:] = np.array([0.0,0.0,0.0])
             
-        if M != None :
+        if M is not None :
             M[rng] = mass_rng[0] + np.random.rand(n,1)*( mass_rng[1] - mass_rng[0] )
             M[si] = black_hole_mass
                 

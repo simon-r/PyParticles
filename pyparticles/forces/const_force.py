@@ -43,10 +43,8 @@ class ConstForce( fr.Force ) :
         
     
     def set_masses( self , m ):
-        
         self.__M[:] = m
         
-    
     def update_force( self , p_set ):
         return self.__A
     
