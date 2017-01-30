@@ -19,84 +19,85 @@ import numpy as np
 import pyparticles.ode.ode_solver as os
 import pyparticles.pset.particles_set as ps
 
-class RungeKuttaSolver( os.OdeSolver ) :
-    def __init__( self , force , p_set , dt ):
-        
-        super(RungeKuttaSolver,self).__init__( force , p_set , dt )
-        
-        self.__Kv1 = np.zeros( self.force.A.shape )
-        self.__Kv2 = np.zeros( self.force.A.shape )
-        self.__Kv3 = np.zeros( self.force.A.shape )
-        self.__Kv4 = np.zeros( self.force.A.shape )
-        
-        self.__Kx1 = np.zeros( self.force.A.shape )
-        self.__Kx2 = np.zeros( self.force.A.shape )
-        self.__Kx3 = np.zeros( self.force.A.shape )
-        self.__Kx4 = np.zeros( self.force.A.shape )
-        
-        self.__tmp_pset = ps.ParticlesSet( p_set.size , p_set.dim )
-    
-    
-    def __step__( self , dt ):
-    
+class RungeKuttaSolver(os.OdeSolver):
+    def __init__(self, force, p_set, dt):
+
+        super(RungeKuttaSolver, self).__init__(force, p_set, dt)
+
+        self.__Kv1 = np.zeros(self.force.A.shape)
+        self.__Kv2 = np.zeros(self.force.A.shape)
+        self.__Kv3 = np.zeros(self.force.A.shape)
+        self.__Kv4 = np.zeros(self.force.A.shape)
+
+        self.__Kx1 = np.zeros(self.force.A.shape)
+        self.__Kx2 = np.zeros(self.force.A.shape)
+        self.__Kx3 = np.zeros(self.force.A.shape)
+        self.__Kx4 = np.zeros(self.force.A.shape)
+
+        self.__tmp_pset = ps.ParticlesSet(p_set.size, p_set.dim)
+
+
+    def __step__(self, dt):
+
         self.__tmp_pset.V[:] = self.pset.V[:]
-          
+
         # K1
         self.__Kv1[:] = self.force.A
         self.__Kx1[:] = self.pset.V
-        
+
         # K2
         self.__tmp_pset.X[:] = self.pset.X + dt/2.0*self.__Kx1[:]
-        self.force.update_force( self.__tmp_pset )
-        
+        self.force.update_force(self.__tmp_pset)
+
         self.__Kv2[:] = self.force.A
         self.__Kx2[:] = self.pset.V + dt/2.0*self.__Kv1[:]
-        
+
         #K3
         self.__tmp_pset.X[:] = self.pset.X + dt/2.0*self.__Kx2[:]
-        self.force.update_force( self.__tmp_pset )
-        
+        self.force.update_force(self.__tmp_pset)
+
         self.__Kv3[:] = self.force.A
         self.__Kx3[:] = self.pset.V + dt/2.0*self.__Kv2[:]
-        
+
         #K4
         self.__tmp_pset.X[:] = self.pset.X + dt*self.__Kx3[:]
-        self.force.update_force( self.__tmp_pset )
-        
+        self.force.update_force(self.__tmp_pset)
+
         self.__Kv4[:] = self.force.A
         self.__Kx4[:] = self.pset.V + dt*self.__Kv3[:]
-        
 
-        
-        self.pset.V[:] = self.pset.V[:] + dt/6.0 * ( self.__Kv1 + 2.0*self.__Kv2 + 2.0*self.__Kv3 + self.__Kv4 )
-        self.pset.X[:] = self.pset.X[:] + dt/6.0 * ( self.__Kx1 + 2.0*self.__Kx2 + 2.0*self.__Kx3 + self.__Kx4 )
-        
+        self.pset.V[:] = self.pset.V[:] + \
+            dt/6.0 * (self.__Kv1 + 2.0*self.__Kv2 + 2.0*self.__Kv3 + self.__Kv4)
+
+        self.pset.X[:] = self.pset.X[:] + \
+            dt/6.0 * (self.__Kx1 + 2.0*self.__Kx2 + 2.0*self.__Kx3 + self.__Kx4)
+
         #self.pset.X[:] = self.pset.X[:] + dt*self.pset.V[:]
-                
-        self.pset.update_boundary() 
-        self.force.update_force( self.pset )
-        
-        
-class RungeKuttaSolverConstrained( os.OdeSolverConstrained ) :
-    def __init__( self , force , p_set , dt , x_constraint=None , v_constraint=None ):
-        super(RungeKuttaSolverConstrained,self).__init__( force , p_set , dt , x_constraint=None , v_constraint=None )
-        
-        if x_constraint != None :
+
+        self.pset.update_boundary()
+        self.force.update_force(self.pset)
+
+class RungeKuttaSolverConstrained(os.OdeSolverConstrained):
+    def __init__(self, force, p_set, dt, x_constraint=None, v_constraint=None):
+
+        super(RungeKuttaSolverConstrained, self).__init__(\
+            force, p_set, dt, x_constraint=None, v_constraint=None)
+
+        if x_constraint != None:
             self.x_constraint = x_constraint
-            
-        self.__Kv1 = np.zeros( self.force.A.shape )
-        self.__Kv2 = np.zeros( self.force.A.shape )
-        self.__Kv3 = np.zeros( self.force.A.shape )
-        self.__Kv4 = np.zeros( self.force.A.shape )
-        
-        self.__Kx1 = np.zeros( self.force.A.shape )
-        self.__Kx2 = np.zeros( self.force.A.shape )
-        self.__Kx3 = np.zeros( self.force.A.shape )
-        self.__Kx4 = np.zeros( self.force.A.shape )
-        
-        self.__tmp_pset = ps.ParticlesSet( p_set.size , p_set.dim )
-        
-    
+
+        self.__Kv1 = np.zeros(self.force.A.shape)
+        self.__Kv2 = np.zeros(self.force.A.shape)
+        self.__Kv3 = np.zeros(self.force.A.shape)
+        self.__Kv4 = np.zeros(self.force.A.shape)
+
+        self.__Kx1 = np.zeros(self.force.A.shape)
+        self.__Kx2 = np.zeros(self.force.A.shape)
+        self.__Kx3 = np.zeros(self.force.A.shape)
+        self.__Kx4 = np.zeros(self.force.A.shape)
+
+        self.__tmp_pset = ps.ParticlesSet(p_set.size, p_set.dim)
+
     def get_x_constraint(self):
         return super(RungeKuttaSolverConstrained,self).get_x_constraint()
     

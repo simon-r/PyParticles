@@ -75,7 +75,7 @@ class ConstrainedX ( ct.Constraint ):
         """
         If possible it tries to use a slice for the free indices 
         """
-        r = range( self.pset.size )
+        r = list( range( self.pset.size ) )
         
         if isinstance( self.__X_cr_i , slice ):
             ra = range( self.__X_cr_i.start , self.__X_cr_i.stop )
