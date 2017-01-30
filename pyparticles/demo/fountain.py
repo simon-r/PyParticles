@@ -71,7 +71,7 @@ def fountain():
         while fl :
             try :
                 print( " " )
-                pcnt = int( raw_input('How many particles: ') )
+                pcnt = int( input('How many particles: ') )
             except :
                 print( "Please insert a number! " )
             else :
