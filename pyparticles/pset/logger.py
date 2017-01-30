@@ -97,7 +97,7 @@ class Logger ( object ):
         if self.__sim_time != None :
             self.__log_time[ self.__Lb ] = self.__sim_time.time
         
-        if self.__log_X != None :
+        if self.__log_X is not None :
             self.__log_X[ self.__Lb , : , : ] = self.__pset.X
 
         if self.__log_V != None :
@@ -215,7 +215,10 @@ class Logger ( object ):
     
  
     def get_log_X_enabled(self):
-        return self.__log_X != None
+        if self.__log_X is None:
+            return False
+        else:
+            return True
     
     def get_log_V_enabled(self):
         return self.__log_V != None
