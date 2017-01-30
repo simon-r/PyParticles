@@ -1,7 +1,7 @@
 PyParticles 
 ===========
 
-PyParticles is a particle simulation toolbox entirely written in python. 
+PyParticles is a particle simulation toolbox entirely written in python 3. 
 
 The main objective of PyParticles is to provide a system API simple and fast to use.
 Furthermore is to provide a basic application for the implementation of simple models.
