@@ -186,7 +186,7 @@ class DrawParticlesGL(object):
         if self.pset.log_size < self.trajectory_step + 1 :
             return
         
-        if self.__log_indices == None :
+        if self.__log_indices is None :
             self.__log_indices = self.pset.get_log_indices_segments( True )
             self.__log_array = np.zeros( ( self.pset.log_max_size , self.pset.dim ) )
                  
