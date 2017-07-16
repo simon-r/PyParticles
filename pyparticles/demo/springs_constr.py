@@ -53,7 +53,7 @@ def spring_constr():
     dt = 0.01
     steps = 1000000
     
-    K = 30
+    K = 300
 
     x = list([])
     m = list([])
