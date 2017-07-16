@@ -76,6 +76,7 @@ def spring_constr():
         
         
     pset.X[10:12,2] = 4
+    pset.X[15:20,1] = 4
     #pset.X[10:15,1] = 6
         
     ci = np.array( [ 0 , len(ar)-1 ] )
