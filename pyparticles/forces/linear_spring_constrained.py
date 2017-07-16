@@ -21,7 +21,7 @@ import scipy.sparse.dok as dok
 import scipy.sparse.csr as csr
 
 class LinearSpringConstrained ( fcr.ForceConstrained ):
-    def __init__( self , size , dim , m=None , Consts=1.0 , f_inter=None ):
+    def __init__( self , size , dim , m=np.array([]) , Consts=1.0 , f_inter=None ):
         super( LinearSpringConstrained , self ).__init__( size , dim , m , Consts , f_inter=f_inter )
         
         self.__dim = dim
@@ -36,7 +36,7 @@ class LinearSpringConstrained ( fcr.ForceConstrained ):
         self.__Fm2 = csr.csr_matrix( ( size , size ) )
                 
         self.__M = np.zeros( ( size , 1 ) )
-        if m != None :
+        if len(m) != 0 :
             self.set_masses( m )
         
     def set_masses( self , m ):
