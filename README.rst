@@ -115,7 +115,7 @@ Execute the specified test: ::
 * **Write out a model config file**
 ::
     
-    pyparticle_app -m
+    pyparticles_app -m
     
 
 * **Print out the help and version**
