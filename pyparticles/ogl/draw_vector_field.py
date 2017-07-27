@@ -195,14 +195,14 @@ class DrawVectorField( object ):
             
             glColor4f( color[0] , color[1] , color[2] , color[3] )
             
-            glVertex3fv( pts[0] )
-            glVertex3fv( pts[1] )
+            glVertex3fv( pts[0].view(type=np.ndarray) )
+            glVertex3fv( pts[1].view(type=np.ndarray) )
             
-            glVertex3fv( pts[2] )
-            glVertex3fv( pts[3] )
+            glVertex3fv( pts[2].view(type=np.ndarray) )
+            glVertex3fv( pts[3].view(type=np.ndarray) )
             
-            glVertex3fv( pts[4] )
-            glVertex3fv( pts[5] )
+            glVertex3fv( pts[4].view(type=np.ndarray) )
+            glVertex3fv( pts[5].view(type=np.ndarray) )
             
         glEnd()
     

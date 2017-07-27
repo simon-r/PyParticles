@@ -122,8 +122,8 @@ class AxisOgl(object):
         glBegin(GL_LINES)
         
         for pts in t :
-            glVertex3fv( pts[0] )
-            glVertex3fv( pts[1] )
+            glVertex3fv( pts[0].view(type=np.ndarray) )
+            glVertex3fv( pts[1].view(type=np.ndarray) )
             
         glEnd()
         
@@ -199,8 +199,8 @@ class AxisOgl(object):
         glBegin(GL_LINES)
         
         for pts in t :
-            glVertex3fv( pts[0] )
-            glVertex3fv( pts[1] )
+            glVertex3fv( pts[0].view(type=np.ndarray) )
+            glVertex3fv( pts[1].view(type=np.ndarray) )
         
             
         glEnd()
