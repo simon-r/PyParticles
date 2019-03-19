@@ -52,10 +52,10 @@ class ElectromagneticField( fr.Force ) :
         
         self.__Cr = np.zeros( ( size , dim ) )
         
-        if m != None :
+        if m is not None :
             self.set_masses( m )
         
-        if q != None :
+        if q is not None :
             self.set_charges( q )
             
         self.__el_fields = dict()
