@@ -41,7 +41,7 @@ def parse_args():
                  "galaxy"] ,
         dest="demo",
         default=None ,
-        help="Execute the specified buildin demo"
+        help="Execute the specified builtin demo"
         )
 
     parser.add_argument( "-t" , "--test",
@@ -49,7 +49,7 @@ def parse_args():
         choices=[ "fall" , "harmonic" , "dharmonic" ] ,
         dest="test",
         default=None ,
-        help="Execute the specified buildin test")
+        help="Execute the specified builtin test")
 
     parser.add_argument(
         dest="path_name",
