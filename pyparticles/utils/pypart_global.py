@@ -21,8 +21,8 @@ import zlib
 ###########################
 # Current version
 v_major    = 0
-v_minor    = 3
-v_revision = 6
+v_minor    = 4
+v_revision = 0
 ###########################
 
 def py_particle_version( r='s' ):
