@@ -112,8 +112,8 @@ class DragOCL( fr.Force ) :
 
     def __init__(self , size , dim=3 , m=None , Consts=1.0 , ocl_context=None ):
         
-        self.__dim = np.int( dim )
-        self.__size = np.int( size )
+        self.__dim = np.int32( dim )
+        self.__size = np.int32( size )
         
         if ocl_context == None :
             self.__occ = occ.OpenCLcontext( size , dim , ( occ.OCLC_V | occ.OCLC_A | occ.OCLC_M )  )

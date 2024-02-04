@@ -55,9 +55,9 @@ class ConstrainedForceInteractions ( ct.Constraint ):
                 a = [[1,1],[3,5]]
                 cfi.add_connections( a )
         """
-        for c in fc :
-            #print(c)
-            self.__S[ c[0] , c[1] ] = True
+        for c in fc:
+            print("c[0] = ", c[0], "c[1] = ", c[1], "self.__S = ", self.__S)
+            self.__S[ np.int32(c[0]) , np.int32(c[1])] = True
         
     def remove_connections( self , fc ):
         """

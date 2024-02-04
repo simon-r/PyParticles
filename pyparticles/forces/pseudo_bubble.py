@@ -101,8 +101,8 @@ class PseudoBubbleOCL( fr.Force ) :
     """
     def __init__(self , size , dim=3 , m=None , Consts=( 0.3 , 2.0 ) , ocl_context=None ):
         
-        self.__dim = np.int( dim )
-        self.__size = np.int( size )
+        self.__dim = np.int32( dim )
+        self.__size = np.int32( size )
         
         if ocl_context == None :
             self.__occ = occ.OpenCLcontext( size , dim , ( occ.OCLC_X | occ.OCLC_A | occ.OCLC_M )  )

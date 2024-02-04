@@ -15,6 +15,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import numpy as np
+import numpy as np
 import scipy.spatial.distance as dist
 
 import pyparticles.forces.force as fr
@@ -44,6 +45,8 @@ class LenardJones( fr.Force ) :
     """
 
 
+    import scipy.spatial.distance as dist
+
     def __init__( self , size , dim=3 , m=None , Consts=( 1.0 , 1.0 ) ):
         self.__dim = dim
         self.__size = size
@@ -52,13 +55,13 @@ class LenardJones( fr.Force ) :
 
         self.__M = np.zeros( ( size , 1 ) )
         
-        self.__pF = np.zeros(( (size**2-size)/2 ))
+        self.__pF = np.zeros(np.int32((size**2-size)/2))
         
         self.__V = np.zeros( ( size , size ) )
         
         self.__A = np.zeros( ( size , dim ) )
         
-        if m != None :
+        if m is not None :
             self.set_masses( m )
         
         
