@@ -141,7 +141,7 @@ def DrawGLScene():
     
     glLoadIdentity()  
     
-    if DrawGLScene.animation.state == "trackball_down" and DrawGLScene.animation.motion or joystick_func.animation.joy_state == "joy_on":
+    if DrawGLScene.animation.state == "trackball_down" and DrawGLScene.animation.motion or joystick_func.animation.joy_state == "joy_off":
         ( ax , ay , az ) = DrawGLScene.animation.rotatation_axis
         angle = DrawGLScene.animation.rotation_angle
         glRotatef( angle , ax , ay , az )
