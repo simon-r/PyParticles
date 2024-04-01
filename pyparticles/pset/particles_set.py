@@ -60,12 +60,12 @@ class ParticlesSet(object):
         else:
             self.__V = None
         
-        if mass :
+        if mass:
             self.__mass = np.zeros((size,1) , dtype=dtype )
         else:
             self.__mass = None
         
-        if charge :
+        if charge:
             self.__Q = np.zeros(( size , 1 ) , dtype=dtype )
         else:
             self.__Q = None
@@ -91,13 +91,13 @@ class ParticlesSet(object):
         self.__property_dict['X'] = self.__X
         self.__property_dict['V'] = self.__V
         
-        if self.__mass is not None :
+        if self.__mass is not None:
             self.__property_dict['M'] = self.__mass
         
-        if self.__label is not None :
+        if self.__label is not None:
             self.__property_dict['label'] = self.__label
             
-        if self.__Q is not None :
+        if self.__Q is not None:
             self.__property_dict['Q'] = self.__Q
         
         self.__notify_set_changed = []
